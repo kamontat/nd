@@ -1,20 +1,18 @@
-import { Command, Commandline, Option, Package as CLIPackage, SubCommand } from "nd-commandline-interpreter";
-import { Package as HelperPackage } from "nd-helper";
-import LoggerService, { LOGGER_CLI, LOGGER_ROOT, Package as LogPackage } from "nd-logger";
-import { Package as SecurityPackage } from "nd-security";
+import { Command, Commandline, Option, SubCommand } from "nd-commandline-interpreter";
+import LoggerService, { LOGGER_CLI } from "nd-logger";
 
 import pjson from "./package.json";
 import { HELP_CONTENT, HELP_FOOTER } from "./src/constants/help";
 
 declare var __COMPILE_DATE__: string;
 
-const logVersion = (p: any) => {
-  LoggerService.log(LOGGER_ROOT, `Build info ${p.name}@${p.version}`);
-};
-logVersion(CLIPackage);
-logVersion(HelperPackage);
-logVersion(LogPackage);
-logVersion(SecurityPackage);
+(function disableColor(args: string[]) {
+  const i = args.findIndex(v => /^--no-color$/.test(v));
+  if (i >= 0) {
+    args.splice(i, 1);
+    process.env.DEBUG_COLORS = "false";
+  }
+})(process.argv);
 
 const cli = new Commandline(pjson.name, pjson.description);
 

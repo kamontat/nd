@@ -1,3 +1,1 @@
-import { startCommand } from "./src/method";
-
-startCommand(process.env.VERSION || "");
+console.log("Hello world");

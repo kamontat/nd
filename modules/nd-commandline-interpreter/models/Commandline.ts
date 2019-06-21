@@ -15,13 +15,13 @@ export default class Commandline {
   private _commands: Map<string, Command>;
 
   private executeGlobalOptions(opts: string[]): string[] {
-    LoggerService.log(LOGGER_CLI_BUILDER, `try to map global options of ${opts}`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `try to map global options of ${opts.length === 0 ? "empty" : opts}`);
 
     opts.forEach((_o, i) => {
       const o = _o.replace("--", "");
       if (this._globalOptions.has(o)) {
         (this._globalOptions.get(o) as Option).execute(this, undefined);
-        delete opts[i];
+        opts.splice(i, 1);
       }
     });
 

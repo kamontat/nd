@@ -3,7 +3,7 @@
   "version": "3.0.0-alpha.2",
   "description": "download manager for novel",
   "main": "bin/nd.min.js",
-  "author": "Kamontat Chantrachirathumrong",
+  "author": "kc nd-admin",
   "license": "NONE",
   "private": true,
   "scripts": {
@@ -31,12 +31,17 @@
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "chalk": "^2.4.2",
+    "chalk": "2.4.2",
     "debug": "4.1.1",
     "jsonwebtoken": "8.5.1",
     "nd-commandline-interpreter": "./modules/nd-commandline-interpreter",
     "nd-helper": "./modules/nd-helper",
     "nd-logger": "./modules/nd-logger",
     "nd-security": "./modules/nd-security"
+  },
+  "engines": {
+    "node": ">=10.0.0 <11.0.0",
+    "npm": ">=6.0.0 <7.0.0 ",
+    "yarn": ">=1.16.0 <1.17.0"
   }
 }

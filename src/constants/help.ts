@@ -37,5 +37,5 @@ or included software, nor may you reverse engineer or
 attempt to extract the source code of that software, 
 unless laws prohibit those restrictions or you have our written permission.
 
-Enjoy your days; kc nd-admin`;
+Enjoy your days; ${CorePackage.author}`;
 };
