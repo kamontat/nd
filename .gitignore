@@ -80,12 +80,10 @@ typings/
 
 junit.xml
 
-docs
-
 !.caches/.gitkeep
 .caches
 
 !bin/.gitkeep
-bin
 
+bin
 dist

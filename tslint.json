@@ -1,0 +1,84 @@
+{
+  "defaultSeverity": "warn",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "adjacent-overload-signatures": false,
+    "align": ["arguments", "elements", "members", "parameters", "statements", true],
+    "array-type": ["array", true],
+    "arrow-parens": ["ban-single-arg-parens", true],
+    "arrow-return-shorthand": true,
+    "class-name": true,
+    "curly": ["as-needed", true],
+    "file-name-casing": false,
+    "interface-name": [true, "never-prefix"],
+    "max-line-length": {
+      "options": [200]
+    },
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "private-constructor",
+          "private-instance-field",
+          "private-instance-method",
+          "private-static-field",
+          "private-static-method",
+          "protected-constructor",
+          "protected-instance-field",
+          "protected-instance-method",
+          "protected-static-field",
+          "protected-static-method",
+          "public-constructor",
+          "public-instance-field",
+          "public-instance-method",
+          "public-static-field",
+          "public-static-method"
+        ]
+      }
+    ],
+    "new-parens": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-arg": true,
+    "no-bitwise": false,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": [2, true],
+    "no-empty": ["allow-empty-catch", true],
+    "no-magic-numbers": [-1, -2, 0, 1, 2, true],
+    "no-return-await": true,
+    "no-shadowed-variable": false,
+    "no-string-literal": true,
+    "no-string-throw": true,
+    "no-trailing-whitespace": ["ignore-comments", "ignore-jsdoc", true],
+    "no-unnecessary-initializer": true,
+    "no-var-keyword": true,
+    "no-var-requires": false,
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "grouped-imports": true,
+        "import-sources-order": "case-insensitive",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
+    "prefer-method-signature": true,
+    "quotemark": ["avoid-escape", "avoid-template", "double", true],
+    "radix": false,
+    "semicolon": ["always", true],
+    "triple-equals": ["allow-undefined-check", true],
+    "variable-name": ["allow-leading-underscore", "allow-trailing-underscore", "ban-keywords", "check-format", true],
+    "whitespace": [
+      "check-branch",
+      "check-decl",
+      "check-module",
+      "check-operator",
+      "check-preblock",
+      "check-type",
+      "check-type-operator",
+      "check-typecast",
+      true
+    ]
+  }
+}
