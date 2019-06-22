@@ -8,7 +8,7 @@ export default class LoggerService {
   public static console = {
     log(message?: any, ...other: any[]) {
       const level = config.get("output.level");
-      if (level !== "0") console.log(message, ...other);
+      if (level !== "0" && debug.enabled("nd:*")) console.log(message, ...other);
     },
   };
 
