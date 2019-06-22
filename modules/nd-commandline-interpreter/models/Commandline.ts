@@ -1,6 +1,6 @@
 import Exception, { CLI_Exception } from "nd-error";
 import { Colorize } from "nd-helper";
-import LoggerService, { LOGGER_CLI, LOGGER_CLI_BUILDER } from "nd-logger";
+import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
 import Command from "./Command";
 import Option from "./Option";
@@ -16,31 +16,39 @@ export default class Commandline {
   private _globalOptions: Map<string, Option>;
   private _commands: Map<string, Command>;
 
-  private executeGlobalOptions(opts: string[]): string[] {
-    LoggerService.log(LOGGER_CLI_BUILDER, `try to map global options of ${opts.length === 0 ? "empty" : opts}`);
+  private executeGlobalOptions(opts: string[]) {
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
 
-    opts.forEach((_o, i) => {
+    let callback: (() => void) | undefined | void = () => {};
+
+    opts.filter(this.isOption).forEach((_o, i) => {
+      LoggerService.log(LOGGER_CLI_BUILDER, `try ${_o} option ?`);
       const o = _o.replace("--", "");
       if (this._globalOptions.has(o)) {
         const option = this._globalOptions.get(o) as Option;
         if (option.needParam) {
-          option.execute(this, opts[i + 1]);
+          LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option with params`);
+          callback = option.execute(this, opts[i + 1]);
           opts.splice(i, 2);
         } else {
-          option.execute(this, undefined);
+          LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option without params`);
+          callback = option.execute(this, undefined);
           opts.splice(i, 1);
         }
       }
     });
 
-    return opts;
+    return { arguments: opts, callback };
   }
 
   private travisArgumentPath(args: string[]) {
     let skip = false;
     let c: Command | undefined;
+    let callback: (() => void) | undefined | void = () => {};
+
     args.forEach((arg, i) => {
       if (skip) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `start skip argument ${arg}`);
         skip = false;
         return;
       }
@@ -58,12 +66,12 @@ export default class Commandline {
         const s = c.getSub(arg);
         if (s) {
           if (s.needParam) {
-            s.execute(this, args[i + 1]); // next
+            callback = s.execute(this, args[i + 1]); // next
             skip = true; // skip next args
           } else s.execute(this, undefined);
         } else {
           if (c.needParam) {
-            c.execute(this, args[i + 1]); // next
+            callback = c.execute(this, args[i + 1]); // next
             skip = true; // skip next args
           } else c.execute(this, undefined);
         }
@@ -76,6 +84,8 @@ export default class Commandline {
         throw Exception.build(CLI_Exception).description("invalid option and command");
       }
     });
+
+    return callback;
   }
 
   private isOption(a: string) {
@@ -84,10 +94,6 @@ export default class Commandline {
 
   private isCommand(a: string) {
     return this._commands.get(a);
-  }
-
-  private isSubCommand(c: Command, a: string) {
-    return c.getSub(a);
   }
 
   constructor(private _name: string, private _description: string) {
@@ -109,16 +115,19 @@ export default class Commandline {
     const node = _args[0];
     const file = _args[1];
 
-    let args = _args.slice(2);
+    const args = _args.slice(2);
 
     LoggerService.log(LOGGER_CLI_BUILDER, `node path       ${node}`);
     LoggerService.log(LOGGER_CLI_BUILDER, `file path       ${file}`);
 
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
-    args = this.executeGlobalOptions(args);
+
+    const global = this.executeGlobalOptions(args);
+    if (global.callback && typeof global.callback === "function") global.callback();
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
 
     args.push(""); // push empty string
-    this.travisArgumentPath(args);
+    const callback = this.travisArgumentPath(global.arguments);
+    if (callback && typeof callback === "function") callback();
   }
 }

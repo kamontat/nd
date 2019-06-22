@@ -7,7 +7,7 @@ export type ICommandCallback = (value: {
   name: string;
   value: string | undefined;
   apis: CommandApi;
-}) => void;
+}) => (() => void) | void | undefined;
 
 export default abstract class ICommand {
   get name() {
