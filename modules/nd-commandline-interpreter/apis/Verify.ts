@@ -9,12 +9,7 @@ export default {
   },
   IsDecimal(n?: string) {
     if (!n) return false;
-    try {
-      parseFloat(n);
-      return true;
-    } catch (_) {
-      return false;
-    }
+    return n.match(/^\d+\.\d+$/);
   },
   IsId(n?: string) {
     if (!n) return false;

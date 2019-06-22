@@ -1,3 +1,12 @@
+// disable color if --no-color appear
+((args: string[]) => {
+  const i = args.findIndex(v => /^--no-color$/.test(v));
+  if (i >= 0) {
+    // args.splice(i, 1);
+    process.env.DEBUG_COLORS = "false";
+  }
+})(process.argv);
+
 import { Command, Commandline, Option, SubCommand, Verify } from "nd-commandline-interpreter";
 import { load } from "nd-config";
 import Exception from "nd-error";
@@ -9,15 +18,6 @@ import { Package } from "./src/build/Package";
 import { HELP_CONTENT, HELP_FOOTER, VERSION_FULL } from "./src/constants/content";
 
 declare var __COMPILE_DATE__: string;
-
-// disable color if --no-color appear
-((args: string[]) => {
-  const i = args.findIndex(v => /^--no-color$/.test(v));
-  if (i >= 0) {
-    args.splice(i, 1);
-    process.env.DEBUG_COLORS = "false";
-  }
-})(process.argv);
 
 // set logger level if --level [0|1|2] appear
 const updateLoggerInfo = (args: string[]) => {

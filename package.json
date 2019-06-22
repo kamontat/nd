@@ -1,6 +1,6 @@
 {
   "name": "nd",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "download manager for novel",
   "main": "index.ts",
   "bin": "dist/nd.min.js",
@@ -8,6 +8,7 @@
   "license": "NONE",
   "private": true,
   "scripts": {
+    "build:lib": "yarn add ./modules/nd-logger ./modules/nd-commandline-interpreter ./modules/nd-security ./modules/nd-helper ./modules/nd-config ./modules/nd-error",
     "compile": "make compile mode=development",
     "compile:prod": "make compile mode=production",
     "dev": "make compile mode=development quite=true && node dist/nd.js",
