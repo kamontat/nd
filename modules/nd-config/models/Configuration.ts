@@ -56,8 +56,11 @@ export class Configuration extends Event implements IConfiguration {
 
   public set(key: ConfigKey, value?: string) {
     if (!value) return;
-    this._object[key] = value as never; // might change to anythings else
-    this.emit(key, value);
+    const old = this._object[key];
+    if (old !== value) {
+      this._object[key] = value as never; // might change to anythings else
+      this.emit(key, value);
+    }
   }
 
   public static CONST(): Configuration {
