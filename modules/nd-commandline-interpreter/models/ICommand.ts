@@ -1,6 +1,13 @@
+import CommandApi from "../apis/Command";
+
 import Commandline from "./Commandline";
 
-export type ICommandCallback = (self: Commandline, name: string, value: string | undefined) => void;
+export type ICommandCallback = (value: {
+  self: Commandline;
+  name: string;
+  value: string | undefined;
+  apis: CommandApi;
+}) => void;
 
 export default abstract class ICommand {
   get name() {
@@ -14,6 +21,6 @@ export default abstract class ICommand {
   protected constructor(private _name: string, private param: boolean, private _callback: ICommandCallback) {}
 
   public execute(self: Commandline, value: string | undefined) {
-    return this._callback(self, this._name, value);
+    return this._callback({ self, name: this.name, value, apis: CommandApi.get() });
   }
 }

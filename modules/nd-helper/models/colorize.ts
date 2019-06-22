@@ -13,4 +13,5 @@ export default {
   appname: chalk.yellowBright,
   version: chalk.blueBright,
   dim: chalk.dim,
+  format: chalk,
 };

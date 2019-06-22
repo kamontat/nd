@@ -1,4 +1,6 @@
-import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
+import Exception, { CLI_Exception } from "nd-error";
+import { Colorize } from "nd-helper";
+import LoggerService, { LOGGER_CLI, LOGGER_CLI_BUILDER } from "nd-logger";
 
 import Command from "./Command";
 import Option from "./Option";
@@ -35,9 +37,57 @@ export default class Commandline {
   }
 
   private travisArgumentPath(args: string[]) {
-    args.forEach(arg => {
-      console.log(arg);
+    let skip = false;
+    let c: Command | undefined;
+    args.forEach((arg, i) => {
+      if (skip) {
+        skip = false;
+        return;
+      }
+
+      if (i === 0 && this.isOption(arg)) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `option look like to appear before command set`);
+        throw Exception.build(CLI_Exception).description("invalid option and command");
+      }
+
+      if (c) {
+        LoggerService.log(
+          LOGGER_CLI_BUILDER,
+          `get command '${Colorize.important(c.name)}' and it ${c.needParam ? "need params" : "no need param"}`,
+        );
+        const s = c.getSub(arg);
+        if (s) {
+          if (s.needParam) {
+            s.execute(this, args[i + 1]); // next
+            skip = true; // skip next args
+          } else s.execute(this, undefined);
+        } else {
+          if (c.needParam) {
+            c.execute(this, args[i + 1]); // next
+            skip = true; // skip next args
+          } else c.execute(this, undefined);
+        }
+      }
+
+      // no command in first args
+      c = this.isCommand(arg);
+      if (i === 0 && !c) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `you didn't input valid root command in first argument`);
+        throw Exception.build(CLI_Exception).description("invalid option and command");
+      }
     });
+  }
+
+  private isOption(a: string) {
+    return /^--.*/.test(a);
+  }
+
+  private isCommand(a: string) {
+    return this._commands.get(a);
+  }
+
+  private isSubCommand(c: Command, a: string) {
+    return c.getSub(a);
   }
 
   constructor(private _name: string, private _description: string) {
@@ -68,6 +118,7 @@ export default class Commandline {
     args = this.executeGlobalOptions(args);
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
 
+    args.push(""); // push empty string
     this.travisArgumentPath(args);
   }
 }

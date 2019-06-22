@@ -2,6 +2,8 @@ import fs from "fs";
 import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 import readline from "readline";
 
+import Package from "./package.json";
+
 type ConfigKey =
   | "mode"
   | "version"
@@ -44,7 +46,7 @@ class Configuration {
       input: fs.createReadStream(path),
     });
 
-    reader.on("line", function(line) {
+    reader.on("line", line => {
       if (line === undefined || line === null || line === "") return;
 
       const _arr = line.split("=");
@@ -58,7 +60,7 @@ class Configuration {
     });
 
     return new Promise<Configuration>((res, rej) => {
-      reader.on("close", function() {
+      reader.on("close", () => {
         res(Configuration.CONST());
       });
 
@@ -86,3 +88,4 @@ class Configuration {
 }
 
 export const load = Configuration.CONST().load;
+export { Package };

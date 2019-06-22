@@ -4,7 +4,7 @@ import Logger from "nd-logger/models/Logger";
 import { ExceptionState, GNL_Exception } from "./constants";
 
 export default class Exception extends Error {
-  constructor(_code: ExceptionState) {
+  constructor(private _code: ExceptionState) {
     super(``);
 
     this.name = _code.code;
@@ -22,7 +22,7 @@ export default class Exception extends Error {
   }
 
   public exit(code: number = 1) {
-    process.exit(code);
+    if (this._code.exit) process.exit(code);
   }
 
   public isException() {
