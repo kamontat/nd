@@ -6,7 +6,7 @@ import LoggerService, { LOGGER_CLI, LOGGER_ROOT } from "nd-logger";
 
 import pjson from "./package.json";
 import { Package } from "./src/build/Package";
-import { HELP_CONTENT, HELP_FOOTER } from "./src/constants/content";
+import { HELP_CONTENT, HELP_FOOTER, VERSION_FULL } from "./src/constants/content";
 
 declare var __COMPILE_DATE__: string;
 
@@ -19,6 +19,20 @@ declare var __COMPILE_DATE__: string;
   }
 })(process.argv);
 
+// set logger level if --level [0|1|2] appear
+const updateLoggerInfo = (args: string[]) => {
+  const i = args.findIndex(v => /^--level$/.test(v));
+  if (i >= 0) {
+    const v = args[i + 1];
+    if (v === "0") LoggerService.disable();
+    // print nothing
+    else if (v === "1") LoggerService.enable("nd*warn,nd*error");
+    // print only warn and error
+    else if (v === "2") LoggerService.enable("nd:*");
+  }
+};
+updateLoggerInfo(process.argv);
+
 // --------------------------- //
 // Start commandline interface //
 // --------------------------- //
@@ -27,34 +41,35 @@ const cli = new Commandline(pjson.name, pjson.description);
 
 load("/tmp/test.ndc")
   .then(config => {
+    config.on("output.level", (level: string) => {
+      LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
+      updateLoggerInfo(["--level", level]);
+    });
+
     cli.option(
       Option.build("help", false, ({ self, apis }) => {
         const date = new Date(__COMPILE_DATE__);
         LoggerService.log(LOGGER_CLI, `${self.name} start --help`);
-        console.log(`
+        LoggerService.console.log(`
 ${self.name.toUpperCase()} command; ${self.description}
 Built at ${date.toLocaleString()}
 ${HELP_CONTENT(self.name)}
 ${HELP_FOOTER(self.name)}`);
-
-        return apis.end();
+        return apis.end;
       }),
     );
 
     cli.option(
       Option.build("version", false, ({ self, apis }) => {
-        console.log(Colorize.format`${self.name}: v${Package.version}`);
-        return apis.end();
+        LoggerService.console.log(Colorize.format`${self.name}: v${Package.version}`);
+        return apis.end;
       }),
     );
 
     cli.option(
-      Option.build("level", true, ({ self, value }) => {
-        if (Verify.IsNumber(value)) {
-          LoggerService.log(LOGGER_CLI, `${self.name} start verbose option setup`);
-          LoggerService.log(LOGGER_CLI, `verbose have ${value} as params`);
-          config.set("output.level", value);
-        }
+      Option.build("level", true, ({ value }) => {
+        LoggerService.log(LOGGER_CLI, `try to set log level to ${value}`);
+        config.set("output.level", value);
       }),
     );
 
@@ -80,6 +95,7 @@ ${HELP_FOOTER(self.name)}`);
       }).sub(
         SubCommand.build("version", false, ({ self }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start initial setting command`);
+          console.log(VERSION_FULL());
         }),
       ),
     );

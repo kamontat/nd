@@ -2,14 +2,15 @@
   "name": "nd",
   "version": "3.0.0-alpha.2",
   "description": "download manager for novel",
-  "main": "bin/nd.min.js",
+  "main": "index.ts",
+  "bin": "dist/nd.min.js",
   "author": "kc nd-admin",
   "license": "NONE",
   "private": true,
   "scripts": {
     "compile": "make compile mode=development",
     "compile:prod": "make compile mode=production",
-    "dev": "export DEBUG=nd* && make compile mode=development quite=true && node dist/nd.js",
+    "dev": "make compile mode=development quite=true && node dist/nd.js",
     "start": "make compile mode=production && node dist/nd.min.js",
     "clean": "make clean"
   },
@@ -40,6 +41,11 @@
     "nd-helper": "./modules/nd-helper",
     "nd-logger": "./modules/nd-logger",
     "nd-security": "./modules/nd-security"
+  },
+  "pkg": {
+    "assets": [
+      "package.json"
+    ]
   },
   "engines": {
     "node": ">=10.0.0 <11.0.0",
