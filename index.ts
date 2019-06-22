@@ -51,8 +51,8 @@ load("/tmp/test.ndc")
         const date = new Date(__COMPILE_DATE__);
         LoggerService.log(LOGGER_CLI, `${self.name} start --help`);
         LoggerService.console.log(`
-${self.name.toUpperCase()} command; ${self.description}
-Built at ${date.toLocaleString()}
+${Colorize.appname(self.name.toUpperCase())} command; ${self.description}
+Built at ${Colorize.datetime(date.toLocaleString())}
 ${HELP_CONTENT(self.name)}
 ${HELP_FOOTER(self.name)}`);
         return apis.end;
