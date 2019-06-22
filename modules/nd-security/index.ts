@@ -1,7 +1,6 @@
 import { genSaltSync, hashSync } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
-
-import LoggerService, { LOGGER_SECURITY } from "../nd-logger";
+import LoggerService, { LOGGER_SECURITY } from "nd-logger";
 
 import config, { ConfigJson } from "./config";
 import Package from "./package.json";

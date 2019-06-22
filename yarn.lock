@@ -2019,6 +2019,12 @@ nanomatch@^1.2.9:
 nd-commandline-interpreter@./modules/nd-commandline-interpreter:
   version "1.0.0-alpha.2"
 
+nd-config@./modules/nd-config:
+  version "0.0.1-alpha.1"
+
+nd-error@./modules/nd-error:
+  version "0.0.1-alpha.1"
+
 nd-helper@./modules/nd-helper:
   version "0.1.1"
 

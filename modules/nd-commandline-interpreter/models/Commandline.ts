@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_CLI_BUILDER } from "../../nd-logger";
+import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
 import Command from "./Command";
 import Option from "./Option";
@@ -20,12 +20,24 @@ export default class Commandline {
     opts.forEach((_o, i) => {
       const o = _o.replace("--", "");
       if (this._globalOptions.has(o)) {
-        (this._globalOptions.get(o) as Option).execute(this, undefined);
-        opts.splice(i, 1);
+        const option = this._globalOptions.get(o) as Option;
+        if (option.needParam) {
+          option.execute(this, opts[i + 1]);
+          opts.splice(i, 2);
+        } else {
+          option.execute(this, undefined);
+          opts.splice(i, 1);
+        }
       }
     });
 
     return opts;
+  }
+
+  private travisArgumentPath(args: string[]) {
+    args.forEach(arg => {
+      console.log(arg);
+    });
   }
 
   constructor(private _name: string, private _description: string) {
@@ -55,5 +67,7 @@ export default class Commandline {
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
     args = this.executeGlobalOptions(args);
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
+
+    this.travisArgumentPath(args);
   }
 }

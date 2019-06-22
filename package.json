@@ -35,6 +35,8 @@
     "debug": "4.1.1",
     "jsonwebtoken": "8.5.1",
     "nd-commandline-interpreter": "./modules/nd-commandline-interpreter",
+    "nd-config": "./modules/nd-config",
+    "nd-error": "./modules/nd-error",
     "nd-helper": "./modules/nd-helper",
     "nd-logger": "./modules/nd-logger",
     "nd-security": "./modules/nd-security"

@@ -1,0 +1,8 @@
+{
+  "name": "nd-error",
+  "version": "0.0.1-alpha.1",
+  "description": "error and exception in nd command",
+  "dependencies": {
+    "nd-logger": "./modules/nd-logger"
+  }
+}

@@ -6,3 +6,5 @@ export const LOGGER_CLI = LOGGER_ROOT.extend("cli");
 export const LOGGER_CLI_BUILDER = LOGGER_CLI.extend("builder");
 
 export const LOGGER_SECURITY = LOGGER_ROOT.extend("security");
+
+export const LOGGER_CONFIG = LOGGER_ROOT.extend("config");

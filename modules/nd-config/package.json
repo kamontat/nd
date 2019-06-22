@@ -1,0 +1,8 @@
+{
+  "name": "nd-config",
+  "version": "0.0.1-alpha.1",
+  "description": "configuration of nd command",
+  "dependencies": {
+    "nd-logger": "./modules/nd-logger"
+  }
+}

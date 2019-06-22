@@ -1,5 +1,8 @@
 {
   "name": "nd-logger",
   "version": "0.1.0",
-  "description": "logger service for nd command"
+  "description": "logger service for nd command",
+  "dependencies": {
+    "debug": "4.1.1"
+  }
 }

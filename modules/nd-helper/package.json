@@ -1,5 +1,8 @@
 {
   "name": "nd-helper",
   "version": "0.1.1",
-  "description": "interface, absolute class and other helper methods"
+  "description": "interface, absolute class and other helper methods",
+  "dependencies": {
+    "chalk": "2.4.2"
+  }
 }

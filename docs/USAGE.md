@@ -8,7 +8,7 @@ $ nd --help              # help command
 $ nd --mute              # mute every output
 $ nd --only-error        # show only error in output
 $ nd --warn              # show error and warning in output
-$ nd --verbose           # print everythings include error, warn, log, debug
+$ nd --level [0,1,2]     # 0 mean print only error information, 2 mean print everythings
 $ nd --no-color          # no color in output
 $ nd --no-file           # no create any unnecessary file (like log or backup)
 ```
