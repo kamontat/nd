@@ -18,14 +18,6 @@ declare var __COMPILE_DATE__: string;
 
 // FIXME -- PLEASE REMOVE THIS LINE OF CODE WHEN FINISH //
 
-Exception.build(CLI_Exception)
-  .print(LOGGER_ROOT)
-  .exit();
-
-(function() {
-  throw Exception.build(CLI_Exception);
-})();
-
 // --------------------------- //
 // Start commandline interface //
 // --------------------------- //
@@ -78,4 +70,8 @@ ${HELP_FOOTER(self.name)}`);
   })
   .then(cli => {
     cli.run(process.argv);
+  })
+  .catch(e => {
+    const err = Exception.cast(e);
+    err.print(LOGGER_ROOT).exit(1);
   });

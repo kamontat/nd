@@ -1,13 +1,13 @@
 import LoggerService from "nd-logger";
 import Logger from "nd-logger/models/Logger";
 
-import { ExceptionState } from "./constants";
+import { ExceptionState, GNL_Exception } from "./constants";
 
 export default class Exception extends Error {
   constructor(_code: ExceptionState) {
     super(``);
 
-    this.name = _code.name;
+    this.name = _code.code;
     this.message = Exception.buildMessage(_code);
   }
 
@@ -25,8 +25,19 @@ export default class Exception extends Error {
     process.exit(code);
   }
 
+  public isException() {
+    return true;
+  }
+
+  public static cast<T extends Error>(e: T): Exception {
+    if (e instanceof Exception) return e;
+    const exp = new Exception(GNL_Exception);
+    exp.description(e.message);
+    return exp;
+  }
+
   public static buildMessage(exp: ExceptionState) {
-    return `${exp.code}: ${exp.name}`;
+    return `${exp.name}`;
   }
 
   public static build(code: ExceptionState) {

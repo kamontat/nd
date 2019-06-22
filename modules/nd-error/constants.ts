@@ -39,3 +39,9 @@ export const SCT_Exception: ExceptionState = {
   name: "security and authentication error",
   exit: true,
 };
+
+export const GNL_Exception: ExceptionState = {
+  code: "GNL",
+  name: "general exception",
+  exit: true,
+};
