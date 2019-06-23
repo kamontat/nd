@@ -4,6 +4,8 @@
   if (i >= 0) {
     // args.splice(i, 1);
     process.env.DEBUG_COLORS = "false";
+  } else {
+    process.env.DEBUG_COLORS = "true";
   }
 })(process.argv);
 
@@ -12,6 +14,7 @@ import { load } from "nd-config";
 import Exception from "nd-error";
 import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CLI, LOGGER_ROOT } from "nd-logger";
+import tabtab from "tabtab";
 
 import pjson from "./package.json";
 import { Package } from "./src/build/Package";
@@ -90,8 +93,27 @@ ${HELP_FOOTER(self.name)}`);
     );
 
     cli.command(
+      Command.build("completion", false, async ({ self }) => {
+        LoggerService.log(LOGGER_CLI, `${self.name} start install completion`);
+        await tabtab.install({
+          name: "nd",
+          completer: "nd",
+        });
+      }).sub(
+        SubCommand.build("uninstall", false, async ({ self }) => {
+          LoggerService.log(LOGGER_CLI, `${self.name} start uninstall completion`);
+
+          await tabtab.uninstall({
+            name: "nd",
+          });
+        }),
+      ),
+    );
+
+    cli.command(
       Command.build("command", true, ({ self, value }) => {
         LoggerService.log(LOGGER_CLI, `${self.name} start default novel command with ${value}`);
+        tabtab.log([{ name: "version", description: "show command version (all)" }]);
       }).sub(
         SubCommand.build("version", false, ({ self }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start initial setting command`);
@@ -105,7 +127,7 @@ ${HELP_FOOTER(self.name)}`);
     });
   })
   .then(cli => {
-    cli.run(process.argv);
+    return cli.run(process.argv);
   })
   .catch(e => {
     const err = Exception.cast(e);
