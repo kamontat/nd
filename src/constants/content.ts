@@ -14,6 +14,8 @@ export const HELP_CONTENT = (name: string) => {
 {gray $} {green ${name}} {cyan --version}                -- short version message
 {gray $} {green ${name}} {cyan --help}                   -- this command
 {gray $} {green ${name}} {cyan --no-color}               -- disable all color in output log
+{gray $} {green ${name}} {cyan --level} {gray <number>}         -- {blue number} can be 0, 1, 2, and 3
+                               - 0 is mute every output and 3 is print everything
 {gray $} {green ${name}} {cyan --no-file}                -- never create log and temporary files [WIP]
 
 {bold ## Configuration}
