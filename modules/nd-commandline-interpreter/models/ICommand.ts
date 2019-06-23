@@ -2,12 +2,14 @@ import CommandApi from "../apis/Command";
 
 import Commandline from "./Commandline";
 
+type VoidFunction = () => void;
+
 export type ICommandCallback = (value: {
   self: Commandline;
   name: string;
   value: string | undefined;
   apis: CommandApi;
-}) => (() => void) | void | undefined;
+}) => VoidFunction | void | undefined | Promise<void> | Promise<undefined> | Promise<VoidFunction>;
 
 export default abstract class ICommand {
   get name() {

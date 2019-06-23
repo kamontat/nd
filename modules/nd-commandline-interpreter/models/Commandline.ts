@@ -16,23 +16,23 @@ export default class Commandline {
   private _globalOptions: Map<string, Option>;
   private _commands: Map<string, Command>;
 
-  private executeGlobalOptions(opts: string[]) {
+  private async executeGlobalOptions(opts: string[]) {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
 
     let callback: (() => void) | undefined | void = () => {};
 
-    opts.filter(this.isOption).forEach((_o, i) => {
+    await opts.forEach(async (_o, i) => {
       LoggerService.log(LOGGER_CLI_BUILDER, `try ${_o} option ?`);
       const o = _o.replace("--", "");
       if (this._globalOptions.has(o)) {
         const option = this._globalOptions.get(o) as Option;
         if (option.needParam) {
           LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option with params`);
-          callback = option.execute(this, opts[i + 1]);
+          callback = await option.execute(this, opts[i + 1]);
           opts.splice(i, 2);
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option without params`);
-          callback = option.execute(this, undefined);
+          callback = await option.execute(this, undefined);
           opts.splice(i, 1);
         }
       }
@@ -41,14 +41,45 @@ export default class Commandline {
     return { arguments: opts, callback };
   }
 
-  private travisArgumentPath(args: string[]) {
+  private async travisArgumentPath(args: string[]) {
     let skip = false;
     let c: Command | undefined;
     let callback: (() => void) | undefined | void = () => {};
 
-    args.forEach((arg, i) => {
+    let i = 0;
+    for await (const arg of args) {
+      if (arg !== "") LoggerService.log(LOGGER_CLI_BUILDER, `current travis argument is ${arg}`);
+
+      if (c) {
+        LoggerService.log(
+          LOGGER_CLI_BUILDER,
+          `get command '${Colorize.important(c.name)}' and it ${c.needParam ? "need params" : "no need param"}`,
+        );
+        LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} might have subcommand(${arg}) ?`);
+        const s = c.getSub(arg);
+        LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s ? "have subcommand" : "doesn't have any subcommand"}`);
+
+        if (s) {
+          if (s.needParam) {
+            callback = await s.execute(this, args[i + 1]); // next
+            skip = true; // skip next args
+          } else callback = await s.execute(this, undefined);
+
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has beed executed; remove in cache`);
+          c = undefined;
+        } else {
+          if (c.needParam) {
+            callback = await c.execute(this, args[i + 1]); // next
+            skip = true; // skip next args
+          } else callback = await c.execute(this, undefined);
+
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} has beed executed; remove in cache`);
+          c = undefined;
+        }
+      }
+
       if (skip) {
-        LoggerService.log(LOGGER_CLI_BUILDER, `start skip argument ${arg}`);
+        LoggerService.log(LOGGER_CLI_BUILDER, `skip argument ${arg}`);
         skip = false;
         return;
       }
@@ -58,32 +89,15 @@ export default class Commandline {
         throw Exception.build(CLI_Exception).description("invalid option and command");
       }
 
-      if (c) {
-        LoggerService.log(
-          LOGGER_CLI_BUILDER,
-          `get command '${Colorize.important(c.name)}' and it ${c.needParam ? "need params" : "no need param"}`,
-        );
-        const s = c.getSub(arg);
-        if (s) {
-          if (s.needParam) {
-            callback = s.execute(this, args[i + 1]); // next
-            skip = true; // skip next args
-          } else s.execute(this, undefined);
-        } else {
-          if (c.needParam) {
-            callback = c.execute(this, args[i + 1]); // next
-            skip = true; // skip next args
-          } else c.execute(this, undefined);
-        }
-      }
-
       // no command in first args
       c = this.isCommand(arg);
       if (i === 0 && !c) {
         LoggerService.log(LOGGER_CLI_BUILDER, `you didn't input valid root command in first argument`);
         throw Exception.build(CLI_Exception).description("invalid option and command");
       }
-    });
+
+      i++;
+    }
 
     return callback;
   }
@@ -111,7 +125,7 @@ export default class Commandline {
     this._commands.set(cmd.name, cmd);
   }
 
-  public run(_args: string[]) {
+  public async run(_args: string[]) {
     const node = _args[0];
     const file = _args[1];
 
@@ -122,12 +136,12 @@ export default class Commandline {
 
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
 
-    const global = this.executeGlobalOptions(args);
+    const global = await this.executeGlobalOptions(args);
     if (global.callback && typeof global.callback === "function") global.callback();
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
 
     args.push(""); // push empty string
-    const callback = this.travisArgumentPath(global.arguments);
+    const callback = await this.travisArgumentPath(global.arguments);
     if (callback && typeof callback === "function") callback();
   }
 }

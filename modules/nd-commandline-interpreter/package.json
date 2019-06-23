@@ -1,6 +1,6 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-beta.2",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
