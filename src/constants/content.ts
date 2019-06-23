@@ -88,7 +88,7 @@ export const HELP_CONTENT = (name: string) => {
 
 {bold ## Command}
 
-{gray $} {green ${name}} {magentaBright command} {magenta [version]}        -- print all version information of ${name} command [WIP]
+{gray $} {green ${name}} {magentaBright command} {magenta [version]}        -- print all version information of ${name} command
      option:
        {cyan --detail}                - {gray [optional]} include command and libraries detail [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta changelog}        -- print changelog and information on latest version [WIP]
