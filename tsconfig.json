@@ -1,35 +1,32 @@
 {
-  "include": ["index.ts", "src/**/*.ts", "modules/**/*.ts", "*.json", "node_modules/nd-security/**/*.ts"],
+  "include": [
+    "index.ts",
+    "src/**/*.ts",
+    "modules/**/*.ts",
+    "*.json"
+  ],
   "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
-    /* Basic Options */
-    "target": "ES2015" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */ ,
+    "target": "ES2015",
     "module": "commonjs",
     "baseUrl": ".",
-    /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"] /* Specify library files to be included in the compilation. */ ,
-    "sourceMap": false /* Generates corresponding '.map' file. */ ,
+    "lib": ["es2017", "dom"],
+    "sourceMap": false,
     "outDir": "./dist",
     "removeComments": true,
     "allowJs": true,
-    /* Strict Type-Checking Options */
-    "strict": true /* Enable all strict type-checking options. */ ,
-    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */ ,
-    "strictNullChecks": true /* Enable strict null checks. */ ,
-    "strictFunctionTypes": true /* Enable strict checking of function types. */ ,
-    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */ ,
-    /* Do not emit comments to output. */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
     "noEmit": false,
-    "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */ ,
-
-    /* Additional Checks */
-    "noUnusedParameters": true /* Report errors on unused parameters. */ ,
-    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */ ,
-    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */ ,
-
-    /* Module Resolution Options */
-    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "alwaysStrict": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true
   }
 }

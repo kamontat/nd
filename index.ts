@@ -14,6 +14,7 @@ import { load } from "nd-config";
 import Exception from "nd-error";
 import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CLI, LOGGER_ROOT } from "nd-logger";
+// TODO: make completion as a dependency instead.
 import tabtab from "tabtab";
 
 import pjson from "./package.json";

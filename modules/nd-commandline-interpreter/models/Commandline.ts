@@ -43,6 +43,7 @@ export default class Commandline {
     return { arguments: opts, callback };
   }
 
+  // TODO: Add support command option and subcommand option
   private async travisArgumentPath(args: string[]) {
     let skip = [];
     let c: Command | undefined;
@@ -84,9 +85,9 @@ export default class Commandline {
         }
       }
 
-      if (skip) {
+      if (skip.includes(i)) {
         LoggerService.log(LOGGER_CLI_BUILDER, `skip argument ${arg}`);
-        skip = false;
+        skip = skip.filter(s => s !== i); // remove element of i
         return;
       }
 
