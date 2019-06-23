@@ -19,8 +19,19 @@ export default abstract class ICommand {
   get needParam() {
     return this.param;
   }
+  private _child: Map<string, ICommand>;
 
-  protected constructor(private _name: string, private param: boolean, private _callback: ICommandCallback) {}
+  protected constructor(private _name: string, private param: boolean, private _callback: ICommandCallback) {
+    this._child = new Map();
+  }
+
+  protected addChild(child: ICommand) {
+    this._child.set(child.name, child);
+  }
+
+  protected getChild(name: string) {
+    return this._child.get(name);
+  }
 
   public execute(self: Commandline, value: string | undefined) {
     return this._callback({ self, name: this.name, value, apis: CommandApi.get() });

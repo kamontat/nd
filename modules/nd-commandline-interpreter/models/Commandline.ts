@@ -22,6 +22,8 @@ export default class Commandline {
     let callback: (() => void) | undefined | void = () => {};
 
     await opts.forEach(async (_o, i) => {
+      if (!this.isOption(_o)) return;
+
       LoggerService.log(LOGGER_CLI_BUILDER, `try ${_o} option ?`);
       const o = _o.replace("--", "");
       if (this._globalOptions.has(o)) {
@@ -42,7 +44,7 @@ export default class Commandline {
   }
 
   private async travisArgumentPath(args: string[]) {
-    let skip = false;
+    let skip = [];
     let c: Command | undefined;
     let callback: (() => void) | undefined | void = () => {};
 
@@ -57,20 +59,24 @@ export default class Commandline {
         );
         LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} might have subcommand(${arg}) ?`);
         const s = c.getSub(arg);
-        LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s ? "have subcommand" : "doesn't have any subcommand"}`);
+        // const otherArgs = args.slice(i);
 
         if (s) {
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} have subcommand`);
+
           if (s.needParam) {
             callback = await s.execute(this, args[i + 1]); // next
-            skip = true; // skip next args
+            skip.push(i + 1); // skip next args
           } else callback = await s.execute(this, undefined);
 
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has beed executed; remove in cache`);
           c = undefined;
         } else {
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
+
           if (c.needParam) {
             callback = await c.execute(this, args[i + 1]); // next
-            skip = true; // skip next args
+            skip.push(i + 1); // skip next args
           } else callback = await c.execute(this, undefined);
 
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} has beed executed; remove in cache`);
