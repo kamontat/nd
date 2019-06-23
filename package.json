@@ -8,7 +8,8 @@
   "license": "NONE",
   "private": true,
   "scripts": {
-    "build:lib": "yarn add ./modules/nd-logger ./modules/nd-commandline-interpreter ./modules/nd-security ./modules/nd-helper ./modules/nd-config ./modules/nd-error",
+    "build:lib": "make lib",
+    "build:prod": "make build mode=production",
     "compile": "make compile mode=development",
     "compile:prod": "make compile mode=production",
     "dev": "make compile mode=development quite=true && node dist/nd.js",
@@ -20,6 +21,7 @@
     "@types/debug": "4.1.4",
     "@types/jsonwebtoken": "8.3.2",
     "@types/node": "10",
+    "@types/tabtab": "^3.0.0",
     "closure-webpack-plugin": "2.0.1",
     "google-closure-compiler": "20190528.1.0",
     "ts-loader": "6.0.3",
@@ -41,7 +43,8 @@
     "nd-error": "./modules/nd-error",
     "nd-helper": "./modules/nd-helper",
     "nd-logger": "./modules/nd-logger",
-    "nd-security": "./modules/nd-security"
+    "nd-security": "./modules/nd-security",
+    "tabtab": "^3.0.2"
   },
   "pkg": {
     "assets": [
