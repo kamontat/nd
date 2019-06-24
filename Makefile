@@ -1,5 +1,15 @@
 npm_client=yarn
 
+test:
+	@TS_NODE_SKIP_IGNORE=true \
+	NODE_ENV="$(mode)" \
+	nyc \
+		mocha \
+		--reporter mochawesome \
+		--reporter-options reportPageTitle=ND\ Test\ Reporter,reportTitle=Report,charts=true,cdn=true,reportDir=reports,timestamp=,inline=true,reportFilename=mocha-report \
+		--require ts-node/register \
+		./modules/**/*.spec.ts ./src/**/*.spec.ts
+
 lib:
 ifeq "$(quite)" "true"
 	@$(npm_client) add \
@@ -32,4 +42,4 @@ build: compile
 	npx pkg . --out-path dist/bin
 
 clean:
-	rm -rf dist modules/nd-*/dist
+	rm -rf dist .nyc_output coverage reports/**/*
