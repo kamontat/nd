@@ -18,12 +18,12 @@ export class NdSecurity {
   private _config: ConfigJson;
   private _name: string;
 
-  private _shuffle(str: string) {
-    let nstr = "";
-    for (let i = 0; i < str.length; i++) {
-      nstr += String.fromCharCode(str.charCodeAt(i) ^ 1);
-    }
-    return nstr;
+  private _hash(str: string) {
+    return Buffer.from(str, "utf8").toString("hex");
+  }
+
+  private _unhash(str: string) {
+    return Buffer.from(str, "hex").toString("utf8");
   }
 
   constructor(version: versionName, name: string) {
@@ -48,7 +48,7 @@ export class NdSecurity {
     });
 
     return {
-      token: this._shuffle(token),
+      token: this._hash(token),
       salt,
       name: this._name,
       exp: config.expire,
@@ -58,7 +58,7 @@ export class NdSecurity {
 
   public decrypt(token: string, salt: string): string | object {
     const password = hashSync(this._name, salt);
-    return verify(this._shuffle(token), password, {
+    return verify(this._unhash(token), password, {
       jwtid: this._config.id,
       issuer: "admin",
     });
