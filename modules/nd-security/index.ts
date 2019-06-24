@@ -1,5 +1,6 @@
 import { genSaltSync, hashSync } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
+import Exception, { SCT_Exception } from "nd-error";
 import LoggerService, { LOGGER_SECURITY } from "nd-logger";
 
 import config, { ConfigJson } from "./config";
@@ -39,6 +40,8 @@ export class NdSecurity {
     LoggerService.log(LOGGER_SECURITY, `encrypt token with salt=${salt}`);
 
     const password = hashSync(this._name, salt);
+    LoggerService.log(LOGGER_SECURITY, `encrypt with password=${password}`);
+
     const token = sign({ username: config.username }, password, {
       algorithm: this._config.algorithm,
       expiresIn: config.expire,
@@ -46,22 +49,33 @@ export class NdSecurity {
       issuer: config.issuer,
       jwtid: this._config.id,
     });
+    LoggerService.log(LOGGER_SECURITY, `before hash token=${token}`);
 
     return {
       token: this._hash(token),
-      salt,
+      salt: this._hash(salt),
       name: this._name,
       exp: config.expire,
       iss: config.issue,
     };
   }
 
-  public decrypt(token: string, salt: string): string | object {
-    const password = hashSync(this._name, salt);
-    return verify(this._unhash(token), password, {
-      jwtid: this._config.id,
-      issuer: "admin",
-    });
+  public decrypt(token: string, salt: string): { username: string } {
+    const password = hashSync(this._name, this._unhash(salt));
+    LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
+
+    try {
+      const obj = verify(this._unhash(token), password, {
+        jwtid: this._config.id,
+        issuer: "admin",
+      }) as any;
+
+      return {
+        username: obj.username,
+      };
+    } catch (e) {
+      throw Exception.cast(e, { base: SCT_Exception });
+    }
   }
 }
 
