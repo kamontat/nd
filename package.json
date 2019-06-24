@@ -15,6 +15,7 @@
     "start": "make compile mode=production && node dist/nd.min.js",
     "test": "make test mode=test",
     "test:debug": "export TS_NODE_DEBUG=true && yarn test",
+    "release:lib": "./scripts/release_lib.sh",
     "clean": "make clean"
   },
   "dependencies": {
@@ -74,7 +75,8 @@
       "modules/webpack-visualizer/**/*"
     ],
     "reporter": [
-      "html", "text"
+      "html",
+      "text"
     ],
     "all": true
   },
