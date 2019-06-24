@@ -46,7 +46,7 @@ var VisualizerPlugin = (function () {
                 var stringifiedStats = JSON.stringify(stats);
                 stringifiedStats = stringifiedStats.replace(/</g, '&lt;').replace(/</g, '&gt;');
 
-                var html = '<!doctype html>\n                <meta charset="UTF-8">\n                <title>Webpack Visualizer</title>\n                <style>' + cssString + '</style>\n                <div id="App"></div>\n                <script>window.stats = ' + stringifiedStats + ';</script>\n                <script>' + jsString + '</script>\n            ';
+                var html = '\n              <!doctype html>\n              <head>\n                <meta charset="UTF-8">\n                <title>Webpack Visualizer</title>\n                <style>' + cssString + '</style>\n              </head>\n              <body>\n                <div id="App"></div>\n                <script>window.stats = ' + stringifiedStats + ';</script>\n                <script>' + jsString + '</script>\n              </body>\n            ';
 
                 var outputFile = _path2['default'].join(compilation.outputOptions.path, _this.opts.filename);
 

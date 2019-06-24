@@ -9,4 +9,6 @@ let pageHTML = createHTMLString({
     appHTML: ReactDOM.renderToString(<App/>)
 });
 
-fs.writeFile('dist-site/index.html', pageHTML);
+fs.writeFile('dist-site/index.html', pageHTML, () => {
+    console.log('done...');
+});
