@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import "mocha";
 
-const addContext = require("mochawesome/addContext");
+// const addContext = require("mochawesome/addContext");
 
 import { NdSecurity } from "../index";
 chai.should();
@@ -44,11 +44,12 @@ describe("Security", function() {
       const token = "token";
       const salt = "salt";
       const name = "wrong-person";
-      const username = "";
 
       const security = new NdSecurity("v1", name);
 
-      security.decrypt(token, salt).should.to.throw();
+      (function() {
+        security.decrypt(token, salt);
+      }.should.Throw(Error));
     });
   });
 });

@@ -61,10 +61,10 @@ export class NdSecurity {
   }
 
   public decrypt(token: string, salt: string): { username: string } {
-    const password = hashSync(this._name, this._unhash(salt));
-    LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
-
     try {
+      const password = hashSync(this._name, this._unhash(salt));
+      LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
+
       const obj = verify(this._unhash(token), password, {
         jwtid: this._config.id,
         issuer: "admin",
