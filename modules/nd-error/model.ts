@@ -29,9 +29,9 @@ export default class Exception extends Error {
     return true;
   }
 
-  public static cast<T extends Error>(e: T): Exception {
+  public static cast<T extends Error>(e: T, opts?: { base?: ExceptionState }): Exception {
     if (e instanceof Exception) return e;
-    const exp = new Exception(GNL_Exception);
+    const exp = new Exception(!opts || !opts.base ? GNL_Exception : opts.base);
     exp.description(e.message);
     return exp;
   }
