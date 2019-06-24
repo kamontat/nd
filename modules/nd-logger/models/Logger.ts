@@ -1,6 +1,8 @@
 import debug from "debug";
 
 export default class Logger {
+  protected debugger = debug;
+
   constructor(private _root: string) {}
 
   public extend(namespace: string) {
@@ -8,6 +10,6 @@ export default class Logger {
   }
 
   get debug() {
-    return debug(this._root);
+    return this.debugger(this._root);
   }
 }

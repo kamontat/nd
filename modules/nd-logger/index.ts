@@ -12,17 +12,17 @@ export default class LoggerService {
     },
   };
 
-  public static log(log: Logger, message: any, ...args: any[]) {
+  public static log<T extends Logger>(log: T, message: any, ...args: any[]) {
     log.debug.log = console.log.bind(console);
 
     log.debug(message, ...args);
   }
 
-  public static warn(log: Logger, message: any, ...args: any[]) {
+  public static warn<T extends Logger>(log: T, message: any, ...args: any[]) {
     log.extend("warn").debug(message, ...args);
   }
 
-  public static error(log: Logger, message: any, ...args: any[]) {
+  public static error<T extends Logger>(log: T, message: any, ...args: any[]) {
     log.extend("error").debug(message, ...args);
   }
 
