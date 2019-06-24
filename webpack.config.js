@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const ClosurePlugin = require('closure-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const pjson = require("./package.json")
 
@@ -71,7 +72,10 @@ module.exports = {
       "__VERSION__": JSON.stringify(pjson.version)
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new Visualizer({
+      filename: '../reports/statistics.html'
+    })
   ],
   resolve: {
     extensions: ['.ts', '.js']
