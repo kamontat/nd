@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1000
+
+# generate by create-script-file v4.0.1
+# link (https://github.com/Template-generator/create-script-file/tree/v4.0.1)
+
+# set -x #DEBUG - Display commands and their arguments as they are executed.
+# set -v #VERBOSE - Display shell input lines as they are read.
+# set -n #EVALUATE - Check syntax of the script but don't execute.
+
+#/ -----------------------------------
+#/ Description:  ...
+#/ How to:       ...
+#/               ...
+#/ Option:       --help | -h | -? | help | h | ?
+#/                   > show this message
+#/               --version | -v | version | v
+#/                   > show command version
+#/ -----------------------------------
+#/ Create by:    Kamontat Chantrachirathumrong <work@kamontat.net>
+#/ Since:        24/06/2019
+#/ -----------------------------------
+#/ Error code    1      -- error
+#/ -----------------------------------
+#/ Known bug:    ...
+#/ -----------------------------------
+#// Version:      0.0.1   -- description
+#//               0.0.2b1 -- beta-format
+#//               0.0.2a1 -- alpha-format
+
+echo "Help:
+
+1. make change in modules libraries
+2. commit all changes
+3. update package.json version
+4. start this command with **modules name**
+---------------------------"
+
+APPNAME="${1}"
+
+echo "Starting...   release $APPNAME"
+
+cd "./modules/${APPNAME}"
+
+echo "Moving...     to ${APPNAME}"
+
+VERSION=$(node -p -e "require('./package.json').version")
+
+echo "Creating...   tag ${VERSION} [press ENTER to continue]"
+read -r ans
+
+TAG_NAME="${APPNAME}-v${VERSION}"
+
+git tag "$TAG_NAME"
+
+echo "Starting...   commit package.json (assume you just update package.json)"
+
+git commit --allow-empty --message "chore(release): ${TAG_NAME}"
