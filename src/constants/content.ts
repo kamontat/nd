@@ -39,9 +39,9 @@ export const HELP_CONTENT = (name: string) => {
      parameter:
        {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
      option:
-       {cyan --location}              - {gray [optional]} location of output folder; {blueBright config} > {blueBright option} > {blueBright current path}
-       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
-       {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel
+       {cyan --location}              - {gray [optional]} location of output folder; {blueBright config} > {blueBright option} > {blueBright current path} [WIP]
+       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
+       {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
      parameter:
        {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
