@@ -16,17 +16,14 @@ export default class Exception extends Error {
     return this;
   }
 
-  public print(log: Logger) {
-    LoggerService.error(log, "%O", this);
+  public print<T extends Logger>(log: T) {
+    if (this._code.exit) LoggerService.error(log, "%O", this);
+    else LoggerService.warn(log, "%O", this);
     return this;
   }
 
   public exit(code: number = 1) {
     if (this._code.exit) process.exit(code);
-  }
-
-  public isException() {
-    return true;
   }
 
   public static cast<T extends Error>(e: T, opts?: { base?: ExceptionState }): Exception {
