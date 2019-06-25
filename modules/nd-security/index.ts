@@ -9,7 +9,7 @@ import Package from "./package.json";
 interface TokenConfig {
   username: string;
   expire?: "1h" | "24h" | "7d" | "1m" | "1y" | "100y";
-  issue?: "1ms" | "1d" | "7d";
+  when?: "1ms" | "1d" | "7d";
   issuer?: "admin" | "selfgen";
 }
 
@@ -45,7 +45,7 @@ export class NdSecurity {
     const token = sign({ username: config.username }, password, {
       algorithm: this._config.algorithm,
       expiresIn: config.expire,
-      notBefore: config.issue,
+      notBefore: config.when,
       issuer: config.issuer,
       jwtid: this._config.id,
     });
@@ -56,11 +56,11 @@ export class NdSecurity {
       salt: this._hash(salt),
       name: this._name,
       exp: config.expire,
-      iss: config.issue,
+      nbf: config.when,
     };
   }
 
-  public decrypt(token: string, salt: string): { username: string } {
+  public decrypt(token: string, salt: string): { username: string; expire: number; issue: number; notBefore: number } {
     try {
       const password = hashSync(this._name, this._unhash(salt));
       LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
@@ -70,8 +70,12 @@ export class NdSecurity {
         issuer: "admin",
       }) as any;
 
+      LoggerService.log(LOGGER_SECURITY, `return object %O, `, obj);
       return {
         username: obj.username,
+        expire: obj.exp * 1000,
+        issue: obj.iat * 1000,
+        notBefore: obj.nbf * 1000, // convert to millisecond that supported by javascript Date
       };
     } catch (e) {
       throw Exception.cast(e, { base: SCT_Exception });
