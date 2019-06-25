@@ -13,15 +13,21 @@ export default class LoggerService {
   };
 
   public static log<T extends Logger>(log: T, message: any, ...args: any[]) {
-    log.stdlog.debug(message, ...args);
+    log.stdlog().debug(message, ...args);
   }
 
   public static warn<T extends Logger>(log: T, message: any, ...args: any[]) {
-    log.stderr.extend("warn").debug(message, ...args);
+    log
+      .stdlog()
+      .extend("warn")
+      .debug(message, ...args);
   }
 
   public static error<T extends Logger>(log: T, message: any, ...args: any[]) {
-    log.stderr.extend("error").debug(message, ...args);
+    log
+      .stderr()
+      .extend("error")
+      .debug(message, ...args);
   }
 
   public static enable(name: string) {

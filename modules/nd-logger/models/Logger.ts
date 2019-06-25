@@ -14,12 +14,12 @@ export default class Logger {
     return this._logger(format, ...args);
   }
 
-  get stdlog() {
+  public stdlog() {
     this._logger.log = console.log.bind(console);
     return this;
   }
 
-  get stderr() {
+  public stderr() {
     this._logger.log = console.error.bind(console);
     return this;
   }
