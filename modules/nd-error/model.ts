@@ -1,7 +1,7 @@
 import LoggerService from "nd-logger";
 import Logger from "nd-logger/models/Logger";
 
-import { ExceptionState, GNL_Exception } from "./constants";
+import { ERR_GNL, ExceptionState } from "./constants";
 
 export default class Exception extends Error {
   constructor(private _code: ExceptionState) {
@@ -28,7 +28,7 @@ export default class Exception extends Error {
 
   public static cast<T extends Error>(e: T, opts?: { base?: ExceptionState }): Exception {
     if (e instanceof Exception) return e;
-    const exp = new Exception(!opts || !opts.base ? GNL_Exception : opts.base);
+    const exp = new Exception(!opts || !opts.base ? ERR_GNL : opts.base);
     exp.description(e.message);
     return exp;
   }

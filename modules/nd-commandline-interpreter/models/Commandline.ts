@@ -1,4 +1,4 @@
-import Exception, { CLI_Exception } from "nd-error";
+import Exception, { ERR_CLI } from "nd-error";
 import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
@@ -93,14 +93,14 @@ export default class Commandline {
 
       if (i === 0 && this.isOption(arg)) {
         LoggerService.log(LOGGER_CLI_BUILDER, `option look like to appear before command set`);
-        throw Exception.build(CLI_Exception).description("invalid option and command");
+        throw Exception.build(ERR_CLI).description("invalid option and command");
       }
 
       // no command in first args
       c = this.isCommand(arg);
       if (i === 0 && !c) {
         LoggerService.log(LOGGER_CLI_BUILDER, `you didn't input valid root command in first argument`);
-        throw Exception.build(CLI_Exception).description("invalid option and command");
+        throw Exception.build(ERR_CLI).description("invalid option and command");
       }
 
       i++;

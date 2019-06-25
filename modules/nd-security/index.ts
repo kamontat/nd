@@ -1,6 +1,6 @@
 import { genSaltSync, hashSync } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
-import Exception, { SCT_Exception } from "nd-error";
+import Exception, { ERR_SCT } from "nd-error";
 import LoggerService, { LOGGER_SECURITY } from "nd-logger";
 
 import config, { ConfigJson } from "./config";
@@ -78,7 +78,7 @@ export class NdSecurity {
         notBefore: obj.nbf * 1000, // convert to millisecond that supported by javascript Date
       };
     } catch (e) {
-      throw Exception.cast(e, { base: SCT_Exception });
+      throw Exception.cast(e, { base: ERR_SCT });
     }
   }
 }
