@@ -2744,7 +2744,7 @@ mochawesome-report-generator@^4.0.0:
     validator "^10.11.0"
     yargs "^13.2.2"
 
-mochawesome@^4.0.1:
+mochawesome@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/mochawesome/-/mochawesome-4.0.1.tgz#351af69c8904468e75a71f8704ed0b5767795ccc"
   integrity sha512-F/hVmiwWCvwBiW/UPhs4/lfgf8mBJBr89W/9fDu+hb+rQ9gFxWh9N/BU7RtEH+dMfBF4o8XIdYHrEcwxJhzqsw==
@@ -2820,12 +2820,12 @@ nd-commandline-interpreter@./modules/nd-commandline-interpreter:
     nd-logger "./modules/nd-logger"
 
 nd-config@./modules/nd-config:
-  version "0.1.0-alpha.3"
+  version "1.0.0"
   dependencies:
     nd-logger "./modules/nd-logger"
 
 nd-error@./modules/nd-error:
-  version "0.0.1-alpha.1"
+  version "0.1.0-beta.1"
   dependencies:
     nd-logger "./modules/nd-logger"
 
@@ -2835,15 +2835,17 @@ nd-helper@./modules/nd-helper:
     chalk "2.4.2"
 
 nd-logger@./modules/nd-logger:
-  version "0.1.2"
+  version "1.0.2"
   dependencies:
     debug "4.1.1"
+    nd-config "./modules/nd-config"
 
 nd-security@./modules/nd-security:
-  version "1.1.0"
+  version "1.1.2"
   dependencies:
     bcryptjs "2.4.3"
     jsonwebtoken "8.5.1"
+    nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
 
 needle@^2.2.1:
@@ -2988,7 +2990,7 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nyc@^14.1.1:
+nyc@14.1.1:
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/nyc/-/nyc-14.1.1.tgz#151d64a6a9f9f5908a1b73233931e4a0a3075eeb"
   integrity sha512-OI0vm6ZGUnoGZv/tLdZ2esSVzDwUC88SNs+6JoSOMVxA+gKMB8Tk7jBwgemLx4O40lhhvZCVw1C+OYLOBOPXWw==

@@ -45,8 +45,13 @@ cd "./modules/${APPNAME}"
 echo "Moving...     to ${APPNAME}"
 
 VERSION=$(node -p -e "require('./package.json').version")
+RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}']")
+[[ "$RELEASE_NOTE" == "undefined" ]] && RELEASE_NOTE="NOT FOUND; please update release note first!"
 
-echo "Creating...   tag ${VERSION} [press ENTER to continue]"
+echo "Creating...   tag ${VERSION} 
+Release note is ${RELEASE_NOTE}
+
+[press ENTER to continue]"
 read -r ans
 
 TAG_NAME="${APPNAME}-v${VERSION}"
@@ -55,4 +60,5 @@ git tag "$TAG_NAME"
 
 echo "Starting...   commit package.json (assume you just update package.json)"
 
+git add package.json # add package.json
 git commit --allow-empty --message "chore(release): ${TAG_NAME}"

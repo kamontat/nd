@@ -42,4 +42,4 @@ build: compile
 	npx pkg . --out-path dist/bin
 
 clean:
-	rm -rf dist .nyc_output coverage reports/**/*
+	rm -rf dist .nyc_output coverage reports/**
