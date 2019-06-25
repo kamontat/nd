@@ -1,10 +1,15 @@
 {
   "name": "nd-security",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "security management for nd command",
   "dependencies": {
     "bcryptjs": "2.4.3",
     "jsonwebtoken": "8.5.1",
-    "nd-logger": "./modules/nd-logger"
+    "nd-logger": "./modules/nd-logger",
+    "nd-error": "./modules/nd-error"
+  },
+  "changelogs": {
+    "1.1.2": "fix dependency error",
+    "1.1.1": "support reasonable config name"
   }
 }
