@@ -8,7 +8,7 @@
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
-  "changelogs": {
+  "changelog": {
     "1.1.2": "fix dependency error",
     "1.1.1": "support reasonable config name"
   }
