@@ -4,5 +4,8 @@
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
+  },
+  "changelog": {
+    "0.1.0-beta.1": "release for first beta version"
   }
 }

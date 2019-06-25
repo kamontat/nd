@@ -4,5 +4,8 @@
   "description": "interface, absolute class and other helper methods",
   "dependencies": {
     "chalk": "2.4.2"
+  },
+  "changelog": {
+    "0.1.1": "template for release"
   }
 }

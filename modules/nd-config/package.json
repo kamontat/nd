@@ -1,8 +1,11 @@
 {
   "name": "nd-config",
-  "version": "0.1.0-alpha.3",
+  "version": "1.0.0",
   "description": "configuration of nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
+  },
+  "changelog": {
+    "1.0.0": "first release new config modules"
   }
 }

@@ -1,8 +1,13 @@
 {
   "name": "nd-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "logger service for nd command",
   "dependencies": {
-    "debug": "4.1.1"
+    "debug": "4.1.1",
+    "nd-config": "./modules/nd-config"
+  },
+  "changelog": {
+    "1.0.2": "add support changelog tags",
+    "1.0.1": "first release version"
   }
 }

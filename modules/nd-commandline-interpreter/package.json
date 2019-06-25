@@ -4,5 +4,8 @@
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
+  },
+  "changelog": {
+    "1.0.0-beta.2": "release first beta version"
   }
 }
