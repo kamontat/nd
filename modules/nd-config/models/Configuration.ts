@@ -6,6 +6,10 @@ import readline from "readline";
 import { ConfigKey, ConfigSchema, IConfiguration } from "./interface";
 
 export class Configuration extends Event implements IConfiguration {
+  private constructor() {
+    super();
+  }
+
   private _object: ConfigSchema = {
     "mode": "production",
     "version": "v1",
@@ -19,7 +23,8 @@ export class Configuration extends Event implements IConfiguration {
 
   private static o: Configuration;
 
-  public load(path: string) {
+  public load(_path: string) {
+    const path = `${_path}/config.ndc`; // load config
     LoggerService.log(LOGGER_CONFIG, `start load config from ${path}`);
 
     const reader = readline.createInterface({
