@@ -5,6 +5,7 @@ test:
 	NODE_ENV="$(mode)" \
 	nyc \
 		mocha \
+		--no-timeouts \
 		--reporter mochawesome \
 		--reporter-options reportPageTitle=ND\ Test\ Reporter,reportTitle=Report,charts=true,cdn=true,reportDir=reports,timestamp=,inline=true,reportFilename=mocha-report \
 		--require ts-node/register \
