@@ -46,7 +46,7 @@ updateLoggerInfo(process.argv);
 
 const cli = new Commandline(pjson.name, pjson.description);
 
-load("/tmp/test.ndc")
+load("~/.nd")
   .then(config => {
     config.on("output.level", (level: string) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
