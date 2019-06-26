@@ -135,3 +135,65 @@ export const VERSION_FULL = () => {
 {dim --------------------------------------}
 `;
 };
+
+export const VERSION_FULL_DETAIL = () => {
+  interface Dependency {
+    name: string;
+    version: string;
+    description?: string;
+    changelog?: string;
+  }
+
+  const genInternalDependency = (pjson: { [key: string]: any }) => {
+    return {
+      name: pjson.name,
+      version: pjson.version,
+      description: pjson.description,
+      changelog: pjson.changelog[pjson.version],
+    };
+  };
+
+  const dependencies: Array<Dependency> = [];
+
+  // core package
+  dependencies.push(genInternalDependency(CorePackage));
+
+  // security package
+  dependencies.push(genInternalDependency(SecurityPackage));
+
+  // commandline package
+  dependencies.push(genInternalDependency(CLIPackage));
+
+  // logger package
+  dependencies.push(genInternalDependency(LogPackage));
+
+  // helper package
+  dependencies.push(genInternalDependency(HelperPackage));
+
+  // config package
+  dependencies.push(genInternalDependency(ConfigPackage));
+
+  // error package
+  dependencies.push(genInternalDependency(ErrorPackage));
+
+  // external dependency
+  Object.keys(CorePackage.dependencies)
+    .filter(v => !v.includes("nd-"))
+    .forEach(name => {
+      const version = (CorePackage.dependencies as any)[name];
+      const description = (CorePackage as any).dependency[name];
+      dependencies.push({
+        name,
+        version,
+        description,
+      });
+    });
+
+  let str = dependencies.reduce((p, c) => {
+    let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}`;
+    s += Colorize.format`\n  - {blueBright ${c.version}} {dim ${c.changelog || ""}}\n`;
+    return p + s;
+  }, Colorize.format`{dim --------------------------------------}\n`);
+  str += Colorize.format`{dim --------------------------------------}`;
+  return str;
+};
