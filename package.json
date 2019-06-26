@@ -34,6 +34,13 @@
     "nd-security": "./modules/nd-security",
     "tabtab": "3.0.2"
   },
+  "dependency": {
+    "bcryptjs": "Optimized bcrypt in plain JavaScript with zero dependencies",
+    "chalk": "Terminal string styling done right",
+    "debug": "Debugging utility modelled after Node.js core's debugging technique",
+    "jsonwebtoken": "An implementation of JSON Web Tokens",
+    "tabtab": "tab completion helpers, for node cli programs"
+  },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
     "@types/chai": "4.1.7",
