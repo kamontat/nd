@@ -16,8 +16,25 @@ describe(rootName, function() {
       Verify.IsExist("NULL").should.be.false;
       Verify.IsExist(null).should.be.false;
       Verify.IsExist("null").should.be.false;
+      Verify.IsExist({}).should.be.false;
 
       Verify.IsExist("valid").should.be.true;
+      Verify.IsExist(true).should.be.true;
+      Verify.IsExist(102).should.be.true;
+      Verify.IsExist({ value: "string" }).should.be.true;
+    });
+
+    it("should verify string", function() {
+      Verify.IsString("12").should.be.true;
+      Verify.IsString("true").should.be.true;
+      Verify.IsString(new String("Hello world")).should.be.true;
+      Verify.IsString("{value: true}").should.be.true;
+
+      Verify.IsString(true).should.be.false;
+      Verify.IsString({}).should.be.false;
+      Verify.IsString({ value: "string" }).should.be.false;
+      Verify.IsString(1234).should.be.false;
+      Verify.IsString(1234.5678).should.be.false;
     });
 
     it("should verify number string", function() {
@@ -114,6 +131,13 @@ describe(rootName, function() {
       Verify.IsUrl("file://Users/guest/abc.log").should.be.false;
       Verify.IsUrl("aws://path/to/file.txt").should.be.false;
       Verify.IsUrl("somestring").should.be.false;
+
+      Verify.IsUrl(true).should.be.false;
+      Verify.IsUrl(1022).should.be.false;
+      Verify.IsUrl({}).should.be.false;
+      Verify.IsUrl(undefined).should.be.false;
+      Verify.IsUrl(null).should.be.false;
+      Verify.IsUrl({ url: "https://google.com" }).should.be.false;
     });
   });
 });

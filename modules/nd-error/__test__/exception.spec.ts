@@ -53,9 +53,6 @@ describe(rootName, function() {
 
       exp.description(message).print(
         new LoggerMock((event, args: any[]) => {
-          console.log(event);
-          console.log(args);
-
           event.should.not.be.undefined;
           args.should.not.be.empty;
         }),
