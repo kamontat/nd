@@ -41,8 +41,10 @@ describe(rootName, function() {
 
       exp.description(message).print(
         new LoggerMock((event, args: any[]) => {
-          event.should.not.be.undefined;
-          args.should.not.be.empty;
+          if (event === "debug") {
+            event.should.not.be.undefined;
+            args.should.not.be.empty;
+          }
         }),
       );
     });
@@ -53,8 +55,10 @@ describe(rootName, function() {
 
       exp.description(message).print(
         new LoggerMock((event, args: any[]) => {
-          event.should.not.be.undefined;
-          args.should.not.be.empty;
+          if (event === "debug") {
+            event.should.not.be.undefined;
+            args.should.not.be.empty;
+          }
         }),
       );
     });

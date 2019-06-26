@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import "mocha";
 
-import { Commandline, Option } from "../index";
+import { Command, Commandline, Option } from "../index";
 chai.should();
 
 // const addContext = require("mochawesome/addContext");
@@ -29,19 +29,32 @@ describe(rootName, function() {
   });
 
   describe("Commandline Global Option", function() {
-    const builder = new Commandline("test", "this is a description");
-    builder.option(
-      Option.build("version", false, ({ self }) => {
-        self.name.should.not.be.undefined;
-      }),
-    );
+    it("should able to access global option callback", function(done) {
+      const builder = new Commandline("test", "this is a description");
 
-    it("should able to access global option callback", function() {
-      builder.run(mockArguments("--version"));
+      builder.option(
+        Option.build("version", false, ({ self }) => {
+          self.name.should.not.be.undefined;
+          done();
+        }),
+      );
+
+      return builder.run(mockArguments("--version"));
     });
 
-    it("should able to access global option callback when command exist before", function() {
-      builder.run(mockArguments("command", "--version"));
+    it("should able to access global option callback when command exist before", function(done) {
+      const builder = new Commandline("test", "this is a description");
+
+      builder.option(
+        Option.build("version", false, ({ self }) => {
+          self.name.should.not.be.undefined;
+          done();
+        }),
+      );
+
+      builder.command(Command.build("command", false, () => {}));
+
+      return builder.run(mockArguments("command", "--version"));
     });
   });
 });
