@@ -42,4 +42,7 @@ build: compile
 	npx pkg . --out-path dist/bin
 
 clean:
+ifeq "$(all)" "true"
+	rm -rf node_modules yarn.lock
+endif
 	rm -rf dist .nyc_output coverage reports/**
