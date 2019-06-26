@@ -1,3 +1,4 @@
+import assert from "assert";
 import * as chai from "chai";
 import "mocha";
 import LoggerMock from "nd-logger/models/__test__/LoggerMock";
@@ -28,11 +29,10 @@ describe(rootName, function() {
       exp.description(message).message.should.be.equal(message);
     });
 
-    it("should custom message via .description()", function() {
-      const message = "hello world";
+    it("should auto update error stack", function() {
       const exp = new Exception(ERR_GNL);
-
-      exp.description(message).message.should.be.equal(message);
+      if (exp.stack) exp.stack.should.be.a("string");
+      else assert.fail("exception stack must exit");
     });
 
     it("should print to console", function() {
