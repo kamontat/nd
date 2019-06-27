@@ -8,22 +8,21 @@ import readline from "readline";
 import { ConfigKey, ConfigSchema, IConfiguration } from "./interface";
 
 export class Configuration extends Event implements IConfiguration {
-  private constructor() {
+  private static o: Configuration;
+
+  protected constructor() {
     super();
   }
 
-  private _object: ConfigSchema = {
+  protected _object: ConfigSchema = {
     "mode": "production",
     "version": "v1",
-    "output": true,
     "output.color": true,
     "output.file": true,
     "output.level": "2",
     "novel.location": ".",
     "novel.export": false, // not implement yet
   };
-
-  private static o: Configuration;
 
   public load(_path: string) {
     const file = resolve(`${_path}/config.ndc`); // load config

@@ -3,7 +3,6 @@ import { EventEmitter } from "events";
 export type ConfigKey =
   | "mode"
   | "version"
-  | "output"
   | "output.color"
   | "output.file"
   | "output.level"
@@ -11,9 +10,8 @@ export type ConfigKey =
   | "novel.export";
 
 export interface ConfigSchema {
-  mode: "development" | "production";
+  mode: "development" | "test" | "production";
   version: "v1";
-  output: boolean;
   "output.color": boolean;
   "output.file": boolean;
   "output.level": "0" | "1" | "2";
