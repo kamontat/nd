@@ -1,3 +1,5 @@
+import Verify from "./Verify";
+
 export default class CommandApis {
   private static c: CommandApis;
 
@@ -7,6 +9,10 @@ export default class CommandApis {
 
   public forceEnd() {
     process.exit(5);
+  }
+
+  get verify() {
+    return Verify;
   }
 
   public static get() {
