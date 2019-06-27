@@ -7,7 +7,7 @@ export default class MockConfiguration extends Configuration {
     "version": "v1",
     "output.color": false,
     "output.file": false,
-    "output.level": "2",
+    "output.level": "0", // mute everything
     "novel.location": "/tmp/",
     "novel.export": false, // not implement yet
   };
