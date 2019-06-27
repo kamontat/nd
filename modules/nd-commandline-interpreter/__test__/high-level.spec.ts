@@ -39,7 +39,7 @@ describe(rootName, function() {
         }),
       );
 
-      return builder.run(mockArguments("--version"));
+      builder.run(mockArguments("--version"));
     });
 
     it("should able to access global option callback when command exist before", function(done) {
@@ -54,7 +54,7 @@ describe(rootName, function() {
 
       builder.command(Command.build("command", false, () => {}));
 
-      return builder.run(mockArguments("command", "--version"));
+      builder.run(mockArguments("command", "--version"));
     });
   });
 });
