@@ -8,7 +8,7 @@ chai.should();
 
 const rootName = "Commandline interpreter";
 
-const mockArguments = (...args: string[]) => {
+export const MockArguments = (...args: string[]) => {
   return ["/tmp/node", "nd.min.js", ...args];
 };
 
@@ -29,32 +29,32 @@ describe(rootName, function() {
   });
 
   describe("Commandline Global Option", function() {
-    it("should able to access global option callback", function(done) {
+    it("should able to access global option callback", function() {
       const builder = new Commandline("test", "this is a description");
 
       builder.option(
-        Option.build("version", false, ({ self }) => {
+        Option.build("version", false, ({ self, apis }) => {
           self.name.should.not.be.undefined;
-          done();
+          return apis.end;
         }),
       );
 
-      builder.run(mockArguments("--version"));
+      return builder.run(MockArguments("--version"));
     });
 
-    it("should able to access global option callback when command exist before", function(done) {
+    it("should able to access global option callback when command exist before", function() {
       const builder = new Commandline("test", "this is a description");
 
       builder.option(
-        Option.build("version", false, ({ self }) => {
+        Option.build("version", false, ({ self, apis }) => {
           self.name.should.not.be.undefined;
-          done();
+          return apis.end;
         }),
       );
 
       builder.command(Command.build("command", false, () => {}));
 
-      builder.run(mockArguments("command", "--version"));
+      return builder.run(MockArguments("command", "--version"));
     });
   });
 });
