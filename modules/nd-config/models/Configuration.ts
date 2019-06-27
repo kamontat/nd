@@ -2,6 +2,7 @@ import Event from "events";
 import fs from "fs";
 import Exception, { ERR_CFG } from "nd-error";
 import LoggerService, { LOGGER_CONFIG } from "nd-logger";
+import { resolve } from "path";
 import readline from "readline";
 
 import { ConfigKey, ConfigSchema, IConfiguration } from "./interface";
@@ -25,12 +26,12 @@ export class Configuration extends Event implements IConfiguration {
   private static o: Configuration;
 
   public load(_path: string) {
-    const path = `${_path}/config.ndc`; // load config
-    LoggerService.log(LOGGER_CONFIG, `start load config from ${path}`);
+    const file = resolve(`${_path}/config.ndc`); // load config
+    LoggerService.log(LOGGER_CONFIG, `start load config from ${file}`);
     return new Promise<Configuration>((res, rej) => {
       try {
         const reader = readline.createInterface({
-          input: fs.createReadStream(path),
+          input: fs.createReadStream(file),
         });
 
         reader.on("line", line => {
