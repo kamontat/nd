@@ -3,13 +3,23 @@ import CommandApi from "../apis/Command";
 import Commandline from "./Commandline";
 
 type VoidFunction = () => void;
+type BoolFunction = () => boolean;
+
+export type ICommandCallbackResult =
+  | void
+  | VoidFunction
+  | BoolFunction
+  | undefined
+  | Promise<void>
+  | Promise<undefined>
+  | Promise<VoidFunction | BoolFunction>;
 
 export type ICommandCallback = (value: {
   self: Commandline;
   name: string;
   value: string | undefined;
   apis: CommandApi;
-}) => VoidFunction | void | undefined | Promise<void> | Promise<undefined> | Promise<VoidFunction>;
+}) => ICommandCallbackResult;
 
 export default abstract class ICommand {
   get name() {

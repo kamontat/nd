@@ -3,6 +3,8 @@ import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
 import Command from "./Command";
+import CommandlineEvent, { Default } from "./CommandlineEvent";
+import { ICommandCallbackResult } from "./ICommand";
 import Option from "./Option";
 
 export default class Commandline {
@@ -19,7 +21,7 @@ export default class Commandline {
   private async executeGlobalOptions(opts: string[]) {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
 
-    let callback: (() => void) | undefined | void = () => {};
+    let callback: ICommandCallbackResult;
 
     await opts.forEach(async (_o, i) => {
       if (!this.isOption(_o)) return;
@@ -29,12 +31,12 @@ export default class Commandline {
       if (this._globalOptions.has(o)) {
         const option = this._globalOptions.get(o) as Option;
         if (option.needParam) {
-          LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option with params`);
           callback = await option.execute(this, opts[i + 1]);
+          this._event.emit("globalOption", option, opts[i + 1]);
           opts.splice(i, 2);
         } else {
-          LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option without params`);
           callback = await option.execute(this, undefined);
+          this._event.emit("globalOption", option);
           opts.splice(i, 1);
         }
       }
@@ -43,11 +45,22 @@ export default class Commandline {
     return { arguments: opts, callback };
   }
 
+  set event(event: CommandlineEvent) {
+    this.event.removeAllListeners(); // remove all old listeners
+    this.event.emit("destory", undefined);
+    this._event = event;
+    this.event.emit("initial", undefined);
+  }
+
+  get event() {
+    return this._event;
+  }
+
   // TODO: Add support command option and subcommand option
-  private async travisArgumentPath(args: string[]) {
+  private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
     let skip = [];
     let c: Command | undefined;
-    let callback: (() => void) | undefined | void = () => {};
+    let callback: ICommandCallbackResult;
 
     let i = 0;
     for await (const arg of args) {
@@ -67,20 +80,28 @@ export default class Commandline {
 
           if (s.needParam) {
             callback = await s.execute(this, args[i + 1]); // next
+            this._event.emit("subcommand", s, args[i + 1]);
             skip.push(i + 1); // skip next args
-          } else callback = await s.execute(this, undefined);
+          } else {
+            callback = await s.execute(this, undefined);
+            this._event.emit("subcommand", s);
+          }
 
-          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has beed executed; remove in cache`);
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has been executed; remove in cache`);
           c = undefined;
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
 
           if (c.needParam) {
             callback = await c.execute(this, args[i + 1]); // next
+            this._event.emit("command", c, args[i + 1]);
             skip.push(i + 1); // skip next args
-          } else callback = await c.execute(this, undefined);
+          } else {
+            callback = await c.execute(this, undefined);
+            this._event.emit("command", c);
+          }
 
-          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} has beed executed; remove in cache`);
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} has been executed; remove in cache`);
           c = undefined;
         }
       }
@@ -117,7 +138,7 @@ export default class Commandline {
     return this._commands.get(a);
   }
 
-  constructor(private _name: string, private _description: string) {
+  constructor(private _name: string, private _description: string, private _event: CommandlineEvent = Default) {
     this._globalOptions = new Map();
     this._commands = new Map();
 
@@ -144,11 +165,17 @@ export default class Commandline {
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
 
     const global = await this.executeGlobalOptions(args);
-    if (global.callback && typeof global.callback === "function") global.callback();
+    if (global.callback && typeof global.callback === "function") {
+      const isEnd = global.callback();
+      if (isEnd === true) return;
+    }
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
 
     args.push(""); // push empty string
     const callback = await this.travisArgumentPath(global.arguments);
-    if (callback && typeof callback === "function") callback();
+    if (callback && typeof callback === "function") {
+      const isEnd = callback();
+      if (isEnd === true) return;
+    }
   }
 }
