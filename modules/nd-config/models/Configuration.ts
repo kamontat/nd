@@ -1,5 +1,6 @@
 import Event from "events";
 import fs from "fs";
+import Exception, { ERR_CFG } from "nd-error";
 import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 import readline from "readline";
 
@@ -26,32 +27,35 @@ export class Configuration extends Event implements IConfiguration {
   public load(_path: string) {
     const path = `${_path}/config.ndc`; // load config
     LoggerService.log(LOGGER_CONFIG, `start load config from ${path}`);
-
-    const reader = readline.createInterface({
-      input: fs.createReadStream(path),
-    });
-
-    reader.on("line", line => {
-      if (line === undefined || line === null || line === "") return;
-
-      const _arr = line.split("=");
-      const key = _arr[0];
-      const value = _arr[1];
-
-      if (!key || !value) throw new Error("invalid config format");
-      LoggerService.log(LOGGER_CONFIG, `build config of ${key}=${value}`);
-
-      Configuration.CONST().set(key as ConfigKey, value);
-    });
-
     return new Promise<Configuration>((res, rej) => {
-      reader.on("close", () => {
-        res(Configuration.CONST());
-      });
+      try {
+        const reader = readline.createInterface({
+          input: fs.createReadStream(path),
+        });
 
-      reader.on("SIGINT", rej);
-      reader.on("SIGCONT", rej);
-      reader.on("SIGTSTP", rej);
+        reader.on("line", line => {
+          if (line === undefined || line === null || line === "") return;
+
+          const _arr = line.split("=");
+          const key = _arr[0];
+          const value = _arr[1];
+
+          if (!key || !value) throw new Error("invalid config format");
+          LoggerService.log(LOGGER_CONFIG, `build config of ${key}=${value}`);
+
+          Configuration.CONST().set(key as ConfigKey, value);
+        });
+
+        reader.on("close", () => {
+          res(Configuration.CONST());
+        });
+
+        reader.on("SIGINT", rej);
+        reader.on("SIGCONT", rej);
+        reader.on("SIGTSTP", rej);
+      } catch (e) {
+        rej(Exception.cast(e, { base: ERR_CFG }));
+      }
     });
   }
 
