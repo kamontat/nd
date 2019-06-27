@@ -3,13 +3,13 @@ import "mocha";
 
 // const addContext = require("mochawesome/addContext");
 
-import { NdSecurity } from "../index";
+import { Security } from "../index";
 chai.should();
 
 describe("Security", function() {
   describe("Encryption", function() {
     it("should encrypt string", function() {
-      const security = new NdSecurity("v1", "test-decrypt");
+      const security = new Security("v1", "test-decrypt");
 
       const auth = security.encrypt({
         username: "tester",
@@ -34,7 +34,7 @@ describe("Security", function() {
       const name = "test-decrypt";
       const username = "tester";
 
-      const security = new NdSecurity("v1", name);
+      const security = new Security("v1", name);
 
       const auth = security.decrypt(token, salt);
 
@@ -50,7 +50,7 @@ describe("Security", function() {
       const salt = "salt";
       const name = "wrong-person";
 
-      const security = new NdSecurity("v1", name);
+      const security = new Security("v1", name);
 
       (function() {
         security.decrypt(token, salt);

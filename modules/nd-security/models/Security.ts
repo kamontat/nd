@@ -14,7 +14,7 @@ interface TokenConfig {
 
 type versionName = "v1";
 
-export default class NdSecurity {
+export default class Security {
   private _config: ConfigJson;
   private _name: string;
 
