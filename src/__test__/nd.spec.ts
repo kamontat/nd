@@ -4,6 +4,7 @@ import { Commandline, Option } from "nd-commandline-interpreter";
 import { CommandlineEvent } from "nd-commandline-interpreter";
 import { MockArguments } from "nd-commandline-interpreter/__test__/high-level.spec";
 import MockConfiguration from "nd-config/models/__test__/MockConfiguration";
+import LoggerService from "nd-logger";
 
 import { BuildCommandline } from "../nd";
 chai.should();
@@ -17,6 +18,9 @@ describe(rootName, function() {
   let cli: Commandline | undefined;
   this.beforeAll(async () => {
     cli = await BuildCommandline(new Commandline("nd", "for test purpose only"), new MockConfiguration());
+    LoggerService.disable();
+
+    (global as any).__COMPILE_DATE__ = +new Date();
   });
 
   describe("demo nd command in programming", function() {

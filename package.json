@@ -86,7 +86,10 @@
       "reports/**/*",
       "dist/**/*",
       "coverage/**/*",
-      "modules/webpack-visualizer/**/*"
+      "modules/webpack-visualizer/**/*",
+      "**/index.ts",
+      "admin.ts",
+      "webpack.config.js"
     ],
     "reporter": [
       "html",
