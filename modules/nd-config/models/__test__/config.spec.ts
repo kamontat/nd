@@ -11,6 +11,21 @@ const rootName = "Configuration";
 
 describe(rootName, function() {
   describe("Models", function() {
+    this.beforeAll(() => {
+      const str = `output=false
+# Comment message
+output.level=1
+## Comment again
+output.asdf=mock
+
+mocking.abc=true # inline comment :)`;
+      mock({
+        "/example/mock/config": {
+          "config.ndc": str,
+        },
+      });
+    });
+
     it("should create config models", function(done) {
       const config1 = Configuration.CONST();
       const config2 = Configuration.CONST();
@@ -20,21 +35,24 @@ describe(rootName, function() {
     });
 
     it("should about to load configuration file", function(done) {
-      mock({
-        "/example/mock/config": {
-          "config.ndc": "output=false",
-        },
-      });
       const config = Configuration.CONST();
       config.on("output", function(bool) {
-        bool.should.not.be.undefined;
         bool.should.be.a("string");
+        bool.should.be.equal("false");
+      });
+
+      config.on("output.asdf", function(bool) {
+        bool.should.be.a("string");
+        bool.should.be.equal("mock");
 
         done();
-        mock.restore();
       });
 
       config.load("/example/mock/config");
+    });
+
+    this.afterAll(() => {
+      mock.restore();
     });
   });
 });
