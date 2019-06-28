@@ -1,3 +1,5 @@
+import CommandlineConfig from "../models/CommandlineConfig";
+
 import Verify from "./Verify";
 
 export default class CommandApis {
@@ -17,6 +19,10 @@ export default class CommandApis {
 
   get verify() {
     return Verify;
+  }
+
+  get config() {
+    return CommandlineConfig.CONST();
   }
 
   public static get() {

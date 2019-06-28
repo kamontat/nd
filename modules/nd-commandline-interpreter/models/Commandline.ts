@@ -8,6 +8,7 @@ import Command from "./Command";
 import CommandlineEvent, { Default } from "./CommandlineEvent";
 import { ICommandCallback, ICommandCallbackResult } from "./ICommand";
 import Option from "./Option";
+import Optionable from "./Optionable";
 
 export default class Commandline {
   get name() {
@@ -86,6 +87,8 @@ export default class Commandline {
 
         if (s) {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} have subcommand`);
+          this.travisOptionPath(s, args.filter(this.isOption));
+          LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (s.needParam) {
             callback = await s.execute(this, next);
@@ -100,6 +103,8 @@ export default class Commandline {
           c = undefined;
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
+          this.travisOptionPath(c, args.filter(this.isOption));
+          LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
             callback = await c.execute(this, next);
@@ -141,6 +146,30 @@ export default class Commandline {
     }
 
     return callback;
+  }
+
+  private travisOptionPath(c: Optionable, opts: string[]) {
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check local option`);
+
+    opts.forEach((_o, i) => {
+      const o = _o.replace("--", "");
+
+      LoggerService.log(LOGGER_CLI_BUILDER, `try is ${o} is a option of ${c.name} ?`);
+
+      const option = c.getOption(o);
+      if (option) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `${option.name} is a part of ${c.name}`);
+        if (option.needParam) {
+          option.execute(this, opts[i + 1]);
+          this._event.emit("option", option, opts[i + 1]);
+          opts.splice(i, 2);
+        } else {
+          option.execute(this, undefined);
+          this._event.emit("option", option);
+          opts.splice(i, 1);
+        }
+      }
+    });
   }
 
   private isOption(a: string) {
