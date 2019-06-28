@@ -122,14 +122,14 @@
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.7.tgz#315d570ccb56c53452ff8638738df60726d5b6ea"
   integrity sha512-NYrtPht0wGzhwe9+/idPaBB+TqkY9AhTvOLMkThm0IoEfLaiVQZwBwyJ5puCkO3AUCWrmcoePjp2mbFocKy4SQ==
 
-"@types/mock-fs@^3.6.30":
+"@types/mock-fs@3.6.30":
   version "3.6.30"
   resolved "https://registry.yarnpkg.com/@types/mock-fs/-/mock-fs-3.6.30.tgz#4d812541e87b23577261a5aa95f704dd3d01e410"
   integrity sha1-TYElQeh7I1dyYaWqlfcE3T0B5BA=
   dependencies:
     "@types/node" "*"
 
-"@types/ms@^0.7.30":
+"@types/ms@0.7.30":
   version "0.7.30"
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.30.tgz#f6c38b7ecbbf698b0bbd138315a0f0f18954f85f"
   integrity sha512-OftRLCgAzJP7vmKn9by/GVjnf4hloz/pXNOwPo0vKGAfXI7GqWXJi9N2kRar4cP5s1dGwuwcagWqO6iHBTq1Mg==
@@ -144,7 +144,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.10.tgz#e491484c6060af8d461e12ec81c0da8a3282b8de"
   integrity sha512-V8wj+w2YMNvGuhgl/MA5fmTxgjmVHVoasfIaxMMZJV6Y8Kk+Ydpi1z2whoShDCJ2BuNVoqH/h1hrygnBxkrw/Q==
 
-"@types/rewire@^2.5.28":
+"@types/rewire@2.5.28":
   version "2.5.28"
   resolved "https://registry.yarnpkg.com/@types/rewire/-/rewire-2.5.28.tgz#ff34de38c4269fe74e2597195d4918c25d42ebad"
   integrity sha512-uD0j/AQOa5le7afuK+u+woi8jNKF1vf3DN0H7LCJhft/lNNibUr7VcAesdgtWfEKveZol3ZG1CJqwx2Bhrnl8w==
@@ -3051,7 +3051,7 @@ mochawesome@4.0.1:
     strip-ansi "^5.0.0"
     uuid "^3.3.2"
 
-mock-fs@^4.10.1:
+mock-fs@4.10.1:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-4.10.1.tgz#50a07a20114a6cdb119f35762f61f46266a1e323"
   integrity sha512-w22rOL5ZYu6HbUehB5deurghGM0hS/xBVyHMGKOuQctkk93J9z9VEOhDsiWrXOprVNQpP9uzGKdl8v9mFspKuw==
@@ -3117,9 +3117,13 @@ natural-compare@^1.4.0:
 
 nd-admin@./modules/nd-admin:
   version "1.0.0-alpha.1"
+  dependencies:
+    nd-commandline-interpreter "./modules/nd-commandline-interpreter"
+    nd-helper "./modules/nd-helper"
+    nd-security "./modules/nd-security"
 
 nd-commandline-interpreter@./modules/nd-commandline-interpreter:
-  version "1.0.0-beta.5"
+  version "1.0.0-beta.7"
   dependencies:
     nd-logger "./modules/nd-logger"
 
@@ -3134,18 +3138,18 @@ nd-error@./modules/nd-error:
     nd-logger "./modules/nd-logger"
 
 nd-helper@./modules/nd-helper:
-  version "0.1.1"
+  version "0.2.0"
   dependencies:
     chalk "2.4.2"
 
 nd-logger@./modules/nd-logger:
-  version "1.0.2"
+  version "1.0.3"
   dependencies:
     debug "4.1.1"
     nd-config "./modules/nd-config"
 
 nd-security@./modules/nd-security:
-  version "1.1.2"
+  version "1.1.3"
   dependencies:
     bcryptjs "2.4.3"
     jsonwebtoken "8.5.1"
@@ -3988,7 +3992,7 @@ ret@~0.1.10:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
 
-rewire@^4.0.1:
+rewire@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/rewire/-/rewire-4.0.1.tgz#ba1100d400a9da759fe599fc6e0233f0879ed6da"
   integrity sha512-+7RQ/BYwTieHVXetpKhT11UbfF6v1kGhKFrtZN7UDL2PybMsSt/rpLWeEUGF5Ndsl1D5BxiCB14VDJyoX+noYw==
