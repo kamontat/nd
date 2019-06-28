@@ -105,7 +105,7 @@ ${HELP_FOOTER(self.name)}`);
     }).sub(
       SubCommand.build("version", false, ({ self }) => {
         LoggerService.log(LOGGER_CLI, `${self.name} start initial setting command`);
-        console.log(VERSION_FULL());
+        LoggerService.console.log(VERSION_FULL());
       }),
     ),
   );
