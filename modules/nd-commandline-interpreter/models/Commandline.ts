@@ -45,6 +45,10 @@ export default class Commandline {
     return { arguments: opts, callback };
   }
 
+  private finish() {
+    this.event.emit("end");
+  }
+
   set event(event: CommandlineEvent) {
     this.event.removeAllListeners(); // remove all old listeners
     this.event.emit("destory", undefined);
@@ -167,15 +171,18 @@ export default class Commandline {
     const global = await this.executeGlobalOptions(args);
     if (global.callback && typeof global.callback === "function") {
       const isEnd = global.callback();
-      if (isEnd === true) return;
+      if (isEnd === true) return this.finish();
     }
+
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
 
     args.push(""); // push empty string
     const callback = await this.travisArgumentPath(global.arguments);
     if (callback && typeof callback === "function") {
       const isEnd = callback();
-      if (isEnd === true) return;
+      if (isEnd === true) return this.finish();
     }
+
+    return this.finish();
   }
 }
