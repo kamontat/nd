@@ -2,9 +2,11 @@ import Exception, { ERR_CLI } from "nd-error";
 import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
+import { CommandApi } from "..";
+
 import Command from "./Command";
 import CommandlineEvent, { Default } from "./CommandlineEvent";
-import { ICommandCallbackResult } from "./ICommand";
+import { ICommandCallback, ICommandCallbackResult } from "./ICommand";
 import Option from "./Option";
 
 export default class Commandline {
@@ -15,6 +17,7 @@ export default class Commandline {
     return this._description;
   }
 
+  private _callback?: ICommandCallback;
   private _globalOptions: Map<string, Option>;
   private _commands: Map<string, Command>;
 
@@ -69,6 +72,8 @@ export default class Commandline {
     let i = 0;
     for await (const arg of args) {
       if (arg !== "") LoggerService.log(LOGGER_CLI_BUILDER, `current travis argument is ${arg}`);
+      const next = args[i + 1];
+      if (next !== "") LoggerService.log(LOGGER_CLI_BUILDER, `next travis argument is ${next}`);
 
       if (c) {
         LoggerService.log(
@@ -83,8 +88,8 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} have subcommand`);
 
           if (s.needParam) {
-            callback = await s.execute(this, args[i + 1]); // next
-            this._event.emit("subcommand", s, args[i + 1]);
+            callback = await s.execute(this, next);
+            this._event.emit("subcommand", s, next);
             skip.push(i + 1); // skip next args
           } else {
             callback = await s.execute(this, undefined);
@@ -97,8 +102,8 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
 
           if (c.needParam) {
-            callback = await c.execute(this, args[i + 1]); // next
-            this._event.emit("command", c, args[i + 1]);
+            callback = await c.execute(this, next);
+            this._event.emit("command", c);
             skip.push(i + 1); // skip next args
           } else {
             callback = await c.execute(this, undefined);
@@ -125,7 +130,11 @@ export default class Commandline {
       c = this.isCommand(arg);
       if (i === 0 && !c) {
         LoggerService.log(LOGGER_CLI_BUILDER, `you didn't input valid root command in first argument`);
-        throw Exception.build(ERR_CLI).description("invalid option and command");
+        LoggerService.log(LOGGER_CLI_BUILDER, `try to call default callback with arguments '${arg}'`);
+
+        if (this._callback) {
+          callback = this._callback({ self: this, name: "default", value: arg, apis: CommandApi.get() });
+        } else throw Exception.build(ERR_CLI).description("invalid option and command");
       }
 
       i++;
@@ -157,6 +166,10 @@ export default class Commandline {
     this._commands.set(cmd.name, cmd);
   }
 
+  public callback(callback: ICommandCallback) {
+    this._callback = callback;
+  }
+
   public async run(_args: string[]) {
     const node = _args[0];
     const file = _args[1];
@@ -174,7 +187,7 @@ export default class Commandline {
       if (isEnd === true) return this.finish();
     }
 
-    LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global ${args}`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global`);
 
     args.push(""); // push empty string
     const callback = await this.travisArgumentPath(global.arguments);
