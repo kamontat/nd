@@ -176,18 +176,19 @@ export const VERSION_FULL_DETAIL = () => {
   // error package
   dependencies.push(genInternalDependency(ErrorPackage));
 
+  // NOTES: just disable external dependency because It might have vulnerability
   // external dependency
-  Object.keys(CorePackage.dependencies)
-    .filter(v => !v.includes("nd-"))
-    .forEach(name => {
-      const version = (CorePackage.dependencies as any)[name];
-      const description = (CorePackage as any).dependency[name];
-      dependencies.push({
-        name,
-        version,
-        description,
-      });
-    });
+  // Object.keys(CorePackage.dependencies)
+  //   .filter(v => !v.includes("nd-"))
+  //   .forEach(name => {
+  //     const version = (CorePackage.dependencies as any)[name];
+  //     const description = (CorePackage as any).dependency[name];
+  //     dependencies.push({
+  //       name,
+  //       version,
+  //       description,
+  //     });
+  //   });
 
   let str = dependencies.reduce((p, c) => {
     let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}`;
