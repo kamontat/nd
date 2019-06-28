@@ -19,7 +19,8 @@ ifeq "$(quite)" "true"
 		./modules/nd-security \
 		./modules/nd-helper \
 		./modules/nd-config \
-		./modules/nd-error >/dev/null
+		./modules/nd-error \
+		./modules/nd-admin >/dev/null
 else
 	@$(npm_client) add \
 		./modules/nd-logger \
@@ -27,7 +28,8 @@ else
 		./modules/nd-security \
 		./modules/nd-helper \
 		./modules/nd-config \
-		./modules/nd-error
+		./modules/nd-error \
+		./modules/nd-admin
 endif
 
 compile: lib

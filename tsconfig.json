@@ -3,7 +3,8 @@
     "index.ts",
     "src/**/*.ts",
     "modules/**/*.ts",
-    "*.json"
+    "node_modules/nd-*/**/*.ts",
+    "**/*.json"
   ],
   "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
