@@ -6,7 +6,7 @@ import LoggerService, { LOGGER_CLI } from "nd-logger";
 import tabtab from "tabtab";
 
 import { Package } from "./build/Package";
-import { HELP_CONTENT, HELP_FOOTER, VERSION_FULL } from "./constants/content";
+import { HELP_CONTENT, HELP_FOOTER, VERSION_FULL, VERSION_FULL_DETAIL } from "./constants/content";
 
 declare var __COMPILE_DATE__: string;
 
@@ -85,33 +85,40 @@ ${HELP_FOOTER(self.name)}`);
       ),
   );
 
-  cli.command(
-    Command.build("completion", false, async ({ self }) => {
-      LoggerService.log(LOGGER_CLI, `${self.name} start install completion`);
-      await tabtab.install({
-        name: "nd",
-        completer: "nd",
-      });
-    }).sub(
-      SubCommand.build("uninstall", false, async ({ self }) => {
-        LoggerService.log(LOGGER_CLI, `${self.name} start uninstall completion`);
+  // cli.command(
+  //   Command.build("completion", false, async ({ self }) => {
+  //     LoggerService.log(LOGGER_CLI, `${self.name} start install completion`);
+  //     await tabtab.install({
+  //       name: "nd",
+  //       completer: "nd",
+  //     });
+  //   }).sub(
+  //     SubCommand.build("uninstall", false, async ({ self }) => {
+  //       LoggerService.log(LOGGER_CLI, `${self.name} start uninstall completion`);
 
-        await tabtab.uninstall({
-          name: "nd",
-        });
-      }),
-    ),
-  );
+  //       await tabtab.uninstall({
+  //         name: "nd",
+  //       });
+  //     }),
+  //   ),
+  // );
 
   cli.command(
     Command.build("command", true, ({ self, value }) => {
       LoggerService.log(LOGGER_CLI, `${self.name} start default novel command with ${value}`);
-      tabtab.log([{ name: "version", description: "show command version (all)" }]);
+      // tabtab.log([{ name: "version", description: "show command version (all)" }]);
     }).sub(
-      SubCommand.build("version", false, ({ self }) => {
+      SubCommand.build("version", false, ({ self, apis }) => {
         LoggerService.log(LOGGER_CLI, `${self.name} start initial setting command`);
-        LoggerService.console.log(VERSION_FULL());
-      }),
+
+        if (apis.config.get("version.detail")) LoggerService.console.log(VERSION_FULL_DETAIL());
+        else LoggerService.console.log(VERSION_FULL());
+      }).option(
+        Option.build("detail", false, ({ apis }) => {
+          LoggerService.log(LOGGER_CLI, `Start version as a fully detail`);
+          apis.config.set("version.detail", true);
+        }),
+      ),
     ),
   );
 
