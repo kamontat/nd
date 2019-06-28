@@ -17,6 +17,8 @@
     "dev": "make compile mode=development quite=true && node dist/nd.js",
     "dev:admin": "make compile mode=development quite=true && node dist/nd-admin.js",
     "start": "make compile mode=production && node dist/nd.min.js",
+    "run": "node dist/nd.js",
+    "run:prod": "node dist/nd.min.js",
     "test": "make test mode=test",
     "test:debug": "export TS_NODE_DEBUG=true && yarn test",
     "release:lib": "./scripts/release_lib.sh",
