@@ -1,0 +1,11 @@
+mode=production # not implement yet!
+version=v1 # not implement yet!
+
+debug=false # not implement yet!
+
+output.color=true # not implement yet!
+output.file=false # not implement yet!
+output.level=2 # not implement yet!
+
+novel.location=/Users/kchantrachir/Desktop/novel # not implement yet!
+novel.export=false # not implement yet!
