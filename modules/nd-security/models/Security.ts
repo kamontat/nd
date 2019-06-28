@@ -7,7 +7,7 @@ import config, { ConfigJson } from "../config";
 
 interface TokenConfig {
   username: string;
-  expire?: "1h" | "24h" | "7d" | "1m" | "1y" | "100y";
+  expire?: "1h" | "24h" | "7d" | "30d" | "1y" | "100y";
   when?: "1ms" | "1d" | "7d";
   issuer?: "admin" | "selfgen";
 }
@@ -48,6 +48,7 @@ export default class Security {
       issuer: config.issuer,
       jwtid: this._config.id,
     });
+
     LoggerService.log(LOGGER_SECURITY, `before hash token=${token}`);
 
     return {
