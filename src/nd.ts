@@ -37,6 +37,11 @@ export const BuildCommandline = (cli: Commandline, config: IConfiguration) => {
     UpdateLogInfo(["--level", level]);
   });
 
+  // TODO: implement default query
+  // cli.callback(({ name }) => {
+  //   LoggerService.console.log(`Start ${name} callback`);
+  // });
+
   cli.option(
     Option.build("help", false, ({ self, apis }) => {
       const date = new Date(__COMPILE_DATE__);
