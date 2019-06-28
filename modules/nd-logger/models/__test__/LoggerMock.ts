@@ -25,6 +25,7 @@ export default class LoggerMock extends Logger {
   }
 
   public debug(format: any, ...args: any[]) {
+    super.debug(format, ...args); // try to called super too
     return this.callback("debug", format, ...args);
   }
 }

@@ -1,3 +1,4 @@
+import assert from "assert";
 import * as chai from "chai";
 import "mocha";
 import { Commandline, Option } from "nd-commandline-interpreter";
@@ -23,13 +24,15 @@ describe(rootName, function() {
     (global as any).__COMPILE_DATE__ = +new Date();
   });
 
-  describe("demo nd command in programming", function() {
-    it("should get version option", function(done) {
+  describe("Demo global options", function() {
+    it("should execute `nd --version`", function(done) {
       if (!cli) throw CLI_ERR;
 
       const customEvent = new CommandlineEvent();
       customEvent.on("globalOption", function(opt: Option) {
         opt.name.should.be.equal("version");
+      });
+      customEvent.on("end", function() {
         done();
       });
 
@@ -37,17 +40,72 @@ describe(rootName, function() {
       cli.run(MockArguments("--version"));
     });
 
-    it("should get version option", function(done) {
+    it("should execute `nd --help`", function(done) {
       if (!cli) throw CLI_ERR;
 
       const customEvent = new CommandlineEvent();
       customEvent.on("globalOption", function(opt: Option) {
         opt.name.should.be.equal("help");
+      });
+      customEvent.on("end", function() {
         done();
       });
 
       cli.event = customEvent;
       cli.run(MockArguments("--help"));
+    });
+
+    it("should execute `nd command --help`", function(done) {
+      if (!cli) throw CLI_ERR;
+
+      const customEvent = new CommandlineEvent();
+      customEvent.on("globalOption", function(opt: Option) {
+        opt.name.should.be.equal("help");
+      });
+      customEvent.on("end", function() {
+        done();
+      });
+
+      cli.event = customEvent;
+      cli.run(MockArguments("command", "--help"));
+    });
+
+    it("should execute `nd command --help`", function(done) {
+      if (!cli) throw CLI_ERR;
+
+      const customEvent = new CommandlineEvent();
+      customEvent.on("globalOption", function(opt: Option) {
+        opt.name.should.be.equal("help");
+      });
+      customEvent.on("end", function() {
+        done();
+      });
+
+      cli.event = customEvent;
+      cli.run(MockArguments("command", "--help"));
+    });
+
+    it("should execute `nd --level 2 --help`", function(done) {
+      if (!cli) throw CLI_ERR;
+
+      const customEvent = new CommandlineEvent();
+      customEvent.on("globalOption", function(opt: Option, str: string) {
+        if (opt.name === "level") {
+          str.should.be.equal("2");
+          return;
+        }
+        if (opt.name === "help") {
+          return;
+        }
+
+        return assert.fail("unknown global option has been executed");
+      });
+      customEvent.on("end", function() {
+        done();
+      });
+
+      cli.event = customEvent;
+      cli.run(MockArguments("--level", "2", "--help"));
     });
   });
 });

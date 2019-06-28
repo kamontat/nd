@@ -1,10 +1,11 @@
 import assert from "assert";
 import * as chai from "chai";
 import "mocha";
-chai.should();
+import rewire from "rewire";
 
 import LoggerService from "../index";
 import LoggerMock from "../models/__test__/LoggerMock";
+chai.should();
 
 // const addContext = require("mochawesome/addContext");
 
@@ -69,6 +70,36 @@ describe(rootName, function() {
       });
 
       LoggerService.error(mock, MESSAGE);
+    });
+  });
+
+  describe("Console log", function() {
+    it("Shouldn't called console.log when disable logger", function() {
+      const service = rewire("../index");
+      service.__set__({
+        console: {
+          log() {
+            assert.fail("Logger have already disabled");
+          },
+        },
+      });
+
+      service.disable();
+      service.console.log("Hello world");
+    });
+
+    it("Shouldn't called console.log when disable logger", function() {
+      const service = rewire("../index");
+      service.__set__({
+        console: {
+          log(str: string) {
+            str.should.not.be.undefined;
+          },
+        },
+      });
+
+      service.enable("nd:*");
+      service.console.log("Hello world");
     });
   });
 });
