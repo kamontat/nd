@@ -33,6 +33,8 @@ export const HELP_CONTENT = (name: string) => {
 {gray $} {green ${name}} {magentaBright config} {magenta set}               -- update new configuration value [WIP]
      parameter:
        {yellow <key>=<value>}           - {gray [required]} key and value to be saved in config file [WIP]
+     option:
+       {cyan --backup}                - {gray [optional]} create backup before replace configuration file [WIP]
 
 {bold ## Novel}
 
