@@ -1,7 +1,8 @@
 import { Command, Commandline, Option, SubCommand } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
-import { VERSION_FULL, VERSION_FULL_DETAIL } from "src/constants/content";
+
+import { VERSION_FULL, VERSION_FULL_DETAIL } from "../constants/content";
 
 export default (cli: Commandline, _: IConfiguration) => {
   cli.command(

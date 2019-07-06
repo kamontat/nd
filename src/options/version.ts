@@ -2,7 +2,8 @@ import { Commandline, Option } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import { Colorize } from "nd-helper";
 import LoggerService from "nd-logger";
-import { Package } from "src/build/Package";
+
+import { Package } from "../build/Package";
 
 export const Version = (cli: Commandline, _: IConfiguration) => {
   cli.option(

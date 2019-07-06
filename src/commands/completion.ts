@@ -1,4 +1,4 @@
-import { SubCommand } from "modules/nd-commandline-interpreter";
+import { SubCommand } from "nd-commandline-interpreter";
 import { Command, Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
