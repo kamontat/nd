@@ -23,20 +23,20 @@ UpdateLogInfo(process.argv);
 const cli = new Commandline(Package.name, Package.description);
 
 const home = homedir();
-config
-  .load(`${home}/.nd/config`)
-  .then(config => {
-    config.on("output.level", (level: string) => {
+
+(async () => {
+  try {
+    const conf = await config.load(`${home}/.nd/config`);
+
+    conf.on("output.level", (level: string) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
       UpdateLogInfo(["--level", level]);
     });
 
-    return BuildCommandline(cli, config);
-  })
-  .then(cli => {
-    return cli.run(process.argv);
-  })
-  .catch(e => {
+    const commandline = await BuildCommandline(cli, config);
+    await commandline.run(process.argv);
+  } catch (e) {
     const err = Exception.cast(e);
     err.print(LOGGER_ROOT).exit(1);
-  });
+  }
+})();
