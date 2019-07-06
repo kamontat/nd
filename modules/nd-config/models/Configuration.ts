@@ -8,6 +8,7 @@ import open from "open";
 import { resolve } from "path";
 import readline, { ReadLine } from "readline";
 
+import { ConfigParser } from "../apis/parser";
 import { BACKUP_NAME } from "../constants/file";
 
 import { ConfigKey, ConfigSchema, IConfiguration } from "./interface";
@@ -63,28 +64,10 @@ export class Configuration extends Event implements IConfiguration {
         reader.on("line", line => {
           if (line === undefined || line === null || line === "") return;
 
-          const _line = line.split("#"); // remove all space
-          // with comment
-          if (_line.length > 1) {
-            if (_line[0].trim() === "") {
-              LoggerService.log(LOGGER_CONFIG, `auto detect comment line '${_line[1]}'`);
-              return;
-            }
-            line = _line[0]; // remove # inline comment
-            LoggerService.log(LOGGER_CONFIG, `auto detect inline comment '${_line[1]}'`);
-          }
-          const _arr = line.split("=");
-          if (_arr.length !== 2) {
-            LoggerService.log(LOGGER_CONFIG, `ignore this line ${line}`);
-            return;
-          }
-          const key = _arr[0];
-          const value = _arr[1].trim();
-
-          if (!key || !value) throw new Error("invalid config format");
-          LoggerService.log(LOGGER_CONFIG, `build config of ${key}=${value}`);
-
-          Configuration.CONST().set(key as ConfigKey, value);
+          const result = ConfigParser(line);
+          if (!result) throw Exception.build(ERR_CFG).description("invalid config format");
+          if (result instanceof Array) result.forEach(r => Configuration.CONST().set(r.key, r.value));
+          else Configuration.CONST().set(result.key, result.value);
         });
 
         reader.on("close", () => {
@@ -106,7 +89,9 @@ export class Configuration extends Event implements IConfiguration {
 
   public set(key: ConfigKey, value?: string) {
     if (!value) return;
+
     const old = this._object[key];
+    LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
     if (old !== value) {
       this._object[key] = value as never; // might change to anythings else
       this.emit(key, value);
