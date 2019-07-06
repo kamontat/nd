@@ -10,5 +10,5 @@
   "changelog": {
     "1.0.0-alpha.1": "release first alpha version"
   },
-  "support": ["3.0.0-alpha.3"]
+  "support": ["3.0.0-alpha.2", "3.0.0-alpha.3"]
 }

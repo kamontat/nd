@@ -48,9 +48,13 @@ and go to initial section. Thank you
 
 export const HelpMessage = (pjson: any) => {
   const title = `${Colorize.appname(pjson.name)}: ${pjson.description}\n`;
+
   return (
     title +
     Colorize.format`
-Usage: {dim $} {greenBright ${pjson.name}} {blueBright generate}`
+Usage: {dim $} {greenBright ${pjson.name}} {blueBright generate}
+
+${pjson.name} version: ${pjson.version}
+support ${Package.name} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
   );
 };
