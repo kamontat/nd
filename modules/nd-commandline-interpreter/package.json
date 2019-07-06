@@ -1,11 +1,12 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-rc.1",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0-rc.1": "release first rc version with fixes some bug",
     "1.0.0-beta.7": "add support option in command and subcommand",
     "1.0.0-beta.6": "add default callback when no command exist",
     "1.0.0-beta.5": "fix event object not defined",
