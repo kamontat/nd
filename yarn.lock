@@ -3978,7 +3978,7 @@ pkg-fetch@~2.6.2:
     semver "~6.0.0"
     unique-temp-dir "~1.0.0"
 
-pkg@^4.4.0:
+pkg@4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/pkg/-/pkg-4.4.0.tgz#9b6f2c77f891b6eb403681f5a8c1d2de09a976d3"
   integrity sha512-bFNJ3v56QwqB6JtAl/YrczlmEKBPBVJ3n5nW905kgvG1ex9DajODpTs0kLAFxyLwoubDQux/RPJFL6WrnD/vpg==
