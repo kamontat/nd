@@ -138,6 +138,8 @@ export class Configuration extends Event implements IConfiguration {
             return res();
           }
         });
+      } else {
+        return res();
       }
     }).then(() => {
       return new Promise<this>((res, rej) => {
@@ -162,7 +164,10 @@ export class Configuration extends Event implements IConfiguration {
     return questionPromise("? create").then(answer => {
       LoggerService.log(LOGGER_CONFIG, `create something answer is ${answer}`);
 
-      return new Promise<this>(res => res(this));
+      return new Promise<this>(res => {
+        rl.close(); // stop listen key event
+        res(this);
+      });
     });
   }
 
