@@ -8,12 +8,13 @@ export default class CommandlineConfig {
   private static instance?: CommandlineConfig;
 
   public get(name: string) {
-    LoggerService.log(LOGGER_CLI_CONFIG, `Commandline config get ${name}`);
-    return this._config.get(name);
+    const value = this._config.get(name);
+    LoggerService.log(LOGGER_CLI_CONFIG, `get config of '${name}' is ${value}`);
+    return value;
   }
 
   public set(name: string, value: string | boolean | number) {
-    LoggerService.log(LOGGER_CLI_CONFIG, `Commandline config set ${name} to ${value}`);
+    LoggerService.log(LOGGER_CLI_CONFIG, `set config of '${name}' to '${value}'`);
     this._config.set(name, value);
   }
 
