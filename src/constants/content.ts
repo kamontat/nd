@@ -23,18 +23,18 @@ export const HELP_CONTENT = (name: string) => {
 {gray $} {green ${name}} {magentaBright config} {magenta [get]}             -- get value from configuration file [WIP]
      parameter:
        {yellow <key>}                   - {gray [optional]} print value by config key or print all available config [WIP]
-{gray $} {green ${name}} {magentaBright config} {magenta init}              -- create configuration file and setup as new computer [WIP]
+{gray $} {green ${name}} {magentaBright config} {magenta init}              -- create configuration file and setup as new computer
      option:
-       {cyan --backup}                - {gray [optional]} create backup before replace configuration file [WIP]
+       {cyan --backup}                - {gray [optional]} create backup before replace configuration file
 {gray $} {green ${name}} {magentaBright config} {magenta path}              -- output configuration path
      option:
        {cyan --open}                  - {gray [optional]} instead of print, open configuration file with {blueBright $EDITOR} [ERR]
        {cyan --only}                  - {gray [optional]} output only path name without any prefix or postfix
-{gray $} {green ${name}} {magentaBright config} {magenta set}               -- update new configuration value [WIP]
+{gray $} {green ${name}} {magentaBright config} {magenta set}               -- update new configuration value
      parameter:
-       {yellow <key>=<value>}           - {gray [required]} key and value to be saved in config file [WIP]
+       {yellow <key>=<value>}           - {gray [required]} key and value to be saved in config file
      option:
-       {cyan --backup}                - {gray [optional]} create backup before replace configuration file [WIP]
+       {cyan --backup}                - {gray [optional]} create backup before replace configuration file
 
 {bold ## Novel}
 
