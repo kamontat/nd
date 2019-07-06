@@ -1,5 +1,6 @@
 import { Command, Commandline, Option, SubCommand } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
+import { ConfigParser, IConfiguration } from "nd-config";
+import Exception, { ERR_CFG } from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 import readline from "readline";
 
@@ -19,6 +20,17 @@ export default (cli: Commandline, config: IConfiguration) => {
             config.save(apis.config.get("config.backup") as boolean);
           },
         ).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
+      )
+      .sub(
+        SubCommand.build("set", true, ({ value, apis }) => {
+          LoggerService.log(LOGGER_CLI, `set ${value}`);
+          const parsed = ConfigParser(value);
+          if (!parsed) throw Exception.build(ERR_CFG).description("cannot parse any key or value from input string");
+          if (parsed instanceof Array) parsed.forEach(p => config.set(p.key, p.value));
+          else config.set(parsed.key, parsed.value);
+
+          config.save(apis.config.get("config.backup") as boolean);
+        }).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
       )
       .sub(
         SubCommand.build("path", true, async ({ self, apis }) => {
