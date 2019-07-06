@@ -4,6 +4,9 @@ import { ReadLine } from "readline";
 export type ConfigKey =
   | "mode"
   | "version"
+  | "auth.token"
+  | "auth.name"
+  | "auth.salt"
   | "output.color"
   | "output.file"
   | "output.level"
@@ -13,6 +16,9 @@ export type ConfigKey =
 export interface ConfigSchema {
   mode: "development" | "test" | "production";
   version: "v1";
+  "auth.token": string;
+  "auth.name": string;
+  "auth.salt": string;
   "output.color": boolean;
   "output.file": boolean;
   "output.level": "0" | "1" | "2";

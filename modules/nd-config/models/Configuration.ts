@@ -2,6 +2,7 @@ import { defaultEditor } from "env-editor";
 import Event from "events";
 import fs from "fs";
 import Exception, { ERR_CFG, ERR_CLI } from "nd-error";
+import { Colorize } from "nd-helper";
 import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 import open from "open";
 import { resolve } from "path";
@@ -157,24 +158,42 @@ export class Configuration extends Event implements IConfiguration {
   public start(rl: ReadLine): Promise<this> {
     const questionPromise = (q: string) => {
       return new Promise<string>(res => {
-        rl.question(q, res);
+        rl.question(Colorize.format`{dim ?} {greenBright ${q}}: `, answer => {
+          LoggerService.log(LOGGER_CONFIG, `the answer of ${q} is ${answer}`);
+          return res(answer);
+        });
       });
     };
 
-    return questionPromise("? create").then(answer => {
-      LoggerService.log(LOGGER_CONFIG, `create something answer is ${answer}`);
-
+    const end = () => {
       return new Promise<this>(res => {
         rl.close(); // stop listen key event
         res(this);
       });
-    });
+    };
+
+    return questionPromise("Input your token")
+      .then(token => {
+        this.set("auth.token", token);
+        return questionPromise("Input your name");
+      })
+      .then(name => {
+        this.set("auth.name", name);
+        return questionPromise("Input your salt");
+      })
+      .then(salt => {
+        this.set("auth.salt", salt);
+        return end();
+      });
   }
 
   public restore(): ConfigSchema {
     this._object = {
       "mode": "production",
       "version": "v1",
+      "auth.token": "",
+      "auth.name": "",
+      "auth.salt": "",
       "output.color": true,
       "output.file": true,
       "output.level": "2",
