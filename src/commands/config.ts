@@ -12,13 +12,11 @@ export default (cli: Commandline, config: IConfiguration) => {
         SubCommand.build(
           "init",
           false,
-          ({ apis }): Promise<void> => {
+          async ({ apis }): Promise<void> => {
             config.restore();
 
-            return config
-              .start(readline.createInterface(process.stdin, process.stdout))
-              .then(c => c.saveAsync(apis.config.get("config.backup") as boolean))
-              .then(_ => new Promise<void>(res => res()));
+            await config.start(readline.createInterface(process.stdin, process.stdout));
+            config.save(apis.config.get("config.backup") as boolean);
           },
         ).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
       )

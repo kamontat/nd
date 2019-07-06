@@ -25,32 +25,30 @@ export const UpdateLogInfo = (args: string[]) => {
 // Start commandline interface //
 // --------------------------- //
 
-export const BuildCommandline = (cli: Commandline, config: IConfiguration) => {
+export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
   // . realtime update output.level
   config.on("output.level", (level: string) => {
     LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
     UpdateLogInfo(["--level", level]);
   });
 
-  Help(cli, config);
+  await Help(cli, config);
 
-  Version(cli, config);
+  await Version(cli, config);
 
-  Level(cli, config);
+  await Level(cli, config);
 
   // TODO: implement default query
   // cli.callback(({ name }) => {
   //   LoggerService.console.log(`Start ${name} callback`);
   // });
 
-  CConfig(cli, config);
+  await CConfig(cli, config);
 
   // FIXME: crash on production
   // CCompletion(cli, config);
 
-  CVersion(cli, config); // DONE
+  await CVersion(cli, config); // DONE
 
-  return new Promise<Commandline>(res => {
-    res(cli);
-  });
+  return cli;
 };
