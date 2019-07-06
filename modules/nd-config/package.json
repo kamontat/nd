@@ -1,11 +1,12 @@
 {
   "name": "nd-config",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "configuration of nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.3.0": "not only load config; but also save back to file",
     "1.2.0": "configuration support comment with # character",
     "1.1.0": "fix and improve workflow when config not found",
     "1.0.0": "first release new config modules"
