@@ -66,7 +66,7 @@ export default class Commandline {
 
   // TODO: Add support command option and subcommand option
   private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
-    let skip = [];
+    let skip: Array<number> = [];
     let c: Command | undefined;
     let callback: ICommandCallbackResult;
 
@@ -123,7 +123,7 @@ export default class Commandline {
       if (skip.includes(i)) {
         LoggerService.log(LOGGER_CLI_BUILDER, `skip argument ${arg}`);
         skip = skip.filter(s => s !== i); // remove element of i
-        return;
+        continue;
       }
 
       if (i === 0 && this.isOption(arg)) {
