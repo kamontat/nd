@@ -10,7 +10,7 @@
 })(process.argv);
 
 import { Commandline } from "nd-commandline-interpreter";
-import { load } from "nd-config";
+import { config } from "nd-config";
 import Exception from "nd-error";
 import LoggerService, { LOGGER_CLI, LOGGER_ROOT } from "nd-logger";
 import { homedir } from "os";
@@ -23,7 +23,8 @@ UpdateLogInfo(process.argv);
 const cli = new Commandline(Package.name, Package.description);
 
 const home = homedir();
-load(`${home}/.nd/config`)
+config
+  .load(`${home}/.nd/config`)
   .then(config => {
     config.on("output.level", (level: string) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
