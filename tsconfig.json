@@ -4,7 +4,8 @@
     "src/**/*.ts",
     "modules/**/*.ts",
     "node_modules/nd-*/**/*.ts",
-    "**/*.json"
+    "**/*.json",
+    "templates/commands/_template.ts"
   ],
   "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
