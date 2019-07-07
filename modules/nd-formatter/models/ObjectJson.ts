@@ -1,3 +1,5 @@
+import { Colorize } from "nd-helper";
+
 import { IFormatter, Json } from "./IFormatter";
 
 export class ObjectJson implements IFormatter<Json> {
@@ -10,6 +12,13 @@ export class ObjectJson implements IFormatter<Json> {
 
   public build() {
     if (!this._obj) return "";
-    return JSON.stringify(this._obj, undefined, "  ");
+
+    const result = Object.keys(this._obj).reduce((p, key) => {
+      const value = (this._obj && this._obj[key]) || "";
+      p += "  " + Colorize.format`{greenBright ${key.padEnd(15)}}: {cyanBright ${value}}` + "\n";
+      return p;
+    }, "{\n");
+
+    return result + "}";
   }
 }
