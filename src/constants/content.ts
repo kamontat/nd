@@ -4,6 +4,7 @@ import { Package as ErrorPackage } from "nd-error";
 import { Colorize, Package as HelperPackage } from "nd-helper";
 import { Package as LogPackage } from "nd-logger";
 import { Package as SecurityPackage } from "nd-security";
+import { Package as TablePackage } from "nd-table";
 
 import { Package as CorePackage } from "../build/Package";
 
@@ -132,6 +133,7 @@ export const VERSION_FULL = () => {
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
+{yellowBright ${TablePackage.name}}                   : {blueBright ${LogPackage.version}}
 {yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
@@ -144,7 +146,7 @@ export const VERSION_FULL_DETAIL = () => {
     name: string;
     version: string;
     description?: string;
-    changelog?: string;
+    changelog?: { [key: string]: string };
   }
 
   const genInternalDependency = (pjson: { [key: string]: any }) => {
@@ -152,7 +154,7 @@ export const VERSION_FULL_DETAIL = () => {
       name: pjson.name,
       version: pjson.version,
       description: pjson.description,
-      changelog: pjson.changelog[pjson.version],
+      changelog: pjson.changelog,
     };
   };
 
@@ -169,6 +171,9 @@ export const VERSION_FULL_DETAIL = () => {
 
   // logger package
   dependencies.push(genInternalDependency(LogPackage));
+
+  // table package
+  dependencies.push(genInternalDependency(TablePackage));
 
   // helper package
   dependencies.push(genInternalDependency(HelperPackage));
@@ -194,8 +199,14 @@ export const VERSION_FULL_DETAIL = () => {
   //   });
 
   let str = dependencies.reduce((p, c) => {
-    let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}`;
-    s += Colorize.format`\n  - {blueBright ${c.version}} {dim ${c.changelog || ""}}\n`;
+    let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}\n`;
+    if (c.changelog) {
+      Object.keys(c.changelog).forEach(k => {
+        const v = c.changelog && c.changelog[k];
+        s += Colorize.format`  - {blueBright ${k}} {dim ${v || ""}}\n`;
+      });
+    }
+
     return p + s;
   }, Colorize.format`{dim --------------------------------------}\n`);
   str += Colorize.format`{dim --------------------------------------}`;
