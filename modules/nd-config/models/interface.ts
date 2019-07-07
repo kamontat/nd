@@ -40,6 +40,15 @@ export interface IConfiguration extends EventEmitter {
   get(key: ConfigKey): any;
 
   /**
+   * similar as get command but this can also pass regex as the parameter
+   *
+   * @param key ConfigKey or regex of configuration key
+   *
+   * @example pass key as 'auth.*' or '*' or 'output.level'
+   */
+  regex(key: string): { [key: string]: any };
+
+  /**
    * set configuration value in specific key
    *
    * @param key configuration key

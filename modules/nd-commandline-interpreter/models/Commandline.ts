@@ -64,7 +64,6 @@ export default class Commandline {
     return this._event;
   }
 
-  // TODO: Add support command option and subcommand option
   private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
     let skip: Array<number> = [];
     let c: Command | undefined;

@@ -87,6 +87,21 @@ export class Configuration extends Event implements IConfiguration {
     return this._object[key];
   }
 
+  public regex(reg: string) {
+    const result: { [key: string]: any } = {};
+    // full string of config
+    const _t = this.get(reg as ConfigKey);
+    if (_t) {
+      result[reg] = _t;
+      return result;
+    }
+
+    const keys = Object.keys(this._object);
+    const matches = keys.filter(k => new RegExp(reg).test(k));
+    matches.forEach(m => (result[m] = this.get(m as ConfigKey)));
+    return result;
+  }
+
   public set(key: ConfigKey, value?: string) {
     if (!value) return;
 

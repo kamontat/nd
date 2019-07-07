@@ -1,14 +1,21 @@
-import { Command, Commandline, Option, SubCommand } from "nd-commandline-interpreter";
+import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
 import { ConfigParser, IConfiguration } from "nd-config";
 import Exception, { ERR_CFG } from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Table } from "nd-table";
 import readline from "readline";
 
 export default (cli: Commandline, config: IConfiguration) => {
+  const getCallback: ICommandCallback = ({ value }) => {
+    const result = config.regex(value || "");
+
+    Table(); // FIXME: update table layout
+
+    LoggerService.console.log(result);
+  };
+
   cli.command(
-    Command.build("config", false, ({ self }) => {
-      LoggerService.log(LOGGER_CLI, `${self.name} start default setting command`);
-    })
+    Command.build("config", true, getCallback)
       .sub(
         SubCommand.build(
           "init",
@@ -32,6 +39,7 @@ export default (cli: Commandline, config: IConfiguration) => {
           config.save(apis.config.get("config.backup") as boolean);
         }).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
       )
+      .sub(SubCommand.build("get", true, getCallback))
       .sub(
         SubCommand.build("path", true, async ({ self, apis }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start config path`);
