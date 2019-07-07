@@ -1,5 +1,5 @@
 import Event from "events";
-import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
+import LoggerService, { LOGGER_CLI_BUILDER, LOGGER_ROOT } from "nd-logger";
 
 import { Option } from "..";
 
@@ -16,6 +16,7 @@ export default class CommandlineEvent extends Event {
 }
 
 export const Default = new CommandlineEvent();
+
 Default.on("globalOption", (_: Option, arg: string) => {
   if (arg) LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option with ${arg} as a parameter`);
   else LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option without any parameters`);
@@ -23,4 +24,5 @@ Default.on("globalOption", (_: Option, arg: string) => {
 
 Default.on("end", () => {
   LoggerService.log(LOGGER_CLI_BUILDER, `commandline resolve finished`);
+  LoggerService.console.log(`Completed...`);
 });
