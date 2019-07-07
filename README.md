@@ -40,7 +40,11 @@ Work in process... stay tune :)
 3. add `index.ts`
 
 ```typescript
+import Package from "./package.json";
+
 export const XXX = () => {}
+
+export { Package }
 ```
 
 4. run install via `yarn add ./modules/nd-*`
