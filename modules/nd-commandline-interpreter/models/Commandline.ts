@@ -91,10 +91,12 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (s.needParam) {
+            LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${next} as subcommand parameter`);
             callback = await s.execute(this, next);
             this._event.emit("subcommand", s, next);
             skip.push(i + 1); // skip next args
           } else {
+            LoggerService.log(LOGGER_CLI_BUILDER, `no parameter required`);
             callback = await s.execute(this, undefined);
             this._event.emit("subcommand", s);
           }
@@ -104,13 +106,16 @@ export default class Commandline {
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
           this.travisOptionPath(c, args.filter(this.isOption));
+          LoggerService.log(LOGGER_CLI_BUILDER, `arguments left ${args}`);
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
-            callback = await c.execute(this, next);
+            LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${arg} as command parameter`);
+            callback = await c.execute(this, arg);
             this._event.emit("command", c);
             skip.push(i + 1); // skip next args
           } else {
+            LoggerService.log(LOGGER_CLI_BUILDER, `no parameter required`);
             callback = await c.execute(this, undefined);
             this._event.emit("command", c);
           }
