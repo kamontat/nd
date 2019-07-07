@@ -55,8 +55,16 @@ export class Configuration extends Event implements IConfiguration {
   public load(_path: string) {
     this.filepath = resolve(`${_path}/config.ndc`); // load config
     LoggerService.log(LOGGER_CONFIG, `start load config from ${this.filepath}`);
+
     return new Promise<Configuration>((res, rej) => {
       try {
+        if (!fs.existsSync(this.filepath)) {
+          LoggerService.log(LOGGER_CONFIG, `configuration file not exist, create new one`);
+
+          fs.mkdirSync(_path, { recursive: true }); // create directory and subdirectory if not exist
+          this.save(false);
+        }
+
         const reader = readline.createInterface({
           input: fs.createReadStream(this.filepath),
         });
@@ -106,8 +114,9 @@ export class Configuration extends Event implements IConfiguration {
     if (!value) return;
 
     const old = this._object[key];
-    LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
     if (old !== value) {
+      LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
+
       this._object[key] = value as never; // might change to anythings else
       this.emit(key, value);
     }
@@ -191,9 +200,9 @@ export class Configuration extends Event implements IConfiguration {
     this._object = {
       "mode": "production",
       "version": "v1",
-      "auth.token": "",
-      "auth.name": "",
-      "auth.salt": "",
+      "auth.token": "please_enter_your_token",
+      "auth.name": "please_enter_your_name",
+      "auth.salt": "please_enter_your_salt",
       "output.color": true,
       "output.file": true,
       "output.level": "1",
