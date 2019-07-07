@@ -24,5 +24,5 @@ Default.on("globalOption", (_: Option, arg: string) => {
 
 Default.on("end", () => {
   LoggerService.log(LOGGER_CLI_BUILDER, `commandline resolve finished`);
-  LoggerService.console.log(`Completed...`);
+  // LoggerService.console.log(`Completed...`);
 });
