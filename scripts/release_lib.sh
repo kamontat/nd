@@ -62,4 +62,5 @@ echo "Starting...   commit package.json (assume you just update package.json)"
 
 git add package.json # add package.json
 git commit --allow-empty --message "chore(release): ${TAG_NAME} 
+
 release note: $RELEASE_NOTE"
