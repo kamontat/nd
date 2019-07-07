@@ -1,20 +1,22 @@
 import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
 import { ConfigParser, IConfiguration } from "nd-config";
 import Exception, { ERR_CFG } from "nd-error";
+import { ObjectJson, ObjectTable } from "nd-formatter";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
-import { ObjectTable } from "nd-table";
 import readline from "readline";
 
 export default (cli: Commandline, config: IConfiguration) => {
-  const getCallback: ICommandCallback = ({ value }) => {
+  const getCallback: ICommandCallback = ({ value, apis }) => {
     const result = config.regex(value || "");
 
-    const table = new ObjectTable(result);
-    table.build();
+    const formatter = apis.config.get("config.get.format") === "table" ? new ObjectTable() : new ObjectJson();
+    const message = formatter.save(result).build();
+    LoggerService.console.log(message);
   };
 
   cli.command(
     Command.build("config", true, getCallback)
+      .option(Option.build("table", false, ({ apis }) => apis.config.set("config.get.format", "table")))
       .sub(
         SubCommand.build(
           "init",
@@ -38,7 +40,11 @@ export default (cli: Commandline, config: IConfiguration) => {
           config.save(apis.config.get("config.backup") as boolean);
         }).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
       )
-      .sub(SubCommand.build("get", true, getCallback))
+      .sub(
+        SubCommand.build("get", true, getCallback).option(
+          Option.build("table", false, ({ apis }) => apis.config.set("config.get.format", "table")),
+        ),
+      )
       .sub(
         SubCommand.build("path", true, async ({ self, apis }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start config path`);
