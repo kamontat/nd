@@ -105,7 +105,6 @@ export default class Commandline {
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
           this.travisOptionPath(c, args.filter(this.isOption));
-          LoggerService.log(LOGGER_CLI_BUILDER, `arguments left ${args}`);
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
@@ -172,6 +171,8 @@ export default class Commandline {
           this._event.emit("option", option);
           opts.splice(i, 1);
         }
+      } else {
+        LoggerService.log(LOGGER_CLI_BUILDER, `cannot find ${_o} on ${c.name}`);
       }
     });
   }
