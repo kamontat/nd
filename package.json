@@ -10,8 +10,7 @@
     "3.0.0-alpha.3": "release note template"
   },
   "scripts": {
-    "build:lib": "make lib",
-    "build:prod": "make build mode=production",
+    "install:lib": "make lib",
     "compile": "make compile mode=development",
     "compile:prod": "make compile mode=production",
     "dev": "make compile mode=development quite=true && node dist/nd.js",
@@ -19,6 +18,7 @@
     "start": "make compile mode=production && node dist/nd.min.js",
     "run": "node dist/nd.js",
     "run:prod": "node dist/nd.min.js",
+    "build": "make build mode=production",
     "test": "make test mode=test",
     "test:debug": "export TS_NODE_DEBUG=true && yarn test",
     "release:lib": "./scripts/release_lib.sh",
@@ -38,6 +38,7 @@
     "nd-helper": "./modules/nd-helper",
     "nd-logger": "./modules/nd-logger",
     "nd-security": "./modules/nd-security",
+    "nd-table": "./modules/nd-table",
     "open": "6.3.0",
     "tabtab": "3.0.2"
   },

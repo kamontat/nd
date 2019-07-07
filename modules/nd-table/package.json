@@ -1,0 +1,11 @@
+{
+  "name": "nd-table",
+  "version": "0.0.1-alpha.1",
+  "description": "table formatting of nd output",
+  "dependencies": {
+    "nd-logger": "./modules/nd-logger"
+  },
+  "changelog": {
+    "0.0.1-alpha.1": "first version template"
+  }
+}
