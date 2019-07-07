@@ -1,10 +1,10 @@
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { Package as ConfigPackage } from "nd-config";
 import { Package as ErrorPackage } from "nd-error";
+import { Package as FormatterPackage } from "nd-formatter";
 import { Colorize, Package as HelperPackage } from "nd-helper";
 import { Package as LogPackage } from "nd-logger";
 import { Package as SecurityPackage } from "nd-security";
-import { Package as TablePackage } from "nd-table";
 
 import { Package as CorePackage } from "../build/Package";
 
@@ -133,7 +133,7 @@ export const VERSION_FULL = () => {
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
-{yellowBright ${TablePackage.name}}                   : {blueBright ${LogPackage.version}}
+{yellowBright ${FormatterPackage.name}}                   : {blueBright ${LogPackage.version}}
 {yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
@@ -172,8 +172,8 @@ export const VERSION_FULL_DETAIL = () => {
   // logger package
   dependencies.push(genInternalDependency(LogPackage));
 
-  // table package
-  dependencies.push(genInternalDependency(TablePackage));
+  // formatter package
+  dependencies.push(genInternalDependency(FormatterPackage));
 
   // helper package
   dependencies.push(genInternalDependency(HelperPackage));
