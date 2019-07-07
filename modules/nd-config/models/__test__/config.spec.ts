@@ -18,6 +18,9 @@ output.level=1
 ## Comment again
 output.asdf=mock
 
+# Multiple config in oneline
+hello=true,world=false
+
 mocking.abc=true # inline comment :)`;
       mock({
         "/example/mock/config": {
@@ -34,21 +37,42 @@ mocking.abc=true # inline comment :)`;
       done();
     });
 
-    it("should about to load configuration file", function(done) {
+    it("should load configuration file", function(done) {
+      let executeRate = 0;
       const config = Configuration.CONST();
       config.on("output", function(bool) {
         bool.should.be.a("string");
         bool.should.be.equal("false");
+
+        executeRate++;
       });
 
       config.on("output.asdf", function(bool) {
         bool.should.be.a("string");
         bool.should.be.equal("mock");
 
-        done();
+        executeRate++;
       });
 
-      config.load("/example/mock/config");
+      config.on("hello", function(bool) {
+        bool.should.be.a("string");
+        bool.should.be.equal("true");
+
+        executeRate++;
+      });
+
+      config.on("world", function(bool) {
+        bool.should.be.a("string");
+        bool.should.be.equal("false");
+
+        executeRate++;
+      });
+
+      config.load("/example/mock/config").then(() => {
+        if (executeRate !== 4) done(new Error("did not call callback as expected"));
+
+        done();
+      });
     });
 
     this.afterAll(() => {

@@ -97,6 +97,7 @@
       "reports/**/*",
       "dist/**/*",
       "coverage/**/*",
+      "templates/**/*",
       "modules/webpack-visualizer/**/*",
       "**/index.ts",
       "admin.ts",
