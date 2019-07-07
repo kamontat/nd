@@ -2,16 +2,15 @@ import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-c
 import { ConfigParser, IConfiguration } from "nd-config";
 import Exception, { ERR_CFG } from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
-import { Table } from "nd-table";
+import { ObjectTable } from "nd-table";
 import readline from "readline";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const getCallback: ICommandCallback = ({ value }) => {
     const result = config.regex(value || "");
 
-    Table(); // FIXME: update table layout
-
-    LoggerService.console.log(result);
+    const table = new ObjectTable(result);
+    table.build();
   };
 
   cli.command(
