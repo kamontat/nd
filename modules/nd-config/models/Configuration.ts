@@ -196,7 +196,7 @@ export class Configuration extends Event implements IConfiguration {
       "auth.salt": "",
       "output.color": true,
       "output.file": true,
-      "output.level": "2",
+      "output.level": "1",
       "novel.location": ".",
       "novel.export": false, // not implement yet
     };
