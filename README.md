@@ -49,3 +49,6 @@ export { Package }
 
 4. run install via `yarn add ./modules/nd-*`
 5. add to Makefile (section **lib**)
+6. add to version command and version detail [link](./src/constants/content.ts)
+   1. function `VERSION_FULL`
+   2. function `VERSION_FULL_DETAIL`
