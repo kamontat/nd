@@ -1,12 +1,13 @@
 {
   "name": "nd-formatter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "table formatting of nd output",
   "dependencies": {
     "nd-helper": "./modules/nd-helper",
     "table": "5.4.1"
   },
   "changelog": {
+    "0.2.0": "formatting json as string (with color support)",
     "0.1.0": "formatting object/array to table"
   }
 }
