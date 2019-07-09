@@ -114,12 +114,10 @@ export class Configuration extends Event implements IConfiguration {
     if (!value) return;
 
     const old = this._object[key];
-    if (old !== value) {
-      LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
+    LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
 
-      this._object[key] = value as never; // might change to anythings else
-      this.emit(key, value);
-    }
+    this._object[key] = value as never; // might change to anythings else
+    this.emit(key, value, old);
   }
 
   public save(backup: boolean) {
