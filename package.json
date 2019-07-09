@@ -4,7 +4,7 @@
   "description": "download manager for novel",
   "main": "index.ts",
   "bin": "dist/nd.min.js",
-  "author": "kc nd-admin",
+  "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
   "changelog": {
     "3.0.0-alpha.3": "release note template"

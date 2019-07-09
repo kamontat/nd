@@ -44,6 +44,7 @@ export default class Security {
 
   public encrypt(config: TokenConfig) {
     const salt = genSaltSync(2);
+
     LoggerService.log(LOGGER_SECURITY, `encrypt token with config=${JSON.stringify(config)}`);
     LoggerService.log(LOGGER_SECURITY, `encrypt token with salt=${salt}`);
 
