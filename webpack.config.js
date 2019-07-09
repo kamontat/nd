@@ -68,6 +68,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      "__NODE_ENV__": JSON.stringify(process.env.NODE_ENV),
       "__COMPILE_DATE__": JSON.stringify(+new Date()),
       "__VERSION__": JSON.stringify(pjson.version)
     }),
