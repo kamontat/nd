@@ -14,9 +14,18 @@ interface TokenConfig {
 
 type versionName = "v1";
 
+interface ResponseFormat {
+  username: string;
+  expire: number;
+  issue: number;
+  notBefore: number;
+}
+
 export default class Security {
   private _config: ConfigJson;
   private _name: string;
+
+  private _caches?: ResponseFormat;
 
   private _hash(str: string) {
     return Buffer.from(str, "utf8").toString("hex");
@@ -60,7 +69,16 @@ export default class Security {
     };
   }
 
-  public decrypt(token: string, salt: string): { username: string; expire: number; issue: number; notBefore: number } {
+  public isVerified(token: string, salt: string): boolean {
+    try {
+      this.decrypt(token, salt);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  public decrypt(token: string, salt: string): ResponseFormat {
     try {
       const password = hashSync(this._name, this._unhash(salt));
       LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
@@ -71,14 +89,22 @@ export default class Security {
       }) as any;
 
       LoggerService.log(LOGGER_SECURITY, `return object %O, `, obj);
-      return {
+      const response = {
         username: obj.username,
         expire: obj.exp * 1000,
         issue: obj.iat * 1000,
         notBefore: obj.nbf * 1000, // convert to millisecond that supported by javascript Date
       };
+
+      this._caches = response;
+      return response;
     } catch (e) {
       throw Exception.cast(e, { base: ERR_SCT });
     }
+  }
+
+  get response() {
+    if (this._caches) return this._caches;
+    return undefined;
   }
 }
