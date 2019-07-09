@@ -2,7 +2,7 @@ import { Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
-import { CCompletion, CConfig, CVersion } from "./commands";
+import { CCommand, CCompletion, CConfig } from "./commands";
 import { Help, Level, Version } from "./options";
 
 // set logger level if --level [0|1|2] appear
@@ -48,7 +48,7 @@ export const BuildCommandline = async (cli: Commandline, config: IConfiguration)
   // FIXME: crash on production
   // CCompletion(cli, config);
 
-  await CVersion(cli, config); // DONE
+  await CCommand(cli, config); // DONE
 
   return cli;
 };
