@@ -2,7 +2,6 @@
 ((args: string[]) => {
   const i = args.findIndex(v => /^--no-color$/.test(v));
   if (i >= 0) {
-    // args.splice(i, 1);
     process.env.DEBUG_COLORS = "false";
   } else {
     process.env.DEBUG_COLORS = "true";
@@ -26,14 +25,14 @@ const home = homedir();
 
 (async () => {
   try {
-    const conf = await config.load(`${home}/.nd/config`);
-
-    conf.on("output.level", (level: string) => {
+    config.on("output.level", (level: string) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
       UpdateLogInfo(["--level", level]);
     });
 
-    const commandline = await BuildCommandline(cli, config);
+    const conf = await config.load(`${home}/.nd/config`);
+    const commandline = await BuildCommandline(cli, conf);
+
     await commandline.run(process.argv);
   } catch (e) {
     const err = Exception.cast(e);
