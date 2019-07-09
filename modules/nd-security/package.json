@@ -1,6 +1,6 @@
 {
   "name": "nd-security",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "security management for nd command",
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -9,6 +9,7 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.2.0": "response now become cachable",
     "1.1.3": "expire date '1m' is not exist; change to '30d'",
     "1.1.2": "fix dependency error",
     "1.1.1": "support reasonable config name"
