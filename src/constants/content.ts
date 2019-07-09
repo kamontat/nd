@@ -1,14 +1,16 @@
 import { Package as CLIPackage } from "nd-commandline-interpreter";
-import { Package as ConfigPackage } from "nd-config";
+import { config, Package as ConfigPackage } from "nd-config";
 import { Package as ErrorPackage } from "nd-error";
 import { Package as FormatterPackage } from "nd-formatter";
-import { Colorize, Package as HelperPackage } from "nd-helper";
+import { Colorize, Package as HelperPackage, TimeUtils } from "nd-helper";
 import { Package as LogPackage } from "nd-logger";
-import { Package as SecurityPackage } from "nd-security";
+import { Package as SecurityPackage, Security } from "nd-security";
 
 import { Package as CorePackage } from "../build/Package";
 
-export const HELP_CONTENT = (name: string) => {
+declare var __COMPILE_DATE__: string;
+
+const GLOBAL_OPTION = (name: string) => {
   return Colorize.format`
 {bold # Global option}
 
@@ -18,7 +20,11 @@ export const HELP_CONTENT = (name: string) => {
 {gray $} {green ${name}} {cyan --level} {gray <number>}         -- {blue number} can be 0, 1, 2, and 3
                                - 0 is mute every output and 3 is print everything
 {gray $} {green ${name}} {cyan --no-file}                -- never create log and temporary files [WIP]
+`;
+};
 
+const CONFIGURATION = (name: string) => {
+  return Colorize.format`
 {bold ## Configuration}
 
 {gray $} {green ${name}} {magentaBright config} {magenta [get]}             -- get value from configuration file [WIP]
@@ -36,7 +42,11 @@ export const HELP_CONTENT = (name: string) => {
        {yellow <key>=<value>}           - {gray [required]} key and value to be saved in config file
      option:
        {cyan --backup}                - {gray [optional]} create backup before replace configuration file
+`;
+};
 
+const NOVEL = (name: string) => {
+  return Colorize.format`
 {bold ## Novel}
 
 {gray $} {green ${name}} {magentaBright [novel]} {magenta [download]}       -- start download novel from website (auto mode) [WIP]
@@ -91,26 +101,40 @@ export const HELP_CONTENT = (name: string) => {
 {gray $} {green ${name}} {magentaBright [novel]} {magenta category}         -- list all category of novel (for searching api) [WIP]
      option:
        {cyan --search} {gray <name>}         - {gray [optional]} search input value inside category database [WIP]
+`;
+};
 
+const COMMAND = (name: string) => {
+  return Colorize.format`
 {bold ## Command}
 
-{gray $} {green ${name}} {magentaBright command} {magenta [version]}        -- print all version information of ${name} command
+{gray $} {green ${name}} {magentaBright command}                 -- print all information of ${name} command
      option:
-       {cyan --detail}                - {gray [optional]} include command and libraries detail [WIP]
-{gray $} {green ${name}} {magentaBright command} {magenta changelog}        -- print changelog and information on latest version [WIP]
+       {cyan --detail}                - {gray [optional]} include 'license', 'author', and more [WIP]
+{gray $} {green ${name}} {magentaBright command} {magenta version}          -- print all version information of ${name} command
+     option:
+       {cyan --detail}                - {gray [optional]} include libraries and changelog detail
 {gray $} {green ${name}} {magentaBright command} {magenta upgrade}          -- download and install if new version release [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta downgrade}        -- download and install with specify version [WIP]
      parameter:
        {yellow <version>}               - {gray [required]} specify version number [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta verify}           -- verify all dependencies and components of the command [WIP]
+`;
+};
 
+const PS = (_: string) => {
+  return Colorize.format`
 {gray P.S. [...] mean optional / default command (can be omit)}
 {gray P.S. <...> mean variable}`;
 };
 
-export const HELP_FOOTER = (name: string) => {
+export const HELP_CONTENT = (name: string) => {
+  return GLOBAL_OPTION(name) + CONFIGURATION(name) + NOVEL(name) + COMMAND(name) + PS(name);
+};
+
+const LICENSE = (name: string) => {
   return Colorize.format`
-END-USER LICENSE AGREEMENT
+{bold END-USER LICENSE AGREEMENT}
 
 BY CLICKING "I AGREE", DOWNLOADING, ACCESSING, INSTALLING, RUNNING OR USING ${name.toUpperCase()} SOFTWARE
 YOU AGREE (I) THAT THIS EULA IS A LEGALLY BINDING AND VALID AGREEMENT
@@ -123,11 +147,19 @@ You may not {red.underline copy}, {red.underline modify}, {red.underline distrib
 or included software, nor may you reverse engineer or 
 attempt to extract the source code of that software, 
 unless laws prohibit those restrictions or you have our written permission.
+`;
+};
 
+const AUTHOR = (_: string) => {
+  return Colorize.format`
 Enjoy your days; {blueBright ${CorePackage.author}}`;
 };
 
-export const VERSION_FULL = () => {
+export const HELP_FOOTER = (name: string) => {
+  return LICENSE(name) + AUTHOR(name);
+};
+
+export const VERSION = () => {
   return Colorize.format`{dim --------------------------------------}
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
@@ -141,7 +173,7 @@ export const VERSION_FULL = () => {
 `;
 };
 
-export const VERSION_FULL_DETAIL = () => {
+export const VERSION_FULL = () => {
   interface Dependency {
     name: string;
     version: string;
@@ -211,4 +243,42 @@ export const VERSION_FULL_DETAIL = () => {
   }, Colorize.format`{dim --------------------------------------}\n`);
   str += Colorize.format`{dim --------------------------------------}`;
   return str;
+};
+
+export const COMMAND_INFORMATION = (name: string) => {
+  let result = Colorize.format`
+Command name:            {greenBright ${name}}
+Command version:         {greenBright ${CorePackage.version}}
+Command author:          {greenBright ${CorePackage.author}}
+Command date:            {greenBright ${TimeUtils.FormatDate(new Date(__COMPILE_DATE__))}}
+`;
+
+  const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
+
+  if (secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
+    result += Colorize.format`
+Username:                {greenBright ${(secure.response && secure.response.username) || ""}}
+Start date:              {greenBright ${TimeUtils.FormatDate(
+      TimeUtils.GetDate(secure.response && secure.response.notBefore),
+    )}}
+Expire date:             {greenBright ${TimeUtils.FormatDate(
+      TimeUtils.GetDate(secure.response && secure.response.expire),
+    )}}
+Issue date:              {greenBright ${TimeUtils.FormatDate(
+      TimeUtils.GetDate(secure.response && secure.response.issue),
+    )}}
+`;
+  } else {
+    result += Colorize.format`
+Authentication           {red.bold FAIL}
+`;
+  }
+
+  return (
+    result +
+    Colorize.format`
+Authentication token:    {greenBright ${(config.get("auth.token") as string).substr(0, 15)}...}
+Authentication salt:     {greenBright ${(config.get("auth.salt") as string).substr(0, 15)}...}
+Authentication name:     {greenBright ${config.get("auth.name") as string}}`
+  );
 };
