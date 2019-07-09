@@ -109,8 +109,6 @@ const COMMAND = (name: string) => {
 {bold ## Command}
 
 {gray $} {green ${name}} {magentaBright command}                 -- print all information of ${name} command
-     option:
-       {cyan --detail}                - {gray [optional]} include 'license', 'author', and more [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta version}          -- print all version information of ${name} command
      option:
        {cyan --detail}                - {gray [optional]} include libraries and changelog detail
