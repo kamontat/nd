@@ -1,11 +1,12 @@
 {
   "name": "nd-config",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "configuration of nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.5.0": "change behavior of event in config; will notify everytime without filter",
     "1.4.2": "fix config error when start on new computer",
     "1.4.1": "add support multiple config in oneline",
     "1.4.0": "config can be restore to default and initial with user prompt",
