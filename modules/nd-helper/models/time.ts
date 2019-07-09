@@ -45,8 +45,8 @@ export default {
     if (typeof date === "string") return +new Date(date);
     else return date.getTime();
   },
-  GetDate(timestamp: number) {
-    if (Verify.IsNumber(timestamp)) return new Date(timestamp);
+  GetDate(timestamp?: number) {
+    if (Verify.IsNumber(timestamp)) return new Date(timestamp || 0);
     return undefined;
   },
   FormatDate(date?: Date, conf?: { format?: "long" | "short"; lang?: "th" | "en" }) {
