@@ -1,11 +1,12 @@
 {
   "name": "nd-error",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0": "refactor code and release first version",
     "0.2.0": "support multiple format in different environment",
     "0.1.0": "release public version",
     "0.1.0-beta.2": "change all constants name [breakchange]",

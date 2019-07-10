@@ -1,25 +1,27 @@
 import LoggerService from "nd-logger";
 import Logger from "nd-logger/models/Logger";
 
-import { ERR_GNL, ExceptionState } from "./constants";
+import { ERR_GNL } from "../constants";
+
+import { IExceptionState } from "./IExceptionState";
 
 declare var __NODE_ENV__: string;
 
 export default class Exception extends Error {
+  private constructor(private _code: IExceptionState, description?: string) {
+    super(``);
+
+    this.name = _code.code;
+    this.message = _code.buildMessage(description);
+    this.env = __NODE_ENV__;
+  }
+
   private env: string;
 
   private printProduction<T extends Logger>(log: T) {
     if (this._code.exit) LoggerService.error(log, this.message);
     else LoggerService.warn(log, this.message);
     return this;
-  }
-
-  constructor(private _code: ExceptionState) {
-    super(``);
-
-    this.name = _code.code;
-    this.message = Exception.buildMessage(_code);
-    this.env = __NODE_ENV__;
   }
 
   public description(d: string) {
@@ -38,18 +40,12 @@ export default class Exception extends Error {
     if (this._code.exit) process.exit(code);
   }
 
-  public static cast<T extends Error>(e: T, opts?: { base?: ExceptionState }): Exception {
+  public static cast<T extends Error>(e: T, opts?: { base?: IExceptionState }): Exception {
     if (e instanceof Exception) return e;
-    const exp = new Exception(!opts || !opts.base ? ERR_GNL : opts.base);
-    exp.description(e.message);
-    return exp;
+    return new Exception(!opts || !opts.base ? ERR_GNL : opts.base, e.message);
   }
 
-  public static buildMessage(exp: ExceptionState) {
-    return `${exp.name}`;
-  }
-
-  public static build(code: ExceptionState) {
-    return new Exception(code);
+  public static build(code: IExceptionState, description?: string) {
+    return new Exception(code, description);
   }
 }
