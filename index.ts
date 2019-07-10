@@ -8,6 +8,7 @@
   }
 })(process.argv);
 
+import chalk from "chalk";
 import { Commandline } from "nd-commandline-interpreter";
 import { config } from "nd-config";
 import Exception from "nd-error";
@@ -28,6 +29,12 @@ const home = homedir();
     config.on("output.level", (level: string) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
       UpdateLogInfo(["--level", level]);
+    });
+
+    config.on("output.color", (_color: string) => {
+      const color = _color === "true";
+      LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
+      if (!color) chalk.level = 0;
     });
 
     const conf = await config.load(`${home}/.nd/config`);
