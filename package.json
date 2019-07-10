@@ -27,6 +27,7 @@
     "loc": "make loc type=sum && make loc type=lib"
   },
   "dependencies": {
+    "async-es": "^3.1.0",
     "bcryptjs": "2.4.3",
     "chalk": "2.4.2",
     "debug": "4.1.1",
@@ -35,6 +36,7 @@
     "nd-admin": "./modules/nd-admin",
     "nd-commandline-interpreter": "./modules/nd-commandline-interpreter",
     "nd-config": "./modules/nd-config",
+    "nd-downloader": "./modules/nd-downloader",
     "nd-error": "./modules/nd-error",
     "nd-formatter": "./modules/nd-formatter",
     "nd-helper": "./modules/nd-helper",

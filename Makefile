@@ -21,7 +21,8 @@ ifeq "$(quite)" "true"
 		./modules/nd-config \
 		./modules/nd-error \
 		./modules/nd-admin \
-		./modules/nd-formatter >/dev/null
+		./modules/nd-formatter \
+		./modules/nd-downloader >/dev/null
 else
 	@$(npm_client) add \
 		./modules/nd-logger \
@@ -31,7 +32,8 @@ else
 		./modules/nd-config \
 		./modules/nd-error \
 		./modules/nd-admin \
-		./modules/nd-formatter
+		./modules/nd-formatter \
+		./modules/nd-downloader
 endif
 
 compile: lib
@@ -63,6 +65,7 @@ ifeq "$(type)" "lib"
 	@cloc ./modules/nd-error --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ERROR.md
 	@cloc ./admin.ts ./modules/nd-admin --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ADMIN.md
 	@cloc ./modules/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FORMATTER.md
+	@cloc ./modules/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
 else
 	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC.md
 

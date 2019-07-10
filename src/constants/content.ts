@@ -1,5 +1,6 @@
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { config, Package as ConfigPackage } from "nd-config";
+import { Package as DownloaderPackage } from "nd-downloader";
 import { Package as ErrorPackage } from "nd-error";
 import { Package as FormatterPackage } from "nd-formatter";
 import { Colorize, Package as HelperPackage, TimeUtils } from "nd-helper";
@@ -164,6 +165,7 @@ export const VERSION = () => {
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
 {yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
+{yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
 {yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
@@ -204,6 +206,9 @@ export const VERSION_FULL = () => {
 
   // formatter package
   dependencies.push(genInternalDependency(FormatterPackage));
+
+  // downloader package
+  dependencies.push(genInternalDependency(DownloaderPackage));
 
   // helper package
   dependencies.push(genInternalDependency(HelperPackage));
