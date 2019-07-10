@@ -27,9 +27,9 @@ const CONFIGURATION = (name: string) => {
   return Colorize.format`
 {bold ## Configuration}
 
-{gray $} {green ${name}} {magentaBright config} {magenta [get]}             -- get value from configuration file [WIP]
+{gray $} {green ${name}} {magentaBright config} {magenta [get]}             -- get value from configuration file
      parameter:
-       {yellow <key>}                   - {gray [optional]} print value by config key or print all available config [WIP]
+       {yellow <key>}                   - {gray [optional]} print value by config key or print all available config
 {gray $} {green ${name}} {magentaBright config} {magenta init}              -- create configuration file and setup as new computer
      option:
        {cyan --backup}                - {gray [optional]} create backup before replace configuration file
@@ -163,7 +163,7 @@ export const VERSION = () => {
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
-{yellowBright ${FormatterPackage.name}}                   : {blueBright ${LogPackage.version}}
+{yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
 {yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
