@@ -25,7 +25,7 @@ export default class Commandline {
   private async executeGlobalOptions(opts: string[]) {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
 
-    let callback: ICommandCallbackResult;
+    const callback: ICommandCallbackResult[] = [];
 
     await opts.forEach(async (_o, i) => {
       if (!this.isOption(_o)) return;
@@ -35,11 +35,11 @@ export default class Commandline {
       if (this._globalOptions.has(o)) {
         const option = this._globalOptions.get(o) as Option;
         if (option.needParam) {
-          callback = await option.execute(this, opts[i + 1]);
+          callback.push(await option.execute(this, opts[i + 1]));
           this._event.emit("globalOption", option, opts[i + 1]);
           opts.splice(i, 2);
         } else {
-          callback = await option.execute(this, undefined);
+          callback.push(await option.execute(this, undefined));
           this._event.emit("globalOption", option);
           opts.splice(i, 1);
         }
@@ -130,8 +130,10 @@ export default class Commandline {
       }
 
       if (i === 0 && this.isOption(arg)) {
-        LoggerService.log(LOGGER_CLI_BUILDER, `option look like to appear before command set`);
-        throw Exception.build(ERR_CLI).description("invalid option and command");
+        LoggerService.log(LOGGER_CLI_BUILDER, `option look like to appear before primary command set`);
+        throw Exception.build(ERR_CLI).description(
+          Colorize.format`Invalid command format... learn more at {greenBright ${this.name} --help}`,
+        );
       }
 
       // no command in first args
@@ -142,7 +144,10 @@ export default class Commandline {
 
         if (this._callback) {
           callback = this._callback({ self: this, name: "default", value: arg, apis: CommandApi.get() });
-        } else throw Exception.build(ERR_CLI).description("invalid option and command");
+        } else
+          throw Exception.build(ERR_CLI).description(
+            Colorize.format`Invalid command format... learn more at {greenBright ${this.name} --help}`,
+          );
       }
 
       i++;
@@ -216,9 +221,14 @@ export default class Commandline {
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
 
     const global = await this.executeGlobalOptions(args);
-    if (global.callback && typeof global.callback === "function") {
-      const isEnd = global.callback();
-      if (isEnd === true) return this.finish();
+    if (global.callback.length > 0) {
+      LoggerService.log(LOGGER_CLI_BUILDER, `run global callback`);
+      global.callback.forEach(c => {
+        if (c && typeof c === "function") {
+          const isEnd = c();
+          if (isEnd === true) return this.finish();
+        }
+      });
     }
 
     LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global`);
