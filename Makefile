@@ -52,7 +52,7 @@ clean:
 ifeq "$(all)" "true"
 	rm -rf node_modules yarn.lock
 endif
-	rm -rf dist .nyc_output coverage reports/**
+	rm -rf dist .nyc_output coverage reports/**/*.html
 
 loc:
 ifeq "$(type)" "lib"
