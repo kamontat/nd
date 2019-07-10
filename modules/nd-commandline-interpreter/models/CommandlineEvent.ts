@@ -17,12 +17,13 @@ export default class CommandlineEvent extends Event {
 
 export const Default = new CommandlineEvent();
 
-Default.on("globalOption", (_: Option, arg: string) => {
-  if (arg) LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option with ${arg} as a parameter`);
-  else LoggerService.log(LOGGER_CLI_BUILDER, `resolve as option without any parameters`);
+Default.on("globalOption", (o: Option, arg: string) => {
+  if (arg) LoggerService.log(LOGGER_CLI_BUILDER, `resolve ${o.option} as option with ${arg} as a parameter`);
+  else LoggerService.log(LOGGER_CLI_BUILDER, `resolve ${o.option} as option without any parameters`);
 });
 
-Default.on("end", () => {
+Default.on("end", (num: number = 0) => {
   LoggerService.log(LOGGER_CLI_BUILDER, `commandline resolve finished`);
   // LoggerService.console.log(`Completed...`);
+  process.exit(num);
 });
