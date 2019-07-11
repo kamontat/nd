@@ -11,7 +11,7 @@
     "class-name": true,
     "curly": ["as-needed", true],
     "file-name-casing": false,
-    "interface-name": [true, "never-prefix"],
+    "interface-name": [true, "always-prefix"],
     "max-line-length": {
       "options": [200]
     },
