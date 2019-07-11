@@ -50,6 +50,7 @@ export default class Commandline {
   }
 
   private finish() {
+    LoggerService.log(LOGGER_CLI_BUILDER, "start emit end process event !!");
     this.event.emit("end");
   }
 
