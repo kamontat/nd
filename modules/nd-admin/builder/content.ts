@@ -2,7 +2,7 @@ import { Colorize, TimeUtils } from "nd-helper";
 
 import { Package } from "../../../src/build/Package";
 
-export interface ResultBuilder {
+export interface IResultBuilder {
   token: string;
   salt: string;
   name: string;
@@ -14,7 +14,7 @@ export interface ResultBuilder {
   };
 }
 
-export const Result = (config: ResultBuilder) => {
+export const Result = (config: IResultBuilder) => {
   return Colorize.format`
 ----------------------------------------------------------
 # Generate token and salt

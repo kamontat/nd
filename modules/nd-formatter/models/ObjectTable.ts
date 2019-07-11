@@ -3,15 +3,15 @@ import { getBorderCharacters, table } from "table";
 
 import { IFormatter } from "./IFormatter";
 
-interface Obj<V = string> {
+interface IObject<V = string> {
   [key: string]: V;
 }
 
-export class ObjectTable implements IFormatter<Array<Array<string>> | Obj> {
+export class ObjectTable implements IFormatter<Array<Array<string>> | IObject> {
   private _array?: Array<Array<string>>;
-  private _options: Obj<any>;
+  private _options: IObject<any>;
 
-  private buildArray(obj: Obj) {
+  private buildArray(obj: IObject) {
     return Object.keys(obj).map(key => {
       return [this.buildKey(key), obj[key]];
     });
@@ -47,7 +47,7 @@ export class ObjectTable implements IFormatter<Array<Array<string>> | Obj> {
     };
   }
 
-  public save(v: Array<Array<string>> | Obj) {
+  public save(v: Array<Array<string>> | IObject) {
     if (!(v instanceof Array)) this._array = this.buildArray(v);
     else this._array = v;
     this._array.unshift([Colorize.format`{bold.green Configuration key}`, Colorize.format`{bold.green value}`]);

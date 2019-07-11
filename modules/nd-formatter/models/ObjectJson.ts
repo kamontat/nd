@@ -1,11 +1,11 @@
 import { Colorize } from "nd-helper";
 
-import { IFormatter, Json } from "./IFormatter";
+import { IFormatter, IJson } from "./IFormatter";
 
-export class ObjectJson implements IFormatter<Json> {
-  private _obj?: Json;
+export class ObjectJson implements IFormatter<IJson> {
+  private _obj?: IJson;
 
-  public save(v: Json) {
+  public save(v: IJson) {
     this._obj = v;
     return this;
   }

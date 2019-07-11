@@ -2,12 +2,12 @@ import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 
 import { ConfigKey } from "../models/interface";
 
-interface KeyValue {
+interface IKeyValue {
   key: ConfigKey;
   value: string;
 }
 
-const configParser = (line: string): KeyValue | undefined => {
+const configParser = (line: string): IKeyValue | undefined => {
   const _line = line.split("#"); // remove all space
   // with comment
   if (_line.length > 1) {
@@ -34,11 +34,11 @@ const configParser = (line: string): KeyValue | undefined => {
   };
 };
 
-export const ConfigParser = (line?: string): KeyValue | KeyValue[] | undefined => {
+export const ConfigParser = (line?: string): IKeyValue | IKeyValue[] | undefined => {
   if (!line) return undefined;
 
   if (line.includes(",")) {
-    const arr: Array<KeyValue> = [];
+    const arr: Array<IKeyValue> = [];
     line.split(",").forEach(l => {
       const r = configParser(l);
       if (r) arr.push(r);
