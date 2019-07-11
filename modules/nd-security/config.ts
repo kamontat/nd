@@ -1,4 +1,4 @@
-export interface ConfigJson {
+export interface IConfigJson {
   algorithm: "HS256" | "HS384" | "HS512";
   id: string;
 }
@@ -8,4 +8,4 @@ export default {
     algorithm: "HS256",
     id: "nd-v1",
   },
-} as { [version: string]: ConfigJson };
+} as { [version: string]: IConfigJson };

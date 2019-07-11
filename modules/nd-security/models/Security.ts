@@ -3,9 +3,9 @@ import { sign, verify } from "jsonwebtoken";
 import Exception, { ERR_SCT } from "nd-error";
 import LoggerService, { LOGGER_SECURITY } from "nd-logger";
 
-import config, { ConfigJson } from "../config";
+import config, { IConfigJson } from "../config";
 
-interface TokenConfig {
+interface ITokenConfig {
   username: string;
   expire?: "1h" | "24h" | "7d" | "30d" | "1y" | "100y";
   when?: "1ms" | "1d" | "7d";
@@ -14,7 +14,7 @@ interface TokenConfig {
 
 type versionName = "v1";
 
-interface ResponseFormat {
+interface IResponseFormat {
   username: string;
   expire: number;
   issue: number;
@@ -22,10 +22,10 @@ interface ResponseFormat {
 }
 
 export default class Security {
-  private _config: ConfigJson;
+  private _config: IConfigJson;
   private _name: string;
 
-  private _caches?: ResponseFormat;
+  private _caches?: IResponseFormat;
 
   private _hash(str: string) {
     return Buffer.from(str, "utf8").toString("hex");
@@ -42,7 +42,7 @@ export default class Security {
     LoggerService.log(LOGGER_SECURITY, `create with version=${version} name=${this._name}`);
   }
 
-  public encrypt(config: TokenConfig) {
+  public encrypt(config: ITokenConfig) {
     const salt = genSaltSync(2);
 
     LoggerService.log(LOGGER_SECURITY, `encrypt token with config=${JSON.stringify(config)}`);
@@ -79,7 +79,7 @@ export default class Security {
     }
   }
 
-  public decrypt(token: string, salt: string): ResponseFormat {
+  public decrypt(token: string, salt: string): IResponseFormat {
     try {
       const password = hashSync(this._name, this._unhash(salt));
       LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
