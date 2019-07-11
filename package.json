@@ -27,7 +27,7 @@
     "loc": "make loc type=sum && make loc type=lib"
   },
   "dependencies": {
-    "async-es": "^3.1.0",
+    "async": "3.1.0",
     "bcryptjs": "2.4.3",
     "chalk": "2.4.2",
     "debug": "4.1.1",
@@ -54,6 +54,7 @@
     "tabtab": "tab completion helpers, for node cli programs"
   },
   "devDependencies": {
+    "@types/async": "3.0.0",
     "@types/bcryptjs": "2.4.2",
     "@types/chai": "4.1.7",
     "@types/debug": "4.1.4",
@@ -65,7 +66,7 @@
     "@types/node": "10",
     "@types/open": "6.1.0",
     "@types/rewire": "2.5.28",
-    "@types/table": "^4.0.5",
+    "@types/table": "4.0.5",
     "@types/tabtab": "3.0.0",
     "chai": "4.2.0",
     "closure-webpack-plugin": "2.0.1",
