@@ -91,6 +91,7 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (s.needParam) {
+            if (this.isOption(next)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
             LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${next} as subcommand parameter`);
             callback = await s.execute(this, next);
             this._event.emit("subcommand", s, next);
@@ -109,6 +110,7 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
+            if (this.isOption(arg)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
             LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${arg} as command parameter`);
             callback = await c.execute(this, arg);
             this._event.emit("command", c);
@@ -171,6 +173,8 @@ export default class Commandline {
       if (option) {
         LoggerService.log(LOGGER_CLI_BUILDER, `${option.name} is a part of ${c.name}`);
         if (option.needParam) {
+          if (this.isOption(opts[i + 1]) || opts[i + 1] === undefined)
+            throw Exception.build(ERR_CLI).description(`${option.name} is required parameter`);
           LoggerService.log(LOGGER_CLI_BUILDER, `option need parameter; which is ${opts[i + 1]}`);
           option.execute(this, opts[i + 1]);
           this._event.emit("option", option, opts[i + 1]);
