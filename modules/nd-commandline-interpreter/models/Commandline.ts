@@ -87,7 +87,7 @@ export default class Commandline {
 
         if (s) {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} have subcommand`);
-          this.travisOptionPath(s, args.filter(this.isOption));
+          this.travisOptionPath(s, args);
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (s.needParam) {
@@ -105,7 +105,7 @@ export default class Commandline {
           c = undefined;
         } else {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
-          this.travisOptionPath(c, args.filter(this.isOption));
+          this.travisOptionPath(c, args);
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
@@ -161,6 +161,8 @@ export default class Commandline {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check local option`);
 
     opts.forEach((_o, i) => {
+      if (!this.isOption(_o)) return;
+
       const o = _o.replace("--", "");
 
       LoggerService.log(LOGGER_CLI_BUILDER, `try is ${o} is a option of ${c.name} ?`);
@@ -169,10 +171,12 @@ export default class Commandline {
       if (option) {
         LoggerService.log(LOGGER_CLI_BUILDER, `${option.name} is a part of ${c.name}`);
         if (option.needParam) {
+          LoggerService.log(LOGGER_CLI_BUILDER, `option need parameter; which is ${opts[i + 1]}`);
           option.execute(this, opts[i + 1]);
           this._event.emit("option", option, opts[i + 1]);
           opts.splice(i, 2);
         } else {
+          LoggerService.log(LOGGER_CLI_BUILDER, `option doesn't need any parameter`);
           option.execute(this, undefined);
           this._event.emit("option", option);
           opts.splice(i, 1);
