@@ -3,13 +3,14 @@ import Logger from "nd-logger/models/Logger";
 
 import { ERR_GNL } from "../constants";
 
-import { IExceptionState } from "./IExceptionState";
+import { IExceptionState, MessageType } from "./IExceptionState";
 
 declare var __NODE_ENV__: string;
 
 export default class Exception extends Error {
   public get warn() {
     this._exit = false;
+    this.message = this._code.buildMessage(MessageType.WARNING, this._description);
     return this;
   }
 
@@ -21,11 +22,11 @@ export default class Exception extends Error {
     return this;
   }
 
-  constructor(private _code: IExceptionState, description?: string, private _exit: boolean = true) {
+  constructor(private _code: IExceptionState, private _description?: string, private _exit: boolean = true) {
     super(``);
 
     this.name = _code.code;
-    this.message = _code.buildMessage(description);
+    this.message = _code.buildMessage(_exit ? MessageType.ERROR : MessageType.WARNING, _description);
     this.env = __NODE_ENV__;
   }
 

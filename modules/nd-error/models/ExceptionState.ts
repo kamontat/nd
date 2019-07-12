@@ -1,4 +1,4 @@
-import { IExceptionState } from "./IExceptionState";
+import { IExceptionState, MessageType } from "./IExceptionState";
 
 export class ExceptionState implements IExceptionState {
   private _code: string;
@@ -17,8 +17,8 @@ export class ExceptionState implements IExceptionState {
     return this._name;
   }
 
-  public buildMessage(override?: string) {
+  public buildMessage(type: MessageType, override?: string) {
     if (override) return override;
-    return `${this.name}`;
+    return `${this.name} ${type === MessageType.ERROR ? "error" : "warning"}`;
   }
 }
