@@ -174,7 +174,7 @@ export const VERSION = () => {
 };
 
 export const VERSION_FULL = () => {
-  interface Dependency {
+  interface IDependency {
     name: string;
     version: string;
     description?: string;
@@ -190,7 +190,7 @@ export const VERSION_FULL = () => {
     };
   };
 
-  const dependencies: Array<Dependency> = [];
+  const dependencies: Array<IDependency> = [];
 
   // core package
   dependencies.push(genInternalDependency(CorePackage));
