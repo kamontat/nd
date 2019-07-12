@@ -1,12 +1,12 @@
 {
   "name": "nd-downloader",
-  "version": "1.0.0-alpha.1",
+  "version": "0.1.0",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
     "nd-error": "./modules/nd-error",
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
-    "1.0.0-alpha.1": "template default"
+    "0.1.0": "stable first release with downloader object"
   }
 }
