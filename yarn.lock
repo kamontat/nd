@@ -2438,6 +2438,13 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
+iconv-lite@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.5.0.tgz#59cdde0a2a297cc2aeb0c6445a195ee89f127550"
+  integrity sha512-NnEhI9hIEKHOzJ4f697DMz9IQEXr/MMJ5w64vN2/4Ai+wRnvV7SBrL0KLoRlwaKVghOc7LQ5YkPLuX146b6Ydw==
+  dependencies:
+    safer-buffer ">= 2.1.2 < 3"
+
 iconv-lite@^0.4.17, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@^0.4.5:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -3482,6 +3489,13 @@ nd-config@./modules/nd-config:
   dependencies:
     nd-logger "./modules/nd-logger"
 
+nd-decoder@./modules/nd-decoder:
+  version "0.0.1"
+  dependencies:
+    iconv-lite "0.5.0"
+    nd-error "./modules/nd-error"
+    nd-logger "./modules/nd-logger"
+
 nd-downloader@./modules/nd-downloader:
   version "1.0.0-alpha.1"
   dependencies:
@@ -3489,7 +3503,7 @@ nd-downloader@./modules/nd-downloader:
     nd-logger "./modules/nd-logger"
 
 nd-error@./modules/nd-error:
-  version "2.0.0"
+  version "2.1.0"
   dependencies:
     nd-logger "./modules/nd-logger"
 
@@ -3509,6 +3523,12 @@ nd-logger@./modules/nd-logger:
   dependencies:
     debug "4.1.1"
     nd-config "./modules/nd-config"
+
+nd-novel@./modules/nd-novel:
+  version "0.0.1-alpha.1"
+  dependencies:
+    nd-error "./modules/nd-error"
+    nd-logger "./modules/nd-logger"
 
 nd-security@./modules/nd-security:
   version "1.2.0"
