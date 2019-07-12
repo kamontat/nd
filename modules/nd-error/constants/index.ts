@@ -9,6 +9,8 @@ export const ERR_HLP: IExceptionState = new ExceptionState("HLP", "Helper and AP
 
 export const ERR_DWL: IExceptionState = new ExceptionState("DWL", "Download");
 
+export const ERR_DCR: IExceptionState = new ExceptionState("DCR", "Decoding");
+
 export const ERR_NLV: IExceptionState = new ExceptionState("NLV", "Novel");
 
 export const ERR_LOG: IExceptionState = new ExceptionState("LOG", "Logging");
