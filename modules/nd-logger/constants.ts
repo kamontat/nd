@@ -12,6 +12,7 @@ export const LOGGER_CONFIG = LOGGER_ROOT.extend("config");
 
 export const LOGGER_DOWNLOADER = LOGGER_ROOT.extend("download");
 export const LOGGER_DOWNLOADER_MANAGER = LOGGER_DOWNLOADER.extend("manager");
+export const LOGGER_DOWNLOADER_DECODER = LOGGER_DOWNLOADER.extend("decoder");
 
 export const LOGGER_NOVEL = LOGGER_ROOT.extend("novel");
 export const LOGGER_NOVEL_DOWNLOADER = LOGGER_NOVEL.extend("download");
