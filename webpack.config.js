@@ -105,6 +105,18 @@ module.exports = {
   },
   target: "node",
   externals: [nodeExternals({
-    whitelist: [/nd-.*/, "table", "jsonwebtoken", "chalk", "debug", "bcryptjs", "supports-color", "ansi-styles", "escape-string-regexp"]
+    whitelist: [/nd-.*/,
+      "table",
+      "jsonwebtoken",
+      "chalk",
+      "debug",
+      "bcryptjs",
+      "supports-color",
+      "ansi-styles",
+      "escape-string-regexp",
+      "iconv-lite",
+      "async",
+      "safer-buffer"
+    ]
   })]
 };
