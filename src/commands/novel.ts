@@ -9,7 +9,7 @@ export default (cli: Commandline, _: IConfiguration) => {
     Command.build("novel", true, async ({ value }) => {
       LoggerService.log(LOGGER_CLI, `start default novel command with ${value}`);
 
-      const manager = new DownloadManager();
+      const manager = new DownloadManager<number>();
       manager.event.on("downloading", (prev, curr) => {
         // console.log(totalMS);
         LoggerService.log(LOGGER_DOWNLOADER, `download size is ${byteToSize(prev + curr, " ")}`);
@@ -33,8 +33,14 @@ export default (cli: Commandline, _: IConfiguration) => {
       // manager.add("https://google.com", "/tmp/google-1.html");
       // manager.add("https://google.com", "/tmp/google-1.html");
 
-      return manager.run().then(_ => {
-        // LoggerService.log(LOGGER_CLI, r);
+      // manager.build(r => {
+      //   const newResp = r.copy<number>();
+      //   newResp.result = 12;
+      //   return newResp;
+      // });
+
+      return manager.run().then(r => {
+        LoggerService.log(LOGGER_CLI, r[0].result);
       });
     }),
   );

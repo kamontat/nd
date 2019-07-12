@@ -1,10 +1,12 @@
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { config, Package as ConfigPackage } from "nd-config";
+import { Package as EncoderPackage } from "nd-decoder";
 import { Package as DownloaderPackage } from "nd-downloader";
 import { Package as ErrorPackage } from "nd-error";
 import { Package as FormatterPackage } from "nd-formatter";
 import { Colorize, Package as HelperPackage, TimeUtils } from "nd-helper";
 import { Package as LogPackage } from "nd-logger";
+import { Package as NovelPackage } from "nd-novel";
 import { Package as SecurityPackage, Security } from "nd-security";
 
 import { Package as CorePackage } from "../build/Package";
@@ -163,6 +165,8 @@ export const VERSION = () => {
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
+{yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
+{yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
 {yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
 {yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
@@ -200,6 +204,12 @@ export const VERSION_FULL = () => {
 
   // commandline package
   dependencies.push(genInternalDependency(CLIPackage));
+
+  // novel package
+  dependencies.push(genInternalDependency(NovelPackage));
+
+  // encoder package
+  dependencies.push(genInternalDependency(EncoderPackage));
 
   // logger package
   dependencies.push(genInternalDependency(LogPackage));
