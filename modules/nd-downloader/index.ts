@@ -1,14 +1,7 @@
+import Manager from "./models/Manager";
 import Package from "./package.json";
 
-export const DownloadManager = (_: number) => {};
-
 // USAGE
-
-// interface ResponseResult {
-//   link: string;
-//   file: string;
-//   code: number; // http status code
-// }
 
 // const downloadManager = new DownloadManager(4); // thread number
 
@@ -23,6 +16,8 @@ export const DownloadManager = (_: number) => {};
 // // progress is a number of total downloaded file
 // downloadManager.event.on("downloaded", (current: string, progress: number) => {}); // for processing
 
-// downloadManager.run().then((res: ResponseResult[]) => {});
+// downloadManager.run().then((res: IResponse[]) => {});
 
-export { Package };
+export { Manager as DownloadManager, Package };
+
+export * from "./apis/SizeConverter";
