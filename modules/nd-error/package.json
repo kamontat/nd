@@ -1,11 +1,12 @@
 {
   "name": "nd-error",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "2.1.0": "Add suffix to different type of exception; is error or warning",
     "2.0.0": "Change the way to build exception; BREAK CHANGES",
     "1.0.0": "refactor code and release first version",
     "0.2.0": "support multiple format in different environment",
