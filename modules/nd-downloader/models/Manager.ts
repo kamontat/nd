@@ -1,13 +1,14 @@
 import { eachOfLimit } from "async";
 import { IncomingMessage } from "http";
 import https from "https";
-import Exception, { ERR_DWL } from "nd-error";
+import Decoder, { DecodeSupport } from "nd-decoder";
+import ExceptionService, { ERR_DWL } from "nd-error";
 import LoggerService, { LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
 
 import { IResponse, Response } from "./IResponse";
 import { IManagerEvent, ManagerEvent } from "./ManagerEvent";
 
-export default class Manager {
+export default class Manager<T> {
   public get links() {
     return this.responses.map(r => r.link);
   }
@@ -19,8 +20,11 @@ export default class Manager {
   public get event() {
     return this._event;
   }
-  private _event: IManagerEvent;
-  private responses: IResponse[];
+
+  private _event: IManagerEvent<string>;
+  private _builder?: (r: IResponse<string>) => IResponse<T>;
+
+  private responses: IResponse<T | string>[];
 
   private _userAgent() {
     const rand = Math.ceil(Math.random() * 4); // 1 - 4
@@ -67,17 +71,18 @@ export default class Manager {
     );
   }
 
-  private _download(v: IResponse, opts: { count: number; initTime: number }) {
+  private _download(v: IResponse<T | string>, opts: { count: number; initTime: number }) {
     return new Promise<{ data: string; res: IncomingMessage }>((res, rej) => {
       let start = +new Date(); // start
 
       this._get(v.link, response => {
+        const contenttype = response.headers["content-type"] as string;
+        const encode = contenttype.substring(contenttype.indexOf("=") + 1);
+
         let rawData = "";
 
         response.on("data", (chunk: string) => {
-          const contenttype = response.headers["content-type"] as string;
-          const encode = contenttype.substring(contenttype.indexOf("=") + 1);
-          LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `Encode content is ${encode}`);
+          // LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `Encode content is ${encode}`);
 
           const chunkSize = Buffer.byteLength(chunk, encode);
 
@@ -92,16 +97,24 @@ export default class Manager {
 
         response.on("end", () => {
           // console.log(rawData);
-          res({ data: rawData, res: response });
+          res({ data: Decoder(rawData, encode as DecodeSupport), res: response });
         });
 
         if (response.statusCode !== Response.HttpStatusCode.OK)
-          return rej(Exception.build(ERR_DWL).description(`downloading code is not ok (${response.statusCode})`));
-      }).on("error", rej);
+          return rej(
+            ExceptionService.build(ERR_DWL).description(`downloading code is not ok (${response.statusCode})`),
+          );
+      }).on("error", (e: any) => {
+        // internet not found; no internet
+        if (e.code && e.code === "ENOTFOUND" && e.syscall && e.syscall === "getaddrinfo") {
+          return rej(ExceptionService.build(ERR_DWL).description("no internet connection"));
+        }
+        return rej(e);
+      });
     });
   }
 
-  constructor(private _thread: number = 2, event: IManagerEvent = new ManagerEvent()) {
+  constructor(private _thread: number = 2, event: IManagerEvent<string> = new ManagerEvent()) {
     this._event = event;
     this.responses = [];
   }
@@ -111,6 +124,10 @@ export default class Manager {
 
     this.event.emit("add", res);
     this.responses.push(res);
+  }
+
+  public build(buildingFn: (r: IResponse<string>) => IResponse<T>) {
+    this._builder = buildingFn;
   }
 
   public run() {
@@ -124,15 +141,25 @@ export default class Manager {
           this.responses[index as number].code = obj.res.statusCode || -1;
           this.responses[index as number].result = obj.data;
 
-          this.event.emit("downloaded", this.responses[index as number], start.completed, this.size);
+          this.event.emit(
+            "downloaded",
+            this.responses[index as number] as IResponse<string>,
+            start.completed,
+            this.size,
+          );
+          if (this._builder) {
+            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
+            this.responses[index as number] = this._builder(this.responses[index as number] as IResponse<string>);
+          }
+
           callback();
         })
         .catch(callback);
     }) as unknown) as Promise<Error | undefined>).then(err => {
       this.event.emit("end", err);
-      return new Promise<IResponse[]>((res, rej) => {
+      return new Promise<IResponse<T>[]>((res, rej) => {
         if (err) rej(err);
-        else res(this.responses);
+        else res(this.responses as IResponse<T>[]);
       });
     });
   }

@@ -1,22 +1,24 @@
-export interface IResponse {
+export interface IResponse<T> {
   readonly link: string;
   readonly file: string;
 
   code: number; // http status code
-  result?: string; // should change to Html object
+  result?: T; // should change to Html object
 
   isQuery(): boolean;
+
+  copy<N>(): IResponse<N>;
 }
 
-export class Response implements IResponse {
+export class Response<T = string> implements IResponse<T> {
   private _code: number;
-  private _result?: string;
+  private _result?: T;
 
   set code(num: number) {
     this._code = num;
   }
 
-  set result(res: string | undefined) {
+  set result(res: T | undefined) {
     this._result = res;
   }
 
@@ -32,7 +34,7 @@ export class Response implements IResponse {
     return this._file;
   }
 
-  get result(): string | undefined {
+  get result(): T | undefined {
     return this._result;
   }
 
@@ -46,6 +48,14 @@ export class Response implements IResponse {
 
   public toString() {
     return `${this._link} (${this._code})`;
+  }
+
+  public copy<N>() {
+    return {
+      code: this.code,
+      file: this.file,
+      link: this.link,
+    } as IResponse<N>;
   }
 
   public static HttpStatusCode = {
