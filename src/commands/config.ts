@@ -34,8 +34,8 @@ export default (cli: Commandline, config: IConfiguration) => {
           LoggerService.log(LOGGER_CLI, `set ${value}`);
           const parsed = ConfigParser(value);
           if (!parsed) throw Exception.build(ERR_CFG).description("cannot parse any key or value from input string");
-          if (parsed instanceof Array) parsed.forEach(p => config.set(p.key, p.value));
-          else config.set(parsed.key, parsed.value);
+          if (parsed instanceof Array) parsed.forEach(p => config.set(p.key as any, p.value as any));
+          else config.set(parsed.key as any, parsed.value as any);
 
           config.save(apis.config.get("config.backup") as boolean);
         }).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),

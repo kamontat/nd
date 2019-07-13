@@ -6,7 +6,7 @@ export const Level = (cli: Commandline, config: IConfiguration) => {
   cli.option(
     Option.build("level", true, ({ value }) => {
       LoggerService.log(LOGGER_CLI, `try to set log level to ${value}`);
-      config.set("output.level", value);
+      config.set("output.level", value as any);
     }),
   );
 };
