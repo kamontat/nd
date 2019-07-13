@@ -1,10 +1,10 @@
 import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 
-import { ConfigKey } from "../models/interface";
+import { ConfigKey, ConfigValue } from "../models/IConfigurationTypeDefined";
 
 interface IKeyValue {
   key: ConfigKey;
-  value: string;
+  value: ConfigValue;
 }
 
 const configParser = (line: string): IKeyValue | undefined => {

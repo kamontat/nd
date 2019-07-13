@@ -1,43 +1,13 @@
 import { EventEmitter } from "events";
 import { ReadLine } from "readline";
 
-export type ConfigKey =
-  | "mode"
-  | "version"
-  | "auth.token"
-  | "auth.name"
-  | "auth.salt"
-  | "output.color"
-  | "output.file"
-  | "output.level"
-  | "novel.location"
-  | "novel.export";
+import { ConfigKey, ConfigSchema, IConfigurationTypeDefined } from "./IConfigurationTypeDefined";
 
-export interface ConfigSchema {
-  mode: "development" | "test" | "production";
-  version: "v1";
-  "auth.token": string;
-  "auth.name": string;
-  "auth.salt": string;
-  "output.color": boolean;
-  "output.file": boolean;
-  "output.level": "0" | "1" | "2";
-  "novel.location": string;
-  "novel.export": boolean;
-}
-
-export interface IConfiguration extends EventEmitter {
+export interface IConfiguration extends IConfigurationTypeDefined, EventEmitter {
   /**
    * get configuration file absolute path
    */
   path(open: boolean): Promise<string>;
-
-  /**
-   * get value in specific config key
-   *
-   * @param key config key
-   */
-  get(key: ConfigKey): any;
 
   /**
    * similar as get command but this can also pass regex as the parameter
@@ -47,14 +17,6 @@ export interface IConfiguration extends EventEmitter {
    * @example pass key as 'auth.*' or '*' or 'output.level'
    */
   regex(key: string): { [key: string]: any };
-
-  /**
-   * set configuration value in specific key
-   *
-   * @param key configuration key
-   * @param value configuration value
-   */
-  set(key: ConfigKey, value?: string): void;
 
   /**
    * save current configuration to filepath

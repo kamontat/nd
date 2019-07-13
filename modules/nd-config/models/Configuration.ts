@@ -11,7 +11,8 @@ import readline, { ReadLine } from "readline";
 import { ConfigParser } from "../apis/parser";
 import { BACKUP_NAME } from "../constants/file";
 
-import { ConfigKey, ConfigSchema, IConfiguration } from "./interface";
+import { IConfiguration } from "./IConfiguration";
+import { ConfigKey, ConfigSchema, ConfigValue } from "./IConfigurationTypeDefined";
 
 export class Configuration extends Event implements IConfiguration {
   private filepath: string = "./config.ndc";
@@ -92,7 +93,7 @@ export class Configuration extends Event implements IConfiguration {
   }
 
   public get(key: ConfigKey) {
-    return this._object[key];
+    return this._object[key] as any;
   }
 
   public regex(reg: string) {
@@ -110,7 +111,7 @@ export class Configuration extends Event implements IConfiguration {
     return result;
   }
 
-  public set(key: ConfigKey, value?: string) {
+  public set(key: ConfigKey, value?: ConfigValue) {
     if (!value) return;
 
     const old = this._object[key];
@@ -205,7 +206,7 @@ export class Configuration extends Event implements IConfiguration {
       "output.file": true,
       "output.level": "1",
       "novel.location": ".",
-      "novel.export": false, // not implement yet
+      "novel.export": ".", // not implement yet
     };
 
     return this._object;

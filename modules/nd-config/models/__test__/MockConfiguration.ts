@@ -1,5 +1,5 @@
 import { Configuration } from "../Configuration";
-import { ConfigSchema } from "../interface";
+import { ConfigSchema } from "../IConfigurationTypeDefined";
 
 export default class MockConfiguration extends Configuration {
   protected _object: ConfigSchema = {
