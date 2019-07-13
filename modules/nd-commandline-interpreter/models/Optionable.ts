@@ -1,7 +1,11 @@
 import ICommand, { ICommandCallback } from "./ICommand";
 import Option from "./Option";
 
-export default abstract class Optionable extends ICommand {
+export interface IOptionable {
+  option(option: Option): this;
+}
+
+export default abstract class Optionable extends ICommand implements IOptionable {
   protected constructor(name: string, param: boolean, callback: ICommandCallback) {
     super(name, param, callback);
   }

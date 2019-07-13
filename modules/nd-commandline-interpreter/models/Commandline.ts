@@ -8,9 +8,9 @@ import Command from "./Command";
 import CommandlineEvent, { Default } from "./CommandlineEvent";
 import { ICommandCallback, ICommandCallbackResult } from "./ICommand";
 import Option from "./Option";
-import Optionable from "./Optionable";
+import Optionable, { IOptionable } from "./Optionable";
 
-export default class Commandline {
+export default class Commandline implements IOptionable {
   get name() {
     return this._name;
   }
@@ -91,7 +91,8 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (s.needParam) {
-            if (this.isOption(next)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
+            if (!this.isParam(next))
+              throw Exception.build(ERR_CLI).description(`${c.name} ${s.name} is require parameter`);
             LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${next} as subcommand parameter`);
             callback = await s.execute(this, next);
             this._event.emit("subcommand", s, next);
@@ -110,7 +111,7 @@ export default class Commandline {
           LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
-            if (this.isOption(arg)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
+            if (!this.isParam(arg)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
             LoggerService.log(LOGGER_CLI_BUILDER, `need parameter; pass ${arg} as command parameter`);
             callback = await c.execute(this, arg);
             this._event.emit("command", c);
@@ -173,7 +174,7 @@ export default class Commandline {
       if (option) {
         LoggerService.log(LOGGER_CLI_BUILDER, `${option.name} is a part of ${c.name}`);
         if (option.needParam) {
-          if (this.isOption(opts[i + 1]) || opts[i + 1] === undefined)
+          if (!this.isParam(opts[i + 1]))
             throw Exception.build(ERR_CLI).description(`${option.name} is required parameter`);
           LoggerService.log(LOGGER_CLI_BUILDER, `option need parameter; which is ${opts[i + 1]}`);
           option.execute(this, opts[i + 1]);
@@ -199,6 +200,10 @@ export default class Commandline {
     return this._commands.get(a);
   }
 
+  private isParam(a?: string) {
+    return a !== undefined && a !== null && !this.isOption(a) && a !== "";
+  }
+
   constructor(private _name: string, private _description: string, private _event: CommandlineEvent = Default) {
     this._globalOptions = new Map();
     this._commands = new Map();
@@ -208,6 +213,7 @@ export default class Commandline {
 
   public option(option: Option) {
     this._globalOptions.set(option.name, option);
+    return this;
   }
 
   public command(cmd: Command) {
