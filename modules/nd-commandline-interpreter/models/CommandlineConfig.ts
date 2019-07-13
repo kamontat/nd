@@ -7,8 +7,12 @@ export default class CommandlineConfig {
   private _config: Map<string, string | boolean | number>;
   private static instance?: CommandlineConfig;
 
-  public get(name: string) {
+  public get<T>(name: string, defaultValue?: T) {
     const value = this._config.get(name);
+    if (value === undefined && defaultValue) {
+      LoggerService.log(LOGGER_CLI_CONFIG, `load default config value instead; ${defaultValue}`);
+      return defaultValue;
+    }
     LoggerService.log(LOGGER_CLI_CONFIG, `get config of '${name}' is ${value}`);
     return value;
   }
