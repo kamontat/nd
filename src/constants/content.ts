@@ -56,13 +56,14 @@ const NOVEL = (name: string) => {
      parameter:
        {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
      option:
-       {cyan --location}              - {gray [optional]} location of output folder; {blueBright config} > {blueBright option} > {blueBright current path} [WIP]
+       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
        {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
      parameter:
        {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
      option:
+       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
        {cyan --chapter} {gray <number>}      - {gray [required]} specify chapter number; 
                                - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6) [WIP]
