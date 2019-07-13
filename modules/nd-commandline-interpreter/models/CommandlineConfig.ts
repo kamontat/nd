@@ -14,7 +14,7 @@ export default class CommandlineConfig {
       return defaultValue;
     }
     LoggerService.log(LOGGER_CLI_CONFIG, `get config of '${name}' is ${value}`);
-    return value;
+    return (value as unknown) as T;
   }
 
   public set(name: string, value: string | boolean | number) {
