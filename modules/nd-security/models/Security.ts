@@ -3,6 +3,7 @@ import { sign, verify } from "jsonwebtoken";
 import Exception, { ERR_SCT } from "nd-error";
 import LoggerService, { LOGGER_SECURITY } from "nd-logger";
 
+import { hash, unhash } from "../apis/hash";
 import config, { IConfigJson } from "../config";
 
 interface ITokenConfig {
@@ -26,14 +27,6 @@ export default class Security {
   private _name: string;
 
   private _caches?: IResponseFormat;
-
-  private _hash(str: string) {
-    return Buffer.from(str, "utf8").toString("hex");
-  }
-
-  private _unhash(str: string) {
-    return Buffer.from(str, "hex").toString("utf8");
-  }
 
   constructor(version: versionName, name: string) {
     this._config = config[version];
@@ -62,8 +55,8 @@ export default class Security {
     LoggerService.log(LOGGER_SECURITY, `before hash token=${token}`);
 
     return {
-      token: this._hash(token),
-      salt: this._hash(salt),
+      token: hash(token),
+      salt: hash(salt),
       name: this._name,
       exp: config.expire,
       nbf: config.when,
@@ -81,10 +74,10 @@ export default class Security {
 
   public decrypt(token: string, salt: string): IResponseFormat {
     try {
-      const password = hashSync(this._name, this._unhash(salt));
+      const password = hashSync(this._name, unhash(salt));
       LoggerService.log(LOGGER_SECURITY, `decrypt with password=${password}`);
 
-      const obj = verify(this._unhash(token), password, {
+      const obj = verify(unhash(token), password, {
         jwtid: this._config.id,
         issuer: "admin",
       }) as any;
