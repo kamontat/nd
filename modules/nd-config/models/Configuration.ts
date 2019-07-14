@@ -2,6 +2,7 @@ import { defaultEditor } from "env-editor";
 import Event from "events";
 import fs from "fs";
 import Exception, { ERR_CFG, ERR_CLI } from "nd-error";
+import { PathUtils } from "nd-helper";
 import LoggerService, { Colorize, LOGGER_CONFIG } from "nd-logger";
 import open from "open";
 import { resolve } from "path";
@@ -52,7 +53,9 @@ export class Configuration extends Event implements IConfiguration {
     });
   }
 
-  public load(_path: string) {
+  public load(_path?: string) {
+    if (!_path || _path === "" || _path === ".") _path = PathUtils.GetCurrentPath();
+
     this.filepath = resolve(`${_path}/config.ndc`); // load config
     LoggerService.log(LOGGER_CONFIG, `start load config from ${this.filepath}`);
 
@@ -61,7 +64,7 @@ export class Configuration extends Event implements IConfiguration {
         if (!fs.existsSync(this.filepath)) {
           LoggerService.log(LOGGER_CONFIG, `configuration file not exist, create new one`);
 
-          fs.mkdirSync(_path, { recursive: true }); // create directory and subdirectory if not exist
+          fs.mkdirSync(_path || "", { recursive: true }); // create directory and subdirectory if not exist
           this.save(false);
         }
 
@@ -92,7 +95,11 @@ export class Configuration extends Event implements IConfiguration {
   }
 
   public get(key: ConfigKey) {
-    return this._object[key] as any;
+    const value = this._object[key] as any;
+    if (key === "novel.location" && value === ".") {
+      return PathUtils.GetCurrentPath();
+    }
+    return value;
   }
 
   public regex(reg: string) {
