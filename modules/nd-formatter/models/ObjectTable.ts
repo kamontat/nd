@@ -1,13 +1,15 @@
 import { Colorize } from "nd-helper";
 import { getBorderCharacters, table } from "table";
 
-import { IFormatter } from "./IFormatter";
+import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 
 interface IObject<V = string> {
   [key: string]: V;
 }
 
-export class ObjectTable implements IFormatter<Array<Array<string>> | IObject> {
+interface ITableConfig extends IDefaultConfigFormat {}
+
+export class ObjectTable implements IFormatter<ITableConfig, Array<Array<string>> | IObject> {
   private _array?: Array<Array<string>>;
   private _options: IObject<any>;
 
@@ -51,6 +53,10 @@ export class ObjectTable implements IFormatter<Array<Array<string>> | IObject> {
     if (!(v instanceof Array)) this._array = this.buildArray(v);
     else this._array = v;
     this._array.unshift([Colorize.format`{bold.green Configuration key}`, Colorize.format`{bold.green value}`]);
+    return this;
+  }
+
+  public config(_: ITableConfig) {
     return this;
   }
 

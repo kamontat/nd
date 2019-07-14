@@ -1,12 +1,18 @@
 import { Colorize } from "nd-helper";
 
-import { IFormatter, IJson } from "./IFormatter";
+import { IDefaultConfigFormat, IFormatter, IJson } from "./IFormatter";
 
-export class ObjectJson implements IFormatter<IJson> {
+interface IJsonConfig extends IDefaultConfigFormat {}
+
+export class ObjectJson implements IFormatter<IJsonConfig, IJson> {
   private _obj?: IJson;
 
   public save(v: IJson) {
     this._obj = v;
+    return this;
+  }
+
+  public config(_: IJsonConfig) {
     return this;
   }
 
