@@ -7,9 +7,7 @@ interface IObject<V = string> {
   [key: string]: V;
 }
 
-interface ITableConfig extends IDefaultConfigFormat {}
-
-export class ObjectTable implements IFormatter<ITableConfig, Array<Array<string>> | IObject> {
+export class ObjectTable implements IFormatter<IDefaultConfigFormat, Array<Array<string>> | IObject> {
   private _array?: Array<Array<string>>;
   private _options: IObject<any>;
 
@@ -56,7 +54,7 @@ export class ObjectTable implements IFormatter<ITableConfig, Array<Array<string>
     return this;
   }
 
-  public config(_: ITableConfig) {
+  public config(_: IDefaultConfigFormat) {
     return this;
   }
 

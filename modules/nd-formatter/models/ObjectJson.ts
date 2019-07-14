@@ -2,9 +2,7 @@ import { Colorize } from "nd-logger";
 
 import { IDefaultConfigFormat, IFormatter, IJson } from "./IFormatter";
 
-interface IJsonConfig extends IDefaultConfigFormat {}
-
-export class ObjectJson implements IFormatter<IJsonConfig, IJson> {
+export class ObjectJson implements IFormatter<IDefaultConfigFormat, IJson> {
   private _obj?: IJson;
 
   public save(v: IJson) {
@@ -12,7 +10,7 @@ export class ObjectJson implements IFormatter<IJsonConfig, IJson> {
     return this;
   }
 
-  public config(_: IJsonConfig) {
+  public config(_: IDefaultConfigFormat) {
     return this;
   }
 
