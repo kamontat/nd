@@ -1,7 +1,6 @@
 import { Commandline, Option } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import { Colorize } from "nd-helper";
-import LoggerService from "nd-logger";
+import LoggerService, { Colorize } from "nd-logger";
 
 import { Package } from "../build/Package";
 

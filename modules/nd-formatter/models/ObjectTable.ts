@@ -1,4 +1,4 @@
-import { Colorize } from "nd-helper";
+import { Colorize } from "nd-logger";
 import { getBorderCharacters, table } from "table";
 
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";

@@ -1,6 +1,5 @@
 import Exception, { ERR_CLI } from "nd-error";
-import { Colorize } from "nd-helper";
-import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
+import LoggerService, { Colorize, LOGGER_CLI_BUILDER } from "nd-logger";
 
 import { CommandApi } from "..";
 

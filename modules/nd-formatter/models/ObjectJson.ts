@@ -1,4 +1,4 @@
-import { Colorize } from "nd-helper";
+import { Colorize } from "nd-logger";
 
 import { IDefaultConfigFormat, IFormatter, IJson } from "./IFormatter";
 

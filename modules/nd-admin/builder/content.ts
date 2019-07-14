@@ -1,4 +1,5 @@
-import { Colorize, TimeUtils } from "nd-helper";
+import { TimeUtils } from "nd-helper";
+import { Colorize } from "nd-logger";
 
 import { Package } from "../../../src/build/Package";
 

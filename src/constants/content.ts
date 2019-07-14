@@ -4,8 +4,8 @@ import { Package as EncoderPackage } from "nd-decoder";
 import { Package as DownloaderPackage } from "nd-downloader";
 import { Package as ErrorPackage } from "nd-error";
 import { Package as FormatterPackage } from "nd-formatter";
-import { Colorize, Package as HelperPackage, TimeUtils } from "nd-helper";
-import { Package as LogPackage } from "nd-logger";
+import { Package as HelperPackage, TimeUtils } from "nd-helper";
+import { Colorize, Package as LogPackage } from "nd-logger";
 import { Package as NovelPackage } from "nd-novel";
 import { Package as SecurityPackage, Security } from "nd-security";
 
@@ -54,14 +54,14 @@ const NOVEL = (name: string) => {
 
 {gray $} {green ${name}} {magentaBright [novel]} {magenta [download]}       -- start download novel from website (auto mode) [WIP]
      parameter:
-       {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
+       {yellow id}                      - {gray [required]} download novel to default location in setting [WIP]
      option:
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
        {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
      parameter:
-       {yellow <id|link>}               - {gray [required]} download novel to default location in setting [WIP]
+       {yellow id}                      - {gray [required]} download novel to default location in setting [WIP]
      option:
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
@@ -76,7 +76,7 @@ const NOVEL = (name: string) => {
                                - {underline default is 1 subfolder} [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta fetch}            -- fetch information from novel (support both local and server) [WIP]
      parameter:
-       {yellow <url|id|location>}       - {gray [required]} fetch information base on input type [WIP]
+       {yellow <id|location>}           - {gray [required]} fetch information base on input type [WIP]
      option:
        {cyan --list}                  - {gray [optional]} list all novel and chapter information [WIP]
        {cyan --history}               - {gray [optional]} list all change and history of novel [WIP]

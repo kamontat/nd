@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "table formatting of nd output",
   "dependencies": {
-    "nd-helper": "./modules/nd-helper",
+    "nd-logger": "./modules/nd-logger",
     "table": "5.4.1"
   },
   "changelog": {
