@@ -135,7 +135,7 @@ export default class Commandline implements IOptionable {
       if (i === 0 && this.isOption(arg)) {
         LoggerService.log(LOGGER_CLI_BUILDER, `option look like to appear before primary command set`);
         throw Exception.build(ERR_CLI).description(
-          Colorize.format`Invalid command format... learn more at {greenBright ${this.name} --help}`,
+          `Invalid command format... learn more at ${Colorize.appname(this.name)} ${Colorize.option("--help")}`,
         );
       }
 
@@ -146,10 +146,11 @@ export default class Commandline implements IOptionable {
         LoggerService.log(LOGGER_CLI_BUILDER, `try to call default callback with arguments '${arg}'`);
 
         if (this._callback) {
+          if (!this.isParam(arg)) throw Exception.build(ERR_CLI).description(`${this.name} is require parameter`);
           callback = this._callback({ self: this, name: "default", value: arg, apis: CommandApi.get() });
         } else
           throw Exception.build(ERR_CLI).description(
-            Colorize.format`Invalid command format... learn more at {greenBright ${this.name} --help}`,
+            `Invalid command format... learn more at ${Colorize.appname(this.name)} ${Colorize.option("--help")}`,
           );
       }
 
