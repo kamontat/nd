@@ -1,6 +1,6 @@
 {
   "name": "nd-decoder",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "File decoder for html in nd command",
   "dependencies": {
     "iconv-lite": "0.5.0",
@@ -8,6 +8,7 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0": "support every encode format in iconv-lite",
     "0.1.0": "implement to support encode utf-8 and tis-620"
   }
 }
