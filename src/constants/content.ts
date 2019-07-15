@@ -180,10 +180,10 @@ export const VERSION = () => {
 
 export const VERSION_FULL = () => {
   interface IDependency {
+    changelog?: { [key: string]: string };
+    description?: string;
     name: string;
     version: string;
-    description?: string;
-    changelog?: { [key: string]: string };
   }
 
   const genInternalDependency = (pjson: { [key: string]: any }) => {

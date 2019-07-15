@@ -38,11 +38,6 @@ export const BuildCommandline = async (cli: Commandline, config: IConfiguration)
 
   await Level(cli, config);
 
-  // TODO: implement default query
-  // cli.callback(({ name }) => {
-  //   LoggerService.console.log(`Start ${name} callback`);
-  // });
-
   await CConfig(cli, config);
 
   // FIXME: crash on production

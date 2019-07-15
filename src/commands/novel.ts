@@ -1,9 +1,9 @@
 import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
 import { IOptionable } from "nd-commandline-interpreter/models/Optionable";
 import { IConfiguration } from "nd-config";
-import { DownloadManager } from "nd-downloader";
-import { byteToSize } from "nd-downloader/apis/SizeConverter";
-import LoggerService, { LOGGER_CLI, LOGGER_DOWNLOADER } from "nd-logger";
+import ExceptionService, { ERR_NLV } from "nd-error";
+import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { NovelBuilder } from "nd-novel";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const downloadOption = <T extends IOptionable>(opt: T) => {
@@ -21,11 +21,23 @@ export default (cli: Commandline, config: IConfiguration) => {
   };
 
   const downloadCallback: ICommandCallback = ({ value, apis }) => {
+    if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "input must be id number");
     const replace = apis.config.get<boolean>("novel.replace", false);
     const change = apis.config.get<boolean>("novel.change", false);
     const location = config.get("novel.location");
 
     LoggerService.log(LOGGER_CLI, `download ${value} (nid) to ${location} with replace=${replace},change=${change}`);
+
+    const builder = new NovelBuilder(parseInt(value || "", 10), config.get("novel.location") || "");
+    return builder.build();
+
+    // const novel = new Novel();
+    // LoggerService.log(LOGGER_CLI, `%O`, novel);
+
+    // const history = History.Get();
+    // LoggerService.log(LOGGER_CLI, `%O`, history);
+
+    // LoggerService.console.log(history.toString());
 
     // const _novel = new NovelBuilder(value); // value == nid
     // _novel
