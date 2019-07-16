@@ -119,8 +119,8 @@ export default class Manager<T> {
     this.responses = [];
   }
 
-  public add(link: string, file: string) {
-    const res = new Response(link, file);
+  public add(link: string) {
+    const res = new Response(link);
 
     this.event.emit("add", res);
     this.responses.push(res);
