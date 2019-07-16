@@ -3,34 +3,108 @@ import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
 
 import { Chapter } from "./Chapter";
+import { NovelType } from "./NovelType";
 
 export class Novel {
+  public get abstract() {
+    return this._abstract;
+  }
+
+  public set abstract(abs: string | undefined) {
+    this.eventHandler("abstract", { before: this._abstract, after: abs });
+    this._abstract = abs;
+  }
+
   public get chapters() {
     return this._chapters.values();
   }
 
-  public get link() {
-    return buildViewURL(this.id);
+  public set content(c: string[]) {
+    this.eventHandler("content", { before: this._content, after: c });
+    this._content = c;
   }
 
-  public downloadAt?: number;
-  public name?: string;
-  public updateAt?: number;
+  public get content() {
+    return this._content;
+  }
 
+  public get downloadAt() {
+    return this._downloadAt;
+  }
+
+  public set downloadAt(dlAt: number | undefined) {
+    this.eventHandler("download at", { before: this._downloadAt, after: dlAt });
+    this._downloadAt = dlAt;
+  }
+
+  public get link() {
+    return this._link;
+  }
+
+  public get name() {
+    return this._name;
+  }
+
+  public set name(n: string | undefined) {
+    this.eventHandler("name", { before: this._name, after: n });
+    this._name = n;
+  }
+
+  public get type() {
+    return this._type;
+  }
+
+  public set type(t: NovelType) {
+    this.eventHandler("type", { before: this._type, after: t });
+    this._type = t;
+  }
+
+  public get updateAt() {
+    return this._updateAt;
+  }
+
+  public set updateAt(udAt: number | undefined) {
+    this.eventHandler("update at", { before: this._updateAt, after: udAt });
+    this._updateAt = udAt;
+  }
+  private _abstract?: string;
   private _chapters: Map<number, Chapter>;
+  private _content: string[];
+  private _downloadAt?: number;
   private _event: HistoryEvent;
 
+  private _link: URL;
+  private _name?: string;
+
+  private _type: NovelType;
+  private _updateAt?: number;
+
   constructor(private id: number, event?: HistoryEvent) {
+    this._type = NovelType.UNKNOWN;
+
+    this._link = buildViewURL(id);
     this._event = event ? event : new HistoryEvent();
     this._chapters = new Map();
+    this._content = [];
 
     History.Get().addEvent(this._event);
 
-    // this._event.addListener("added")
-    this._event.emit("added", "novel id", id);
+    this.eventHandler("id", { before: undefined, after: id });
+  }
+
+  public addChapter(num: number, chapter: Chapter) {
+    this.eventHandler("chapter", { before: this.chapter(num), after: chapter });
+    this._chapters.set(num, chapter);
   }
 
   public chapter(num: number) {
     return this._chapters.get(num);
+  }
+
+  private eventHandler(name: string, value: { after: any; before: any }) {
+    if (value.before === value.after) return;
+    else if (value.before === undefined) this._event.emit("added", `Novel ${name}`, value.after);
+    else if (value.after === undefined) this._event.emit("deleted", `Novel ${name}`, value.before);
+    else this._event.emit("modified", `Novel ${name}`, value);
   }
 }

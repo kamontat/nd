@@ -5,7 +5,8 @@
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error",
-    "nd-downloader": "./modules/nd-downloader"
+    "nd-downloader": "./modules/nd-downloader",
+    "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
     "0.0.1-alpha.1": "first version template"

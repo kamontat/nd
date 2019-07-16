@@ -1,2 +1,2 @@
 export * from "./url";
-export { NovelAPIs } from "./novel";
+export { NovelAPIs } from "./dekd";
