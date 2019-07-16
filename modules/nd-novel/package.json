@@ -1,6 +1,6 @@
 {
   "name": "nd-novel",
-  "version": "0.0.1-alpha.1",
+  "version": "1.0.0",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,6 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
-    "0.0.1-alpha.1": "first version template"
+    "1.0.0": "able to build novel and chapter with parser"
   }
 }
