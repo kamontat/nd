@@ -28,8 +28,10 @@ export default (cli: Commandline, config: IConfiguration) => {
 
     LoggerService.log(LOGGER_CLI, `download ${value} (nid) to ${location} with replace=${replace},change=${change}`);
 
-    const builder = new NovelBuilder(parseInt(value || "", 10), config.get("novel.location") || "");
-    return builder.build();
+    const builder = new NovelBuilder(parseInt(value || "", 10));
+    return builder.build().then(_ => {
+      return new Promise(res => res());
+    }) as Promise<undefined>;
 
     // const novel = new Novel();
     // LoggerService.log(LOGGER_CLI, `%O`, novel);
