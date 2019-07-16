@@ -32,7 +32,20 @@ const monthsTH = [
   "พฤศจิกายน",
   "ธันวาคม",
 ];
-const monthsShortTH = ["ม.ค", "ก.พ", "มี.ค", "เม.ย", "พ.ค", "มิ.ย", "ก.ค", "ส.ค", "ก.ย", "ต.ค", "พ.ย", "ธ.ค"];
+const monthsShortTH = [
+  "ม.ค.",
+  "ก.พ.",
+  "มี.ค.",
+  "เม.ย.",
+  "พ.ค.",
+  "มิ.ย.",
+  "ก.ค.",
+  "ส.ค.",
+  "ก.ย.",
+  "ต.ค.",
+  "พ.ย.",
+  "ธ.ค.",
+];
 
 const dayShortTH = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
 
@@ -41,6 +54,24 @@ const prefixZero = (num: number) => {
 };
 
 export default {
+  BuildDate({ year = 0, month = 0, date = 1, hour = 0, minute = 0, second = 0 }) {
+    // build to this format: 1995-12-17T03:24:00
+    return new Date(year, month, date, hour, minute, second);
+  },
+  ConvertThaiMonth(str: string, type: "short" | "long") {
+    if (!str.endsWith(".")) str += ".";
+    const arr = type === "short" ? monthsShortTH : monthsTH;
+
+    return arr.reduce((p, c, i) => {
+      if (c === str) return i;
+      return p;
+    }, -1);
+  },
+  ConvertThaiYear(str: string) {
+    if (str.length === 2) str = `25${str}`;
+    const n = parseInt(str, 10);
+    return n - 543;
+  },
   GetTimestamp(date: string | Date) {
     if (typeof date === "string") return +new Date(date);
     else return date.getTime();
