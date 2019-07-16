@@ -1,53 +1,63 @@
+import { IncomingHttpHeaders } from "http";
+
 export interface IResponse<T> {
-  readonly link: string;
+  code: number; // http status code
   readonly file: string;
 
-  code: number; // http status code
+  headers?: IncomingHttpHeaders;
+  readonly link: string;
   result?: T; // should change to Html object
 
-  isQuery(): boolean;
-
   copy<N>(): IResponse<N>;
+
+  isQuery(): boolean;
 }
 
 export class Response<T = string> implements IResponse<T> {
-  private _code: number;
-  private _result?: T;
-
   set code(num: number) {
     this._code = num;
-  }
-
-  set result(res: T | undefined) {
-    this._result = res;
   }
 
   get code() {
     return this._code;
   }
 
+  get file() {
+    return this._file;
+  }
+
+  set headers(h: IncomingHttpHeaders | undefined) {
+    this._headers = h;
+  }
+
+  get headers() {
+    return this._headers;
+  }
+
   get link() {
     return this._link;
   }
 
-  get file() {
-    return this._file;
+  set result(res: T | undefined) {
+    this._result = res;
   }
 
   get result(): T | undefined {
     return this._result;
   }
 
+  public static HttpStatusCode = {
+    OK: 200,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+  };
+  private _code: number;
+
+  private _headers?: IncomingHttpHeaders;
+  private _result?: T;
+
   constructor(private _link: string, private _file: string) {
     this._code = -1;
-  }
-
-  public isQuery() {
-    return this._code !== -1;
-  }
-
-  public toString() {
-    return `${this._link} (${this._code})`;
   }
 
   public copy<N>() {
@@ -58,9 +68,11 @@ export class Response<T = string> implements IResponse<T> {
     } as IResponse<N>;
   }
 
-  public static HttpStatusCode = {
-    OK: 200,
-    BAD_REQUEST: 400,
-    UNAUTHORIZED: 401,
-  };
+  public isQuery() {
+    return this._code !== -1;
+  }
+
+  public toString() {
+    return `${this._link} (${this._code})`;
+  }
 }

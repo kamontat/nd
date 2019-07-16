@@ -138,8 +138,10 @@ export default class Manager<T> {
       this._download(value, start)
         .then(obj => {
           start.completed++;
-          this.responses[index as number].code = obj.res.statusCode || -1;
-          this.responses[index as number].result = obj.data;
+
+          this.responses[index as number].headers = obj.res.headers; // set header
+          this.responses[index as number].code = obj.res.statusCode || -1; // set status code
+          this.responses[index as number].result = obj.data; // set body
 
           this.event.emit(
             "downloaded",
