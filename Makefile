@@ -71,7 +71,7 @@ ifeq "$(type)" "lib"
 	@cloc ./modules/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FORMATTER.md
 	@cloc ./modules/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
 	@cloc ./modules/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-NOVEL.md
-	@cloc ./modules/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ENCODER.md
+	@cloc ./modules/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DECODER.md
 else
 	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC.md
 
