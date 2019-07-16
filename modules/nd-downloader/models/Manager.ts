@@ -3,7 +3,7 @@ import { IncomingMessage } from "http";
 import https from "https";
 import Decoder from "nd-decoder";
 import ExceptionService, { ERR_DWL } from "nd-error";
-import LoggerService, { LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
+import LoggerService, { LOGGER_DOWNLOADER_DECODER, LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
 
 import { IResponse, Response } from "./IResponse";
 import { IManagerEvent, ManagerEvent } from "./ManagerEvent";
@@ -21,7 +21,7 @@ export default class Manager<T> {
     return this._event;
   }
 
-  private _builder?: (r: IResponse<string>) => IResponse<T>;
+  private _builder?: (r: IResponse<string>, index: number) => IResponse<T>;
 
   private responses: IResponse<T | string>[];
 
@@ -32,13 +32,12 @@ export default class Manager<T> {
       this._get(v.link, response => {
         const contenttype = response.headers["content-type"] as string;
         const encode = contenttype.substring(contenttype.indexOf("=") + 1);
-        // response.setEncoding(encode);
+        LoggerService.log(LOGGER_DOWNLOADER_DECODER, `string encode format is ${encode}`);
 
         let rawData = "";
 
         response.on("data", (chunk: Buffer) => {
           const str = Decoder(chunk, encode as any);
-          // LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `chunk %O`, str);
 
           const chunkSize = Buffer.byteLength(str);
 
@@ -126,7 +125,7 @@ export default class Manager<T> {
     this.responses.push(res);
   }
 
-  public build(buildingFn: (r: IResponse<string>) => IResponse<T>) {
+  public build(buildingFn: (r: IResponse<string>, index: number) => IResponse<T>) {
     this._builder = buildingFn;
   }
 
@@ -151,7 +150,10 @@ export default class Manager<T> {
           );
           if (this._builder) {
             LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
-            this.responses[index as number] = this._builder(this.responses[index as number] as IResponse<string>);
+            this.responses[index as number] = this._builder(
+              this.responses[index as number] as IResponse<string>,
+              index as number,
+            );
           }
 
           callback();
