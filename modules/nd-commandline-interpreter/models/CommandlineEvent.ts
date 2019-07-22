@@ -1,5 +1,5 @@
 import Event from "events";
-import LoggerService, { LOGGER_CLI_BUILDER, LOGGER_ROOT } from "nd-logger";
+import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
 
 import { Option } from "..";
 

@@ -1,3 +1,7 @@
+import { IConfiguration } from "nd-config";
+import ExceptionService, { ERR_SCT } from "nd-error";
+import { Security } from "nd-security";
+
 export default {
   IsExist(n: any) {
     if (n === undefined || n === null) return false;
@@ -34,6 +38,17 @@ export default {
       return url.protocol.includes("http") || url.protocol.includes("https");
     } catch (e) {
       return false;
+    }
+  },
+  CheckAuthenication(config: IConfiguration): { err?: Error; secure: Security } {
+    const secure = new Security("v1", config.get("auth.name") as string);
+    if (secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
+      return { err: undefined, secure };
+    } else {
+      return {
+        err: ExceptionService.build(ERR_SCT, "security is invalid; please check your token salt and name again"),
+        secure,
+      };
     }
   },
 };
