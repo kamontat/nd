@@ -5,14 +5,14 @@ import { IParser } from "../../models/parser/IParser";
 
 export default (parser: IParser<string, string, Cheerio>) => {
   let dateString = parser.query("font[style=font-size\\:9pt\\;color\\:\\#cdcdcd]").text();
-  if (dateString) dateString.replace("อัพเดท ", "");
 
   if (!dateString) {
     dateString = parser.query(parser.query(".timeupdate").get(0)).text();
   }
-  LoggerService.log(LOGGER_NOVEL_BUILDER, `chapter date string: ${dateString}`);
 
   const __arr = dateString.split(" ");
+  if (!/\d+/.test(__arr[0])) __arr.shift();
+  LoggerService.log(LOGGER_NOVEL_BUILDER, `chapter date string: %O`, __arr);
 
   const _date = Optional.of<string, number>(__arr[0])
     .transform(r => parseInt(r, 10))
