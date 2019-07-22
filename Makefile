@@ -24,7 +24,9 @@ ifeq "$(quite)" "true"
 		./modules/nd-formatter \
 		./modules/nd-downloader \
 		./modules/nd-novel \
-		./modules/nd-decoder  >/dev/null
+		./modules/nd-decoder \
+		./modules/nd-html-generator \
+		./modules/nd-file  >/dev/null
 else
 	@$(npm_client) add \
 		./modules/nd-logger \
@@ -37,7 +39,9 @@ else
 		./modules/nd-formatter \
 		./modules/nd-downloader \
 		./modules/nd-novel \
-		./modules/nd-decoder
+		./modules/nd-decoder \
+		./modules/nd-html-generator \
+		./modules/nd-file
 endif
 
 compile: lib
@@ -72,8 +76,10 @@ ifeq "$(type)" "lib"
 	@cloc ./modules/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
 	@cloc ./modules/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-NOVEL.md
 	@cloc ./modules/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DECODER.md
+	@cloc ./modules/nd-file --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FILE.md
+	@cloc ./modules/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HTML_GEN.md
 else
-	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC.md
+	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./reports/loc/LOC.md
 
 	@printf "\nCreate date is " >> ./reports/loc/LOC.md
 	@date "+%d/%m/%Y - %H:%M:%S" >> ./reports/loc/LOC.md

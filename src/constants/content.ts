@@ -3,8 +3,10 @@ import { config, Package as ConfigPackage } from "nd-config";
 import { Package as EncoderPackage } from "nd-decoder";
 import { Package as DownloaderPackage } from "nd-downloader";
 import { Package as ErrorPackage } from "nd-error";
+import { Package as FilePackage } from "nd-file";
 import { Package as FormatterPackage } from "nd-formatter";
 import { Package as HelperPackage, TimeUtils } from "nd-helper";
+import { Package as HtmlGenPackage } from "nd-html-generator";
 import { Colorize, Package as LogPackage } from "nd-logger";
 import { Package as NovelPackage } from "nd-novel";
 import { Package as SecurityPackage, Security } from "nd-security";
@@ -165,11 +167,13 @@ export const VERSION = () => {
   return Colorize.format`{dim --------------------------------------}
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
-{yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
+{yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
 {yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
+{yellowBright ${FilePackage.name}}                    : {blueBright ${FilePackage.version}}
+{yellowBright ${HtmlGenPackage.name}}          : {blueBright ${HtmlGenPackage.version}}
 {yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
 {yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
@@ -203,11 +207,11 @@ export const VERSION_FULL = () => {
   // security package
   dependencies.push(genInternalDependency(SecurityPackage));
 
-  // commandline package
-  dependencies.push(genInternalDependency(CLIPackage));
-
   // novel package
   dependencies.push(genInternalDependency(NovelPackage));
+
+  // commandline package
+  dependencies.push(genInternalDependency(CLIPackage));
 
   // encoder package
   dependencies.push(genInternalDependency(EncoderPackage));
@@ -217,6 +221,12 @@ export const VERSION_FULL = () => {
 
   // formatter package
   dependencies.push(genInternalDependency(FormatterPackage));
+
+  // file package
+  dependencies.push(genInternalDependency(FilePackage));
+
+  // html generator package
+  dependencies.push(genInternalDependency(HtmlGenPackage));
 
   // downloader package
   dependencies.push(genInternalDependency(DownloaderPackage));
