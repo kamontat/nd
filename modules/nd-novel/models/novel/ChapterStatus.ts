@@ -1,6 +1,7 @@
 export enum ChapterStatus {
   UNKNOWN = "unknown",
   DOWNLOADED = "downloaded",
+  IGNORED = "ignore",
   COMPLETED = "completed",
   CLOSED = "closed",
   SOLD = "sold",
@@ -13,6 +14,10 @@ export class ChapterStatusUtils {
         return ChapterStatus.UNKNOWN;
       case ChapterStatus.COMPLETED.toLowerCase():
         return ChapterStatus.COMPLETED;
+      case ChapterStatus.DOWNLOADED.toLowerCase():
+        return ChapterStatus.DOWNLOADED;
+      case ChapterStatus.IGNORED.toLowerCase():
+        return ChapterStatus.IGNORED;
       case ChapterStatus.SOLD.toLowerCase():
         return ChapterStatus.SOLD;
       case ChapterStatus.CLOSED.toLowerCase():
