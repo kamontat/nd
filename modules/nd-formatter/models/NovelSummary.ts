@@ -6,6 +6,7 @@ import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 
 interface NovelConfigFormat extends IDefaultConfigFormat {
   chapter: boolean;
+  path: string;
   short: boolean;
 }
 
@@ -52,7 +53,7 @@ export class NovelSummary implements IFormatter<NovelConfigFormat, Novel> {
   private __buildShort() {
     if (this._obj) {
       this._appendSummary(`
-id          =  ${Colorize.id(this._obj.id.toString())}
+id          =  ${Colorize.id(this._obj.id.toString())} | ${Colorize.url(this._obj.link.href)}
 name        =  ${Colorize.important(this._obj.name || "unknown")}
 chapters    =  ${ArrayUtils.ReadableArray(
         Array.from(this._obj.chapters)
@@ -61,6 +62,7 @@ chapters    =  ${ArrayUtils.ReadableArray(
       )}
 update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
 download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
+${this._config && `path        =  ${Colorize.path(this._config.path)}`}
 `);
     }
   }
