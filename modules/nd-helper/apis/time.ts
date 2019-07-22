@@ -47,7 +47,7 @@ const monthsShortTH = [
   "ธ.ค.",
 ];
 
-const dayShortTH = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
+const dayShortTH = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์"];
 
 const prefixZero = (num: number) => {
   return ("0" + num).slice(-2);
