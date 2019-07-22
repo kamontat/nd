@@ -154,6 +154,8 @@ export default class Manager<T> {
               this.responses[index as number] as IResponse<string>,
               index as number,
             );
+
+            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, this.responses[index as number].result);
           }
 
           callback();
