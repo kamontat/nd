@@ -6,6 +6,14 @@ import { Chapter } from "./Chapter";
 import { NovelType } from "./NovelType";
 
 export class Novel {
+  public get id() {
+    return this._id;
+  }
+
+  public get size() {
+    return this._chapters.size;
+  }
+
   public get abstract() {
     return this._abstract;
   }
@@ -13,6 +21,15 @@ export class Novel {
   public set abstract(abs: string | undefined) {
     this.eventHandler("abstract", { before: this._abstract, after: abs });
     this._abstract = abs;
+  }
+
+  public get author() {
+    return this._author;
+  }
+
+  public set author(a: string | undefined) {
+    this.eventHandler("author", { before: this._author, after: a });
+    this._author = a;
   }
 
   public get chapters() {
@@ -45,9 +62,18 @@ export class Novel {
     return this._name;
   }
 
+  public get normalizeName() {
+    if (!this._name) return `unknown-name-${this.id}`;
+    return this._name.replace(/([ \n\t\r\n])/g, "-").replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
+  }
+
   public set name(n: string | undefined) {
     this.eventHandler("name", { before: this._name, after: n });
     this._name = n;
+  }
+
+  public get tags() {
+    return this._tags;
   }
 
   public get type() {
@@ -68,6 +94,7 @@ export class Novel {
     this._updateAt = udAt;
   }
   private _abstract?: string;
+  private _author?: string;
   private _chapters: Map<number, Chapter>;
   private _content: string[];
   private _downloadAt?: number;
@@ -75,26 +102,33 @@ export class Novel {
 
   private _link: URL;
   private _name?: string;
+  private _tags: string[];
 
   private _type: NovelType;
   private _updateAt?: number;
 
-  constructor(private id: number, event?: HistoryEvent) {
+  constructor(private _id: number, event?: HistoryEvent) {
     this._type = NovelType.UNKNOWN;
 
-    this._link = buildViewURL(id);
+    this._link = buildViewURL(_id);
     this._event = event ? event : new HistoryEvent();
     this._chapters = new Map();
     this._content = [];
+    this._tags = [];
 
     History.Get().addEvent(this._event);
 
-    this.eventHandler("id", { before: undefined, after: id });
+    this.eventHandler("id", { before: undefined, after: _id });
   }
 
   public addChapter(num: number, chapter: Chapter) {
     this.eventHandler("chapter", { before: this.chapter(num), after: chapter });
     this._chapters.set(num, chapter);
+  }
+
+  public addTag(t: string) {
+    this.eventHandler("tag", { before: this._tags, after: t });
+    this._tags.push(t);
   }
 
   public chapter(num: number) {
