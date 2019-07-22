@@ -1,9 +1,8 @@
 import Logger from "./models/Logger";
 
-export const LOGGER_ROOT = new Logger("nd");
+const LOGGER_ROOT = new Logger("nd");
 
 export const LOGGER_DEBUG = LOGGER_ROOT.extend("debug");
-export const LOGGER_MODEL = LOGGER_DEBUG.extend("model");
 
 export const LOGGER_CLI = LOGGER_ROOT.extend("cli");
 export const LOGGER_CLI_BUILDER = LOGGER_CLI.extend("builder");
@@ -21,3 +20,8 @@ export const LOGGER_NOVEL = LOGGER_ROOT.extend("novel");
 export const LOGGER_NOVEL_BUILDER = LOGGER_NOVEL.extend("builder");
 export const LOGGER_NOVEL_DOWNLOADER = LOGGER_NOVEL.extend("download");
 export const LOGGER_NOVEL_UPDATER = LOGGER_NOVEL.extend("update");
+
+export const LOGGER_HTML = LOGGER_ROOT.extend("html");
+export const LOGGER_HTML_GENERATOR = LOGGER_HTML.extend("generator");
+
+export const LOGGER_FILE = LOGGER_ROOT.extend("file");

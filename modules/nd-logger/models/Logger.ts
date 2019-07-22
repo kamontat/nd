@@ -1,22 +1,20 @@
 import debug, { Debugger } from "debug";
 
 export default class Logger {
+  get enabled() {
+    return this._logger.enabled;
+  }
   private _logger: Debugger;
   constructor(namespace: string) {
     this._logger = debug(namespace);
-  }
-
-  public extend(namespace: string) {
-    return new Logger(`${this._logger.namespace}:${namespace}`); // create new logger instance
   }
 
   public debug(format: any, ...args: any[]) {
     return this._logger(format, ...args);
   }
 
-  public stdlog() {
-    this._logger.log = console.log.bind(console);
-    return this;
+  public extend(namespace: string) {
+    return new Logger(`${this._logger.namespace}:${namespace}`); // create new logger instance
   }
 
   public stderr() {
@@ -24,7 +22,8 @@ export default class Logger {
     return this;
   }
 
-  get enabled() {
-    return this._logger.enabled;
+  public stdlog() {
+    this._logger.log = console.log.bind(console);
+    return this;
   }
 }
