@@ -109,7 +109,7 @@ export class NovelBuilder {
         });
       })
       .then(novel => {
-        LoggerService.log(LOGGER_NOVEL_DOWNLOADER, "novel is %O", novel);
+        // LoggerService.log(LOGGER_NOVEL_DOWNLOADER, "novel is %O", novel);
         return new Promise(res => res(novel));
       });
   }
