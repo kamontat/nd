@@ -54,19 +54,21 @@ const NOVEL = (name: string) => {
   return Colorize.format`
 {bold ## Novel}
 
-{gray $} {green ${name}} {magentaBright [novel]} {magenta [download]}       -- start download novel from website (auto mode) [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta [download]}       -- start download novel from website (auto mode)
      parameter:
-       {yellow id}                      - {gray [required]} download novel to default location in setting [WIP]
+       {yellow id}                      - {gray [required]} download novel to default location in setting
      option:
-       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
+       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
        {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel [WIP]
+       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
      parameter:
        {yellow id}                      - {gray [required]} download novel to default location in setting [WIP]
      option:
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
+       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
        {cyan --chapter} {gray <number>}      - {gray [required]} specify chapter number; 
                                - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6) [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta update}           -- update exist local novel [WIP]
