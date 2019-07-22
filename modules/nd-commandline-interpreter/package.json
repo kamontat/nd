@@ -1,11 +1,15 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "commandline interpreter and helper",
   "dependencies": {
-    "nd-logger": "./modules/nd-logger"
+    "nd-logger": "./modules/nd-logger",
+    "nd-security": "./modules/nd-security",
+    "nd-error": "./modules/nd-error",
+    "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.0.0": "add require dependency and add authen checker",
     "1.0.0-rc.2": "fix option on subcommand have beed filter out",
     "1.0.0-rc.1": "release first rc version with fixes some bug",
     "1.0.0-beta.7": "add support option in command and subcommand",
