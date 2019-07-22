@@ -1,12 +1,13 @@
 {
   "name": "nd-file",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "0.1.0-rc.2": "export path name",
     "0.1.0-rc.1": "first version release"
   }
 }
