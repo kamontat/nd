@@ -1,5 +1,6 @@
 export enum ChapterStatus {
   UNKNOWN = "unknown",
+  DOWNLOADED = "downloaded",
   COMPLETED = "completed",
   CLOSED = "closed",
   SOLD = "sold",
