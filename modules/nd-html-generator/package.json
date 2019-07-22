@@ -1,0 +1,12 @@
+{
+  "name": "nd-html-generator",
+  "version": "0.0.1-alpha.1",
+  "description": "html template and novel content generator",
+  "dependencies": {
+    "nd-logger": "./modules/nd-logger",
+    "nd-error": "./modules/nd-error"
+  },
+  "changelog": {
+    "0.0.1-alpha.1": "first version template"
+  }
+}

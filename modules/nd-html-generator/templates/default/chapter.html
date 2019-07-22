@@ -1,0 +1,31 @@
+<div for="chapter">
+  <div class="header-container">
+    <h3 class="chapter-name">{{chapter.name}}</h3>
+    <div class="metadata">
+      <icon class="clock"></icon>
+      <label class="clock-text">{{#dateToTHString}}{{chapter.updateat}}{{/dateToTHString}}</label>
+    </div>
+  </div>
+
+  <div class="content-container">
+    {{#contents}}
+    <p>{{.}}</p>
+    {{/contents}}
+  </div>
+
+  <div class="footer">
+    <div class="prev-chapter">
+      {{#chapter.prev}}
+      <a href="chapter-{{chapter.prev.link}}.html">Previous</a>
+      {{/chapter.prev}}
+    </div>
+    <div class="main-index">
+      <a href="index.html">Main</a>
+    </div>
+    <div class="next-chapter">
+      {{#chapter.next}}
+      <a href="chapter-{{chapter.next.cid}}.html">Next</a>
+      {{/chapter.next}}
+    </div>
+  </div>
+</div>

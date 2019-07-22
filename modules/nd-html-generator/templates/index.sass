@@ -1,0 +1,63 @@
+$icon-size: 20px
+
+$title-size: 24px;
+$subtitle-size: 21px;
+$body-size: 18px;
+$small-size: 15px;
+  
+html 
+  height: 100%
+  min-height: 100%
+
+body,span,p,a,label
+  font-size: $body-size
+  font-family: 'Times New Roman', Times, serif
+  font-weight: normal
+
+h1,h2,h3, .title
+  font-size: $title-size
+  font-weight: bold
+  margin-bottom: 0px
+  margin-block-start: 0px
+  margin-block-end: 0px
+  margin-top: 0px
+
+h4,h5,h6, .subtitle
+  font-size: $subtitle-size
+  font-weight: normal
+  margin-bottom: 0px
+  margin-block-start: 0px
+  margin-block-end: 0px
+  margin-top: 0px
+
+a
+  color: inherit
+  text-decoration: none
+
+small, .small
+  font-size: $small-size
+
+.metadata
+  icon.clock
+    margin: 8px
+    height: $icon-size
+    width: $icon-size
+  .clock-text
+    margin: 5px
+    height: $icon-size
+
+icon.clock 
+  display: inline-block
+
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZyBmaWxsLW9wYWNpdHk9Ii45Ij48cGF0aCBkPSJNMjU1LjggNDhDMTQxIDQ4IDQ4IDE0MS4yIDQ4IDI1NnM5MyAyMDggMjA3LjggMjA4YzExNSAwIDIwOC4yLTkzLjIgMjA4LjItMjA4UzM3MC44IDQ4IDI1NS44IDQ4em0uMiAzNzQuNGMtOTEuOSAwLTE2Ni40LTc0LjUtMTY2LjQtMTY2LjRTMTY0LjEgODkuNiAyNTYgODkuNiA0MjIuNCAxNjQuMSA0MjIuNCAyNTYgMzQ3LjkgNDIyLjQgMjU2IDQyMi40eiIvPjxwYXRoIGQ9Ik0yNjYuNCAxNTJoLTMxLjJ2MTI0LjhsMTA5LjIgNjUuNSAxNS42LTI1LjYtOTMuNi01NS41VjE1MnoiLz48L2c+PC9zdmc+)
+
+.root-container
+  min-height: 90vh
+  margin-left: 32px
+  margin-right: 32px
+
+footer.footer 
+  margin-left: 15px
+
+  .credit
+    color: hsl(0, 0%, 71%)

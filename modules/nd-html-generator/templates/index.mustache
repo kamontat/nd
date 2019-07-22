@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="TH" command-name="{{ command.name }}" command-version="{{ command.version }}"
+  command-updateat="{{ command.updateat }}" security-version="{{ security.version }}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="revisit-after" content="7 days" />
+  <meta name="distribution" content="web" />
+  <meta http-equiv="refresh" content="30" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <meta property="generator" content="{{ command.name }}-{{ command.version }}" />
+  <meta name="generator" content="{{ command.name }}-{{ command.version }}" />
+
+  <meta name="title" content='{{ title }}' />
+  <meta name="description" content='{{ description }}' />
+  <meta name="keywords" content="Dek-d,Novel,ND,Web scraper,CLI" />
+  <meta name="author" content='{{ novel.author }}' />
+  <meta name="designer" content='{{ author }}' />
+  <meta name="publisher" content='{{ author }}' />
+  <meta name="subject" content="Personal" />
+  <meta name="copyright" content="Copyright© {{ year }}" />
+  <meta name="city" content="Bangkok" />
+  <meta name="country" content="TH" />
+
+  <meta property="og:title" content='{{ novel.title }}' />
+  <meta property="og:description" content='{{ novel.description }}' />
+  <meta property="og:type" content="book" />
+  <meta property="og:link" content="{{{novel.link}}}" />
+
+  <meta property="book:author" content=' {{ novel.author }} ' />
+  <meta property="book:release_date" content="{{ novel.updateat }}" />
+  <meta property="book:tag" content='{{ novel.tags }}' />
+
+  {{#chapter}}
+  <meta {{ command.name }}-property="nid" content="{{ chapter.nid }}" />
+  <meta {{ command.name }}-property="cid" content="{{ chapter.cid }}" />
+  {{/chapter}}
+  {{^chapter}}
+  <meta {{ command.name }}-property="nid" content="{{ novel.id }}" />
+  <meta {{ command.name }}-property="nsize" content="{{ novel.size }}" />
+  {{/chapter}}
+
+  <meta {{ command.name }}-property="auth.name" content="{{ auth.name }}" />
+  <meta {{ command.name }}-property="auth.username" content="{{ auth.username }}" />
+  <meta {{ command.name }}-property="auth.issueat" content="{{ auth.issueat }}" />
+  <meta {{ command.name }}-property="auth.expireat" content="{{ auth.expireat }}" />
+
+  <meta {{ command.name }}-property="novel.updateat" content="{{ novel.updateat }}" />
+  <meta {{ command.name }}-property="novel.downloadat" content="{{ novel.downloadat }}" />
+
+  <meta name="HandheldFriendly" content="true" />
+
+  {{#chapter}}
+  <title>{{ chapter.name }} | {{ novel.title }}</title>
+  {{/chapter}}
+  {{^chapter}}
+  <title>{{ novel.title }}</title>
+  {{/chapter}}
+
+  <style type="text/css" media="screen">
+    {{{ template.css.root }}}
+  </style>
+
+  {{#chapter}}
+  <style type="text/css" media="screen" template="{{ template.css.name }}" template-version="{{ template.css.version }}">
+    {{{ template.css.chapter }}}
+  </style>
+  {{/chapter}}
+  {{^chapter}}
+  <style type="text/css" media="screen" template="{{ template.css.name }}" template-version="{{ template.css.version }}">
+    {{{ template.css.novel }}}
+  </style>
+  {{/chapter}}
+</head>
+
+<body template="{{ template.name }}" template-version="{{ template.version }}">
+  <div class="root-container">
+    {{#chapter}}
+    {{{ template.body.chapter }}}
+    {{/chapter}}
+    {{^chapter}}
+    {{{ template.body.novel }}}
+    {{/chapter}}
+  </div>
+
+  <footer class="footer">
+    <div class="credit">
+      {{#chapter}}
+      <small id="detail">
+        <a target="_blank" href="{{{chapter.link}}}">chapter-{{chapter.cid}}</a> was downloaded on {{#dateToString}}{{chapter.downloadat}}{{/dateToString}} by {{command.name}} command version {{command.version}}
+      </small>
+      {{/chapter}}
+      {{^chapter}}
+      <small id="detail">
+        <a class="small" target="_blank" href="{{{novel.link}}}">{{novel.id}}</a> was downloaded on {{#dateToString}}{{novel.downloadat}}{{/dateToString}} by {{command.name}} command version {{command.version}}
+      </small>
+      {{/chapter}}
+    </div>
+  </footer>
+</body>
+
+</html>

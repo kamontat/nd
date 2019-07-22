@@ -1,0 +1,39 @@
+<div for="novel">
+  <div class="title-container">
+    <h3 class="novel-name">{{ novel.title }}</h3>
+    <div class="metadata">
+      <icon class="clock"></icon>
+      <label class="clock-text">{{#dateToTHString}}{{novel.updateat}}{{/dateToTHString}}</label>
+    </div>
+  </div>
+
+  <div class="abstract">
+    <span>{{novel.abstract}}</span>
+  </div>
+
+  <div class="toc">
+    <ul>
+      <h3 class="title">สารบัญ</h3>
+      {{#novel.chapters}}
+      <li class="element" label-for="chapter-{{cid}}">
+        <div class="layout">
+          <div class="link">
+            <a name="chapter-{{cid}}" href="chapter-{{cid}}.html">{{name}}</a>
+          </div>
+          <div class="status">
+            <label>{{status}}</label>
+          </div>
+        </div>
+      </li>
+      {{/novel.chapters}}
+    </ul>
+
+    <div class="seperator"></div>
+  </div>
+
+  <div class="content">
+    {{#contents}}
+    <p>{{.}}</p>
+    {{/contents}}
+  </div>
+</div>
