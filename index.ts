@@ -12,7 +12,7 @@ import chalk from "chalk";
 import { Commandline } from "nd-commandline-interpreter";
 import { config } from "nd-config";
 import Exception from "nd-error";
-import LoggerService, { LOGGER_CLI, LOGGER_ROOT } from "nd-logger";
+import LoggerService, { LOGGER_CLI } from "nd-logger";
 import { homedir } from "os";
 
 import { Package } from "./src/build/Package";
@@ -43,6 +43,6 @@ const home = homedir();
     await commandline.run(process.argv);
   } catch (e) {
     const err = Exception.cast(e);
-    err.print(LOGGER_ROOT).exit(1);
+    err.print(LOGGER_CLI).exit(1);
   }
 })();
