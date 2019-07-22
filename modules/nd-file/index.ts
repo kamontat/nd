@@ -39,6 +39,10 @@ export default class FileManager {
     }
   }
 
+  public get path() {
+    return this.directory;
+  }
+
   private buildPath(name: string) {
     return path.resolve(this.directory, name);
   }
