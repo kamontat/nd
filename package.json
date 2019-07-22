@@ -1,13 +1,13 @@
 {
   "name": "nd",
-  "version": "3.0.0-alpha.3",
+  "version": "1.0.0-alpha.1",
   "description": "download manager for novel",
   "main": "index.ts",
   "bin": "dist/nd.min.js",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
   "changelog": {
-    "3.0.0-alpha.3": "release note template"
+    "1.0.0-alpha.1": "first release main command version 1 alpha"
   },
   "scripts": {
     "install:lib": "make lib",
@@ -22,6 +22,7 @@
     "test": "make test mode=test",
     "test:debug": "export TS_NODE_DEBUG=true && yarn test",
     "release:lib": "./scripts/release_lib.sh",
+    "release:core": "./scripts/release_core.sh",
     "clean": "make clean",
     "clean:all": "make clean all=true",
     "loc": "make loc type=sum && make loc type=lib"
