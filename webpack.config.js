@@ -63,11 +63,29 @@ module.exports = {
         }]
       },
       {
-        test: /\.ts?$/,
+        test: /\.ts$/,
         use: [{
           loader: "ts-loader",
           options: {
             allowTsInNodeModules: true
+          }
+        }]
+      }, {
+        test: /\.(sass|scss)$/,
+        use: ['to-string-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }, {
+        test: /\.(html|mustache)$/,
+        use: [{
+          loader: 'html-loader',
+          options: {
+            minimize: true,
+            removeComments: true,
+            collapseWhitespace: true,
+            minifyCSS: false,
+            minifyJS: true
           }
         }]
       }
