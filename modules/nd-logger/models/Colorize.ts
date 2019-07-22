@@ -8,7 +8,7 @@ export default {
   time: chalk.greenBright,
   datetime: chalk.greenBright,
   number: chalk.cyan,
-  id: chalk.cyanBright,
+  id: chalk.greenBright,
   url: chalk.green.underline,
   appname: chalk.greenBright,
   command: chalk.magentaBright,
@@ -18,4 +18,5 @@ export default {
   version: chalk.blueBright,
   dim: chalk.dim,
   format: chalk,
+  path: chalk.cyanBright,
 };
