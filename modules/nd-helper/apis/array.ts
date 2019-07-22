@@ -1,4 +1,29 @@
 export default {
+  BuildArray: (str: string) => {
+    const _arr = str.split(","); // split by ,
+    const it = _arr
+      .reduce((p, c) => {
+        try {
+          if (/.*-.*/.test(c)) {
+            const __arr = c.split("-");
+            if (__arr.length === 2) {
+              const first = parseInt(__arr[0], 10);
+              const last = parseInt(__arr[1], 10);
+              for (let i = first; i <= last; i++) {
+                p.set(i, i);
+              }
+            }
+          } else if (/\d+/.test(c)) p.set(parseInt(c, 10), parseInt(c, 10));
+
+          return p;
+        } catch (e) {
+          return p;
+        }
+      }, new Map<number, number>())
+      .values();
+
+    return Array.from(it).sort((a, b) => a - b);
+  },
   ReadableArray: (array: number[]) => {
     // sort the array low - high
     array = array.sort((a, b) => {
