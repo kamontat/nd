@@ -26,13 +26,12 @@ const home = homedir();
 
 (async () => {
   try {
-    config.on("output.level", (level: string) => {
+    config.on("output.level", (level: number) => {
       LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
       UpdateLogInfo(["--level", level]);
     });
 
-    config.on("output.color", (_color: string) => {
-      const color = _color === "true";
+    config.on("output.color", (color: boolean) => {
       LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
       if (!color) chalk.level = 0;
     });
