@@ -1,7 +1,9 @@
 import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
 import { ConfigParser, IConfiguration } from "nd-config";
 import Exception, { ERR_CFG } from "nd-error";
+import ExceptionService from "nd-error";
 import { ObjectJson, ObjectTable } from "nd-formatter";
+import { Colorize, LOGGER_CONFIG } from "nd-logger";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 import readline from "readline";
 
@@ -34,9 +36,17 @@ export default (cli: Commandline, config: IConfiguration) => {
           LoggerService.log(LOGGER_CLI, `set ${value}`);
           const parsed = ConfigParser(value);
           if (!parsed) throw Exception.build(ERR_CFG).description("cannot parse any key or value from input string");
-          if (parsed instanceof Array) parsed.forEach(p => config.set(p.key as any, p.value as any));
-          else config.set(parsed.key as any, parsed.value as any);
 
+          parsed.forEach(c => {
+            try {
+              config.set(c.key as any, c.value as any);
+              LoggerService.console.log(`  - set ${Colorize.key(c.key)} to ${Colorize.value(c.value.toString())}`);
+            } catch (e) {
+              ExceptionService.cast(e)
+                .print(LOGGER_CONFIG)
+                .exit();
+            }
+          });
           config.save(apis.config.get("config.backup") as boolean);
         }).option(Option.build("backup", false, ({ apis }) => apis.config.set("config.backup", true))),
       )
@@ -46,7 +56,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         ),
       )
       .sub(
-        SubCommand.build("path", true, async ({ self, apis }) => {
+        SubCommand.build("path", false, async ({ self, apis }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start config path`);
           const open = apis.config.get("path.open") as boolean;
           const path = await config.path(open);
