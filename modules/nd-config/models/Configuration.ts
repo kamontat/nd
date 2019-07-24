@@ -1,7 +1,7 @@
 import { defaultEditor } from "env-editor";
 import Event from "events";
 import fs from "fs";
-import Exception, { ERR_CFG, ERR_CLI } from "nd-error";
+import ExceptionService, { ERR_CFG, ERR_CLI } from "nd-error";
 import { PathUtils } from "nd-helper";
 import LoggerService, { Colorize, LOGGER_CONFIG } from "nd-logger";
 import open from "open";
@@ -11,46 +11,34 @@ import readline, { ReadLine } from "readline";
 import { ConfigParser } from "../apis/parser";
 import { BACKUP_NAME } from "../constants/file";
 
+import { DoValidation } from "./ConfigurationSchema";
 import { IConfiguration } from "./IConfiguration";
 import { ConfigKey, ConfigSchema, ConfigValue } from "./IConfigurationTypeDefined";
 
 export class Configuration extends Event implements IConfiguration {
-  private filepath: string = "./config.ndc";
-
-  private generateContent() {
-    return Object.keys(this._object).reduce((p, k) => {
-      const v = this.get(k as any);
-      return `${p}${k}=${v}\n`;
-    }, "");
-  }
   private static o: Configuration;
+
+  protected _object: ConfigSchema;
+  private filepath: string = "./config.ndc";
 
   protected constructor() {
     super();
     this._object = this.restore();
   }
 
-  protected _object: ConfigSchema;
+  public static CONST(): Configuration {
+    if (!Configuration.o) {
+      Configuration.o = new Configuration();
+    }
+    return Configuration.o;
+  }
 
-  public path(_open: boolean) {
-    return new Promise<string>(res => {
-      if (_open) {
-        LoggerService.log(LOGGER_CONFIG, `try to open config in default editor`);
-        const editor = defaultEditor();
-        LoggerService.log(LOGGER_CONFIG, `get default editor is ${editor.name}`);
-
-        return open(this.filepath, { wait: true, app: editor.paths[0] })
-          .then(() => {
-            return res(this.filepath);
-          })
-          .catch(e => {
-            Exception.cast(e, { base: ERR_CLI })
-              .print(LOGGER_CONFIG)
-              .exit();
-          });
-      }
-      return res(this.filepath);
-    });
+  public get(key: ConfigKey) {
+    const value = this._object[key] as any;
+    if (key === "novel.location" && value === ".") {
+      return PathUtils.GetCurrentPath();
+    }
+    return value;
   }
 
   public load(_path?: string) {
@@ -76,9 +64,16 @@ export class Configuration extends Event implements IConfiguration {
           if (line === undefined || line === null || line === "") return;
 
           const result = ConfigParser(line);
-          if (!result) throw Exception.build(ERR_CFG).description("invalid config format");
-          if (result instanceof Array) result.forEach(r => Configuration.CONST().set(r.key, r.value));
-          else Configuration.CONST().set(result.key, result.value);
+          if (!result) throw ExceptionService.build(ERR_CFG).description("invalid config format");
+          result.forEach(r => {
+            try {
+              Configuration.CONST().set(r.key, r.value);
+            } catch (e) {
+              ExceptionService.cast(e)
+                .print(LOGGER_CONFIG)
+                .exit();
+            }
+          });
         });
 
         reader.on("close", () => {
@@ -89,17 +84,30 @@ export class Configuration extends Event implements IConfiguration {
         reader.on("SIGCONT", rej);
         reader.on("SIGTSTP", rej);
       } catch (e) {
-        rej(Exception.cast(e, { base: ERR_CFG }));
+        rej(ExceptionService.cast(e, { base: ERR_CFG }));
       }
     });
   }
 
-  public get(key: ConfigKey) {
-    const value = this._object[key] as any;
-    if (key === "novel.location" && value === ".") {
-      return PathUtils.GetCurrentPath();
-    }
-    return value;
+  public path(_open: boolean) {
+    return new Promise<string>(res => {
+      if (_open) {
+        LoggerService.log(LOGGER_CONFIG, `try to open config in default editor`);
+        const editor = defaultEditor();
+        LoggerService.log(LOGGER_CONFIG, `get default editor is ${editor.name}`);
+
+        return open(this.filepath, { wait: true, app: editor.paths[0] })
+          .then(() => {
+            return res(this.filepath);
+          })
+          .catch(e => {
+            ExceptionService.cast(e, { base: ERR_CLI })
+              .print(LOGGER_CONFIG)
+              .exit();
+          });
+      }
+      return res(this.filepath);
+    });
   }
 
   public regex(reg: string) {
@@ -117,14 +125,20 @@ export class Configuration extends Event implements IConfiguration {
     return result;
   }
 
-  public set(key: ConfigKey, value?: ConfigValue) {
-    if (!value) return;
+  public restore(): ConfigSchema {
+    this._object = {
+      "mode": "production",
+      "version": "v1",
+      "auth.token": "please_enter_your_token",
+      "auth.name": "please_enter_your_name",
+      "auth.salt": "please_enter_your_salt",
+      "output.color": true,
+      "output.file": true,
+      "output.level": "1",
+      "novel.location": ".",
+    };
 
-    const old = this._object[key];
-    LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
-
-    this._object[key] = value as never; // might change to anythings else
-    this.emit(key, value, old);
+    return this._object;
   }
 
   public save(backup: boolean) {
@@ -169,6 +183,19 @@ export class Configuration extends Event implements IConfiguration {
     });
   }
 
+  public set(key: ConfigKey, _value?: ConfigValue) {
+    if (!_value) return;
+    const { err, value } = this.validate(key, _value);
+    if (err) throw err;
+    if (!value) throw err;
+
+    const old = this._object[key];
+    LoggerService.log(LOGGER_CONFIG, `update config of ${key} to ${value} (old=${old})`);
+
+    this._object[key] = value as never; // might change to anythings else
+    this.emit(key, value, old);
+  }
+
   public start(rl: ReadLine): Promise<this> {
     const questionPromise = (q: string) => {
       return new Promise<string>(res => {
@@ -201,27 +228,14 @@ export class Configuration extends Event implements IConfiguration {
       });
   }
 
-  public restore(): ConfigSchema {
-    this._object = {
-      "mode": "production",
-      "version": "v1",
-      "auth.token": "please_enter_your_token",
-      "auth.name": "please_enter_your_name",
-      "auth.salt": "please_enter_your_salt",
-      "output.color": true,
-      "output.file": true,
-      "output.level": "1",
-      "novel.location": ".",
-      "novel.export": ".", // not implement yet
-    };
-
-    return this._object;
+  public validate(key: ConfigKey, value?: ConfigValue) {
+    return DoValidation(key, value);
   }
 
-  public static CONST(): Configuration {
-    if (!Configuration.o) {
-      Configuration.o = new Configuration();
-    }
-    return Configuration.o;
+  private generateContent() {
+    return Object.keys(this._object).reduce((p, k) => {
+      const v = this.get(k as any);
+      return `${p}${k}=${v}\n`;
+    }, "");
   }
 }

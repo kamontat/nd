@@ -12,7 +12,6 @@ export default class MockConfiguration extends Configuration {
     "output.file": false,
     "output.level": "0", // mute everything
     "novel.location": "/tmp/",
-    "novel.export": false, // not implement yet
   };
 
   public constructor() {

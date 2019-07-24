@@ -34,7 +34,7 @@ const configParser = (line: string): IKeyValue | undefined => {
   };
 };
 
-export const ConfigParser = (line?: string): IKeyValue | IKeyValue[] | undefined => {
+export const ConfigParser = (line?: string): IKeyValue[] | undefined => {
   if (!line) return undefined;
 
   if (line.includes(",")) {
@@ -44,5 +44,9 @@ export const ConfigParser = (line?: string): IKeyValue | IKeyValue[] | undefined
       if (r) arr.push(r);
     });
     return arr;
-  } else return configParser(line);
+  } else {
+    const config = configParser(line);
+    if (!config) return undefined;
+    else return [config];
+  }
 };
