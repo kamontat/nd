@@ -9,7 +9,13 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
-    "1.1.0": "support new attributes and support downloaded novel, and fix some bug about update time",
-    "1.0.0": "able to build novel and chapter with parser"
+    "1.1.0": {
+      "message": "support new attributes and support downloaded novel, and fix some bug about update time",
+      "date": "22 Jul 2019"
+    },
+    "1.0.0": {
+      "message": "able to build novel and chapter with parser",
+      "date": "16 Jul 2019"
+    }
   }
 }

@@ -8,7 +8,10 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
-    "1.0.0": "first publish admin version",
+    "1.0.0": {
+      "message": "first publish admin version",
+      "date": "07 Jul 2019"
+    },
     "1.0.0-alpha.1": "release first alpha version"
   },
   "support": ["3.0.0-alpha.2", "3.0.0-alpha.3"]

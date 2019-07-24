@@ -7,7 +7,13 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
-    "0.1.1": "add response header to builder object",
-    "0.1.0": "stable first release with downloader object"
+    "0.1.1": {
+      "message": "add response header to builder object",
+      "date": "16 Jul 2019"
+    },
+    "0.1.0": {
+      "message": "stable first release with downloader object",
+      "date": "12 Jul 2019"
+    }
   }
 }

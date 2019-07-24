@@ -7,8 +7,14 @@
     "table": "5.4.1"
   },
   "changelog": {
-    "1.0.0": "first release formatter with novel json and table format",
-    "0.2.0": "formatting json as string (with color support)",
+    "1.0.0": {
+      "message": "first release formatter with novel json and table format",
+      "date": "22 Jul 2019"
+    },
+    "0.2.0": {
+      "message": "formatting json as string (with color support)",
+      "date": "07 Jul 2019"
+    },
     "0.1.0": "formatting object/array to table"
   }
 }

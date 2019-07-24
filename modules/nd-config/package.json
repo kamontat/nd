@@ -6,10 +6,22 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
-    "1.6.0": "add configuration validation on set method",
-    "1.5.2": "auto resolve location when . exist",
-    "1.5.1": "refactor code for support individual key value",
-    "1.5.0": "change behavior of event in config; will notify everytime without filter",
+    "1.6.0": {
+      "message": "add configuration validation on set method",
+      "date": "24 Jul 2019"
+    },
+    "1.5.2": {
+      "message": "auto resolve location when . exist",
+      "date": "14 Jul 2019"
+    },
+    "1.5.1": {
+      "message": "refactor code for support individual key value",
+      "date": "13 Jul 2019"
+    },
+    "1.5.0": {
+      "message": "change behavior of event in config; will notify everytime without filter",
+      "date": "09 Jul 2019"
+    },
     "1.4.2": "fix config error when start on new computer",
     "1.4.1": "add support multiple config in oneline",
     "1.4.0": "config can be restore to default and initial with user prompt",

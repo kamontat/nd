@@ -7,9 +7,18 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
-    "1.0.6": "add color of id and file system path",
-    "1.0.5": "add more namespace file saving and html generator",
-    "1.0.4": "add more namespace for download and novel",
+    "1.0.6": {
+      "message": "add color of id and file system path",
+      "date": "22 Jul 2019"
+    },
+    "1.0.5": {
+      "message": "add more namespace file saving and html generator",
+      "date": "22 Jul 2019"
+    },
+    "1.0.4": {
+      "message": "add more namespace for download and novel",
+      "date": "11 Jul 2019"
+    },
     "1.0.3": "add more namespace for cli builder",
     "1.0.2": "add support changelog tags",
     "1.0.1": "first release version"

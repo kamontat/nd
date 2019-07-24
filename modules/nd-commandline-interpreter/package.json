@@ -9,9 +9,18 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
-    "1.0.0": "add require dependency and add authen checker",
-    "1.0.0-rc.2": "fix option on subcommand have beed filter out",
-    "1.0.0-rc.1": "release first rc version with fixes some bug",
+    "1.0.0": {
+      "message": "add require dependency and add authen checker",
+      "date": "22 Jul 2019"
+    },
+    "1.0.0-rc.2": {
+      "message": "fix option on subcommand have beed filter out",
+      "date": "12 Jul 2019"
+    },
+    "1.0.0-rc.1": {
+      "message": "release first rc version with fixes some bug",
+      "date": "06 Jul 2019"
+    },
     "1.0.0-beta.7": "add support option in command and subcommand",
     "1.0.0-beta.6": "add default callback when no command exist",
     "1.0.0-beta.5": "fix event object not defined",

@@ -7,6 +7,9 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
-    "1.0.0-beta.1": "generate html string using configuration object"
+    "1.0.0-beta.1": {
+      "message": "generate html string using configuration object",
+      "date": "22 Jul 2019"
+    }
   }
 }

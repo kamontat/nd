@@ -186,7 +186,7 @@ export const VERSION = () => {
 
 export const VERSION_FULL = () => {
   interface IDependency {
-    changelog?: { [key: string]: string };
+    changelog?: { [key: string]: string | { date: string; message: string } };
     description?: string;
     name: string;
     version: string;
@@ -261,7 +261,15 @@ export const VERSION_FULL = () => {
     if (c.changelog) {
       Object.keys(c.changelog).forEach(k => {
         const v = c.changelog && c.changelog[k];
-        s += Colorize.format`  - {blueBright ${k}} {dim ${v || ""}}\n`;
+        if (v) {
+          // old version of changelog
+          if (typeof v === "string") s += Colorize.format`  - {blueBright ${k}} {dim ${v || ""}}\n`;
+          // new version which include date
+          else s += Colorize.format`  - {blueBright ${k}} {dim ${v.message}} {dim.underline ${v.date}}\n`;
+        } else {
+          // no changelog
+          s += Colorize.format`  - {blueBright ${k}}\n`;
+        }
       });
     }
 

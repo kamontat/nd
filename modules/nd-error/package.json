@@ -6,10 +6,22 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
-    "2.1.0": "Add suffix to different type of exception; is error or warning",
-    "2.0.0": "Change the way to build exception; BREAK CHANGES",
-    "1.0.0": "refactor code and release first version",
-    "0.2.0": "support multiple format in different environment",
+    "2.1.0": {
+      "message": "add suffix to different type of exception; is error or warning",
+      "date": "12 Jul 2019"
+    },
+    "2.0.0": {
+      "message": "change the way to build exception; BREAK CHANGES",
+      "date": "11 Jul 2019"
+    },
+    "1.0.0": {
+      "message": "refactor code and release first version",
+      "date": "10 Jul 2019"
+    },
+    "0.2.0": {
+      "message": "support multiple format in different environment",
+      "date": "09 Jul 2019"
+    },
     "0.1.0": "release public version",
     "0.1.0-beta.2": "change all constants name [breakchange]",
     "0.1.0-beta.1": "release for first beta version"

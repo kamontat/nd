@@ -6,8 +6,14 @@
     "chalk": "2.4.2"
   },
   "changelog": {
-    "0.6.0": "add new utils call checker; for check variable type and value",
-    "0.5.1": "add convert back from string to array",
+    "0.6.0": {
+      "message": "add new utils call checker; for check variable type and value",
+      "date": "24 Jul 2019"
+    },
+    "0.5.1": {
+      "message": "add convert back from string to array",
+      "date": "22 Jul 2019"
+    },
     "0.5.0": "add utils method for array formatting",
     "0.4.1": "improve optional object",
     "0.4.0": "add optional object",
