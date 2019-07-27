@@ -34,6 +34,9 @@ export class FileManager {
     if (!fs.existsSync(this.directory)) {
       LoggerService.log(LOGGER_FILE, `extend directory is not exist (${this.directory})`);
       fs.mkdirSync(this.directory, { recursive: true });
+    } else {
+      const lists = fs.readdirSync(this.directory);
+      if (lists.length > 0) this._error.execute("folder-not-empty", this.directory);
     }
   }
 
