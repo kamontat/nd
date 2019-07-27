@@ -45,11 +45,12 @@ cd "./modules/${APPNAME}"
 echo "Moving...     to ${APPNAME}"
 
 VERSION=$(node -p -e "require('./package.json').version")
-RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}']")
+RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}'].message")
+RELEASE_NOTE_DATE=$(node -p -e "require('./package.json').changelog['${VERSION}'].date")
 [[ "$RELEASE_NOTE" == "undefined" ]] && RELEASE_NOTE="NOT FOUND; please update release note first!"
 
 echo "Creating...   tag ${VERSION} 
-Release note is ${RELEASE_NOTE}
+Release note is ${RELEASE_NOTE} at ${RELEASE_NOTE_DATE}
 
 [press ENTER to continue]"
 read -r ans
@@ -63,4 +64,6 @@ echo "Starting...   commit package.json (assume you just update package.json)"
 git add package.json # add package.json
 git commit --allow-empty --message "chore(release): ${TAG_NAME} 
 
-release note: $RELEASE_NOTE"
+release note: $RELEASE_NOTE
+update at:    $RELEASE_NOTE_DATE
+"
