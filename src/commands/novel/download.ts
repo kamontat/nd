@@ -6,9 +6,11 @@ import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { Optional, PathUtils } from "nd-helper";
 import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
 import { TemplateType } from "nd-html-generator/loader";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
 import { Security } from "nd-security";
+
+import { Package } from "../../build/Package";
 
 const generateHtmlGeneratorConfig = (
   template: TemplateType,
@@ -90,6 +92,16 @@ const __main: ICommandCallback = ({ value, apis }) => {
 
   const location = config.get("novel.location");
   const fileManager = new FileManager(location || PathUtils.GetCurrentPath());
+  fileManager.onError("folder-not-empty", path => {
+    ExceptionService.build(
+      ERR_NLV,
+      `Novel folder already exist!! you might want to ${Colorize.appname(Package.name)} ${Colorize.command(
+        "update",
+      )} "${Colorize.param(path || "")}" instead`,
+    )
+      .print(LOGGER_FILE)
+      .exit();
+  });
 
   LoggerService.log(LOGGER_CLI, `download ${value} (nid) to ${location} with replace=${replace},change=${change}`);
 
@@ -119,17 +131,26 @@ const __main: ICommandCallback = ({ value, apis }) => {
       });
     })
     .then(({ html, novel }) => {
-      fileManager.save(html, `index.html`, { force: true });
+      fileManager.save(html, `index.html`, { force: false });
 
       return new Promise<Novel>(res => res(novel));
     })
     .then(novel => {
+      // const executor = fileManager.multithread(thread);
+      // Array.from(novel.chapters).forEach(c => {
+      //   if (c.status === ChapterStatus.COMPLETED) {
+      //     const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
+      //     executor.add(html, `chapter-${c.cid}.html`);
+      //   }
+      // });
+      // return executor.save({ force: true });
+
       // TODO: make it multithread
       return new Promise<{ html: string; novel: Novel }>(res => {
         Array.from(novel.chapters).forEach(c => {
           if (c.status === ChapterStatus.COMPLETED) {
             const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-            fileManager.save(html, `chapter-${c.cid}.html`, { force: true });
+            fileManager.save(html, `chapter-${c.cid}.html`, { force: false });
           }
         });
 
