@@ -1,3 +1,6 @@
+import { TimeUtils } from "nd-helper";
+import { Colorize } from "nd-logger";
+
 import { buildViewlongURL } from "../../apis/url";
 
 import { ChapterStatus } from "./ChapterStatus";
@@ -61,5 +64,31 @@ export class Chapter {
   constructor(private _nid: number, private _cid: number, private _status: ChapterStatus = ChapterStatus.UNKNOWN) {
     this._link = buildViewlongURL(this._nid, this._cid);
     this._content = [];
+  }
+
+  public toString(_opts: { color?: boolean; long?: boolean } = {}) {
+    const opts = Object.assign({ color: false, long: false }, _opts);
+
+    if (opts.color) {
+      if (opts.long) {
+        return `${Colorize.name(this.name || "")} ${Colorize.enum(this.status)} ${Colorize.datetime(
+          TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
+            format: "short",
+            lang: "th",
+          }),
+        )}`;
+      } else {
+        return Colorize.name(this.name || "");
+      }
+    } else {
+      if (opts.long) {
+        return `${this.name} ${this.status} ${TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
+          format: "short",
+          lang: "th",
+        })}`;
+      } else {
+        return this.name;
+      }
+    }
   }
 }
