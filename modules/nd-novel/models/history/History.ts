@@ -4,16 +4,19 @@ import { HistoryEvent } from "./HistoryEvent";
 import { HistoryNode } from "./HistoryNode";
 
 export class History {
-  get event() {
+  private get event() {
     return {
-      added(title: string, value: string) {
+      added: (title: string, value: string) => {
         LoggerService.log(LOGGER_NOVEL, `detecting added event ${title}: ${value}`);
+        this.nodes.push(new HistoryNode(title).set("added", value));
       },
-      modified(title: string, value: { after: string; before: string }) {
+      modified: (title: string, value: { after: string; before: string }) => {
         LoggerService.log(LOGGER_NOVEL, `detecting modified event ${title}: (from ${value.before} => ${value.after})`);
+        this.nodes.push(new HistoryNode(title).set("modified", value));
       },
-      deleted(title: string, value: string) {
+      deleted: (title: string, value: string) => {
         LoggerService.log(LOGGER_NOVEL, `detecting deleted event ${title}: ${value}`);
+        this.nodes.push(new HistoryNode(title).set("deleted", value));
       },
     };
   }
@@ -22,7 +25,7 @@ export class History {
 
   private nodes: HistoryNode[];
   private constructor() {
-    this.nodes = [];
+    this.nodes = new Array();
   }
 
   public static Get() {
@@ -34,6 +37,10 @@ export class History {
     event.addListener("added", this.event.added);
     event.addListener("modified", this.event.modified);
     event.addListener("deleted", this.event.deleted);
+  }
+
+  public get events() {
+    return this.nodes;
   }
 
   public toString() {
