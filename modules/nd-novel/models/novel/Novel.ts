@@ -136,9 +136,14 @@ export class Novel {
   }
 
   private eventHandler(name: string, value: { after: any; before: any }) {
-    if (value.before === value.after) return;
-    else if (value.before === undefined) this._event.emit("added", `Novel ${name}`, value.after);
-    else if (value.after === undefined) this._event.emit("deleted", `Novel ${name}`, value.before);
-    else this._event.emit("modified", `Novel ${name}`, value);
+    const verify = (v: any) => {
+      if (v === undefined || v === null || v === "") return false;
+      if (typeof v === "object" && typeof v.length === "number") return v.length > 0;
+      return true;
+    };
+
+    if (!verify(value.before) && verify(value.after)) this._event.emit("added", `Novel ${name}`, value.after);
+    else if (verify(value.before) && !verify(value.after)) this._event.emit("deleted", `Novel ${name}`, value.before);
+    else if (verify(value.before) && verify(value.after)) this._event.emit("modified", `Novel ${name}`, value);
   }
 }
