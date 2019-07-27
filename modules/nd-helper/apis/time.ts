@@ -104,7 +104,9 @@ export default {
     }
 
     if (config.format === "short")
-      return `${_date} ${_monthShort} ${_year} ${prefixZero(date.getHours())}:${prefixZero(date.getMinutes())}`;
+      if (date.getHours() === 0 && date.getMinutes() === 0) {
+        return `${_date} ${_monthShort} ${_year}`;
+      } else return `${_date} ${_monthShort} ${_year} ${prefixZero(date.getHours())}:${prefixZero(date.getMinutes())}`;
     if (config.format === "long")
       return `${_dayShort} ${prefixZero(_date)} ${_month} ${_year} ${prefixZero(date.getHours())}:${prefixZero(
         date.getMinutes(),
