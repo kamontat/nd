@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "0.1.0-rc.4",
+  "version": "0.1.0",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "0.1.0": {
+      "message": "refactor all code and first release",
+      "date": "27 Jul 2019"
+    },
     "0.1.0-rc.4": {
       "message": "add new error event when folder not empty",
       "date": "27 Jul 2019"
