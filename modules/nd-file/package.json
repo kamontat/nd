@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0-rc.3",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "0.1.0-rc.3": {
+      "message": "add custom callback when exception occurred",
+      "date": "27 Jul 2019"
+    },
     "0.1.0-rc.2": {
       "message": "export path name",
       "date": "22 Jul 2019"
