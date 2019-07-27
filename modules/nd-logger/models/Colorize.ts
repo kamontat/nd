@@ -21,4 +21,6 @@ export default {
   url: chalk.green.underline,
   value: chalk.greenBright,
   version: chalk.blueBright,
+  name: chalk.greenBright,
+  enum: chalk.redBright,
 };
