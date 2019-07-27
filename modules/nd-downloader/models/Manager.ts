@@ -25,6 +25,62 @@ export default class Manager<T> {
 
   private responses: IResponse<T | string>[];
 
+  constructor(private _thread: number = 2, private _event: IManagerEvent<string> = new ManagerEvent()) {
+    this.responses = [];
+  }
+
+  public add(link: string) {
+    const res = new Response(link);
+
+    this.event.emit("add", res);
+    this.responses.push(res);
+  }
+
+  public build(buildingFn: (r: IResponse<string>, index: number) => IResponse<T>) {
+    this._builder = buildingFn;
+  }
+
+  public run() {
+    // tslint:disable-next-line
+    let start = { count: 0, completed: 0, initTime: +new Date() };
+
+    return ((eachOfLimit(this.responses, this._thread, (value, index, callback) => {
+      this._download(value, start)
+        .then(obj => {
+          start.completed++;
+
+          this.responses[index as number].headers = obj.res.headers; // set header
+          this.responses[index as number].code = obj.res.statusCode || -1; // set status code
+          this.responses[index as number].result = obj.data; // set body
+
+          this.event.emit(
+            "downloaded",
+            this.responses[index as number] as IResponse<string>,
+            start.completed,
+            this.size,
+          );
+          if (this._builder) {
+            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
+            this.responses[index as number] = this._builder(
+              this.responses[index as number] as IResponse<string>,
+              index as number,
+            );
+
+            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, this.responses[index as number].result);
+          }
+
+          callback();
+        })
+        .catch(callback);
+    }) as unknown) as Promise<Error | undefined>).then(err => {
+      this.event.emit("end", err);
+      return new Promise<IResponse<T>[]>((res, rej) => {
+        if (err) rej(err);
+        else res(this.responses as IResponse<T>[]);
+      });
+    });
+  }
+
   private _download(v: IResponse<T | string>, opts: { count: number; initTime: number }) {
     return new Promise<{ data: string; res: IncomingMessage }>((res, rej) => {
       let start = +new Date(); // start
@@ -112,61 +168,5 @@ export default class Manager<T> {
       default:
         return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0";
     }
-  }
-
-  constructor(private _thread: number = 2, private _event: IManagerEvent<string> = new ManagerEvent()) {
-    this.responses = [];
-  }
-
-  public add(link: string) {
-    const res = new Response(link);
-
-    this.event.emit("add", res);
-    this.responses.push(res);
-  }
-
-  public build(buildingFn: (r: IResponse<string>, index: number) => IResponse<T>) {
-    this._builder = buildingFn;
-  }
-
-  public run() {
-    // tslint:disable-next-line
-    let start = { count: 0, completed: 0, initTime: +new Date() };
-
-    return ((eachOfLimit(this.responses, this._thread, (value, index, callback) => {
-      this._download(value, start)
-        .then(obj => {
-          start.completed++;
-
-          this.responses[index as number].headers = obj.res.headers; // set header
-          this.responses[index as number].code = obj.res.statusCode || -1; // set status code
-          this.responses[index as number].result = obj.data; // set body
-
-          this.event.emit(
-            "downloaded",
-            this.responses[index as number] as IResponse<string>,
-            start.completed,
-            this.size,
-          );
-          if (this._builder) {
-            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
-            this.responses[index as number] = this._builder(
-              this.responses[index as number] as IResponse<string>,
-              index as number,
-            );
-
-            LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, this.responses[index as number].result);
-          }
-
-          callback();
-        })
-        .catch(callback);
-    }) as unknown) as Promise<Error | undefined>).then(err => {
-      this.event.emit("end", err);
-      return new Promise<IResponse<T>[]>((res, rej) => {
-        if (err) rej(err);
-        else res(this.responses as IResponse<T>[]);
-      });
-    });
   }
 }
