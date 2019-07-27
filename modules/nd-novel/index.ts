@@ -12,3 +12,5 @@ export * from "./apis";
 
 export { NovelType } from "./models/novel/NovelType";
 export { ChapterStatus } from "./models/novel/ChapterStatus";
+
+export { History } from "./models/history/History";
