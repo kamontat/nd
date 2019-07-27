@@ -4,7 +4,7 @@ import path from "path";
 
 import Package from "./package.json";
 
-type ErrorType = "file-exist" | "folder-not-found";
+type ErrorType = "folder-not-empty" | "file-exist" | "folder-not-found";
 type ErrorCallback = (path: string) => void;
 
 const EmptyCallback = () => {};
@@ -24,6 +24,9 @@ export default class FileManager {
     if (!fs.existsSync(this.directory)) {
       LoggerService.log(LOGGER_FILE, `base directory is not exist (${this.directory})`);
       fs.mkdirSync(this.directory, { recursive: true });
+    } else {
+      const lists = fs.readdirSync(this.directory);
+      if (lists.length > 0) this._emitError("folder-not-empty");
     }
   }
 
@@ -56,10 +59,14 @@ export default class FileManager {
       fs.writeFileSync(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
     } else {
       LoggerService.log(LOGGER_FILE, `file already exist`);
-      if (this._errors.has("file-exist")) {
-        const callback = this._errors.get("file-exist") || EmptyCallback;
-        callback(p);
-      }
+      this._emitError("file-exist", p);
+    }
+  }
+
+  private _emitError(type: ErrorType, p?: string) {
+    if (this._errors.has(type)) {
+      const callback = this._errors.get(type) || EmptyCallback;
+      callback(p || this.directory);
     }
   }
 
