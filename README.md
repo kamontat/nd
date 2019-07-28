@@ -2,10 +2,10 @@
 
 Work in process... stay tune :)
 
-- [Usecase part](#Usecase-part)
-- [Business part](#Business-part)
-- [Technical part](#Technical-part)
-  - [Libraries creator](#Libraries-creator)
+- [Usecase part](#usecase-part)
+- [Business part](#business-part)
+- [Technical part](#technical-part)
+  - [Libraries creator](#libraries-creator)
 
 ## Usecase part
 
@@ -32,7 +32,10 @@ Work in process... stay tune :)
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
-    "0.0.1-alpha.1": "first version template"
+    "0.0.1-alpha.1": {
+      "message": "changelog template",
+      "date": "xx Jul 2019"
+    }
   }
 }
 ```
