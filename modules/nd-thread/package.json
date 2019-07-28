@@ -1,6 +1,6 @@
 {
   "name": "nd-thread",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-rc.1",
   "description": "thread management for nd command",
   "dependencies": {
     "async": "3.1.0",
@@ -8,9 +8,9 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
-    "1.0.0-alpha.1": {
-      "message": "add custom encrypt string",
-      "date": "14 Jul 2019"
+    "1.0.0-rc.1": {
+      "message": "release 2 models; thread manager and threadable interface",
+      "date": "28 Jul 2019"
     }
   }
 }
