@@ -1,4 +1,5 @@
 import { mapLimit } from "async";
+import LoggerService, { LOGGER_THREAD } from "nd-logger";
 
 import { THREAD_NUMBER } from "../constants";
 
@@ -29,12 +30,14 @@ export default abstract class ThreadManager<V, T, R = T> implements IThreadable<
   }
 
   public add(t: T) {
+    LoggerService.log(LOGGER_THREAD, `add value %O`, t);
     this._list.push(t);
     return this;
   }
 
   public run() {
     return (mapLimit(this._list, this._thread, (i: T, callback) => {
+      LoggerService.log(LOGGER_THREAD, `start transform object %O with options=%O`, i, this._variable);
       this.transform(i, this._variable)
         .then(r => callback(undefined, r))
         .catch(err => callback(err));
