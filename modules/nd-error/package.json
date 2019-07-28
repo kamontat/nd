@@ -1,11 +1,15 @@
 {
   "name": "nd-error",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "2.2.0": {
+      "message": "support stack Error object when develop; more easy to debug",
+      "date": "28 Jul 2019"
+    },
     "2.1.0": {
       "message": "add suffix to different type of exception; is error or warning",
       "date": "12 Jul 2019"
