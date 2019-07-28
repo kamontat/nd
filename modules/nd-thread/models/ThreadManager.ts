@@ -13,6 +13,10 @@ export default abstract class ThreadManager<V, T, R = T> implements IThreadable<
 
   private isVariableSet: boolean;
 
+  public get size() {
+    return this._list.length;
+  }
+
   constructor(thread: number = THREAD_NUMBER) {
     if (thread) this._thread = thread;
     else this._thread = THREAD_NUMBER;
