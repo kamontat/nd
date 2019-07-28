@@ -1,6 +1,6 @@
 {
   "name": "nd-downloader",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
     "nd-thread": "./modules/nd-thread",
@@ -10,7 +10,7 @@
   "changelog": {
     "1.0.0": {
       "message": "refactor download with nd-thread management instead",
-      "date": "16 Jul 2019"
+      "date": "28 Jul 2019"
     },
     "0.1.1": {
       "message": "add response header to builder object",
