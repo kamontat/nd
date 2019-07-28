@@ -39,22 +39,34 @@ echo "Help:
 echo "Starting...   release core cli"
 
 VERSION=$(node -p -e "require('./package.json').version")
-RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}']")
-[[ "$RELEASE_NOTE" == "undefined" ]] && echo "NOT FOUND; please update release note first!" && exit 1
+RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}'].message")
+RELEASE_NOTE_DATE=$(node -p -e "require('./package.json').changelog['${VERSION}'].date")
+[[ "$RELEASE_NOTE" == "undefined" ]] && RELEASE_NOTE="NOT FOUND; please update release note first!"
 
 echo "Creating...   tag ${VERSION} 
-Release note is ${RELEASE_NOTE}
+Release note is ${RELEASE_NOTE} at ${RELEASE_NOTE_DATE}
 
 [press ENTER to continue]"
 read -r ans
 
 TAG_NAME="v${VERSION}"
 
-git tag "$TAG_NAME"
+echo "Starting...   update line of code and add to commit message"
+
+yarn loc
+git add reports/loc
 
 echo "Starting...   commit package.json (assume you just update package.json)"
+
+# commit changes in package.json
 
 git add package.json # add package.json
 git commit --allow-empty --message "chore(release): ${TAG_NAME} 
 
-release note: $RELEASE_NOTE"
+release note: $RELEASE_NOTE
+update at:    $RELEASE_NOTE_DATE
+"
+
+# tag that changes
+
+git tag "$TAG_NAME"
