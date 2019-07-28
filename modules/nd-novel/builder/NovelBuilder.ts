@@ -1,6 +1,5 @@
 import { IncomingHttpHeaders } from "http";
-import { DownloadManager } from "nd-downloader";
-import { IManagerEvent, ManagerEvent } from "nd-downloader/models/ManagerEvent";
+import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "nd-downloader";
 import ExceptionService, { ERR_NLV } from "nd-error";
 import { Optional } from "nd-helper";
 import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
@@ -75,7 +74,7 @@ export class NovelBuilder {
     return manager
       .run()
       .then(rs => {
-        const r = rs.pop();
+        const r = rs.pop() as IResponse<Novel> | undefined;
         return new Promise<Novel>((res, rej) => {
           if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
           else if (r.error) rej(r.error);
@@ -121,7 +120,7 @@ export class NovelBuilder {
     });
 
     return manager.run().then(_r => {
-      const r = _r.pop();
+      const r = _r.pop() as IResponse<Novel> | undefined;
       return new Promise<Novel>((res, rej) => {
         if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
         else if (r.error) rej(r.error);
