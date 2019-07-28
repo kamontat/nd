@@ -1,12 +1,16 @@
 {
   "name": "nd",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "download manager for novel",
   "main": "index.ts",
   "bin": "dist/nd.min.js",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
   "changelog": {
+    "1.0.0-alpha.2": {
+      "message": "fully support multiple thread management in downloading and saving files",
+      "date": "28 Jul 2019"
+    },
     "1.0.0-alpha.1": {
       "message": "first release main command version 1 alpha",
       "date": "22 Jul 2019"

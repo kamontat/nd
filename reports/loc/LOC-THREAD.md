@@ -1,10 +1,10 @@
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (521.4 files/s, 16460.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (396.5 files/s, 6502.3 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-TypeScript|6|38|2|157
-JSON|1|0|0|24
+TypeScript|4|16|0|50
+JSON|1|0|0|16
 --------|--------|--------|--------|--------
-SUM:|7|38|2|181
+SUM:|5|16|0|66
