@@ -9,6 +9,7 @@ import { TemplateType } from "nd-html-generator/loader";
 import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
 import { Security } from "nd-security";
+import { ThreadManager } from "nd-thread";
 
 import { Package } from "../../build/Package";
 
@@ -91,7 +92,8 @@ const __main: ICommandCallback = ({ value, apis }) => {
   const thread = apis.config.get<number>("novel.thread", 4);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager(location || PathUtils.GetCurrentPath());
+  const fileManager = new FileManager(location || PathUtils.GetCurrentPath(), undefined, thread);
+
   fileManager.onError("folder-not-empty", path => {
     ExceptionService.build(
       ERR_NLV,
@@ -131,31 +133,19 @@ const __main: ICommandCallback = ({ value, apis }) => {
       });
     })
     .then(({ html, novel }) => {
-      fileManager.save(html, `index.html`, { force: false });
-
-      return new Promise<Novel>(res => res(novel));
+      return fileManager.save(html, `index.html`, { force: false }).then(() => {
+        return new Promise<Novel>(res => res(novel));
+      });
     })
     .then(novel => {
-      // const executor = fileManager.multithread(thread);
-      // Array.from(novel.chapters).forEach(c => {
-      //   if (c.status === ChapterStatus.COMPLETED) {
-      //     const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-      //     executor.add(html, `chapter-${c.cid}.html`);
-      //   }
-      // });
-      // return executor.save({ force: true });
-
-      // TODO: make it multithread
-      return new Promise<{ html: string; novel: Novel }>(res => {
-        Array.from(novel.chapters).forEach(c => {
-          if (c.status === ChapterStatus.COMPLETED) {
-            const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-            fileManager.save(html, `chapter-${c.cid}.html`, { force: false });
-          }
-        });
-
-        res();
+      Array.from(novel.chapters).forEach(c => {
+        if (c.status === ChapterStatus.COMPLETED) {
+          const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
+          fileManager.add({ content: html, filename: `chapter-${c.cid}.html`, opts: { force: false } });
+        }
       });
+
+      return fileManager.run();
     }) as Promise<undefined>;
 };
 
