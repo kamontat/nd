@@ -1,6 +1,6 @@
 {
   "name": "nd-novel",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,10 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
+    "1.2.1": {
+      "message": "update downloader to latest version",
+      "date": "28 Jul 2019"
+    },
     "1.2.0": {
       "message": "Support toString chapter and novel format with collect data in novel object",
       "date": "27 Jul 2019"
