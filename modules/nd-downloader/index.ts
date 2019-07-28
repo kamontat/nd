@@ -3,21 +3,45 @@ import Package from "./package.json";
 
 // USAGE
 
-// const downloadManager = new DownloadManager(4); // thread number
+// class Example {
+//   constructor(public id: number) {}
+// }
 
-// downloadManager.add("https://example.com/download=1", "/tmp/nd-test/example-download-1"); // string or URL, file path must existed
-// downloadManager.add("https://example.com/download=2", "/tmp/nd-test/example-download-2");
-// downloadManager.add("https://example.com/download=3", "/tmp/nd-test/example-download-3");
-// downloadManager.add("https://example.com/download=4", "/tmp/nd-test/example-download-4");
+// const manager = new Manager<Example>(4);
 
-// console.log(downloadManager.links); // Array<Url>
+// manager.add("https://google.com/download=1");
+// manager.add("https://google.com/download=2");
+// manager.add("https://google.com/download=3");
+// manager.add("https://google.com/download=4");
 
-// // current is a current downloaded link
-// // progress is a number of total downloaded file
-// downloadManager.event.on("downloaded", (current: string, progress: number) => {}); // for processing
+// console.log(manager.size); // link size
 
-// downloadManager.run().then((res: IResponse[]) => {});
+// // event listener
+// manager.event.on("add", () => {});
+// manager.event.on("downloading", () => {});
+// manager.event.on("downloaded", () => {});
+// manager.event.on("header", () => {});
+// manager.event.on("end", () => {});
+
+// // if have is final response with already be Example class object
+// manager.build(v => {
+//   const newResponse = v.copy<Example>();
+//   newResponse.result = doSomething(v.result /* this is a html response body */);
+
+//   return newResponse;
+// });
+
+// manager.run().then(responses => {
+//   responses.forEach(response => {
+//     const example = response.result as Example;
+//     console.log(example.id);
+//   });
+// });
 
 export { Manager as DownloadManager, Package };
+
+export { IResponse } from "./models/IResponse";
+
+export { ManagerEvent, IManagerEvent } from "./models/ManagerEvent";
 
 export * from "./apis/SizeConverter";

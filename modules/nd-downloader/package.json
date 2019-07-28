@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
+    "nd-thread": "./modules/nd-thread",
     "nd-error": "./modules/nd-error",
     "nd-logger": "./modules/nd-logger"
   },
