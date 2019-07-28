@@ -8,6 +8,10 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0": {
+      "message": "refactor download with nd-thread management instead",
+      "date": "16 Jul 2019"
+    },
     "0.1.1": {
       "message": "add response header to builder object",
       "date": "16 Jul 2019"
