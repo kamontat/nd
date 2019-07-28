@@ -1,12 +1,16 @@
 {
   "name": "nd-logger",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.0.8": {
+      "message": "add new namespace of thread management",
+      "date": "28 Jul 2019"
+    },
     "1.0.7": {
       "message": "add more color of novel name and status",
       "date": "27 Jul 2019"
