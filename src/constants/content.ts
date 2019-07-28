@@ -10,6 +10,7 @@ import { Package as HtmlGenPackage } from "nd-html-generator";
 import { Colorize, Package as LogPackage } from "nd-logger";
 import { Package as NovelPackage } from "nd-novel";
 import { Package as SecurityPackage, Security } from "nd-security";
+import { Package as ThreadPackage } from "nd-thread";
 
 import { Package as CorePackage } from "../build/Package";
 
@@ -177,9 +178,10 @@ export const VERSION = () => {
 {yellowBright ${FilePackage.name}}                    : {blueBright ${FilePackage.version}}
 {yellowBright ${HtmlGenPackage.name}}          : {blueBright ${HtmlGenPackage.version}}
 {yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
-{yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
+{yellowBright ${ThreadPackage.name}}                  : {blueBright ${ThreadPackage.version}}
+{yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {dim --------------------------------------}
 `;
 };
@@ -233,14 +235,17 @@ export const VERSION_FULL = () => {
   // downloader package
   dependencies.push(genInternalDependency(DownloaderPackage));
 
-  // helper package
-  dependencies.push(genInternalDependency(HelperPackage));
-
   // config package
   dependencies.push(genInternalDependency(ConfigPackage));
 
   // error package
   dependencies.push(genInternalDependency(ErrorPackage));
+
+  // thread package
+  dependencies.push(genInternalDependency(ThreadPackage));
+
+  // helper package
+  dependencies.push(genInternalDependency(HelperPackage));
 
   // NOTES: just disable external dependency because It might have vulnerability
   // external dependency
