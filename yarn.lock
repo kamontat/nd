@@ -3928,12 +3928,15 @@ nd-admin@./modules/nd-admin:
     nd-security "./modules/nd-security"
 
 nd-commandline-interpreter@./modules/nd-commandline-interpreter:
-  version "1.0.0-rc.2"
+  version "1.0.0"
   dependencies:
+    nd-config "./modules/nd-config"
+    nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
+    nd-security "./modules/nd-security"
 
 nd-config@./modules/nd-config:
-  version "1.5.2"
+  version "1.6.0"
   dependencies:
     nd-logger "./modules/nd-logger"
 
@@ -3956,36 +3959,36 @@ nd-error@./modules/nd-error:
     nd-logger "./modules/nd-logger"
 
 nd-file@./modules/nd-file:
-  version "0.0.1-alpha.1"
+  version "0.1.1"
   dependencies:
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
 
 nd-formatter@./modules/nd-formatter:
-  version "0.2.0"
+  version "1.1.0"
   dependencies:
     nd-logger "./modules/nd-logger"
     table "5.4.1"
 
 nd-helper@./modules/nd-helper:
-  version "0.4.1"
+  version "0.6.0"
   dependencies:
     chalk "2.4.2"
 
 nd-html-generator@./modules/nd-html-generator:
-  version "0.0.1-alpha.1"
+  version "1.0.0-beta.1"
   dependencies:
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
 
 nd-logger@./modules/nd-logger:
-  version "1.0.4"
+  version "1.0.7"
   dependencies:
     debug "4.1.1"
     nd-config "./modules/nd-config"
 
 nd-novel@./modules/nd-novel:
-  version "1.0.0"
+  version "1.2.0"
   dependencies:
     nd-downloader "./modules/nd-downloader"
     nd-error "./modules/nd-error"
@@ -3997,6 +4000,12 @@ nd-security@./modules/nd-security:
   dependencies:
     bcryptjs "2.4.3"
     jsonwebtoken "8.5.1"
+    nd-error "./modules/nd-error"
+    nd-logger "./modules/nd-logger"
+
+nd-thread@./modules/nd-thread:
+  version "1.0.0-alpha.1"
+  dependencies:
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
 

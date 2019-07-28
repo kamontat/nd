@@ -53,6 +53,7 @@
     "nd-logger": "./modules/nd-logger",
     "nd-novel": "./modules/nd-novel",
     "nd-security": "./modules/nd-security",
+    "nd-thread": "./modules/nd-thread",
     "open": "6.3.0",
     "table": "5.4.1",
     "tabtab": "3.0.2"
