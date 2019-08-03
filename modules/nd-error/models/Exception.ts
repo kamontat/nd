@@ -21,13 +21,13 @@ export default class Exception extends Error {
     super(``);
 
     this.env = __NODE_ENV__;
-    if (typeof description === "string") this._description = description || "";
-    else {
+    if (description === undefined || description === null) this._description = `Error: ${_code.name}`;
+    else if (typeof description === "string") this._description = description || "";
+    else
       this._description =
         this.env === "production"
           ? (description as Error).message
           : `${(description as Error).message}\n${(description as Error).stack}`;
-    }
 
     this.name = _code.code;
     this.message = _code.buildMessage(_exit ? MessageType.ERROR : MessageType.WARNING, this._description);
