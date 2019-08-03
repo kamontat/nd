@@ -66,8 +66,7 @@ export default (cli: Commandline, config: IConfiguration) => {
           SubCommand.build("help", false, ({ self }) => {
             LoggerService.console.log(`
 ${HELP_HEADER(self.name, self.description)}
-${HELP_NOVEL(self.name)}
-${HELP_FOOTER(self.name)}`);
+${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
