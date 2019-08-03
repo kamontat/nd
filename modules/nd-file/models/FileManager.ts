@@ -36,8 +36,27 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
       fs.mkdirSync(this.directory, { recursive: true });
     } else {
       const lists = fs.readdirSync(this.directory);
-      if (lists.length > 0) this._error.execute("folder-not-empty", this.directory);
+      if (lists.length > 0) this._error.execute("folder-not-empty", { path: this.directory, again: () => this.load() });
     }
+  }
+
+  public move(fileName: string, nextFileName: string) {
+    const current = path.isAbsolute(fileName) ? fileName : path.resolve(this.directory, fileName);
+    const next = path.isAbsolute(nextFileName) ? nextFileName : path.resolve(this.directory, nextFileName);
+
+    LoggerService.log(LOGGER_FILE, `change file name from ${current} to ${next}`);
+
+    const move = util.promisify(fs.rename);
+    return move(current, next);
+  }
+
+  public moveSync(fileName: string, nextFileName: string) {
+    const current = path.isAbsolute(fileName) ? fileName : path.resolve(this.directory, fileName);
+    const next = path.isAbsolute(nextFileName) ? nextFileName : path.resolve(this.directory, nextFileName);
+
+    LoggerService.log(LOGGER_FILE, `change file name from ${current} to ${next}`);
+
+    return fs.renameSync(current, next);
   }
 
   public name(name?: string) {
@@ -50,7 +69,13 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
       fs.mkdirSync(this.directory, { recursive: true });
     } else {
       const lists = fs.readdirSync(this.directory);
-      if (lists.length > 0) this._error.execute("folder-not-empty", this.directory);
+      if (lists.length > 0)
+        this._error.execute("folder-not-empty", {
+          path: this.directory,
+          again: () => {
+            this.load();
+          },
+        });
     }
   }
 
@@ -83,7 +108,7 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
         return writeFile(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
       } else {
         LoggerService.log(LOGGER_FILE, `file already exist`);
-        this._error.execute("file-exist", p);
+        this._error.execute("file-exist", { path: p });
         return new Promise((_, rej) => rej(new Error("cannot save file because it already exist")));
       }
     }) as Promise<undefined>;
@@ -106,7 +131,7 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
       fs.writeFileSync(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
     } else {
       LoggerService.log(LOGGER_FILE, `file already exist`);
-      this._error.execute("file-exist", p);
+      this._error.execute("file-exist", { path: p });
     }
   }
 
@@ -114,7 +139,8 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
     return this.save(t.content, t.filename, t.opts);
   }
 
-  private buildPath(name: string) {
+  private buildPath(name?: string) {
+    if (!name) return this.directory;
     return path.resolve(this.directory, name);
   }
 }
