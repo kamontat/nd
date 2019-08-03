@@ -1,8 +1,12 @@
 {
   "name": "nd-helper",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "interface, absolute class and other helper methods",
   "changelog": {
+    "0.7.0": {
+      "message": "add random utils, improve path utils and make package even smaller with zero dependency",
+      "date": "03 Aug 2019"
+    },
     "0.6.0": {
       "message": "add new utils call checker; for check variable type and value",
       "date": "24 Jul 2019"
