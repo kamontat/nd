@@ -94,12 +94,17 @@ const __main: ICommandCallback = ({ value, apis }) => {
   const location = config.get("novel.location");
   const fileManager = new FileManager(location || PathUtils.GetCurrentPath(), undefined, thread);
 
-  fileManager.onError("folder-not-empty", path => {
+  fileManager.onError("folder-not-empty", ({ path, again }) => {
+    if (replace) {
+      fileManager.moveSync(path, PathUtils.Cachedir(path));
+      return again && again();
+    }
+
     ExceptionService.build(
       ERR_NLV,
       `Novel folder already exist!! you might want to ${Colorize.appname(Package.name)} ${Colorize.command(
         "update",
-      )} "${Colorize.param(path || "")}" instead`,
+      )} "${Colorize.param(path || "")}" or replace by add ${Colorize.option("--replace")}`,
     )
       .print(LOGGER_FILE)
       .exit();
@@ -119,7 +124,7 @@ const __main: ICommandCallback = ({ value, apis }) => {
         .save(novel)
         .config({
           short: true,
-          chapter: apis.config.get<boolean>("novel.change", false),
+          chapter: change,
           _format: true,
           path: fileManager.path,
         })
