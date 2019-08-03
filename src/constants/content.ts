@@ -63,8 +63,8 @@ const NOVEL = (name: string) => {
        {yellow id}                      - {gray [required]} download novel to default location in setting
      option:
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
-       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
-       {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel [WIP]
+       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
+       {cyan --change}                - {gray [optional]} print all change and chapter in downloading novel
        {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
      parameter:
