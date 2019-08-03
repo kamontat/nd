@@ -4,6 +4,8 @@ import ExceptionService, { ERR_NLV } from "nd-error";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
+import { HELP_FOOTER, HELP_HEADER, HELP_NOVEL } from "../constants/content";
+
 import downloadCallback from "./novel/download";
 import rawDownloadCallback from "./novel/raw";
 
@@ -60,6 +62,14 @@ export default (cli: Commandline, config: IConfiguration) => {
   cli.command(
     downloadOption(
       Command.build("novel", true, downloadCallback)
+        .sub(
+          SubCommand.build("help", false, ({ self }) => {
+            LoggerService.console.log(`
+${HELP_HEADER(self.name, self.description)}
+${HELP_NOVEL(self.name)}
+${HELP_FOOTER(self.name)}`);
+          }),
+        )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
         .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
     ),

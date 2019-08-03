@@ -48,6 +48,9 @@ const CONFIGURATION = (name: string) => {
        {yellow <key>=<value>}           - {gray [required]} key and value to be saved in config file
      option:
        {cyan --backup}                - {gray [optional]} create backup before replace configuration file
+{gray $} {green ${name}} {magentaBright config} {magenta help}              -- show available subcommand of ${Colorize.command(
+    "config",
+  )} command
 `;
 };
 
@@ -110,6 +113,9 @@ const NOVEL = (name: string) => {
 {gray $} {green ${name}} {magentaBright [novel]} {magenta category}         -- list all category of novel (for searching api) [WIP]
      option:
        {cyan --search} {gray <name>}         - {gray [optional]} search input value inside category database [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta help}             -- show available subcommand of ${Colorize.command(
+    "novel",
+  )} command
 `;
 };
 
@@ -126,6 +132,9 @@ const COMMAND = (name: string) => {
      parameter:
        {yellow <version>}               - {gray [required]} specify version number [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta verify}           -- verify all dependencies and components of the command [WIP]
+{gray $} {green ${name}} {magentaBright command} {magenta help}             -- show available subcommand of ${Colorize.command(
+    "command",
+  )} command
 `;
 };
 
@@ -133,6 +142,18 @@ const PS = (_: string) => {
   return Colorize.format`
 {gray P.S. [...] mean optional / default command (can be omit)}
 {gray P.S. <...> mean variable}`;
+};
+
+export const HELP_CONFIGURATION = (name: string) => {
+  return GLOBAL_OPTION(name) + CONFIGURATION(name) + PS(name);
+};
+
+export const HELP_NOVEL = (name: string) => {
+  return GLOBAL_OPTION(name) + NOVEL(name) + PS(name);
+};
+
+export const HELP_COMMAND = (name: string) => {
+  return GLOBAL_OPTION(name) + COMMAND(name) + PS(name);
 };
 
 export const HELP_CONTENT = (name: string) => {
@@ -150,7 +171,7 @@ LICENSE TO USE THE SOFTWARE. The Software is licensed to You, not sold to You.
 You agree that if the Software requires mandatory activation or email validation, 
 You will complete the process providing with accurate information.
 
-You may not {red.underline copy}, {red.underline modify}, {red.underline distribute}, {red.underline sell}, or {red.underline lease} any part of our Services
+You may {red.underline.bold NOT} {red copy}, {red modify}, {red distribute}, {red sell}, or {red lease} any part of our Services
 or included software, nor may you reverse engineer or 
 attempt to extract the source code of that software, 
 unless laws prohibit those restrictions or you have our written permission.
@@ -160,6 +181,13 @@ unless laws prohibit those restrictions or you have our written permission.
 const AUTHOR = (_: string) => {
   return Colorize.format`
 Enjoy your days; {blueBright ${CorePackage.author}}`;
+};
+
+export const HELP_HEADER = (name: string, description: string) => {
+  const date = new Date(__COMPILE_DATE__);
+  return `${Colorize.appname(name.toUpperCase())} command; ${description}
+Built at ${Colorize.datetime(date.toLocaleString())}
+Version  ${Colorize.version(CorePackage.version)}`;
 };
 
 export const HELP_FOOTER = (name: string) => {
