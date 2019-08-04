@@ -66,8 +66,10 @@ export class Chapter {
     this._content = [];
   }
 
-  public toJSON() {
-    return {
+  public toJSON(_opts?: { content?: boolean }) {
+    const opts = Object.assign(_opts, { content: true });
+
+    const json = {
       nid: this.nid,
       cid: this.cid,
       name: this.name,
@@ -76,7 +78,10 @@ export class Chapter {
       content: this.content,
       downloadAt: this.downloadAt,
       updateAt: this.updateAt,
-    };
+    } as { [key: string]: any };
+
+    if (opts.content) json.content = this.content;
+    return json;
   }
 
   public toString(_opts: { color?: boolean; long?: boolean } = {}) {

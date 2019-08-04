@@ -134,8 +134,10 @@ export class Novel {
     return this._chapters.get(num);
   }
 
-  public toJSON() {
-    return {
+  public toJSON(_opts?: { content?: boolean }) {
+    const opts = Object.assign(_opts, { content: true });
+
+    const json = {
       id: this.id,
       name: this.name,
       link: this.link,
@@ -143,11 +145,13 @@ export class Novel {
       tags: this.tags,
       type: this.type,
       abstract: this.abstract,
-      content: this.content,
-      chapters: Array.from(this.chapters).map(c => c.toJSON()),
+      chapters: Array.from(this.chapters).map(c => c.toJSON(_opts)),
       updateAt: this.updateAt,
       downloadAt: this.downloadAt,
-    };
+    } as { [key: string]: any };
+
+    if (opts.content) json.content = this.content;
+    return json;
   }
 
   private eventHandler(name: string, value: { after: any; before: any }) {
