@@ -116,7 +116,6 @@ export class Novel {
     this._tags = [];
 
     History.Get().addEvent(this._event);
-
     this.eventHandler("id", { before: undefined, after: _id });
   }
 
@@ -135,7 +134,7 @@ export class Novel {
   }
 
   public toJSON(_opts?: { content?: boolean }) {
-    const opts = Object.assign(_opts, { content: true });
+    const opts = Object.assign({ content: true }, _opts);
 
     const json = {
       id: this.id,
@@ -155,14 +154,6 @@ export class Novel {
   }
 
   private eventHandler(name: string, value: { after: any; before: any }) {
-    const verify = (v: any) => {
-      if (v === undefined || v === null || v === "") return false;
-      if (typeof v === "object" && typeof v.length === "number") return v.length > 0;
-      return true;
-    };
-
-    if (!verify(value.before) && verify(value.after)) this._event.emit("added", `Novel ${name}`, value.after);
-    else if (verify(value.before) && !verify(value.after)) this._event.emit("deleted", `Novel ${name}`, value.before);
-    else if (verify(value.before) && verify(value.after)) this._event.emit("modified", `Novel ${name}`, value);
+    return this._event.classify(`Novel ${name}`, value);
   }
 }
