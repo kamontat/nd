@@ -8,6 +8,7 @@ import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
 import { TemplateType } from "nd-html-generator/loader";
 import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
+import { ResourceBuilder } from "nd-resource";
 import { Security } from "nd-security";
 import { ThreadManager } from "nd-thread";
 
@@ -143,12 +144,17 @@ const __main: ICommandCallback = ({ value, apis }) => {
       });
     })
     .then(novel => {
+      const resource = new ResourceBuilder.Novel(novel).build();
+
+      // chapter file
       Array.from(novel.chapters).forEach(c => {
         if (c.status === ChapterStatus.COMPLETED) {
           const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
           fileManager.add({ content: html, filename: `chapter-${c.cid}.html`, opts: { force: false } });
         }
       });
+      // TODO: resource file
+      fileManager.add({ content: resource.save(), filename: resource.filename(), opts: { force: false } });
 
       return fileManager.run();
     }) as Promise<undefined>;
