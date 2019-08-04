@@ -1,21 +1,62 @@
 import Event from "events";
+import LoggerService, { LOGGER_HISTORY } from "nd-logger";
 
 export type EventType = "added" | "modified" | "deleted";
 
 interface IHistoryEvent {
-  on(event: "added" | "deleted", listener: (title: string, value: string) => void): this;
-  on(event: "modified", listener: (title: string, value: { before: string; after: string }) => void): this;
-
   emit(event: "added" | "deleted", title: string, value: string): boolean;
-  emit(event: "modified", title: string, value: { before: string; after: string }): boolean;
+  emit(event: "modified", title: string, value: { after: string; before: string }): boolean;
+  on(event: "added" | "deleted", listener: (title: string, value: string) => void): this;
+  on(event: "modified", listener: (title: string, value: { after: string; before: string }) => void): this;
 }
 
 export class HistoryEvent extends Event implements IHistoryEvent {
-  public on(event: EventType, listener: (title: string, value: any) => void) {
-    return super.on(event, listener);
-  }
+  public classify(name: string, value: { after: any; before: any }) {
+    const exist = (v: any) => {
+      LoggerService.log(LOGGER_HISTORY, `try to check is ${v} exist; type ${typeof v}; %O`, v);
 
+      if (v === undefined || v === null || v === "" || v === "undefined" || v === "null") {
+        LoggerService.log(LOGGER_HISTORY, `Undefined or string of undefined`);
+        return false;
+      } else if (typeof v === undefined || typeof v === "undefined") {
+        LoggerService.log(LOGGER_HISTORY, `Undefined type`);
+        return false;
+      } else if (typeof v === "object") {
+        if (typeof v.length === "number" && v.length <= 0) {
+          LoggerService.log(LOGGER_HISTORY, `Empty Array type`);
+          return false;
+        } else if (v.toString() === "undefined") {
+          LoggerService.log(LOGGER_HISTORY, `Undefined object type`);
+          return false;
+        } else if (v === {}) {
+          LoggerService.log(LOGGER_HISTORY, `Empty object type`);
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    const equal = (a: any, b: any) => {
+      LoggerService.log(LOGGER_HISTORY, `try ${a} === ${b} (a=%O), (b=%O)`, a, b);
+      if (a.equals && b.equals) {
+        LoggerService.log(LOGGER_HISTORY, "object with equals method");
+        return a.equals(b);
+      } else {
+        LoggerService.log(LOGGER_HISTORY, "normal check");
+        return a === b;
+      }
+    };
+
+    if (!exist(value.before) && exist(value.after)) this.emit("added", name, value.after);
+    else if (exist(value.before) && !exist(value.after)) this.emit("deleted", name, value.before);
+    else if (exist(value.before) && exist(value.after) && !equal(value.before, value.after))
+      this.emit("modified", name, value);
+  }
   public emit(event: EventType, title: string, value: any) {
     return super.emit(event, title, value);
+  }
+  public on(event: EventType, listener: (title: string, value: any) => void) {
+    return super.on(event, listener);
   }
 }
