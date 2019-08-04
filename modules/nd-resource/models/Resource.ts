@@ -1,5 +1,9 @@
 export class Resource {
-  constructor(private json: string) {}
+  constructor(private json: string, private _filename: string) {}
+
+  public filename() {
+    return this._filename;
+  }
 
   public load() {
     return this._decode();
