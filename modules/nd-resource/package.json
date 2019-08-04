@@ -1,0 +1,16 @@
+{
+  "name": "nd-resource",
+  "version": "0.0.1-alpha.1",
+  "description": "manage novel resource file",
+  "dependencies": {
+    "nd-novel": "./modules/nd-novel",
+    "nd-logger": "./modules/nd-logger",
+    "nd-error": "./modules/nd-error"
+  },
+  "changelog": {
+    "0.0.1-alpha.1": {
+      "message": "changelog template",
+      "date": "xx Jul 2019"
+    }
+  }
+}

@@ -3948,18 +3948,19 @@ nd-decoder@./modules/nd-decoder:
     nd-logger "./modules/nd-logger"
 
 nd-downloader@./modules/nd-downloader:
-  version "0.1.1"
+  version "1.0.0"
   dependencies:
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
+    nd-thread "./modules/nd-thread"
 
 nd-error@./modules/nd-error:
-  version "2.1.0"
+  version "2.2.0"
   dependencies:
     nd-logger "./modules/nd-logger"
 
 nd-file@./modules/nd-file:
-  version "0.1.1"
+  version "0.2.0"
   dependencies:
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
@@ -3971,9 +3972,7 @@ nd-formatter@./modules/nd-formatter:
     table "5.4.1"
 
 nd-helper@./modules/nd-helper:
-  version "0.6.0"
-  dependencies:
-    chalk "2.4.2"
+  version "0.7.0"
 
 nd-html-generator@./modules/nd-html-generator:
   version "1.0.0-beta.1"
@@ -3982,18 +3981,25 @@ nd-html-generator@./modules/nd-html-generator:
     nd-logger "./modules/nd-logger"
 
 nd-logger@./modules/nd-logger:
-  version "1.0.7"
+  version "1.0.8"
   dependencies:
     debug "4.1.1"
     nd-config "./modules/nd-config"
 
 nd-novel@./modules/nd-novel:
-  version "1.2.0"
+  version "1.2.1"
   dependencies:
     nd-downloader "./modules/nd-downloader"
     nd-error "./modules/nd-error"
     nd-helper "./modules/nd-helper"
     nd-logger "./modules/nd-logger"
+
+nd-resource@./modules/nd-resource:
+  version "0.0.1-alpha.1"
+  dependencies:
+    nd-error "./modules/nd-error"
+    nd-logger "./modules/nd-logger"
+    nd-novel "./modules/nd-novel"
 
 nd-security@./modules/nd-security:
   version "1.3.0"
@@ -4004,8 +4010,9 @@ nd-security@./modules/nd-security:
     nd-logger "./modules/nd-logger"
 
 nd-thread@./modules/nd-thread:
-  version "1.0.0-alpha.1"
+  version "1.0.0-rc.1"
   dependencies:
+    async "3.1.0"
     nd-error "./modules/nd-error"
     nd-logger "./modules/nd-logger"
 

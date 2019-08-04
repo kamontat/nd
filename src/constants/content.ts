@@ -9,6 +9,7 @@ import { Package as HelperPackage, TimeUtils } from "nd-helper";
 import { Package as HtmlGenPackage } from "nd-html-generator";
 import { Colorize, Package as LogPackage } from "nd-logger";
 import { Package as NovelPackage } from "nd-novel";
+import { Package as ResourcePackage } from "nd-resource";
 import { Package as SecurityPackage, Security } from "nd-security";
 import { Package as ThreadPackage } from "nd-thread";
 
@@ -25,7 +26,6 @@ const GLOBAL_OPTION = (name: string) => {
 {gray $} {green ${name}} {cyan --no-color}               -- disable all color in output log
 {gray $} {green ${name}} {cyan --level} {gray <number>}         -- {blue number} can be 0, 1, 2, and 3
                                - 0 is mute every output and 3 is print everything
-{gray $} {green ${name}} {cyan --no-file}                -- never create log and temporary files [WIP]
 `;
 };
 
@@ -113,7 +113,7 @@ const NOVEL = (name: string) => {
 {gray $} {green ${name}} {magentaBright [novel]} {magenta category}         -- list all category of novel (for searching api) [WIP]
      option:
        {cyan --search} {gray <name>}         - {gray [optional]} search input value inside category database [WIP]
-{gray $} {green ${name}} {magentaBright [novel]} {magenta help}             -- show available subcommand of ${Colorize.command(
+{gray $} {green ${name}} {magentaBright novel} {magenta help}               -- show available subcommand of ${Colorize.command(
     "novel",
   )} command
 `;
@@ -199,6 +199,7 @@ export const VERSION = () => {
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
+{yellowBright ${ResourcePackage.name}}                : {blueBright ${ResourcePackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
 {yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
@@ -241,6 +242,9 @@ export const VERSION_FULL = () => {
 
   // novel package
   dependencies.push(genInternalDependency(NovelPackage));
+
+  // resource package
+  dependencies.push(genInternalDependency(ResourcePackage));
 
   // commandline package
   dependencies.push(genInternalDependency(CLIPackage));

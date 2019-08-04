@@ -56,6 +56,7 @@
     "nd-html-generator": "./modules/nd-html-generator",
     "nd-logger": "./modules/nd-logger",
     "nd-novel": "./modules/nd-novel",
+    "nd-resource": "./modules/nd-resource",
     "nd-security": "./modules/nd-security",
     "nd-thread": "./modules/nd-thread",
     "open": "6.3.0",
