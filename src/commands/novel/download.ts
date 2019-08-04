@@ -10,7 +10,6 @@ import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
 import { ResourceBuilder } from "nd-resource";
 import { Security } from "nd-security";
-import { ThreadManager } from "nd-thread";
 
 import { Package } from "../../build/Package";
 
@@ -97,7 +96,11 @@ const __main: ICommandCallback = ({ value, apis }) => {
 
   fileManager.onError("folder-not-empty", ({ path, again }) => {
     if (replace) {
-      fileManager.moveSync(path, PathUtils.Cachedir(path));
+      const newPath = PathUtils.Cachedir(path);
+      fileManager.moveSync(path, newPath);
+      LoggerService.console.log(
+        `${Colorize.path(path)} had been rename to ${Colorize.path(newPath)} as a caching directory`,
+      );
       return again && again();
     }
 
