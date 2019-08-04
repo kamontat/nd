@@ -1,6 +1,6 @@
 {
   "name": "nd-novel",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,10 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
+    "1.3.0": {
+      "message": "full support history in novel, chapter; and support exportable to JSON",
+      "date": "04 Aug 2019"
+    },
     "1.2.1": {
       "message": "update downloader to latest version",
       "date": "28 Jul 2019"
