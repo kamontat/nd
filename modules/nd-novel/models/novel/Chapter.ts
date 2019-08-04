@@ -2,6 +2,8 @@ import { TimeUtils } from "nd-helper";
 import { Colorize } from "nd-logger";
 
 import { buildViewlongURL } from "../../apis/url";
+import { History } from "../history/History";
+import { HistoryEvent } from "../history/HistoryEvent";
 
 import { ChapterStatus } from "./ChapterStatus";
 
@@ -10,18 +12,21 @@ export class Chapter {
     return this._cid;
   }
   public set cid(c: number) {
+    this.eventHandler("number", { before: this._cid, after: c });
     this._cid = c;
   }
   public get content() {
     return this._content;
   }
   public set content(c: string[]) {
+    this.eventHandler("content", { before: this._content, after: c });
     this._content = c;
   }
   public get downloadAt() {
     return this._downloadAt;
   }
   public set downloadAt(d: number | undefined) {
+    this.eventHandler("download at", { before: this._downloadAt, after: d });
     this._downloadAt = d;
   }
   public get link() {
@@ -32,6 +37,7 @@ export class Chapter {
   }
 
   public set name(n: string | undefined) {
+    this.eventHandler("name", { before: this._name, after: n });
     this._name = n;
   }
 
@@ -40,34 +46,56 @@ export class Chapter {
   }
 
   public set nid(n: number) {
+    this.eventHandler("novel id", { before: this._nid, after: n });
     this._nid = n;
   }
   public get status() {
     return this._status;
   }
   public set status(s: ChapterStatus) {
+    this.eventHandler("status", { before: this._status, after: s });
     this._status = s;
   }
   public get updateAt() {
     return this._updateAt;
   }
   public set updateAt(u: number | undefined) {
+    this.eventHandler("update at", { before: this._updateAt, after: u });
     this._updateAt = u;
   }
+
   private _content: string[];
   private _downloadAt?: number;
+
+  private _event: HistoryEvent;
   private _link: URL;
 
   private _name?: string;
   private _updateAt?: number;
 
-  constructor(private _nid: number, private _cid: number, private _status: ChapterStatus = ChapterStatus.UNKNOWN) {
+  constructor(
+    private _nid: number,
+    private _cid: number,
+    private _status: ChapterStatus = ChapterStatus.UNKNOWN,
+    event?: HistoryEvent,
+  ) {
     this._link = buildViewlongURL(this._nid, this._cid);
     this._content = [];
+
+    this._event = event ? event : new HistoryEvent();
+
+    History.Get().addEvent(this._event);
+
+    this.eventHandler("novel id", { before: undefined, after: _nid });
+    this.eventHandler("number", { before: undefined, after: _cid });
+  }
+
+  public equals(c: Chapter) {
+    return this.cid === c.cid && this.nid === c.nid && this.status === c.status && this.name === c.name;
   }
 
   public toJSON(_opts?: { content?: boolean }) {
-    const opts = Object.assign(_opts, { content: true });
+    const opts = Object.assign({ content: true }, _opts);
 
     const json = {
       nid: this.nid,
@@ -105,8 +133,16 @@ export class Chapter {
           lang: "th",
         })}`;
       } else {
-        return this.name;
+        if (this.name) {
+          return this.name;
+        } else {
+          return `${this.nid}-${this.cid}-${this.status}`;
+        }
       }
     }
+  }
+
+  private eventHandler(name: string, value: { after: any; before: any }) {
+    return this._event.classify(`Chapter ${name}`, value);
   }
 }
