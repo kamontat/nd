@@ -31,6 +31,16 @@ export class HistoryNode implements IHistoryNode {
     return this;
   }
 
+  public toJSON() {
+    return {
+      type: this._type,
+      title: this.title,
+      value: this._value,
+      createAt: this._createAt,
+      updateAt: this._updateAt,
+    };
+  }
+
   public toString(_opts: { color?: boolean } = {}) {
     const opts = Object.assign({ color: false }, _opts);
 

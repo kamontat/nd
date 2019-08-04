@@ -66,6 +66,19 @@ export class Chapter {
     this._content = [];
   }
 
+  public toJSON() {
+    return {
+      nid: this.nid,
+      cid: this.cid,
+      name: this.name,
+      link: this.link,
+      status: this.status,
+      content: this.content,
+      downloadAt: this.downloadAt,
+      updateAt: this.updateAt,
+    };
+  }
+
   public toString(_opts: { color?: boolean; long?: boolean } = {}) {
     const opts = Object.assign({ color: false, long: false }, _opts);
 

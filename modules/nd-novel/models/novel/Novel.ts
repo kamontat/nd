@@ -6,14 +6,6 @@ import { Chapter } from "./Chapter";
 import { NovelType } from "./NovelType";
 
 export class Novel {
-  public get id() {
-    return this._id;
-  }
-
-  public get size() {
-    return this._chapters.size;
-  }
-
   public get abstract() {
     return this._abstract;
   }
@@ -53,6 +45,9 @@ export class Novel {
     this.eventHandler("download at", { before: this._downloadAt, after: dlAt });
     this._downloadAt = dlAt;
   }
+  public get id() {
+    return this._id;
+  }
 
   public get link() {
     return this._link;
@@ -62,14 +57,18 @@ export class Novel {
     return this._name;
   }
 
+  public set name(n: string | undefined) {
+    this.eventHandler("name", { before: this._name, after: n });
+    this._name = n;
+  }
+
   public get normalizeName() {
     if (!this._name) return `unknown-name-${this.id}`;
     return this._name.replace(/([ \n\t\r\n])/g, "-").replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
   }
 
-  public set name(n: string | undefined) {
-    this.eventHandler("name", { before: this._name, after: n });
-    this._name = n;
+  public get size() {
+    return this._chapters.size;
   }
 
   public get tags() {
@@ -133,6 +132,22 @@ export class Novel {
 
   public chapter(num: number) {
     return this._chapters.get(num);
+  }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      link: this.link,
+      author: this.author,
+      tags: this.tags,
+      type: this.type,
+      abstract: this.abstract,
+      content: this.content,
+      chapters: Array.from(this.chapters).map(c => c.toJSON()),
+      updateAt: this.updateAt,
+      downloadAt: this.downloadAt,
+    };
   }
 
   private eventHandler(name: string, value: { after: any; before: any }) {
