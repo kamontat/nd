@@ -49,12 +49,12 @@ export class HistoryNode implements IHistoryNode {
     if (opts.color) {
       switch (this._type) {
         case "added":
-          return `adding ${Colorize.value(this._value.toString())} to ${Colorize.key(this.title)}`;
+          return `adding ${Colorize.value(this.limit(this._value.toString()))} to ${Colorize.key(this.title)}`;
         case "deleted":
-          return `removing ${Colorize.value(this._value.toString())} from ${Colorize.key(this.title)}`;
+          return `removing ${Colorize.value(this.limit(this._value.toString()))} from ${Colorize.key(this.title)}`;
         case "modified":
-          return `changing ${Colorize.value((this._value as IModifyValue).before)} to ${Colorize.value(
-            (this._value as IModifyValue).after,
+          return `changing ${Colorize.value(this.limit((this._value as IModifyValue).before))} to ${Colorize.value(
+            this.limit((this._value as IModifyValue).after),
           )} in ${Colorize.key(this.title)}`;
       }
     } else {
@@ -71,5 +71,10 @@ export class HistoryNode implements IHistoryNode {
     }
 
     return "Error: unknown event type";
+  }
+
+  private limit(str: string, size: number = 30) {
+    if (str.length > size) return `${str.substr(0, size)}...`;
+    else return str;
   }
 }
