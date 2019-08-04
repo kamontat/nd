@@ -15,6 +15,7 @@
     "max-line-length": {
       "options": [200]
     },
+    "max-classes-per-file": [true, 1, "exclude-class-expressions"],
     "member-ordering": [
       true,
       {
