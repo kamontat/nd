@@ -1,12 +1,16 @@
 {
   "name": "nd-logger",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.0.9": {
+      "message": "add new namespace; command history and novel history",
+      "date": "04 Aug 2019"
+    },
     "1.0.8": {
       "message": "add new namespace of thread management",
       "date": "28 Jul 2019"
