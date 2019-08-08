@@ -5,7 +5,8 @@ import { ChapterStatus, History, Novel } from "nd-novel";
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 
 interface INovelConfigFormat extends IDefaultConfigFormat {
-  chapter: boolean;
+  chapters: boolean;
+  history: boolean;
   path: string;
   short: boolean;
 }
@@ -27,7 +28,8 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
       if (this._config.short) this.__buildShort();
       else this.__buildLong();
 
-      if (this._config.chapter) this.__buildChapter();
+      if (this._config.chapters) this.__buildChapter();
+      if (this._config.history) this.__buildHistory();
     } else {
       this.__buildShort(); // default
     }
@@ -46,7 +48,20 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     return this;
   }
 
-  private __buildChapter() {}
+  private __buildChapter() {
+    if (this._obj) {
+      this._appendSummary(this._section("Chapters"));
+      Array.from(this._obj.chapters).forEach(c => this._appendSummary(c.toString({ color: true, long: true })));
+    }
+  }
+
+  private __buildHistory() {
+    if (this._obj) {
+      this._appendSummary(this._section("Histories"));
+      const events = History.Get().events;
+      events.forEach(n => this._appendSummary(n.toString({ color: true })));
+    }
+  }
 
   private __buildLong() {}
 
@@ -63,15 +78,6 @@ chapters    =  ${ArrayUtils.ReadableArray(
 update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
 download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
 ${this._config && `path        =  ${Colorize.path(this._config.path)}`}`);
-
-      if (this._config && this._config.chapter === true) {
-        this._appendSummary(this._section("Chapters"));
-        Array.from(this._obj.chapters).forEach(c => this._appendSummary(c.toString({ color: true, long: true })));
-
-        this._appendSummary(this._section("Histories"));
-        const events = History.Get().events;
-        events.forEach(n => this._appendSummary(n.toString({ color: true })));
-      }
     }
   }
 
