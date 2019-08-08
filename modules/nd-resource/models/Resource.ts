@@ -1,3 +1,5 @@
+import { Encryption } from "nd-security";
+
 export class Resource {
   constructor(private json: string, private _filename: string) {}
 
@@ -14,10 +16,10 @@ export class Resource {
   }
 
   private _decode() {
-    return this.json;
+    return Encryption.decrypt(this.json);
   }
 
   private _encode() {
-    return this.json;
+    return Encryption.encrypt(this.json);
   }
 }
