@@ -85,7 +85,11 @@ const __main: ICommandCallback = ({ value, apis }) => {
   const id = parseInt(value || "", 10);
   const chapter = apis.config.get<string>("novel.chapter", "0");
   const chapters = ArrayUtils.BuildArray(chapter);
+
   const thread = apis.config.get<number>("novel.thread", 4);
+
+  const replace = apis.config.get<boolean>("novel.replace", false);
+  const change = apis.config.get<boolean>("novel.change", false);
 
   const location = config.get("novel.location");
   const fileManager = new FileManager(location || PathUtils.GetCurrentPath());
@@ -100,7 +104,8 @@ const __main: ICommandCallback = ({ value, apis }) => {
       .save(novel)
       .config({
         short: true,
-        chapter: apis.config.get<boolean>("novel.change", false),
+        history: change,
+        chapters: true,
         _format: true,
         path: fileManager.path,
       })
@@ -112,7 +117,8 @@ const __main: ICommandCallback = ({ value, apis }) => {
       Array.from(novel.chapters).forEach(c => {
         if (c.status === ChapterStatus.COMPLETED) {
           const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-          fileManager.save(html, `chapter-${c.cid}.html`, { force: true });
+          const name = `chapter-${c.cid}`;
+          fileManager.save(html, `${name}.html`, { force: replace, tmp: PathUtils.Cachename(name, "f.html") });
         }
       });
 
