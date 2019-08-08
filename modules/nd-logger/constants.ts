@@ -21,9 +21,13 @@ export const LOGGER_DOWNLOADER_DECODER = LOGGER_DOWNLOADER.extend("decoder");
 export const LOGGER_HISTORY = LOGGER_ROOT.extend("history");
 
 export const LOGGER_NOVEL = LOGGER_ROOT.extend("novel");
+
 export const LOGGER_NOVEL_BUILDER = LOGGER_NOVEL.extend("builder");
-export const LOGGER_NOVEL_DOWNLOADER = LOGGER_NOVEL.extend("download");
-export const LOGGER_NOVEL_UPDATER = LOGGER_NOVEL.extend("update");
+export const LOGGER_NOVEL_DOWNLOADER = LOGGER_NOVEL.extend("downloader");
+export const LOGGER_NOVEL_FETCHER = LOGGER_NOVEL.extend("fetcher");
+export const LOGGER_NOVEL_UPDATER = LOGGER_NOVEL.extend("updater");
+export const LOGGER_NOVEL_EXPORTER = LOGGER_NOVEL.extend("exporter");
+export const LOGGER_NOVEL_SEARCHER = LOGGER_NOVEL.extend("searcher");
 
 export const LOGGER_HTML = LOGGER_ROOT.extend("html");
 export const LOGGER_HTML_GENERATOR = LOGGER_HTML.extend("generator");
