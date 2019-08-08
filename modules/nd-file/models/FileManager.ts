@@ -6,9 +6,16 @@ import util from "util";
 
 import { ErrorCallback, ErrorManager, ErrorType } from "./ErrorManager";
 
-interface IFileOption {
-  force?: boolean;
+interface IForceFileOption {
+  force: true;
+  tmp?: string;
 }
+
+interface INormalFileOption {
+  force?: false;
+}
+
+type IFileOption = IForceFileOption | INormalFileOption;
 
 interface IMultithreadValue {
   content: string;
@@ -101,8 +108,14 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
 
     return isExist(p).then(exist => {
       if (exist && opts.force) {
-        LoggerService.log(LOGGER_FILE, `force save file even it already exist`);
-        return writeFile(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
+        if (opts.tmp) {
+          const newPath = path.resolve(path.dirname(p), opts.tmp);
+          LoggerService.log(LOGGER_FILE, `force save file but create cache at ${newPath}`);
+          return this.move(p, newPath).then(() => writeFile(p, content, { encoding: "utf8", mode: 0o666, flag: "w" }));
+        } else {
+          LoggerService.log(LOGGER_FILE, `hard force save file`);
+          return writeFile(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
+        }
       } else if (!exist) {
         LoggerService.log(LOGGER_FILE, `save file to path=${p}`);
         return writeFile(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
@@ -127,7 +140,19 @@ export class FileManager extends ThreadManager<undefined, IMultithreadValue, und
     LoggerService.log(LOGGER_FILE, `save sync file with option=%O`, opts);
 
     const p = this.buildPath(fileName);
-    if (!fs.existsSync(p) || opts.force) {
+    const exist = fs.existsSync(p);
+
+    if (exist && opts.force) {
+      if ((opts as IForceFileOption).tmp) {
+        LoggerService.log(LOGGER_FILE, `tmp is exist; move to temp file first`);
+
+        const newPath = path.resolve(path.dirname(p), (opts as IForceFileOption).tmp as string);
+        this.moveSync(p, newPath);
+      }
+      LoggerService.log(LOGGER_FILE, `force save file; even it exist`);
+      fs.writeFileSync(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
+    } else if (!exist) {
+      LoggerService.log(LOGGER_FILE, `save file to path=${p}`);
       fs.writeFileSync(p, content, { encoding: "utf8", mode: 0o666, flag: "w" });
     } else {
       LoggerService.log(LOGGER_FILE, `file already exist`);
