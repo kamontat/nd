@@ -1,12 +1,16 @@
 {
   "name": "nd-logger",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.1.0": {
+      "message": "add more namespace on novel root",
+      "date": "08 Aug 2019"
+    },
     "1.0.9": {
       "message": "add new namespace; command history and novel history",
       "date": "04 Aug 2019"
