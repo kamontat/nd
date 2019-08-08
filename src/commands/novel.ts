@@ -4,9 +4,10 @@ import ExceptionService, { ERR_NLV } from "nd-error";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
-import { HELP_FOOTER, HELP_HEADER, HELP_NOVEL } from "../constants/content";
+import { HELP_HEADER, HELP_NOVEL } from "../constants/content";
 
 import downloadCallback from "./novel/download";
+import fetchCallback from "./novel/fetch";
 import rawDownloadCallback from "./novel/raw";
 
 export default (cli: Commandline, config: IConfiguration) => {
@@ -28,6 +29,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
+      .option(Option.build("chapters", false, ({ apis }) => apis.config.set("novel.chapters", true)))
       .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)));
 
     return opt;
@@ -70,9 +72,11 @@ ${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
+        .sub(SubCommand.build("fetch", true, fetchCallback))
         .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
     ),
   );
 
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
+  cli.command(Command.build("fetch", true, fetchCallback));
 };

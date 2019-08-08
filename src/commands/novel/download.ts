@@ -89,6 +89,8 @@ const __main: ICommandCallback = ({ value, apis }) => {
   if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "input must be id number");
   const replace = apis.config.get<boolean>("novel.replace", false);
   const change = apis.config.get<boolean>("novel.change", false);
+  const chapters = apis.config.get<boolean>("novel.chapters", false);
+
   const thread = apis.config.get<number>("novel.thread", 4);
 
   const location = config.get("novel.location");
@@ -128,7 +130,8 @@ const __main: ICommandCallback = ({ value, apis }) => {
         .save(novel)
         .config({
           short: true,
-          chapter: change,
+          history: change,
+          chapters,
           _format: true,
           path: fileManager.path,
         })
