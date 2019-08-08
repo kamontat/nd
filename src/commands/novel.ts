@@ -50,7 +50,8 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
-      .option(Option.build("chapter", true, ({ value, apis }) => apis.config.set("novel.chapter", value || "")));
+      .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)))
+      .option(Option.build("chapters", true, ({ value, apis }) => apis.config.set("novel.chapter", value || "")));
 
     return opt;
   };
