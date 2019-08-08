@@ -67,15 +67,16 @@ const NOVEL = (name: string) => {
        {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
        {cyan --chapters}              - {gray [optional]} print all downloaded chapter
        {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
-{gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode) [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode)
      parameter:
-       {yellow id}                      - {gray [required]} download novel to default location in setting [WIP]
+       {yellow id}                      - {gray [required]} download novel to default location in setting
      option:
-       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path} [WIP]
-       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist [WIP]
        {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
-       {cyan --chapter} {gray <number>}      - {gray [required]} specify chapter number; 
-                               - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6) [WIP]
+       {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
+       {cyan --chapters} {gray <number>}     - {gray [required]} specify chapter number;
+                               - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6)
+       {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
+       {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
 {gray $} {green ${name}} {magentaBright [novel]} {magenta update}           -- update exist local novel [WIP]
      parameter:
        {yellow <location>}              - {gray [required]} {blue location} must be directory with novel resource [WIP]
