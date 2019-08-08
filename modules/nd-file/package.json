@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "0.3.0": {
+      "message": "now we can cache file if file is already exist",
+      "date": "08 Aug 2019"
+    },
     "0.2.0": {
       "message": "add file move and retry when error occurred",
       "date": "03 Aug 2019"
