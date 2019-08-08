@@ -1,13 +1,18 @@
 {
   "name": "nd-resource",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "manage novel resource file",
   "dependencies": {
+    "nd-security": "./modules/nd-security",
     "nd-novel": "./modules/nd-novel",
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0-beta.2": {
+      "message": "encrypt resource content before save to file system",
+      "date": "08 Aug 2019"
+    },
     "1.0.0-beta.1": {
       "message": "support build resource file with normal json string",
       "date": "04 Aug 2019"
