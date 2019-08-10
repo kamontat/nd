@@ -105,7 +105,14 @@ module.exports = {
     new webpack.DefinePlugin({
       "__NODE_ENV__": JSON.stringify(process.env.NODE_ENV),
       "__COMPILE_DATE__": JSON.stringify(+new Date()),
-      "__VERSION__": JSON.stringify(pjson.version)
+      "__VERSION__": JSON.stringify(pjson.version),
+      "__FIREBASE_API_KEY__": JSON.stringify("AIzaSyArv4QISPsrR56iE24ZCvDzSkaRj5qnfRM"),
+      "__FIREBASE_AUTH_DOMAIN__": JSON.stringify("nd-cli.firebaseapp.com"),
+      "__FIREBASE_DATABASE_URL__": JSON.stringify("https://nd-cli.firebaseio.com"),
+      "__FIREBASE_PROJECT_ID__": JSON.stringify("nd-cli"),
+      "__FIREBASE_STORAGE_BUCKET__": JSON.stringify(""),
+      "__FIREBASE_MESSAGING_SENDER_ID__": JSON.stringify("90199072961"),
+      "__FIREBASE_APP_ID__": JSON.stringify("1:90199072961:web:f0a0d74c9ee27481"),
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -134,7 +141,9 @@ module.exports = {
       "escape-string-regexp",
       "iconv-lite",
       "async",
-      "safer-buffer"
+      "safer-buffer",
+      "firebase/app",
+      "firebase/database"
     ]
   })]
 };

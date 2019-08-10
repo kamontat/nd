@@ -1,0 +1,15 @@
+{
+  "name": "nd-database",
+  "version": "0.0.1-alpha.1",
+  "description": "database interface for nd command and storage",
+  "dependencies": {
+    "nd-logger": "./modules/nd-logger",
+    "nd-error": "./modules/nd-error"
+  },
+  "changelog": {
+    "0.0.1-alpha.1": {
+      "message": "changelog template",
+      "date": "xx Jul 2019"
+    }
+  }
+}
