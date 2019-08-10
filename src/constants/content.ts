@@ -1,5 +1,6 @@
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { config, Package as ConfigPackage } from "nd-config";
+import { Package as DatabasePackage } from "nd-database";
 import { Package as EncoderPackage } from "nd-decoder";
 import { Package as DownloaderPackage } from "nd-downloader";
 import { Package as ErrorPackage } from "nd-error";
@@ -206,6 +207,7 @@ export const VERSION = () => {
 {yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
 {yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
 {yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
+{yellowBright ${DatabasePackage.name}}                : {blueBright ${DatabasePackage.version}}
 {yellowBright ${FilePackage.name}}                    : {blueBright ${FilePackage.version}}
 {yellowBright ${HtmlGenPackage.name}}          : {blueBright ${HtmlGenPackage.version}}
 {yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
@@ -259,6 +261,9 @@ export const VERSION_FULL = () => {
 
   // formatter package
   dependencies.push(genInternalDependency(FormatterPackage));
+
+  // database package
+  dependencies.push(genInternalDependency(DatabasePackage));
 
   // file package
   dependencies.push(genInternalDependency(FilePackage));
