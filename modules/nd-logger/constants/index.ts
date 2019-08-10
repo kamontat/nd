@@ -1,4 +1,4 @@
-import Logger from "./models/Logger";
+import Logger from "../models/Logger";
 
 const LOGGER_ROOT = new Logger("nd");
 
@@ -31,5 +31,8 @@ export const LOGGER_NOVEL_SEARCHER = LOGGER_NOVEL.extend("searcher");
 
 export const LOGGER_HTML = LOGGER_ROOT.extend("html");
 export const LOGGER_HTML_GENERATOR = LOGGER_HTML.extend("generator");
+
+export const LOGGER_DATABASE = LOGGER_ROOT.extend("db");
+export const LOGGER_FIREBASE = LOGGER_DATABASE.extend("firebase");
 
 export const LOGGER_FILE = LOGGER_ROOT.extend("file");

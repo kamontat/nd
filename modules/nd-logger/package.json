@@ -4,6 +4,8 @@
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
+    "nd-helper": "./modules/nd-helper",
+    "nd-error": "./modules/nd-error",
     "nd-config": "./modules/nd-config"
   },
   "changelog": {

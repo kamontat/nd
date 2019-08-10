@@ -1,10 +1,14 @@
 import debug, { Debugger } from "debug";
 
+export type LoggerLevel = 0 | 1 | 2 | 3;
+
 export default class Logger {
   get enabled() {
     return this._logger.enabled;
   }
+
   private _logger: Debugger;
+
   constructor(namespace: string) {
     this._logger = debug(namespace);
   }
