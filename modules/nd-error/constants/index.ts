@@ -18,3 +18,5 @@ export const ERR_LOG: IExceptionState = new ExceptionState("LOG", "Logging");
 export const ERR_SCT: IExceptionState = new ExceptionState("SCT", "Security and Authentication");
 
 export const ERR_GNL: IExceptionState = new ExceptionState("GNL", "General");
+
+export const ERR_DBO: IExceptionState = new ExceptionState("DBO", "Database");
