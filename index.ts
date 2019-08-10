@@ -11,6 +11,7 @@
 import chalk from "chalk";
 import { Commandline } from "nd-commandline-interpreter";
 import { config } from "nd-config";
+import { InitialDatabase } from "nd-database";
 import Exception from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 import { homedir } from "os";
@@ -18,7 +19,7 @@ import { homedir } from "os";
 import { Package } from "./src/build/Package";
 import { BuildCommandline, UpdateLogInfo } from "./src/nd";
 
-UpdateLogInfo(process.argv);
+InitialDatabase();
 
 const cli = new Commandline(Package.name, Package.description);
 
@@ -26,15 +27,20 @@ const home = homedir();
 
 (async () => {
   try {
-    config.on("output.level", (level: number) => {
-      LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
-      UpdateLogInfo(["--level", level]);
+    // add config handler
+    config.on("output.level", (level: number, old: number) => {
+      if (level > old) {
+        LoggerService.log(LOGGER_CLI, `now output level is ${level} (old=${old})`);
+        UpdateLogInfo(["--level", level]);
+      }
     });
 
     config.on("output.color", (color: boolean) => {
       LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
       if (!color) chalk.level = 0;
     });
+
+    UpdateLogInfo(process.argv); // update log info
 
     const conf = await config.load(`${home}/.nd/config`);
     const commandline = await BuildCommandline(cli, conf);
