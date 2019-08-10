@@ -1,6 +1,6 @@
 {
   "name": "nd-logger",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
@@ -9,6 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.2.0": {
+      "message": "a lot of improvement and new method for set logger level",
+      "date": "10 Aug 2019"
+    },
     "1.1.0": {
       "message": "add more namespace on novel root",
       "date": "08 Aug 2019"
