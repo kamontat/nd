@@ -1,8 +1,6 @@
 import { Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import { DatabaseService } from "nd-database";
-import { CheckerUtils } from "nd-helper";
-import LoggerService, { LOGGER_CLI, LOGGER_FIREBASE } from "nd-logger";
+import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";
@@ -25,11 +23,6 @@ export const UpdateLogInfo = (args: any[]) => {
 // --------------------------- //
 
 export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
-  LoggerService.log(LOGGER_FIREBASE, "START BUILD COMMAND LINE");
-  const db = DatabaseService.Get();
-  const v = await db.read("command/test");
-  LoggerService.log(LOGGER_FIREBASE, "%O", v);
-
   await Help(cli, config);
 
   await Version(cli, config);
