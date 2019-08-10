@@ -1,9 +1,10 @@
 import { Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
+import { DatabaseService } from "nd-database";
 import { CheckerUtils } from "nd-helper";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import LoggerService, { LOGGER_CLI, LOGGER_FIREBASE } from "nd-logger";
 
-import { CCommand, CCompletion, CConfig, CNovel } from "./commands";
+import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";
 
 // set logger level if --level [0|1|2] appear
@@ -11,13 +12,11 @@ export const UpdateLogInfo = (args: any[]) => {
   const i = args.findIndex(v => /^--level$/.test(v));
   if (i >= 0) {
     const v = args[i + 1];
-    // print nothing
-    if (CheckerUtils.CheckWithNumber(0, v)) LoggerService.disable();
-    else if (CheckerUtils.CheckWithNumber(1, v)) LoggerService.enable("nd*warn,nd*error");
-    // print everything in nd command
-    else if (CheckerUtils.CheckWithNumber(2, v)) LoggerService.enable("nd:*");
-    // print everything of all nd command and libraries
-    else if (CheckerUtils.CheckWithNumber(3, v)) LoggerService.enable("*");
+    // before logger initial in cli
+    // console.log(`start update logger level to ${v}`);
+
+    // update log level
+    LoggerService.level(v);
   }
 };
 
@@ -26,11 +25,10 @@ export const UpdateLogInfo = (args: any[]) => {
 // --------------------------- //
 
 export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
-  // . realtime update output.level
-  config.on("output.level", (level: string) => {
-    LoggerService.log(LOGGER_CLI, `now output level is ${level}`);
-    UpdateLogInfo(["--level", level]);
-  });
+  LoggerService.log(LOGGER_FIREBASE, "START BUILD COMMAND LINE");
+  const db = DatabaseService.Get();
+  const v = await db.read("command/test");
+  LoggerService.log(LOGGER_FIREBASE, "%O", v);
 
   await Help(cli, config);
 
