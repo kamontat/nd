@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
 
 import Database from "./models/Database";
 import IDatabase from "./models/IDatabase";
@@ -26,7 +25,15 @@ export const InitialDatabase = () => {
   });
 
   DatabaseService.Set(new Database(app));
-  LoggerService.log(LOGGER_FIREBASE, "%O", DatabaseService.Get());
+  // LoggerService.log(LOGGER_FIREBASE, "%O", DatabaseService.Get());
 };
 
-export { Package, DatabaseService, IDatabase };
+// -------------------- //
+// Usage                //
+// -------------------- //
+
+// const db = DatabaseService.Get<Database>();
+// const v = await db.read("command/test");
+// console.log(v.val());
+
+export { Package, DatabaseService, IDatabase, Database };
