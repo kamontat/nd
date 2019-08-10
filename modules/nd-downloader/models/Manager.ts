@@ -51,7 +51,7 @@ export default class Manager<T> extends ThreadManager<IDownloadManagerVariable, 
       response.code = value.res.statusCode || -1; // set status code
       response.result = value.data; // set body
 
-      this.event.emit("downloaded", response as IResponse<string>, variable.completed, super.size);
+      this.event.emit("downloaded", response as IResponse<string>, variable.completed, this.size);
 
       if (this._builder) {
         LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
