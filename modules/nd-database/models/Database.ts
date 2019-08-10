@@ -5,7 +5,7 @@ import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
 
 import IDatabase from "./IDatabase";
 
-export default class Database implements IDatabase {
+export default class Database implements IDatabase<database.DataSnapshot> {
   private _db: database.Database;
 
   constructor(app: app.App) {
@@ -15,14 +15,7 @@ export default class Database implements IDatabase {
 
   public read(path: string) {
     LoggerService.log(LOGGER_FIREBASE, `start read value from ${path}`);
-    return this._db
-      .ref(path)
-      .once("value")
-      .then(v => {
-        LoggerService.log(LOGGER_FIREBASE, `get value of command/test: %O`, v);
-      })
-      .catch(err => {
-        LoggerService.error(LOGGER_FIREBASE, `%O`, err);
-      });
+
+    return this._db.ref(path).once("value");
   }
 }
