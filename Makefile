@@ -28,7 +28,8 @@ ifeq "$(quite)" "true"
 		./modules/nd-html-generator \
 		./modules/nd-file \
 		./modules/nd-thread \
-		./modules/nd-resource >/dev/null
+		./modules/nd-resource \
+		./modules/nd-database >/dev/null
 else
 	@$(npm_client) add \
 		./modules/nd-logger \
@@ -45,7 +46,8 @@ else
 		./modules/nd-html-generator \
 		./modules/nd-file \
 		./modules/nd-thread \
-		./modules/nd-resource
+		./modules/nd-resource \
+		./modules/nd-database
 endif
 
 compile: lib
@@ -84,6 +86,7 @@ ifeq "$(type)" "lib"
 	@cloc ./modules/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HTML_GEN.md
 	@cloc ./modules/nd-thread --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-THREAD.md
 	@cloc ./modules/nd-resource --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-RESOURCE.md
+	@cloc ./modules/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DATABASE.md
 else
 	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./reports/loc/LOC.md
 
