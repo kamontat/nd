@@ -10,16 +10,80 @@ import Option from "./Option";
 import Optionable, { IOptionable } from "./Optionable";
 
 export default class Commandline implements IOptionable {
-  get name() {
-    return this._name;
-  }
   get description() {
     return this._description;
   }
 
+  set event(event: CommandlineEvent) {
+    this.event.removeAllListeners(); // remove all old listeners
+    this.event.emit("destory", undefined);
+    this._event = event;
+    this.event.emit("initial", undefined);
+  }
+
+  get event() {
+    return this._event;
+  }
+  get name() {
+    return this._name;
+  }
+
   private _callback?: ICommandCallback;
-  private _globalOptions: Map<string, Option>;
   private _commands: Map<string, Command>;
+  private _globalOptions: Map<string, Option>;
+
+  constructor(private _name: string, private _description: string, private _event: CommandlineEvent = Default) {
+    this._globalOptions = new Map();
+    this._commands = new Map();
+
+    LoggerService.log(LOGGER_CLI_BUILDER, `try to build ${this._name} commandline`);
+  }
+
+  public callback(callback: ICommandCallback) {
+    this._callback = callback;
+  }
+
+  public command(cmd: Command) {
+    this._commands.set(cmd.name, cmd);
+  }
+
+  public option(option: Option) {
+    this._globalOptions.set(option.name, option);
+    return this;
+  }
+
+  public async run(_args: string[]) {
+    const node = _args[0];
+    const file = _args[1];
+
+    const args = _args.slice(2);
+
+    LoggerService.log(LOGGER_CLI_BUILDER, `node path       ${node}`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `file path       ${file}`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `input arguments ${args}`);
+
+    const global = await this.executeGlobalOptions(args);
+    if (global.callback.length > 0) {
+      LoggerService.log(LOGGER_CLI_BUILDER, `run global callback`);
+      global.callback.forEach(c => {
+        if (c && typeof c === "function") {
+          const isEnd = c();
+          if (isEnd === true) return this.finish();
+        }
+      });
+    }
+
+    LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global`);
+
+    args.push(""); // push empty string
+    const callback = await this.travisArgumentPath(global.arguments);
+    if (callback && typeof callback === "function") {
+      const isEnd = callback();
+      if (isEnd === true) return this.finish();
+    }
+
+    return this.finish();
+  }
 
   private async executeGlobalOptions(opts: string[]) {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
@@ -53,15 +117,16 @@ export default class Commandline implements IOptionable {
     this.event.emit("end");
   }
 
-  set event(event: CommandlineEvent) {
-    this.event.removeAllListeners(); // remove all old listeners
-    this.event.emit("destory", undefined);
-    this._event = event;
-    this.event.emit("initial", undefined);
+  private isCommand(a: string) {
+    return this._commands.get(a);
   }
 
-  get event() {
-    return this._event;
+  private isOption(a: string) {
+    return /^--.*/.test(a);
+  }
+
+  private isParam(a?: string) {
+    return a !== undefined && a !== null && !this.isOption(a) && a !== "";
   }
 
   private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
@@ -190,71 +255,5 @@ export default class Commandline implements IOptionable {
         LoggerService.log(LOGGER_CLI_BUILDER, `cannot find ${_o} on ${c.name}`);
       }
     });
-  }
-
-  private isOption(a: string) {
-    return /^--.*/.test(a);
-  }
-
-  private isCommand(a: string) {
-    return this._commands.get(a);
-  }
-
-  private isParam(a?: string) {
-    return a !== undefined && a !== null && !this.isOption(a) && a !== "";
-  }
-
-  constructor(private _name: string, private _description: string, private _event: CommandlineEvent = Default) {
-    this._globalOptions = new Map();
-    this._commands = new Map();
-
-    LoggerService.log(LOGGER_CLI_BUILDER, `try to build ${this._name} commandline`);
-  }
-
-  public option(option: Option) {
-    this._globalOptions.set(option.name, option);
-    return this;
-  }
-
-  public command(cmd: Command) {
-    this._commands.set(cmd.name, cmd);
-  }
-
-  public callback(callback: ICommandCallback) {
-    this._callback = callback;
-  }
-
-  public async run(_args: string[]) {
-    const node = _args[0];
-    const file = _args[1];
-
-    const args = _args.slice(2);
-
-    LoggerService.log(LOGGER_CLI_BUILDER, `node path       ${node}`);
-    LoggerService.log(LOGGER_CLI_BUILDER, `file path       ${file}`);
-
-    LoggerService.log(LOGGER_CLI_BUILDER, `input arguments      ${args}`);
-
-    const global = await this.executeGlobalOptions(args);
-    if (global.callback.length > 0) {
-      LoggerService.log(LOGGER_CLI_BUILDER, `run global callback`);
-      global.callback.forEach(c => {
-        if (c && typeof c === "function") {
-          const isEnd = c();
-          if (isEnd === true) return this.finish();
-        }
-      });
-    }
-
-    LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global`);
-
-    args.push(""); // push empty string
-    const callback = await this.travisArgumentPath(global.arguments);
-    if (callback && typeof callback === "function") {
-      const isEnd = callback();
-      if (isEnd === true) return this.finish();
-    }
-
-    return this.finish();
   }
 }
