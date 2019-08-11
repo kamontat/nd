@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "nd-security": "./modules/nd-security",
+    "nd-logger": "./modules/nd-logger",
     "nd-commandline-interpreter": "./modules/nd-commandline-interpreter",
     "nd-helper": "./modules/nd-helper"
   },
