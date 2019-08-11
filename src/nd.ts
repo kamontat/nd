@@ -1,6 +1,6 @@
 import { Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
+import LoggerService from "nd-logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";
