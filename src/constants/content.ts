@@ -355,8 +355,12 @@ Authentication           {red.bold FAIL}
   return (
     result +
     Colorize.format`
-Authentication token:    {greenBright ${(config.get("auth.token") as string).substr(0, 15)}...}
-Authentication salt:     {greenBright ${(config.get("auth.salt") as string).substr(0, 15)}...}
+Authentication token:    {greenBright ${(config.get("auth.token") as string).substr(0, 7)}...${(config.get(
+      "auth.token",
+    ) as string).slice(-13)}}
+Authentication salt:     {greenBright ${(config.get("auth.salt") as string).substr(0, 7)}...${(config.get(
+      "auth.salt",
+    ) as string).slice(-13)}}
 Authentication name:     {greenBright ${config.get("auth.name") as string}}`
   );
 };
