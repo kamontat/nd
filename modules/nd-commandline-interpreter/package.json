@@ -1,6 +1,6 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.1.0": {
+      "message": "support server checker for authenication",
+      "date": "11 Aug 2019"
+    },
     "1.0.0": {
       "message": "add require dependency and add authen checker",
       "date": "22 Jul 2019"
