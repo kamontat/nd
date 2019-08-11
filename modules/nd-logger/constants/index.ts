@@ -36,3 +36,5 @@ export const LOGGER_DATABASE = LOGGER_ROOT.extend("db");
 export const LOGGER_FIREBASE = LOGGER_DATABASE.extend("firebase");
 
 export const LOGGER_FILE = LOGGER_ROOT.extend("file");
+
+export const LOGGER_ADMIN = LOGGER_ROOT.extend("admin");
