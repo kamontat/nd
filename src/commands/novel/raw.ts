@@ -78,8 +78,8 @@ const generateHtmlGeneratorConfig = (
   return HtmlGenerator(template, htmlConfig);
 };
 
-const __main: ICommandCallback = ({ value, apis }) => {
-  const { err, secure } = apis.verify.CheckAuthenication(config);
+const __main: ICommandCallback = async ({ value, apis }) => {
+  const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
   const id = parseInt(value || "", 10);
