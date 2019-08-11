@@ -7,6 +7,8 @@ import { hash, unhash } from "../apis/hash";
 import GenerateFirebaseName from "../apis/methods/GenerateFirebaseName";
 import config, { IConfigJson } from "../config";
 
+import Server from "./Server";
+
 interface ITokenConfig {
   expire?: "1h" | "24h" | "7d" | "30d" | "1y" | "100y";
   issuer?: "admin" | "selfgen";
@@ -30,15 +32,23 @@ export default class Security {
     return undefined;
   }
 
+  get server() {
+    return this._server;
+  }
+
   private _caches?: IResponseFormat;
   private _config: IConfigJson;
   private _name: string;
+
+  private _server: Server;
 
   constructor(version: versionName, name: string) {
     this._config = config[version];
     this._name = name;
 
     LoggerService.log(LOGGER_SECURITY, `create with version=${version} name=${this._name}`);
+
+    this._server = new Server(this);
   }
 
   public decrypt(token: string, salt: string): IResponseFormat {
