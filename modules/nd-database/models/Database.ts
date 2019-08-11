@@ -10,7 +10,7 @@ export default class Database implements IDatabase<database.DataSnapshot> {
 
   constructor(app: app.App) {
     this._db = firebase.database(app);
-    LoggerService.log(LOGGER_FIREBASE, this._db);
+    // LoggerService.log(LOGGER_FIREBASE, this._db);
   }
 
   public append(path: string, value: any) {
