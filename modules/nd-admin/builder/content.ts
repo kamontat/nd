@@ -4,33 +4,34 @@ import { Colorize } from "nd-logger";
 import { Package } from "../../../src/build/Package";
 
 export interface IResultBuilder {
-  token: string;
-  salt: string;
-  name: string;
-  username: string;
   date: {
     current: number;
     expire: number;
     notBefore: number;
   };
+  fbname: string;
+  name: string;
+  salt: string;
+  token: string;
+  username: string;
 }
 
 export const Result = (config: IResultBuilder) => {
   return Colorize.format`
 ----------------------------------------------------------
-# Generate token and salt
+# Result
 
-{redBright ### TOKEN}
+This is a tutorial for admin user. 
+You have responsibility to copy message below to customer with some advice.
+You need to add {greenBright.underline ${config.fbname}} to our database to generate the valid users.
 
-${config.token}
+Start copy below lines and send to customer
 
-{redBright ### SALT}
+{blueBright.underline ### To customer}
 
-${config.salt}
-
-{redBright ### NAME}
-
-${config.name}
+{redBright Token}: ${config.token}
+{redBright Salt}: ${config.salt}
+{redBright Name}: ${config.name}
 
 {dim ### Information}
 
