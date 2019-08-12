@@ -10,7 +10,8 @@
     "1.2.1": {
       "message": "remove support long format for novel; and fix long not exist",
       "date": "12 Aug 2019"
-    },"1.2.0": {
+    },
+    "1.2.0": {
       "message": "implement seperate chapters and history list",
       "date": "08 Aug 2019"
     },
