@@ -89,7 +89,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "input must be id number");
   const replace = apis.config.get<boolean>("novel.replace", false);
   const change = apis.config.get<boolean>("novel.change", false);
-  const chapters = apis.config.get<boolean>("novel.chapters", false);
+  const chapters = apis.config.get<boolean>("novel.chapter", false);
 
   const thread = apis.config.get<number>("novel.thread", 4);
 

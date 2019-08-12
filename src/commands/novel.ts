@@ -26,7 +26,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4"))),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
-      .option(Option.build("chapters", false, ({ apis }) => apis.config.set("novel.chapters", true)))
+      .option(Option.build("chapter", false, ({ apis }) => apis.config.set("novel.chapter", true)))
       .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)));
 
     return opt;
@@ -45,17 +45,9 @@ export default (cli: Commandline, config: IConfiguration) => {
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
       .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)))
-      .option(Option.build("chapters", true, ({ value, apis }) => apis.config.set("novel.chapter", value || "")));
+      .option(Option.build("chapters", true, ({ value, apis }) => apis.config.set("novel.chapters", value || "")));
 
     return opt;
-  };
-
-  const fetchOption = <T extends IOptionable>(opt: T) => {
-    return opt
-      .option(Option.build("chapters", false, ({ apis }) => apis.config.set("fetch.chapters", true)))
-      .option(
-        Option.build("thread", true, ({ value, apis }) => apis.config.set("fetch.thread", parseInt(value || "4"))),
-      );
   };
 
   /**
@@ -75,11 +67,11 @@ ${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
-        .sub(fetchOption(SubCommand.build("fetch", true, fetchCallback)))
+        .sub(SubCommand.build("fetch", true, fetchCallback))
         .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
     ),
   );
 
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
-  cli.command(fetchOption(Command.build("fetch", true, fetchCallback)));
+  cli.command(Command.build("fetch", true, fetchCallback));
 };

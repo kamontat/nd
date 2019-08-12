@@ -66,7 +66,7 @@ const NOVEL = (name: string) => {
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
        {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
-       {cyan --chapters}              - {gray [optional]} print all downloaded chapter
+       {cyan --chapter}               - {gray [optional]} print all downloaded chapter
        {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode)
      parameter:
@@ -76,6 +76,7 @@ const NOVEL = (name: string) => {
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
        {cyan --chapters} {gray <number>}     - {gray [required]} specify chapter number;
                                - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6)
+       {cyan --chapter}               - {gray [optional]} print all downloaded chapter
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
        {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
 {gray $} {green ${name}} {magentaBright [novel]} {magenta update}           -- update exist local novel [WIP]
@@ -85,12 +86,12 @@ const NOVEL = (name: string) => {
        {cyan --change}                - {gray [optional]} print all change and chapter in updating novel [WIP]
        {cyan --recursive} {gray <number>}    - {gray [optional]} {blue number} how deep recursive are.
                                - {underline default is 1 subfolder} [WIP]
-{gray $} {green ${name}} {magentaBright [novel]} {magenta fetch}            -- fetch information from novel (support both local and server) [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta fetch}            -- fetch information from novel (support both local and server)
      parameter:
-       {yellow <id|location>}           - {gray [required]} fetch information base on input type [WIP]
+       {yellow <id|location>}           - {gray [required]} fetch information base on input type
      option:
-       {cyan --list}                  - {gray [optional]} list all novel and chapter information [WIP]
-       {cyan --history}               - {gray [optional]} list all change and history of novel [WIP]
+       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
+       {cyan --chapter}               - {gray [optional]} list all novel and chapter information
 {gray $} {green ${name}} {magentaBright [novel]} {magenta export}           -- export novel from html to pdf file [WIP]
      parameter:
        {yellow <in>}                    - {gray [required]} {blue in} must be directory with novel resource [WIP]

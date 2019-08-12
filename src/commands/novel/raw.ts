@@ -83,7 +83,9 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   if (err) throw err;
 
   const id = parseInt(value || "", 10);
-  const chapter = apis.config.get<string>("novel.chapter", "0");
+  const showChapter = apis.config.get<boolean>("novel.chapter", false);
+  const chapter = apis.config.get<string>("novel.chapters", "0");
+
   const chapters = ArrayUtils.BuildArray(chapter);
 
   const thread = apis.config.get<number>("novel.thread", 4);
@@ -105,7 +107,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       .config({
         short: true,
         history: change,
-        chapters: true,
+        chapters: showChapter,
         _format: true,
         path: fileManager.path,
       })
