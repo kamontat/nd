@@ -3,11 +3,11 @@ import FormatterFactory, { NovelSummary } from "nd-formatter";
 import LoggerService, { LOGGER_NOVEL_FETCHER } from "nd-logger";
 import { NovelBuilder } from "nd-novel";
 
-const __fetch_url = (value: number, opts: { chapter: boolean; thread: number }) => {
+const __fetch_url = (value: number, opts: { chapter: boolean; fast: boolean; thread: number }) => {
   LoggerService.log(LOGGER_NOVEL_FETCHER, `get url/id as parameter; ${value}`);
 
   const builder = new NovelBuilder(value);
-  return builder.build(opts.thread).then(novel => {
+  return builder.build(opts.thread, opts.fast).then(novel => {
     const result = FormatterFactory.Build()
       .get<NovelSummary>("novel")
       .save(novel)
@@ -34,10 +34,11 @@ const __fetch_path = async (value: string, opts: { chapter: boolean; thread: num
 const __main: ICommandCallback = async ({ value, apis }) => {
   const thread = apis.config.get<number>("novel.thread", 4);
   const chapter = apis.config.get<boolean>("novel.chapter", false);
+  const fast = apis.config.get<boolean>("fetch.fast", false);
 
-  LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options thread=${thread},chapter=${chapter}`);
+  LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options thread=${thread},chapter=${chapter},fast=${fast}`);
 
-  if (apis.verify.IsNumber(value)) await __fetch_url(parseInt(value || "0"), { thread, chapter });
+  if (apis.verify.IsNumber(value)) await __fetch_url(parseInt(value || "0"), { thread, chapter, fast });
   else await __fetch_path(value || "", { thread, chapter });
 };
 

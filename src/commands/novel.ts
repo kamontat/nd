@@ -50,6 +50,10 @@ export default (cli: Commandline, config: IConfiguration) => {
     return opt;
   };
 
+  const fetchOption = <T extends IOptionable>(opt: T) => {
+    return opt.option(Option.build("fast", false, ({ apis }) => apis.config.set("fetch.fast", true)));
+  };
+
   /**
    * Command setup
    */
@@ -67,11 +71,11 @@ ${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
-        .sub(SubCommand.build("fetch", true, fetchCallback))
+        .sub(fetchOption(SubCommand.build("fetch", true, fetchCallback)))
         .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
     ),
   );
 
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
-  cli.command(Command.build("fetch", true, fetchCallback));
+  cli.command(fetchOption(Command.build("fetch", true, fetchCallback)));
 };
