@@ -115,30 +115,34 @@ export class Chapter {
   public toString(_opts: { color?: boolean; long?: boolean } = {}) {
     const opts = Object.assign({ color: false, long: false }, _opts);
 
-    if (opts.color) {
+    const colorless = (...text: string[]) => {
+      return text;
+    };
+
+    const color = {
+      nid: opts.color ? Colorize.id : colorless,
+      chapter: opts.color ? Colorize.number : colorless,
+      name: opts.color ? Colorize.name : colorless,
+      enum: opts.color ? Colorize.enum : colorless,
+      link: opts.color ? Colorize.url : colorless,
+      datetime: opts.color ? Colorize.datetime : colorless,
+    };
+
+    if (this.name) {
       if (opts.long) {
-        return `${Colorize.name(this.name || "")} ${Colorize.enum(this.status)} ${Colorize.datetime(
+        return `${color.chapter(this.cid.toString())} ${color.enum(this.status)}: ${color.name(
+          this.name,
+        )} (${color.datetime(
           TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
             format: "short",
             lang: "th",
           }),
-        )}`;
+        )})`;
       } else {
-        return Colorize.name(this.name || "");
+        return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }
     } else {
-      if (opts.long) {
-        return `${this.name} ${this.status} ${TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
-          format: "short",
-          lang: "th",
-        })}`;
-      } else {
-        if (this.name) {
-          return this.name;
-        } else {
-          return `${this.nid}-${this.cid}-${this.status}`;
-        }
-      }
+      return `${color.chapter(this.cid.toString())} ${color.enum(this.status)} ${color.link(this.link.toString())}`;
     }
   }
 
