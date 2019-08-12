@@ -16,20 +16,20 @@ export class HistoryEvent extends Event implements IHistoryEvent {
       LoggerService.log(LOGGER_HISTORY, `try to check is ${v} exist; type ${typeof v}; %O`, v);
 
       if (v === undefined || v === null || v === "" || v === "undefined" || v === "null") {
-        LoggerService.log(LOGGER_HISTORY, `Undefined or string of undefined`);
+        LoggerService.log(LOGGER_HISTORY, `undefined object OR undefined string`);
         return false;
       } else if (typeof v === undefined || typeof v === "undefined") {
-        LoggerService.log(LOGGER_HISTORY, `Undefined type`);
+        LoggerService.log(LOGGER_HISTORY, `undefined type`);
         return false;
       } else if (typeof v === "object") {
         if (typeof v.length === "number" && v.length <= 0) {
-          LoggerService.log(LOGGER_HISTORY, `Empty Array type`);
+          LoggerService.log(LOGGER_HISTORY, `empty Array type`);
           return false;
         } else if (v.toString() === "undefined") {
-          LoggerService.log(LOGGER_HISTORY, `Undefined object type`);
+          LoggerService.log(LOGGER_HISTORY, `undefined string of object type`);
           return false;
         } else if (v === {}) {
-          LoggerService.log(LOGGER_HISTORY, `Empty object type`);
+          LoggerService.log(LOGGER_HISTORY, `empty object type`);
           return false;
         }
       }
@@ -40,10 +40,10 @@ export class HistoryEvent extends Event implements IHistoryEvent {
     const equal = (a: any, b: any) => {
       LoggerService.log(LOGGER_HISTORY, `try ${a} === ${b} (a=%O), (b=%O)`, a, b);
       if (a.equals && b.equals) {
-        LoggerService.log(LOGGER_HISTORY, "object with equals method");
+        LoggerService.log(LOGGER_HISTORY, "check equivalent: equals()");
         return a.equals(b);
       } else {
-        LoggerService.log(LOGGER_HISTORY, "normal check");
+        LoggerService.log(LOGGER_HISTORY, "check equivalent: normal check");
         return a === b;
       }
     };
