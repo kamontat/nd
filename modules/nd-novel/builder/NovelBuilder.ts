@@ -21,10 +21,12 @@ export class NovelBuilder {
     this.setupDownloadEvent();
   }
 
-  public build(thread?: number) {
-    return this.buildNovel(thread).then(novel => {
-      return this.buildChapter(novel, thread);
-    });
+  public build(thread?: number, fast: boolean = false) {
+    if (fast) return this.buildNovel(thread);
+    else
+      return this.buildNovel(thread).then(novel => {
+        return this.buildChapter(novel, thread);
+      });
   }
 
   public partialBuild(chapters: number[], thread?: number) {
