@@ -116,7 +116,10 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       .exit();
   });
 
-  LoggerService.log(LOGGER_CLI, `download ${value} (nid) to ${location} with replace=${replace},change=${change}`);
+  LoggerService.log(
+    LOGGER_CLI,
+    `download ${value} (nid) to ${location} with replace=${replace},change=${change},chapter=${chapters},thread=${thread}`,
+  );
 
   const builder = new NovelBuilder(parseInt(value || "", 10));
   return builder
