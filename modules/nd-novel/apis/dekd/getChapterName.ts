@@ -11,7 +11,7 @@ export default (parser: IParser<string, string, Cheerio>) => {
 
   LoggerService.log(LOGGER_NOVEL_BUILDER, `try to query chapter name: ${name}`);
   if (name && name !== "") {
-    return name;
+    return name.replace(/^ตอนที่ \d : /, "");
   }
 
   const element = parser.query("h2[style=margin\\:0px\\;font-size\\:17px\\;color\\:\\#ffffff]");
