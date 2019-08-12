@@ -1,8 +1,12 @@
 {
   "name": "nd-helper",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "interface, absolute class and other helper methods",
   "changelog": {
+    "0.7.3": {
+      "message": "fix datetime never throw exception when invalid date exist",
+      "date": "12 Aug 2019"
+    },
     "0.7.2": {
       "message": "fix cannot make readable array when array empty",
       "date": "12 Aug 2019"
