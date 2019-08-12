@@ -1,12 +1,16 @@
 {
   "name": "nd-formatter",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "table formatting of nd output",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "table": "5.4.1"
   },
   "changelog": {
+    "1.2.2": {
+      "message": "support show chapter that sold, closed or unknown status",
+      "date": "12 Aug 2019"
+    },
     "1.2.1": {
       "message": "remove support long format for novel; and fix long not exist",
       "date": "12 Aug 2019"
