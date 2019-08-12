@@ -62,16 +62,28 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
         else if (c.status === ChapterStatus.UNKNOWN) unknown.push(c.cid);
       });
 
-      this._appendSummary(`
+      let str = `
 id          =  ${Colorize.id(this._obj.id.toString())} | ${Colorize.url(this._obj.link.href)}
 name        =  ${Colorize.important(this._obj.name || "unknown")}
-chapters    =  ${ArrayUtils.ReadableArray(completed)}
-closed      =  ${ArrayUtils.ReadableArray(closed)}
-sold        =  ${ArrayUtils.ReadableArray(sold)}
-unknown     =  ${ArrayUtils.ReadableArray(unknown)}
-update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
+`;
+
+      const c = ArrayUtils.ReadableArray(completed);
+      if (c !== "empty") str += `chapters    =  ${c}\n`;
+
+      const C = ArrayUtils.ReadableArray(closed);
+      if (C !== "empty") str += `closed      =  ${C}\n`;
+
+      const s = ArrayUtils.ReadableArray(sold);
+      if (s !== "empty") str += `sold        =  ${s}\n`;
+
+      const u = ArrayUtils.ReadableArray(unknown);
+      if (u !== "empty") str += `unknown     =  ${u}\n`;
+
+      str += `update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
 download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
-${this._config && `path        =  ${Colorize.path(this._config.path)}`}`);
+${this._config && `path        =  ${Colorize.path(this._config.path)}`}`;
+
+      this._appendSummary(str);
     }
   }
 
