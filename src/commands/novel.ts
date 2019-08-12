@@ -23,10 +23,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(
-        Option.build("thread", true, ({ value, apis }) => {
-          if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "input must be number of thread");
-          apis.config.set("novel.thread", parseInt(value || "4"));
-        }),
+        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4"))),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
       .option(Option.build("chapters", false, ({ apis }) => apis.config.set("novel.chapters", true)))
@@ -44,16 +41,21 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(
-        Option.build("thread", true, ({ value, apis }) => {
-          if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "input must be number of thread");
-          apis.config.set("novel.thread", value || 4);
-        }),
+        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4"))),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
       .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)))
       .option(Option.build("chapters", true, ({ value, apis }) => apis.config.set("novel.chapter", value || "")));
 
     return opt;
+  };
+
+  const fetchOption = <T extends IOptionable>(opt: T) => {
+    return opt
+      .option(Option.build("chapters", false, ({ apis }) => apis.config.set("fetch.chapters", true)))
+      .option(
+        Option.build("thread", true, ({ value, apis }) => apis.config.set("fetch.thread", parseInt(value || "4"))),
+      );
   };
 
   /**
@@ -73,11 +75,11 @@ ${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
-        .sub(SubCommand.build("fetch", true, fetchCallback))
+        .sub(fetchOption(SubCommand.build("fetch", true, fetchCallback)))
         .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
     ),
   );
 
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
-  cli.command(Command.build("fetch", true, fetchCallback));
+  cli.command(fetchOption(Command.build("fetch", true, fetchCallback)));
 };
