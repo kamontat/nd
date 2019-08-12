@@ -25,6 +25,8 @@ export default {
     return Array.from(it).sort((a, b) => a - b);
   },
   ReadableArray: (array: number[]) => {
+    if (array.length < 1) return "empty";
+
     // sort the array low - high
     array = array.sort((a, b) => {
       return a - b;
