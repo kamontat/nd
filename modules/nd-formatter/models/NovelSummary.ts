@@ -25,13 +25,13 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     if (!this._obj) return "";
 
     if (this._config) {
-      if (this._config.short) this.__buildShort();
-      else this.__buildLong();
+      if (this._config.short) this.__build();
+      else this.__build();
 
       if (this._config.chapters) this.__buildChapter();
       if (this._config.history) this.__buildHistory();
     } else {
-      this.__buildShort(); // default
+      this.__build(); // default
     }
 
     const summary = this.getSummary();
@@ -48,24 +48,7 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     return this;
   }
 
-  private __buildChapter() {
-    if (this._obj) {
-      this._appendSummary(this._section("Chapters"));
-      Array.from(this._obj.chapters).forEach(c => this._appendSummary(c.toString({ color: true, long: true })));
-    }
-  }
-
-  private __buildHistory() {
-    if (this._obj) {
-      this._appendSummary(this._section("Histories"));
-      const events = History.Get().events;
-      events.forEach(n => this._appendSummary(n.toString({ color: true })));
-    }
-  }
-
-  private __buildLong() {}
-
-  private __buildShort() {
+  private __build() {
     if (this._obj) {
       this._appendSummary(`
 id          =  ${Colorize.id(this._obj.id.toString())} | ${Colorize.url(this._obj.link.href)}
@@ -78,6 +61,21 @@ chapters    =  ${ArrayUtils.ReadableArray(
 update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
 download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
 ${this._config && `path        =  ${Colorize.path(this._config.path)}`}`);
+    }
+  }
+
+  private __buildChapter() {
+    if (this._obj) {
+      this._appendSummary(this._section("Chapters"));
+      Array.from(this._obj.chapters).forEach(c => this._appendSummary(c.toString({ color: true, long: true })));
+    }
+  }
+
+  private __buildHistory() {
+    if (this._obj) {
+      this._appendSummary(this._section("Histories"));
+      const events = History.Get().events;
+      events.forEach(n => this._appendSummary(n.toString({ color: true })));
     }
   }
 
