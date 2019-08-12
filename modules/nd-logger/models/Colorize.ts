@@ -3,8 +3,8 @@ import chalk from "chalk";
 export default {
   appname: chalk.greenBright,
   command: chalk.magentaBright,
-  date: chalk.greenBright,
-  datetime: chalk.greenBright,
+  date: chalk.blueBright,
+  datetime: chalk.blueBright,
   dim: chalk.dim,
   fail: chalk.red,
   format: chalk,
