@@ -57,7 +57,8 @@ export default class Manager<T> extends ThreadManager<IDownloadManagerVariable, 
         LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
 
         response = this._builder(response as IResponse<string>);
-        LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, response.result);
+        // This log is too long
+        // LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, response.result);
       }
 
       return new Promise<IResponse<T | string>>(res => res(response));
