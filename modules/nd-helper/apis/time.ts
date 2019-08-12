@@ -75,12 +75,9 @@ export default {
     else return date.getTime();
   },
   GetDate(timestamp?: number | string) {
-    try {
-      const number = parseInt((timestamp && timestamp.toString()) || "unknown");
-      return new Date(number);
-    } catch (e) {
-      return undefined;
-    }
+    const number = parseInt((timestamp && timestamp.toString()) || "unknown");
+    if (isNaN(number)) return undefined;
+    return new Date(number);
   },
   FormatDate(date?: Date, conf?: { format?: "long" | "short"; lang?: "th" | "en" }) {
     if (!date) return "Invalid Date";
