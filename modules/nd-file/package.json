@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.1": {
+      "message": "export more necessary property to support more usecase",
+      "date": "13 Aug 2019"
+    },
     "1.0.0": {
       "message": "a lot of breakchange; now support read,write,rename files with multiple thread",
       "date": "13 Aug 2019"
