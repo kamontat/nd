@@ -1,14 +1,19 @@
 {
   "name": "nd-resource",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "manage novel resource file",
   "dependencies": {
     "nd-security": "./modules/nd-security",
     "nd-novel": "./modules/nd-novel",
+    "nd-file": "./modules/nd-file",
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0-beta.3": {
+      "message": "rewrite more object in Resource file and remove builder",
+      "date": "13 Aug 2019"
+    },
     "1.0.0-beta.2": {
       "message": "encrypt resource content before save to file system",
       "date": "08 Aug 2019"
