@@ -1,11 +1,15 @@
 {
   "name": "nd-error",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "2.2.2": {
+      "message": "add new file system error",
+      "date": "13 Aug 2019"
+    },
     "2.2.1": {
       "message": "add more error type for database and firebase",
       "date": "10 Aug 2019"
