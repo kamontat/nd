@@ -8,7 +8,7 @@ import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
 import { TemplateType } from "nd-html-generator/loader";
 import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
-import { ResourceBuilder } from "nd-resource";
+import { Resource } from "nd-resource";
 import { Security } from "nd-security";
 
 import { Package } from "../../build/Package";
@@ -153,7 +153,8 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       return new Promise<Novel>(res => res(novel));
     })
     .then(novel => {
-      const resource = new ResourceBuilder.Novel(novel).build();
+      const resource = new Resource.Novel(novel);
+      resource.write(fileManager);
 
       // chapter file
       Array.from(novel.chapters).forEach(c => {
@@ -162,9 +163,6 @@ const __main: ICommandCallback = async ({ value, apis }) => {
           fileManager.add({ content: html, filename: `chapter-${c.cid}.html`, opts: { force: false } });
         }
       });
-
-      // TODO: resource file
-      fileManager.add({ content: resource.save(), filename: resource.filename(), opts: { force: false } });
 
       return fileManager.run();
     }) as Promise<undefined>;
