@@ -17,7 +17,7 @@ export default class Database implements IDatabase<database.DataSnapshot> {
     LoggerService.log(LOGGER_FIREBASE, `append ${value} to ${path}`);
     const newRef = this._db.ref(path).push();
     return newRef.set(value).catch(err => {
-      new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
+      return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
     }) as Promise<database.DataSnapshot>;
   }
 
@@ -27,7 +27,7 @@ export default class Database implements IDatabase<database.DataSnapshot> {
       .ref(path)
       .once("value")
       .catch(err => {
-        new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
+        return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
       }) as Promise<database.DataSnapshot>;
   }
 
@@ -37,7 +37,7 @@ export default class Database implements IDatabase<database.DataSnapshot> {
       .ref(path)
       .update(value)
       .catch(err => {
-        new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
+        return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
       }) as Promise<database.DataSnapshot>;
   }
 }
