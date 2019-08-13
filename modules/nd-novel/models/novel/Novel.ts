@@ -6,6 +6,7 @@ import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
 
 import { Chapter } from "./Chapter";
+import { ChapterStatus, ChapterStatusUtils } from "./ChapterStatus";
 import { NovelType } from "./NovelType";
 
 export class Novel {
@@ -14,7 +15,31 @@ export class Novel {
       const json = JSON.parse(resource.decode());
       LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
 
-      super(123);
+      super(json.id);
+      this.name = json.name;
+      this.type = json.type;
+
+      this.abstract = json.abstract;
+
+      this.content = json.content; // never save content to resource file
+
+      json.tags.forEach((t: string) => this.addTag(t));
+      this.author = json.author;
+
+      this.downloadAt = json.downloadAt;
+      this.updateAt = json.updateAt;
+
+      json.chapters.forEach((c: { [key: string]: any }) => {
+        const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
+
+        chapter.name = c.name;
+        chapter.downloadAt = c.downloadAt;
+        chapter.updateAt = c.updateAt;
+
+        chapter.content = c.content;
+
+        this.addChapter(chapter.cid, chapter);
+      });
     }
   };
 
