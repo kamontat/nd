@@ -94,12 +94,13 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const thread = apis.config.get<number>("novel.thread", 4);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager(location || PathUtils.GetCurrentPath(), undefined, thread);
+  const fileManager = new FileManager.write(location || PathUtils.GetCurrentPath(), undefined, thread);
 
   fileManager.onError("folder-not-empty", ({ path, again }) => {
     if (replace) {
       const newPath = PathUtils.Cachedir(path);
-      fileManager.moveSync(path, newPath);
+      fileManager.system.renameSync(path, newPath);
+
       LoggerService.console.log(
         `${Colorize.path(path)} had been rename to ${Colorize.path(newPath)} as a caching directory`,
       );
@@ -136,7 +137,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
           history: change,
           chapters,
           _format: true,
-          path: fileManager.path,
+          path: fileManager.system.directory,
         })
         .build();
 
@@ -148,9 +149,8 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       });
     })
     .then(({ html, novel }) => {
-      return fileManager.save(html, `index.html`, { force: false }).then(() => {
-        return new Promise<Novel>(res => res(novel));
-      });
+      fileManager.add({ filename: "index.html", content: html, opts: { force: false } });
+      return new Promise<Novel>(res => res(novel));
     })
     .then(novel => {
       const resource = new ResourceBuilder.Novel(novel).build();
@@ -162,6 +162,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
           fileManager.add({ content: html, filename: `chapter-${c.cid}.html`, opts: { force: false } });
         }
       });
+
       // TODO: resource file
       fileManager.add({ content: resource.save(), filename: resource.filename(), opts: { force: false } });
 

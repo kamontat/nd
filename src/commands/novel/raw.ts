@@ -94,7 +94,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const change = apis.config.get<boolean>("novel.change", false);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager(location || PathUtils.GetCurrentPath());
+  const fileManager = new FileManager.write(location || PathUtils.GetCurrentPath());
 
   LoggerService.log(LOGGER_CLI, `Start download as a raw chapter nid=${id} [${chapters}]`);
 
@@ -109,23 +109,21 @@ const __main: ICommandCallback = async ({ value, apis }) => {
         history: change,
         chapters: showChapter,
         _format: true,
-        path: fileManager.path,
+        path: fileManager.system.directory,
       })
       .build();
 
     LoggerService.console.log(result);
 
-    return new Promise<{ html: string; novel: Novel }>(res => {
-      Array.from(novel.chapters).forEach(c => {
-        if (c.status === ChapterStatus.COMPLETED) {
-          const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-          const name = `chapter-${c.cid}`;
-          fileManager.save(html, `${name}.html`, { force: replace, tmp: PathUtils.Cachename(name, "f.html") });
-        }
-      });
+    Array.from(novel.chapters).forEach(c =>
+      fileManager.add({
+        filename: `chapter-${c.cid}`,
+        content: generateHtmlGeneratorConfig("default", "chapter", secure, novel, c),
+        opts: { force: replace, tmp: PathUtils.Cachename(name, "f.html") },
+      }),
+    );
 
-      res();
-    });
+    return fileManager.run();
   }) as Promise<undefined>;
 };
 
