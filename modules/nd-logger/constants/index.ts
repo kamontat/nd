@@ -28,6 +28,7 @@ export const LOGGER_NOVEL_FETCHER = LOGGER_NOVEL.extend("fetcher");
 export const LOGGER_NOVEL_UPDATER = LOGGER_NOVEL.extend("updater");
 export const LOGGER_NOVEL_EXPORTER = LOGGER_NOVEL.extend("exporter");
 export const LOGGER_NOVEL_SEARCHER = LOGGER_NOVEL.extend("searcher");
+export const LOGGER_NOVEL_RESOURCE = LOGGER_NOVEL.extend("resource");
 
 export const LOGGER_HTML = LOGGER_ROOT.extend("html");
 export const LOGGER_HTML_GENERATOR = LOGGER_HTML.extend("generator");
