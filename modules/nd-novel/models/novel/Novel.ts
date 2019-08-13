@@ -1,3 +1,6 @@
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import { Resource } from "nd-resource";
+
 import { buildViewURL } from "../../apis";
 import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
@@ -6,6 +9,15 @@ import { Chapter } from "./Chapter";
 import { NovelType } from "./NovelType";
 
 export class Novel {
+  public static Resource = class extends Novel {
+    constructor(resource: Resource) {
+      const json = JSON.parse(resource.decode());
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
+
+      super(123);
+    }
+  };
+
   public get abstract() {
     return this._abstract;
   }
