@@ -1,25 +1,56 @@
+import FileManager, { File } from "nd-file";
+import LoggerService, { LOGGER_NOVEL_RESOURCE } from "nd-logger";
+import { Novel } from "nd-novel";
 import { Encryption } from "nd-security";
 
-export class Resource {
-  constructor(private json: string, private _filename: string) {}
+import { RESOURCE_FILENAME } from "../constants";
 
-  public filename() {
-    return this._filename;
+export default class Resource {
+  public get filename() {
+    return this.fileName;
+  }
+  public set json(json: string) {
+    LoggerService.log(LOGGER_NOVEL_RESOURCE, `updating resource json from ${this._json} to ${json}`);
+    this._json = json;
   }
 
-  public load() {
-    return this._decode();
+  public static File = class extends Resource {
+    constructor(directory: string, fileName: string = RESOURCE_FILENAME) {
+      super(fileName);
+
+      const file = new File(directory);
+      const obj = file.readSync({ filename: fileName, alias: "resource" });
+
+      this.json = obj.resource;
+    }
+  };
+
+  public static Novel = class extends Resource {
+    constructor(n: Novel) {
+      super(RESOURCE_FILENAME, JSON.stringify(n.toJSON({ content: false })));
+    }
+  };
+
+  constructor(private fileName: string = RESOURCE_FILENAME, private _json: string = "") {
+    LoggerService.log(
+      LOGGER_NOVEL_RESOURCE,
+      `constructor of resource on file=${this.fileName} and content=${this._json}`,
+    );
   }
 
-  public save() {
-    return this._encode();
+  public decode() {
+    return Encryption.decrypt(this._json);
   }
 
-  private _decode() {
-    return Encryption.decrypt(this.json);
+  public encode() {
+    return Encryption.encrypt(this._json);
   }
 
-  private _encode() {
-    return Encryption.encrypt(this.json);
+  public read<T extends FileManager>(fileManager: T) {
+    fileManager.add({ filename: this.fileName, alias: "resource" });
+  }
+
+  public write<T extends FileManager>(fileManager: T) {
+    fileManager.add({ filename: this.fileName, content: this.encode(), opts: { force: false } });
   }
 }
