@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.2": {
+      "message": "add readSync() method and default generic for fileManager",
+      "date": "13 Aug 2019"
+    },
     "1.0.1": {
       "message": "export more necessary property to support more usecase",
       "date": "13 Aug 2019"
