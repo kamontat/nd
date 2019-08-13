@@ -130,14 +130,19 @@ export class Chapter {
 
     if (this.name) {
       if (opts.long) {
-        return `${color.chapter(this.cid.toString())} ${color.enum(this.status)}: ${color.name(
-          this.name,
-        )} (${color.datetime(
+        return `${color.chapter(this.cid.toString())}: ${color.name(this.name)} ${color.enum(
+          this.status,
+        )} [Updated ${color.datetime(
           TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
             format: "short",
             lang: "th",
           }),
-        )})`;
+        )}] - [Downloaded ${color.datetime(
+          TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
+            format: "short",
+            lang: "th",
+          }),
+        )}]`;
       } else {
         return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }
