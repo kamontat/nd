@@ -1,4 +1,4 @@
-interface Json {
+interface IJson {
   [key: string]: string;
 }
 
@@ -69,12 +69,12 @@ export default {
 
     return result;
   },
-  MergeArrayObject: (array: Json[]) => {
+  MergeArrayObject: (array: IJson[]) => {
     return array.reduce(
       (p, c) => {
         return { ...p, ...c };
       },
-      {} as Json,
+      {} as IJson,
     );
   },
 };
