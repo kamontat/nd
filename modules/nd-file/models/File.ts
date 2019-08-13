@@ -121,6 +121,21 @@ export default class File {
   }
 
   /**
+   * rename file from 'fileName' to 'nextFileName'
+   *
+   * @param fileName FROM file name; only file name with extension only
+   * @param nextFileName TO file name;
+   */
+  public renameSync(fileName: string, nextFileName: string) {
+    const current = path.isAbsolute(fileName) ? fileName : path.resolve(this.directory, fileName);
+    const next = path.isAbsolute(nextFileName) ? nextFileName : path.resolve(this.directory, nextFileName);
+
+    LoggerService.log(LOGGER_FILE, `change file name from ${current} to ${next}`);
+
+    return fs.renameSync(current, next);
+  }
+
+  /**
    * this method will write some content from object and write to the file system
    *
    * @param _obj write file object is require to use this and write to the file

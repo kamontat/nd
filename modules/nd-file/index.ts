@@ -1,6 +1,7 @@
 // import { ArrayUtils } from "nd-helper";
 
 import FileManager from "./manager/FileManager";
+import File from "./models/File";
 import Package from "./package.json";
 
 // ---------------------------- //
@@ -35,5 +36,4 @@ import Package from "./package.json";
 // });
 
 export default FileManager;
-
-export { Package };
+export { Package, File };

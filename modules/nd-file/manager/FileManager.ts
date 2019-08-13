@@ -2,9 +2,15 @@ import { ThreadManager } from "nd-thread";
 
 import File, { IReadFileOption, IWriteFileOption } from "../models/File";
 
+import { ErrorCallback, ErrorType } from "./ErrorManager";
+
 export default abstract class FileManager<T, R> extends ThreadManager<undefined, T, R> {
   public get type() {
     return this._type;
+  }
+
+  public get system() {
+    return this.file;
   }
 
   public static read = class ReadFileManager extends FileManager<IReadFileOption, { [key: string]: string }> {
@@ -41,5 +47,9 @@ export default abstract class FileManager<T, R> extends ThreadManager<undefined,
 
   public name(name?: string) {
     this.file.name(name);
+  }
+
+  public onError(type: ErrorType, callback: ErrorCallback) {
+    this.file.onError(type, callback);
   }
 }
