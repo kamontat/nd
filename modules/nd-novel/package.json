@@ -1,14 +1,19 @@
 {
   "name": "nd-novel",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error",
+    "nd-resource": "./modules/nd-resource",
     "nd-downloader": "./modules/nd-downloader",
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
+    "1.4.0": {
+      "message": "add support resource file and fixes some bug in chapter name",
+      "date": "13 Aug 2019"
+    },
     "1.3.0": {
       "message": "full support history in novel, chapter; and support exportable to JSON",
       "date": "04 Aug 2019"
