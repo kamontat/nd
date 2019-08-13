@@ -1,4 +1,5 @@
 import fs from "fs";
+import ExceptionService, { ERR_FLE } from "nd-error";
 import LoggerService, { LOGGER_FILE } from "nd-logger";
 import path from "path";
 import util from "util";
@@ -108,15 +109,22 @@ export default class File {
    * @param _obj reading object for readSync
    */
   public readSync(_obj: IReadFileOption) {
-    const b = fs.readFileSync(this.buildPath(_obj.filename));
     // key of object
+    const p = this.buildPath(_obj.filename);
     const k = _obj.alias ? _obj.alias : _obj.filename;
-    // value of object
-    const v = b.toString("utf8");
-    // assign to object
-    const o: { [key: string]: string } = {};
-    o[k] = v;
-    return o;
+
+    try {
+      const b = fs.readFileSync(p);
+
+      // value of object
+      const v = b.toString("utf8");
+      // assign to object
+      const o: { [key: string]: string } = {};
+      o[k] = v;
+      return o;
+    } catch (e) {
+      throw ExceptionService.build(ERR_FLE, `cannot load ${k} file; maybe because file is not exist (${p})`);
+    }
   }
 
   /**
