@@ -103,6 +103,23 @@ export default class File {
   }
 
   /**
+   * this is a read as sync task
+   *
+   * @param _obj reading object for readSync
+   */
+  public readSync(_obj: IReadFileOption) {
+    const b = fs.readFileSync(this.buildPath(_obj.filename));
+    // key of object
+    const k = _obj.alias ? _obj.alias : _obj.filename;
+    // value of object
+    const v = b.toString("utf8");
+    // assign to object
+    const o: { [key: string]: string } = {};
+    o[k] = v;
+    return o;
+  }
+
+  /**
    * rename file from 'fileName' to 'nextFileName'
    *
    * @param fileName FROM file name; only file name with extension only

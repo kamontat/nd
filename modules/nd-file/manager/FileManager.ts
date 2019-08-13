@@ -4,7 +4,11 @@ import File, { IReadFileOption, IWriteFileOption } from "../models/File";
 
 import { ErrorCallback, ErrorType } from "./ErrorManager";
 
-export default abstract class FileManager<T, R> extends ThreadManager<undefined, T, R> {
+export default abstract class FileManager<T = IReadFileOption | IWriteFileOption, R = any> extends ThreadManager<
+  undefined,
+  T,
+  R
+> {
   public get type() {
     return this._type;
   }
