@@ -1,36 +1,38 @@
-import { FileManager } from "./models/FileManager";
+// import { ArrayUtils } from "nd-helper";
+
+import FileManager from "./manager/FileManager";
 import Package from "./package.json";
 
 // ---------------------------- //
-// Usage A: single thread       //
+// Usage A: For write           //
 // ---------------------------- //
 
-// const manager = new FileManager("/tmp/hello-world", "custom-path");
-// manager.load(); // you must either call load() or call name()
+// const manager = new FileManager.write("/tmp/hello-world", "custom-path");
+// manager.load(); // you must either call load() or name()
+// manager.name("sub-directory"); // either if you didn't call load()
 
-// manager.save("hello world", "example-A.txt", { force: true }); // for promise return
-// manager.saveSync("hello world", "example-A.txt", { force: true }); // for sync method
+// manager.add({ content: "content-A", filename: "example-a.txt", opts: { force: false } });
+// manager.add({ content: "content-B", filename: "example-b.txt", opts: { force: true, tmp: "template-name.txt" } });
+
+// manager.run();
 
 // ---------------------------- //
-// Usage B: multiple thread     //
+// Usage B: For read            //
 // ---------------------------- //
 
-// const manager = new FileManager("/tmp/multiple-thread", undefined, 12); // create 12 thread worker
-// manager.load(); // you must either call load() or call name()
+// const manager2 = new FileManager.read("/tmp/hello-world", "custom-path");
+// manager2.load(); // you must either call load() or name()
+// manager2.name("sub-directory"); // either if you didn't call load()
 
-// manager.add({ content: "content-A", filename: "example.A.txt", opts: { force: false } });
-// manager.add({ content: "content-B", filename: "example.B.txt", opts: { force: false } });
-// manager.add({ content: "content-C", filename: "example.C.txt", opts: { force: false } });
-// manager.add({ content: "content-D", filename: "example.D.txt", opts: { force: false } });
+// manager2.add({ alias: "expA", filename: "example-a.txt" });
+// manager2.add({ filename: "example-b.txt" });
 
-// manager
-//   .run()
-//   .then(() => {
-//     console.log("done");
-//   })
-//   .catch(e => {
-//     console.log(`Error: ${e}`);
-//   });
+// manager2.run().then((arrayObject: any[]) => {
+//   const obj = ArrayUtils.MergeArrayObject(arrayObject);
+
+//   console.log(obj.expA); // file content of A
+//   console.log(obj["example-b.txt"]); // file content of B
+// });
 
 export default FileManager;
 
