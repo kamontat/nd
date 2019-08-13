@@ -20,3 +20,5 @@ export const ERR_SCT: IExceptionState = new ExceptionState("SCT", "Security and 
 export const ERR_GNL: IExceptionState = new ExceptionState("GNL", "General");
 
 export const ERR_DBO: IExceptionState = new ExceptionState("DBO", "Database");
+
+export const ERR_FLE: IExceptionState = new ExceptionState("FLE", "File system");
