@@ -1,8 +1,23 @@
+import Resource from "./models/Resource";
 import Package from "./package.json";
 
-export { Package };
+// ----------------------- //
+// Write resource to file  //
+// ----------------------- //
 
-export { Resource } from "./models/Resource";
-export { ResourceBuilder } from "./models/ResourceBuilder";
+// const fileManager = new FileManager.write("/tmp/directory");
 
+// const resource = new Resource.Novel(new Novel(123456));
+// resource.write(fileManager)
+
+// await fileManager.run()
+
+// ----------------------- //
+// Load resource from file //
+// ----------------------- //
+
+// const resource = new Resource.File(fileManager.system.directory);
+// const novel = new Novel.Resource(resource)
+
+export { Resource, Package };
 export { RESOURCE_FILENAME } from "./constants/index";
