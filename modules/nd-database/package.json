@@ -1,12 +1,16 @@
 {
   "name": "nd-database",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "database interface for nd command and storage",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0-beta.3": {
+      "message": "fix some error message throw quitely",
+      "date": "13 Aug 2019"
+    },
     "1.0.0-beta.2": {
       "message": "add write access of firebase and mock data",
       "date": "11 Aug 2019"
