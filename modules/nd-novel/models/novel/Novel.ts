@@ -12,7 +12,9 @@ import { NovelType } from "./NovelType";
 export class Novel {
   public static Resource = class extends Novel {
     constructor(resource: Resource) {
-      const json = JSON.parse(resource.decode());
+      const decode = resource.decode();
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "decoded resource content; %O", decode);
+      const json = JSON.parse(decode);
       LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
 
       super(json.id);
