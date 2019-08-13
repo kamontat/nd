@@ -1,3 +1,7 @@
+interface Json {
+  [key: string]: string;
+}
+
 export default {
   BuildArray: (str: string) => {
     const _arr = str.split(","); // split by ,
@@ -64,5 +68,13 @@ export default {
     }
 
     return result;
+  },
+  MergeArrayObject: (array: Json[]) => {
+    return array.reduce(
+      (p, c) => {
+        return { ...p, ...c };
+      },
+      {} as Json,
+    );
   },
 };
