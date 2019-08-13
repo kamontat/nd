@@ -29,7 +29,7 @@ const home = homedir();
   try {
     // add config handler
     config.on("output.level", (level: number, old: number) => {
-      if (level > old) {
+      if (level >= old) {
         LoggerService.log(LOGGER_CLI, `now output level is ${level} (old=${old})`);
         UpdateLogInfo(["--level", level]);
       }
