@@ -3,16 +3,20 @@ import Optionable from "./Optionable";
 import SubCommand from "./SubCommand";
 
 export default class Command extends Optionable {
-  public sub(sub: SubCommand) {
-    this.addChild(sub);
-    return this;
+  public get type() {
+    return "command";
+  }
+
+  public static build(name: string, needParam: boolean, callback: ICommandCallback) {
+    return new Command(name, needParam, callback);
   }
 
   public getSub(name: string) {
     return this.getChild(name) as SubCommand;
   }
 
-  public static build(name: string, needParam: boolean, callback: ICommandCallback) {
-    return new Command(name, needParam, callback);
+  public sub(sub: SubCommand) {
+    this.addChild(sub);
+    return this;
   }
 }

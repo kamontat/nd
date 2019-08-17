@@ -1,6 +1,10 @@
 import ICommand, { ICommandCallback } from "./ICommand";
 
 export default class Option extends ICommand {
+  public get type() {
+    return "option";
+  }
+
   get option() {
     return `--${this.name}`;
   }
