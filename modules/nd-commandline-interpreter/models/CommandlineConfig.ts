@@ -18,7 +18,7 @@ export default class CommandlineConfig {
   public get<T>(name: string, defaultValue?: T) {
     const value = this._config.get(name);
     if (value === undefined && defaultValue !== undefined) {
-      LoggerService.log(LOGGER_CLI_CONFIG, `load default config value instead; ${defaultValue}`);
+      LoggerService.log(LOGGER_CLI_CONFIG, `load default ${name} config value instead; ${defaultValue}`);
       return defaultValue;
     }
     LoggerService.log(LOGGER_CLI_CONFIG, `get config of '${name}' is ${value}`);
