@@ -10,12 +10,12 @@ export default abstract class Optionable extends ICommand implements IOptionable
     super(name, param, callback);
   }
 
+  public getOption(name: string) {
+    return this.getChild(name) as Option;
+  }
+
   public option(option: Option) {
     this.addChild(option);
     return this;
-  }
-
-  public getOption(name: string) {
-    return this.getChild(name) as Option;
   }
 }
