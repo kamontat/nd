@@ -25,6 +25,10 @@ export default class CommandlineConfig {
     return (value as unknown) as T;
   }
 
+  public has(name: string) {
+    return this._config.has(name);
+  }
+
   public set(name: string, value: string | boolean | number) {
     if (typeof value === "string") {
       LoggerService.log(LOGGER_CLI_CONFIG, `set '${value}' as [string] to '${name}'`);
