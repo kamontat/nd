@@ -54,9 +54,12 @@ export const HelpMessage = (pjson: any) => {
   return (
     title +
     Colorize.format`
-Usage: {dim $} {greenBright ${pjson.name}} {blueBright generate}
+Usage
+
+{dim $} {greenBright ${pjson.name}} {blueBright generate}
+{dim $} {greenBright ${pjson.name}} {blueBright firebase} --token <auth.token> --name <auth.name> --salt <auth.salt>
 
 ${pjson.name} version: ${pjson.version}
-support ${Package.name} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
+Support ${Package.name} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
   );
 };
