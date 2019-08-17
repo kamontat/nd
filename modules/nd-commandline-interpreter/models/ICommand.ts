@@ -15,10 +15,10 @@ export type ICommandCallbackResult =
   | Promise<VoidFunction | BoolFunction>;
 
 export type ICommandCallback = (value: {
-  self: Commandline;
-  name: string;
-  value: string | undefined;
   apis: CommandApi;
+  name: string;
+  self: Commandline;
+  value: string | undefined;
 }) => ICommandCallbackResult;
 
 export default abstract class ICommand {
@@ -29,10 +29,15 @@ export default abstract class ICommand {
   get needParam() {
     return this.param;
   }
+  public abstract get type(): string;
   private _child: Map<string, ICommand>;
 
   protected constructor(private _name: string, private param: boolean, private _callback: ICommandCallback) {
     this._child = new Map();
+  }
+
+  public execute(self: Commandline, value: string | undefined) {
+    return this._callback({ self, name: this.name, value, apis: CommandApi.get() });
   }
 
   protected addChild(child: ICommand) {
@@ -41,9 +46,5 @@ export default abstract class ICommand {
 
   protected getChild(name: string) {
     return this._child.get(name);
-  }
-
-  public execute(self: Commandline, value: string | undefined) {
-    return this._callback({ self, name: this.name, value, apis: CommandApi.get() });
   }
 }
