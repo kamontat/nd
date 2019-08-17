@@ -3,10 +3,12 @@ import { Commandline } from "nd-commandline-interpreter";
 import ExceptionService from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
+declare var __NODE_ENV__: string;
+
 const cli = new Commandline(Package.name, Package.description);
 
 (async () => {
-  LoggerService.level(1);
+  if (__NODE_ENV__ === "production") LoggerService.level(1);
 
   try {
     const commandline = await BuildAdminCommandline(cli, { stdin: process.stdin, stdout: process.stdout });
