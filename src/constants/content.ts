@@ -1,3 +1,4 @@
+import { Package as AdminPackage } from "nd-admin/standalone";
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { config, Package as ConfigPackage } from "nd-config";
 import { Package as DatabasePackage } from "nd-database";
@@ -332,6 +333,8 @@ Command name:            {greenBright ${name}}
 Command version:         {greenBright ${CorePackage.version}}
 Command author:          {greenBright ${CorePackage.author}}
 Command date:            {greenBright ${TimeUtils.FormatDate(new Date(__COMPILE_DATE__))}}
+
+Admin version:           {greenBright ${AdminPackage.version}}
 `;
 
   const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
