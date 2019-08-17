@@ -1,6 +1,6 @@
 {
   "name": "nd-security",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "security management for nd command",
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -10,6 +10,10 @@
     "nd-database": "./modules/nd-database"
   },
   "changelog": {
+    "1.6.0": {
+      "message": "change way to hash firebase name",
+      "date": "18 Aug 2019"
+    },
     "1.5.0": {
       "message": "add support authenication via server database",
       "date": "11 Aug 2019"
