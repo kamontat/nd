@@ -68,12 +68,12 @@ const NOVEL = (name: string) => {
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
        {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
        {cyan --chapter}               - {gray [optional]} print all downloaded chapter
-       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
+       {cyan --thread} {gray <number>}       - {gray [optional]} {blue number} must be the number of thread for download novel
 {gray $} {green ${name}} {magentaBright [novel]} {magenta raw}              -- start download novel from website (manual mode)
      parameter:
        {yellow id}                      - {gray [required]} download novel to default location in setting
      option:
-       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
+       {cyan --thread} {gray <number>}       - {gray [optional]} {blue number} must be the number of thread for download novel
        {cyan --location} {gray <path>}       - {gray [optional]} location of output folder; {blueBright option} > {blueBright config} > {blueBright current path}
        {cyan --chapters} {gray <number>}     - {gray [required]} specify chapter number;
                                - number can be integer, range (e.g. 1-5) or array (e.g. 3,4,5,6)
@@ -91,7 +91,7 @@ const NOVEL = (name: string) => {
      parameter:
        {yellow <id|location>}           - {gray [required]} fetch information base on input type
      option:
-       {cyan --thread} {gray <number>}     - {gray [optional]} {blue number} must be the number of thread for download novel
+       {cyan --thread} {gray <number>}       - {gray [optional]} {blue number} must be the number of thread for download novel
        {cyan --chapter}               - {gray [optional]} list all novel and chapter information
        {cyan --fast}                  - {gray [optional]} fetching only index page and receive information ({red.underline ID} only)
                                - This might cause lack of information to print
@@ -130,7 +130,9 @@ const COMMAND = (name: string) => {
   return Colorize.format`
 {bold ## Command}
 
-{gray $} {green ${name}} {magentaBright command}                 -- print all information of ${name} command
+{gray $} {green ${name}} {magentaBright command}                  -- print all information of ${name} command
+     option:
+       {cyan --json}                  - {gray [optional]} change output to valid JSON format instead
 {gray $} {green ${name}} {magentaBright command} {magenta version}          -- print all version information of ${name} command
      option:
        {cyan --detail}                - {gray [optional]} include libraries and changelog detail
@@ -327,7 +329,51 @@ export const VERSION_FULL = () => {
   return str;
 };
 
-export const COMMAND_INFORMATION = (name: string) => {
+export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
+  if (opts.json) return __COMMAND_INFORMATION_JSON(name);
+  else return __COMMAND_INFORMATION_TEXT(name);
+};
+
+export const __COMMAND_INFORMATION_JSON = (name: string) => {
+  const obj: { [key: string]: any } = {
+    command: {
+      name,
+      version: CorePackage.version,
+      author: CorePackage.author,
+    },
+    admin: {
+      version: AdminPackage.version,
+    },
+  };
+
+  const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
+
+  try {
+    const response = secure.decrypt(config.get("auth.token") as string, config.get("auth.salt") as string);
+
+    obj.security = {
+      success: true,
+      username: response.username,
+      expire: response.expire, // token cannot be use after this time
+      issue: response.issue, // token has been built
+      activate: response.notBefore, // token can be use since this time
+      detail: {
+        token: config.get("auth.token"),
+        salt: config.get("auth.salt"),
+        name: config.get("auth.name"),
+      },
+    };
+  } catch (e) {
+    obj.security = {
+      success: false,
+      reason: e,
+    };
+  }
+
+  return JSON.stringify(obj, undefined, "  ");
+};
+
+export const __COMMAND_INFORMATION_TEXT = (name: string) => {
   let result = Colorize.format`
 Command name:            {greenBright ${name}}
 Command version:         {greenBright ${CorePackage.version}}

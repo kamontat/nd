@@ -6,9 +6,12 @@ import { COMMAND_INFORMATION, HELP_HEADER, HELP_NOVEL, VERSION, VERSION_FULL } f
 
 export default (cli: Commandline, _: IConfiguration) => {
   cli.command(
-    Command.build("command", false, ({ self }) => {
-      LoggerService.console.log(COMMAND_INFORMATION(self.name));
+    Command.build("command", false, ({ self, apis }) => {
+      LoggerService.console.log(
+        COMMAND_INFORMATION(self.name, { json: apis.config.get("command.output.json", false) }),
+      );
     })
+      .option(Option.build("json", false, ({ apis }) => apis.config.set("command.output.json", true)))
       .sub(
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
