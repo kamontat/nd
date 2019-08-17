@@ -36,7 +36,7 @@ export default class Commandline implements IOptionable {
     this._globalOptions = new Map();
     this._commands = new Map();
 
-    LoggerService.log(LOGGER_CLI_BUILDER, `try to build ${this._name} commandline`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `initial ${Colorize.appname(this._name)} commandline`);
   }
 
   public callback(callback: ICommandCallback) {
@@ -63,17 +63,26 @@ export default class Commandline implements IOptionable {
     LoggerService.log(LOGGER_CLI_BUILDER, `input arguments ${args}`);
 
     const global = await this.executeGlobalOptions(args);
+
     if (global.callback.length > 0) {
-      LoggerService.log(LOGGER_CLI_BUILDER, `run global callback`);
+      LoggerService.log(LOGGER_CLI_BUILDER, `global callback exist`);
+      LoggerService.log(LOGGER_CLI_BUILDER, `start run global callback...`);
+
       global.callback.forEach(c => {
         if (c && typeof c === "function") {
+          LoggerService.log(LOGGER_CLI_BUILDER, `callback is function; calling it...`);
           const isEnd = c();
-          if (isEnd === true) return this.finish();
+          if (isEnd === true) {
+            LoggerService.log(LOGGER_CLI_BUILDER, `program should be finish now`);
+            return this.finish();
+          } else {
+            LoggerService.log(LOGGER_CLI_BUILDER, `continue this next process`);
+          }
+        } else {
+          LoggerService.log(LOGGER_CLI_BUILDER, `not sure what is a callback type = ${Colorize.important(typeof c)}`);
         }
       });
     }
-
-    LoggerService.log(LOGGER_CLI_BUILDER, `after resolve global`);
 
     args.push(""); // push empty string
     const callback = await this.travisArgumentPath(global.arguments);
@@ -86,17 +95,22 @@ export default class Commandline implements IOptionable {
   }
 
   private async executeGlobalOptions(opts: string[]) {
-    LoggerService.log(LOGGER_CLI_BUILDER, `start check global option`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check global option...`);
 
     const callback: ICommandCallbackResult[] = [];
 
     await opts.forEach(async (_o, i) => {
       if (!this.isOption(_o)) return;
 
-      LoggerService.log(LOGGER_CLI_BUILDER, `try ${_o} option ?`);
       const o = _o.replace("--", "");
+      LoggerService.log(LOGGER_CLI_BUILDER, `is ${o} be global option ?`);
       if (this._globalOptions.has(o)) {
         const option = this._globalOptions.get(o) as Option;
+        LoggerService.log(
+          LOGGER_CLI_BUILDER,
+          `  - ${Colorize.option(o)} is a global option ${option.needParam ? "need parameter" : "no parameter"} !`,
+        );
+
         if (option.needParam) {
           callback.push(await option.execute(this, opts[i + 1]));
           this._event.emit("globalOption", option, opts[i + 1]);
@@ -106,6 +120,8 @@ export default class Commandline implements IOptionable {
           this._event.emit("globalOption", option);
           opts.splice(i, 1);
         }
+      } else {
+        LoggerService.log(LOGGER_CLI_BUILDER, `  - ${Colorize.option(o)} is not a global option !`);
       }
     });
 
@@ -130,29 +146,33 @@ export default class Commandline implements IOptionable {
   }
 
   private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check arguments...`);
+
     let skip: Array<number> = [];
     let c: Command | undefined;
     let callback: ICommandCallbackResult;
 
     let i = 0;
     for await (const arg of args) {
-      if (arg !== "") LoggerService.log(LOGGER_CLI_BUILDER, `current travis argument is ${arg}`);
+      // print the log message with current and future argument
+      let __msg = `arguments index ${i}`;
+      if (arg !== "") __msg += `\n  - current: ${arg}`;
       const next = args[i + 1];
-      if (next !== "") LoggerService.log(LOGGER_CLI_BUILDER, `next travis argument is ${next}`);
+      if (next !== "") __msg += `\n  - next   : ${next}`;
+      LoggerService.log(LOGGER_CLI_BUILDER, __msg);
+      LoggerService.log(LOGGER_CLI_BUILDER, `skip value is [${skip}]`);
 
       if (c) {
-        LoggerService.log(
-          LOGGER_CLI_BUILDER,
-          `get command '${Colorize.important(c.name)}' and it ${c.needParam ? "need params" : "no need param"}`,
-        );
-        LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} might have subcommand(${arg}) ?`);
-        const s = c.getSub(arg);
-        // const otherArgs = args.slice(i);
+        let s;
+
+        if (!this.isOption(arg)) {
+          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} might have ${arg} as a subcommand ?`);
+          s = c.getSub(arg);
+        }
 
         if (s) {
-          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} have subcommand`);
-          this.travisOptionPath(s, args);
-          LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
+          LoggerService.log(LOGGER_CLI_BUILDER, `  - ${arg} is a subcommand of ${c.name} !`);
+          skip.push(...this.travisOptionPath(s, args));
 
           if (s.needParam) {
             if (!this.isParam(next))
@@ -170,9 +190,11 @@ export default class Commandline implements IOptionable {
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has been executed; remove in cache`);
           c = undefined;
         } else {
-          LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} doesn't have any subcommand`);
-          this.travisOptionPath(c, args);
-          LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
+          if (!this.isOption(arg))
+            LoggerService.log(LOGGER_CLI_BUILDER, `  - ${arg} isn't a subcommand of ${c.name} !`);
+
+          skip.push(...this.travisOptionPath(c, args));
+          // LoggerService.log(LOGGER_CLI_BUILDER, `updated config from options`);
 
           if (c.needParam) {
             if (!this.isParam(arg)) throw Exception.build(ERR_CLI).description(`${c.name} is require parameter`);
@@ -194,6 +216,8 @@ export default class Commandline implements IOptionable {
       if (skip.includes(i)) {
         LoggerService.log(LOGGER_CLI_BUILDER, `skip argument ${arg}`);
         skip = skip.filter(s => s !== i); // remove element of i
+
+        i++; // increase i even skip
         continue;
       }
 
@@ -206,8 +230,18 @@ export default class Commandline implements IOptionable {
 
       // no command in first args
       c = this.isCommand(arg);
+      if (c)
+        LoggerService.log(
+          LOGGER_CLI_BUILDER,
+          `received, '${Colorize.important(c.name)}' as a ${
+            c.needParam ? "need parameter" : "no parameter"
+          } root command`,
+        );
+
+      // if no root command exist
+      // error if default callback never got set
       if (i === 0 && !c) {
-        LoggerService.log(LOGGER_CLI_BUILDER, `you didn't input valid root command in first argument`);
+        LoggerService.log(LOGGER_CLI_BUILDER, `seem like you didn't input any valid root command`);
         LoggerService.log(LOGGER_CLI_BUILDER, `try to call default callback with arguments '${arg}'`);
 
         if (this._callback) {
@@ -226,34 +260,68 @@ export default class Commandline implements IOptionable {
   }
 
   private travisOptionPath(c: Optionable, opts: string[]) {
-    LoggerService.log(LOGGER_CLI_BUILDER, `start check local option`);
+    const skipingList: Array<number> = [];
+
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check local option...`);
 
     opts.forEach((_o, i) => {
-      if (!this.isOption(_o)) return;
+      // print the log message with current and future argument
+      let __msg = "options";
+      if (_o !== "") __msg += `\n  - current: ${_o}`;
+      const next = opts[i + 1];
+      if (next !== "") __msg += `\n  - next   : ${next}`;
+      LoggerService.log(LOGGER_CLI_BUILDER, __msg);
+
+      if (!this.isOption(_o)) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `skip this since it not a option`);
+        return;
+      }
 
       const o = _o.replace("--", "");
 
-      LoggerService.log(LOGGER_CLI_BUILDER, `try is ${o} is a option of ${c.name} ?`);
-
+      LoggerService.log(LOGGER_CLI_BUILDER, `is ${o} be option of ${c.name} ?`);
       const option = c.getOption(o);
+
       if (option) {
-        LoggerService.log(LOGGER_CLI_BUILDER, `${option.name} is a part of ${c.name}`);
+        LoggerService.log(
+          LOGGER_CLI_BUILDER,
+          `  - ${Colorize.option(option.name)} is a ${
+            option.needParam ? "need parameter option" : "no parameter option"
+          } which is a part of ${c.name} ${c.type}`,
+        );
+
         if (option.needParam) {
-          if (!this.isParam(opts[i + 1]))
-            throw Exception.build(ERR_CLI).description(`${option.name} is required parameter`);
-          LoggerService.log(LOGGER_CLI_BUILDER, `option need parameter; which is ${opts[i + 1]}`);
-          option.execute(this, opts[i + 1]);
-          this._event.emit("option", option, opts[i + 1]);
-          opts.splice(i, 2);
+          if (!this.isParam(next)) throw Exception.build(ERR_CLI).description(`${option.name} is required parameter`);
+
+          LoggerService.log(LOGGER_CLI_BUILDER, `    - pass ${Colorize.value(next)} as a parameter`);
+          option.execute(this, next);
+
+          this._event.emit("option", option, next);
+
+          skipingList.push(i);
+          skipingList.push(i + 1);
         } else {
-          LoggerService.log(LOGGER_CLI_BUILDER, `option doesn't need any parameter`);
           option.execute(this, undefined);
           this._event.emit("option", option);
-          opts.splice(i, 1);
+
+          skipingList.push(i);
         }
       } else {
-        LoggerService.log(LOGGER_CLI_BUILDER, `cannot find ${_o} on ${c.name}`);
+        LoggerService.log(LOGGER_CLI_BUILDER, `  - cannot find ${Colorize.option(_o)} option on ${c.name}`);
       }
     });
+
+    LoggerService.log(LOGGER_CLI_BUILDER, `start remove all resolved option and parameter`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `  - argument list ${opts}`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `  - removed list  ${skipingList}`);
+
+    // remove all resolved arguments
+    return skipingList;
+    // return opts.filter((v, i) => {
+    //   if (skipingList.includes(i)) {
+    //     LoggerService.log(LOGGER_CLI_BUILDER, `  - removed '${v}' key from arguments`);
+    //     return false;
+    //   } else return true;
+    // });
   }
 }
