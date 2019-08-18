@@ -43,7 +43,6 @@ const CONFIGURATION = (name: string) => {
        {cyan --backup}                - {gray [optional]} create backup before replace configuration file
 {gray $} {green ${name}} {magentaBright config} {magenta path}              -- output configuration path
      option:
-       {cyan --open}                  - {gray [optional]} instead of print, open configuration file with {blueBright $EDITOR} [ERR]
        {cyan --only}                  - {gray [optional]} output only path name without any prefix or postfix
 {gray $} {green ${name}} {magentaBright config} {magenta set}               -- update new configuration value
      parameter:
