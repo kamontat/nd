@@ -1,43 +1,67 @@
-import firebase, { app, database } from "firebase";
-import "firebase/database";
+import firebase, { firestore } from "firebase/app";
+import "firebase/firestore";
 import ExceptionService, { ERR_DBO } from "nd-error";
 import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
 
 import IDatabase from "./IDatabase";
 
-export default class Database implements IDatabase<database.DataSnapshot> {
-  private _db: database.Database;
+declare var __FIREBASE_API_KEY__: string;
+declare var __FIREBASE_AUTH_DOMAIN__: string;
+declare var __FIREBASE_DATABASE_URL__: string;
+declare var __FIREBASE_PROJECT_ID__: string;
+declare var __FIREBASE_STORAGE_BUCKET__: string;
+declare var __FIREBASE_MESSAGING_SENDER_ID__: string;
+declare var __FIREBASE_APP_ID__: string;
 
-  constructor(app: app.App) {
-    this._db = firebase.database(app);
-    // LoggerService.log(LOGGER_FIREBASE, this._db);
-  }
+export default class Database implements IDatabase<firestore.DocumentSnapshot> {
+  private _db: firestore.Firestore;
 
-  public append(path: string, value: any) {
-    LoggerService.log(LOGGER_FIREBASE, `append ${value} to ${path}`);
-    const newRef = this._db.ref(path).push();
-    return newRef.set(value).catch(err => {
-      return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
-    }) as Promise<database.DataSnapshot>;
+  constructor() {
+    const app = firebase.initializeApp({
+      apiKey: __FIREBASE_API_KEY__,
+      authDomain: __FIREBASE_AUTH_DOMAIN__,
+      databaseURL: __FIREBASE_DATABASE_URL__,
+      projectId: __FIREBASE_PROJECT_ID__,
+      storageBucket: __FIREBASE_STORAGE_BUCKET__,
+      messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
+      appId: __FIREBASE_APP_ID__,
+    });
+
+    this._db = firebase.firestore(app);
+    LoggerService.log(LOGGER_FIREBASE, this._db);
   }
 
   public read(path: string) {
-    LoggerService.log(LOGGER_FIREBASE, `start read value from ${path}`);
+    const p = this.split(path);
+    LoggerService.log(LOGGER_FIREBASE, `reading value from { ${p.root}: ${p.next} }`);
+
     return this._db
-      .ref(path)
-      .once("value")
+      .collection(p.root)
+      .doc(p.next)
+      .get()
       .catch(err => {
         return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
-      }) as Promise<database.DataSnapshot>;
+      }) as Promise<firestore.DocumentSnapshot>;
   }
 
   public write(path: string, value: any) {
-    LoggerService.log(LOGGER_FIREBASE, `start write ${value} to ${path}`);
+    const p = this.split(path);
+    LoggerService.log(LOGGER_FIREBASE, `reading value from { ${p.root}: ${p.next} }`);
+
     return this._db
-      .ref(path)
+      .collection(p.root)
+      .doc(p.next)
       .update(value)
       .catch(err => {
         return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
-      }) as Promise<database.DataSnapshot>;
+      }) as Promise<firestore.DocumentSnapshot>;
+  }
+
+  private split(path: string) {
+    const __arr = path.split("/");
+    return {
+      root: __arr.shift() || "",
+      next: __arr.join("/"),
+    };
   }
 }
