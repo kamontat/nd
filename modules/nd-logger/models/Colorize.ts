@@ -1,5 +1,13 @@
 import chalk from "chalk";
 
+const _customBooleanFn = (b: boolean | string, alternativeTrue?: string, alternativeFalse?: string) => {
+  if (b === true || b === "true" || (alternativeTrue && b === alternativeTrue))
+    return chalk.greenBright(alternativeTrue || "true");
+  else if (b === false || b === "false" || (alternativeFalse && b === alternativeFalse))
+    return chalk.redBright(alternativeFalse || "false");
+  else return b.toString();
+};
+
 export default {
   appname: chalk.greenBright,
   command: chalk.magentaBright,
@@ -23,4 +31,5 @@ export default {
   version: chalk.blueBright,
   name: chalk.greenBright,
   enum: chalk.redBright,
+  boolean: _customBooleanFn,
 };
