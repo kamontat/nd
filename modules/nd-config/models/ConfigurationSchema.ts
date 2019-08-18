@@ -36,6 +36,9 @@ const ConfigurationSchema = {
   "novel.location": {
     type: "string",
   },
+  "command.version.detail.limit": {
+    type: "number",
+  },
 } as { [key: string]: IConfigurationSchema };
 
 const CONFIG_KEY_NOT_EXIST = (name: string) =>
