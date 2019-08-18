@@ -1,6 +1,6 @@
 {
   "name": "nd-logger",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
@@ -9,7 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
-    "1.2.3": {
+    "1.2.4": {
+      "message": "change color for some namespace and add boolean support",
+      "date": "18 Aug 2019"
+    },"1.2.3": {
       "message": "add storage and nosql namespace to firebase",
       "date": "18 Aug 2019"
     },
