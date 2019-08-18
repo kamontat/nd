@@ -1,6 +1,6 @@
 {
   "name": "nd-database",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "database interface for nd command and storage",
   "dependencies": {
     "firebase": "6.4.0",
@@ -8,6 +8,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0-beta.4": {
+      "message": "change mainly database to firestore",
+      "date": "18 Aug 2019"
+    },
     "1.0.0-beta.3": {
       "message": "fix some error message throw quitely",
       "date": "13 Aug 2019"
