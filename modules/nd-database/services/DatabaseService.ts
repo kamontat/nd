@@ -2,16 +2,20 @@ import ExceptionService, { ERR_DBO } from "nd-error";
 
 import IDatabase from "../models/IDatabase";
 
-export default class {
-  private static instance: IDatabase;
+type KeyDatabaseType = "database" | "storage";
 
-  public static Get<V extends IDatabase>() {
-    if (!this.instance) throw ExceptionService.build(ERR_DBO, "You try to get empty database object; Initial it first");
-    return this.instance as V;
+export default class {
+  private static instance: Map<KeyDatabaseType, IDatabase> = new Map();
+
+  public static Get<V extends IDatabase>(key: KeyDatabaseType) {
+    if (!this.instance.has(key))
+      throw ExceptionService.build(ERR_DBO, "You try to get empty database object; Initial it first");
+
+    return this.instance.get(key) as V;
   }
 
-  public static Set(i: IDatabase) {
-    if (!this.instance) this.instance = i;
+  public static Set<V extends IDatabase>(key: KeyDatabaseType, i: V) {
+    if (!this.instance.has(key)) this.instance.set(key, i);
     else throw ExceptionService.build(ERR_DBO, "You initial database object twice.");
   }
 }
