@@ -1,6 +1,6 @@
 {
   "name": "nd-logger",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
@@ -9,6 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.2.3": {
+      "message": "add storage and nosql namespace to firebase",
+      "date": "18 Aug 2019"
+    },
     "1.2.2": {
       "message": "change date/datetime color from green to blue",
       "date": "12 Aug 2019"
