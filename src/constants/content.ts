@@ -130,7 +130,7 @@ const COMMAND = (name: string) => {
   return Colorize.format`
 {bold ## Command}
 
-{gray $} {green ${name}} {magentaBright command}                  -- print all information of ${name} command
+{gray $} {green ${name}} {magentaBright command} {magenta [verify]}         -- verify all dependencies and components of the command
      option:
        {cyan --json}                  - {gray [optional]} change output to valid JSON format instead
 {gray $} {green ${name}} {magentaBright command} {magenta version}          -- print all version information of ${name} command
@@ -140,7 +140,6 @@ const COMMAND = (name: string) => {
 {gray $} {green ${name}} {magentaBright command} {magenta downgrade}        -- download and install with specify version [WIP]
      parameter:
        {yellow <version>}               - {gray [required]} specify version number [WIP]
-{gray $} {green ${name}} {magentaBright command} {magenta verify}           -- verify all dependencies and components of the command [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta help}             -- show available subcommand of ${Colorize.command(
     "command",
   )} command
@@ -370,7 +369,7 @@ export const __COMMAND_INFORMATION_JSON = (name: string) => {
     };
   }
 
-  return JSON.stringify(obj, undefined, "  ");
+  return JSON.stringify(obj);
 };
 
 export const __COMMAND_INFORMATION_TEXT = (name: string) => {

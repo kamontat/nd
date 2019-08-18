@@ -1,17 +1,37 @@
-import { Command, Commandline, Option, SubCommand } from "nd-commandline-interpreter";
+import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
 import { COMMAND_INFORMATION, HELP_HEADER, HELP_NOVEL, VERSION, VERSION_FULL } from "../constants/content";
 
+import ProgramVerification from "./command/verify";
+
 export default (cli: Commandline, _: IConfiguration) => {
+  const verification: ICommandCallback = async ({ self, apis }) => {
+    let msg = "";
+    const json = apis.config.get("command.output.json", false);
+    if (json) {
+      const root = JSON.parse(COMMAND_INFORMATION(self.name, { json }));
+      const next = JSON.parse(await ProgramVerification(self, { json }));
+
+      msg = JSON.stringify({ ...root, ...next }, undefined, "  ");
+    } else {
+      msg = COMMAND_INFORMATION(self.name, { json });
+      msg += "\n\n\n";
+      msg += await ProgramVerification(self, { json });
+    }
+
+    LoggerService.console.log(msg);
+  };
+
   cli.command(
-    Command.build("command", false, ({ self, apis }) => {
-      LoggerService.console.log(
-        COMMAND_INFORMATION(self.name, { json: apis.config.get("command.output.json", false) }),
-      );
-    })
+    Command.build("command", false, verification)
       .option(Option.build("json", false, ({ apis }) => apis.config.set("command.output.json", true)))
+      .sub(
+        SubCommand.build("verify", false, verification).option(
+          Option.build("json", false, ({ apis }) => apis.config.set("command.output.json", true)),
+        ),
+      )
       .sub(
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
