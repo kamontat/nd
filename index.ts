@@ -11,7 +11,7 @@
 import chalk from "chalk";
 import { Commandline } from "nd-commandline-interpreter";
 import { config } from "nd-config";
-import { InitialDatabase } from "nd-database";
+import { InitialFirebaseDatabase } from "nd-database";
 import Exception from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 import { homedir } from "os";
@@ -19,7 +19,7 @@ import { homedir } from "os";
 import { Package } from "./src/build/Package";
 import { BuildCommandline, UpdateLogInfo } from "./src/nd";
 
-InitialDatabase();
+InitialFirebaseDatabase();
 
 const cli = new Commandline(Package.name, Package.description);
 
