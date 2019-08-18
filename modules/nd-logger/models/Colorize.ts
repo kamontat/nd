@@ -29,7 +29,7 @@ export default {
   url: chalk.green.underline,
   value: chalk.greenBright,
   version: chalk.blueBright,
-  name: chalk.greenBright,
+  name: chalk.blueBright,
   enum: chalk.redBright,
   boolean: _customBooleanFn,
 };
