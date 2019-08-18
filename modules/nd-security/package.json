@@ -1,6 +1,6 @@
 {
   "name": "nd-security",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "security management for nd command",
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -10,6 +10,10 @@
     "nd-database": "./modules/nd-database"
   },
   "changelog": {
+    "1.6.1": {
+      "message": "upgrade nd-database to version 1.0.0-beta.4",
+      "date": "18 Aug 2019"
+    },
     "1.6.0": {
       "message": "change way to hash firebase name",
       "date": "18 Aug 2019"
