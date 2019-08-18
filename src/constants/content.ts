@@ -94,7 +94,7 @@ const NOVEL = (name: string) => {
        {cyan --thread} {gray <number>}       - {gray [optional]} {blue number} must be the number of thread for download novel
        {cyan --chapter}               - {gray [optional]} list all novel and chapter information
        {cyan --fast}                  - {gray [optional]} fetching only index page and receive information ({red.underline ID} only)
-                               - This might cause lack of information to print
+                               - this might cause lack of information to print
 {gray $} {green ${name}} {magentaBright [novel]} {magenta export}           -- export novel from html to pdf file [WIP]
      parameter:
        {yellow <in>}                    - {gray [required]} {blue in} must be directory with novel resource [WIP]
