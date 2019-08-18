@@ -1,7 +1,7 @@
 import firebase, { firestore } from "firebase/app";
 import "firebase/firestore";
 import ExceptionService, { ERR_DBO } from "nd-error";
-import LoggerService, { LOGGER_FIREBASE } from "nd-logger";
+import LoggerService, { LOGGER_FIREBASE, LOGGER_FIREBASE_NOSQL } from "nd-logger";
 
 import IDatabase from "./IDatabase";
 
@@ -17,23 +17,27 @@ export default class Database implements IDatabase<firestore.DocumentSnapshot> {
   private _db: firestore.Firestore;
 
   constructor() {
-    const app = firebase.initializeApp({
-      apiKey: __FIREBASE_API_KEY__,
-      authDomain: __FIREBASE_AUTH_DOMAIN__,
-      databaseURL: __FIREBASE_DATABASE_URL__,
-      projectId: __FIREBASE_PROJECT_ID__,
-      storageBucket: __FIREBASE_STORAGE_BUCKET__,
-      messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
-      appId: __FIREBASE_APP_ID__,
-    });
+    if (firebase.apps.length === 0) {
+      const app = firebase.initializeApp({
+        apiKey: __FIREBASE_API_KEY__,
+        authDomain: __FIREBASE_AUTH_DOMAIN__,
+        databaseURL: __FIREBASE_DATABASE_URL__,
+        projectId: __FIREBASE_PROJECT_ID__,
+        storageBucket: __FIREBASE_STORAGE_BUCKET__,
+        messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
+        appId: __FIREBASE_APP_ID__,
+      });
+      LoggerService.log(LOGGER_FIREBASE, app);
 
-    this._db = firebase.firestore(app);
-    LoggerService.log(LOGGER_FIREBASE, this._db);
+      this._db = firebase.firestore(app);
+    } else this._db = firebase.firestore();
+
+    LoggerService.log(LOGGER_FIREBASE_NOSQL, this._db);
   }
 
   public read(path: string) {
     const p = this.split(path);
-    LoggerService.log(LOGGER_FIREBASE, `reading value from { ${p.root}: ${p.next} }`);
+    LoggerService.log(LOGGER_FIREBASE_NOSQL, `reading value from { ${p.root}: ${p.next} }`);
 
     return this._db
       .collection(p.root)
@@ -46,7 +50,7 @@ export default class Database implements IDatabase<firestore.DocumentSnapshot> {
 
   public write(path: string, value: any) {
     const p = this.split(path);
-    LoggerService.log(LOGGER_FIREBASE, `reading value from { ${p.root}: ${p.next} }`);
+    LoggerService.log(LOGGER_FIREBASE_NOSQL, `reading value from { ${p.root}: ${p.next} }`);
 
     return this._db
       .collection(p.root)
