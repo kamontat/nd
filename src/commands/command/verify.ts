@@ -42,6 +42,7 @@ const vInternet = async () => {
 
 const vDB = () => {
   try {
+    // tslint:disable-next-line
     new Database(); // just for checking
     return true;
   } catch (e) {
