@@ -1,5 +1,5 @@
 import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
+import { config, IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
 import { COMMAND_INFORMATION, HELP_HEADER, HELP_NOVEL, VERSION, VERSION_FULL } from "../constants/content";
@@ -43,7 +43,8 @@ ${HELP_NOVEL(self.name)}`);
         SubCommand.build("version", false, ({ self, apis }) => {
           LoggerService.log(LOGGER_CLI, `${self.name} start initial setting command`);
 
-          if (apis.config.get("version.detail")) LoggerService.console.log(VERSION_FULL());
+          if (apis.config.get("version.detail"))
+            LoggerService.console.log(VERSION_FULL(config.get("command.version.detail.limit")));
           else LoggerService.console.log(VERSION());
         }).option(
           Option.build("detail", false, ({ apis }) => {

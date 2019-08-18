@@ -223,7 +223,7 @@ export const VERSION = () => {
 `;
 };
 
-export const VERSION_FULL = () => {
+export const VERSION_FULL = (limit: number = 5) => {
   interface IDependency {
     changelog?: { [key: string]: string | { date: string; message: string } };
     description?: string;
@@ -307,7 +307,9 @@ export const VERSION_FULL = () => {
   let str = dependencies.reduce((p, c) => {
     let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}\n`;
     if (c.changelog) {
-      Object.keys(c.changelog).forEach(k => {
+      Object.keys(c.changelog).forEach((k, i) => {
+        if (i >= limit) return; // exceed limit number
+
         const v = c.changelog && c.changelog[k];
         if (v) {
           // old version of changelog
