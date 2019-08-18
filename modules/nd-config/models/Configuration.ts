@@ -1,10 +1,8 @@
-import { defaultEditor } from "env-editor";
 import Event from "events";
 import fs from "fs";
 import ExceptionService, { ERR_CFG, ERR_CLI } from "nd-error";
 import { PathUtils } from "nd-helper";
 import LoggerService, { Colorize, LOGGER_CONFIG } from "nd-logger";
-import open from "open";
 import { resolve } from "path";
 import readline, { ReadLine } from "readline";
 
@@ -91,21 +89,28 @@ export class Configuration extends Event implements IConfiguration {
 
   public path(_open: boolean) {
     return new Promise<string>(res => {
-      if (_open) {
-        LoggerService.log(LOGGER_CONFIG, `try to open config in default editor`);
-        const editor = defaultEditor();
-        LoggerService.log(LOGGER_CONFIG, `get default editor is ${editor.name}`);
+      if (_open)
+        LoggerService.warn(
+          LOGGER_CONFIG,
+          "ignore open option because cannot run open custom config with currently libraries",
+        );
 
-        return open(this.filepath, { wait: true, app: editor.paths[0] })
-          .then(() => {
-            return res(this.filepath);
-          })
-          .catch(e => {
-            ExceptionService.cast(e, { base: ERR_CLI })
-              .print(LOGGER_CONFIG)
-              .exit();
-          });
-      }
+      // if (_open) {
+      //   LoggerService.log(LOGGER_CONFIG, `try to open config in default editor`);
+      //   const editor = defaultEditor();
+      //   LoggerService.log(LOGGER_CONFIG, `get default editor is ${editor.name}`);
+
+      //   return open(this.filepath, { wait: true, app: editor.paths[0] })
+      //     .then(() => {
+      //       return res(this.filepath);
+      //     })
+      //     .catch(e => {
+      //       ExceptionService.cast(e, { base: ERR_CLI })
+      //         .print(LOGGER_CONFIG)
+      //         .exit();
+      //     });
+      // }
+
       return res(this.filepath);
     });
   }

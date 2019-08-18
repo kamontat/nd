@@ -434,13 +434,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.15.tgz#e8f7729b631be1b02ae130ff0b61f3e018000640"
   integrity sha512-CBR5avlLcu0YCILJiDIXeU2pTw7UK/NIxfC63m7d7CVamho1qDEzXKkOtEauQRPMy6MI8mLozth+JJkas7HY6g==
 
-"@types/open@6.2.1":
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/@types/open/-/open-6.2.1.tgz#3797ccbe876cca4b0bc78bdfbc3a3008110fdb13"
-  integrity sha512-CzV16LToFaKwm1FfplVTF08E3pznw4fQNCQ87N+A1RU00zu/se7npvb6IC9db3/emnSThQ6R8qFKgrei2M4EYQ==
-  dependencies:
-    open "*"
-
 "@types/rewire@2.5.28":
   version "2.5.28"
   resolved "https://registry.yarnpkg.com/@types/rewire/-/rewire-2.5.28.tgz#ff34de38c4269fe74e2597195d4918c25d42ebad"
@@ -2055,11 +2048,6 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
-
-env-editor@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/env-editor/-/env-editor-0.4.0.tgz#8bde37506314f78edc31b0270a27b9f4f69eccdc"
-  integrity sha512-8P3dzpdc9KAGhllkWdVuIpMkd8gLGFKx73bo2tw5U+kxYWKwdvY8bNaojygFEMmbAy/C/QsugJz0shdbiLO4xQ==
 
 envify@^3.0.0:
   version "3.4.1"
@@ -4250,7 +4238,7 @@ nd-config@./modules/nd-config:
     nd-logger "./modules/nd-logger"
 
 nd-database@./modules/nd-database:
-  version "1.0.0-beta.3"
+  version "1.0.0-beta.5"
   dependencies:
     firebase "6.4.0"
     nd-error "./modules/nd-error"
@@ -4297,7 +4285,7 @@ nd-html-generator@./modules/nd-html-generator:
     nd-logger "./modules/nd-logger"
 
 nd-logger@./modules/nd-logger:
-  version "1.2.2"
+  version "1.2.3"
   dependencies:
     debug "4.1.1"
     nd-config "./modules/nd-config"
@@ -4323,7 +4311,7 @@ nd-resource@./modules/nd-resource:
     nd-security "./modules/nd-security"
 
 nd-security@./modules/nd-security:
-  version "1.6.0"
+  version "1.6.1"
   dependencies:
     bcryptjs "2.4.3"
     jsonwebtoken "8.5.1"
@@ -4671,13 +4659,6 @@ onetime@^2.0.0:
   integrity sha1-BnQoIw/WdEOyeUsiu6UotoZ5YtQ=
   dependencies:
     mimic-fn "^1.0.0"
-
-open@*, open@6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/open/-/open-6.4.0.tgz#5c13e96d0dc894686164f18965ecfe889ecfc8a9"
-  integrity sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==
-  dependencies:
-    is-wsl "^1.1.0"
 
 opener@^1.4.2:
   version "1.5.1"
