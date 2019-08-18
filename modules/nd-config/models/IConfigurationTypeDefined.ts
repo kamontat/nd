@@ -25,12 +25,13 @@ type OutputLevelValue = "0" | "1" | "2" | "3";
 type NovelLocationKey = "novel.location";
 type NovelLocationValue = string;
 
+type CommandVersionDetailLimitKey = "command.version.detail.limit";
+type CommandVersionDetailLimitValue = number;
+
 // type NovelExportKey = "novel.export";
 // type NovelExportValue = string;
 
-export type ConfigSchema = {
-  [key in ConfigKey]: ConfigValue;
-};
+export type ConfigSchema = { [key in ConfigKey]: ConfigValue };
 
 export type ConfigKey =
   | ModeKey
@@ -41,7 +42,8 @@ export type ConfigKey =
   | OutputColorKey
   | OutputFileKey
   | OutputLevelKey
-  | NovelLocationKey;
+  | NovelLocationKey
+  | CommandVersionDetailLimitKey;
 // | NovelExportKey;
 
 export type ConfigValue =
@@ -53,7 +55,8 @@ export type ConfigValue =
   | OutputColorValue
   | OutputFileValue
   | OutputLevelValue
-  | NovelLocationValue;
+  | NovelLocationValue
+  | CommandVersionDetailLimitValue;
 // | NovelExportValue;
 
 export interface IConfigurationTypeDefined {

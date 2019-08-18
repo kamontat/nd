@@ -141,6 +141,7 @@ export class Configuration extends Event implements IConfiguration {
       "output.file": true,
       "output.level": "1",
       "novel.location": ".",
+      "command.version.detail.limit": 5,
     };
 
     return this._object;
