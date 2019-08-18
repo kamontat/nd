@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.3",
   "description": "database interface for nd command and storage",
   "dependencies": {
+    "firebase": "6.4.0",
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
