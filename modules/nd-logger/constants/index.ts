@@ -34,7 +34,10 @@ export const LOGGER_HTML = LOGGER_ROOT.extend("html");
 export const LOGGER_HTML_GENERATOR = LOGGER_HTML.extend("generator");
 
 export const LOGGER_DATABASE = LOGGER_ROOT.extend("db");
+
 export const LOGGER_FIREBASE = LOGGER_DATABASE.extend("firebase");
+export const LOGGER_FIREBASE_NOSQL = LOGGER_FIREBASE.extend("firestore");
+export const LOGGER_FIREBASE_STORAGE = LOGGER_FIREBASE.extend("storage");
 
 export const LOGGER_FILE = LOGGER_ROOT.extend("file");
 
