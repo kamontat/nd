@@ -14,7 +14,7 @@ export default class Server {
     try {
       LoggerService.log(LOGGER_SECURITY, "connecting to database server...");
 
-      const db = DatabaseService.Get<Database>();
+      const db = DatabaseService.Get<Database>("database");
       const _value = await db.read(`${USER_PATH_ROOT}/${this.security.response.fbname}`);
 
       if (!_value.exists) {
