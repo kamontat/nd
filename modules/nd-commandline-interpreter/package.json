@@ -1,6 +1,6 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.2.1": {
+      "message": "fix sometime command execute mulitple times",
+      "date": "19 Aug 2019"
+    },
     "1.2.0": {
       "message": "update a lot of logger and fix some bug",
       "date": "18 Aug 2019"
