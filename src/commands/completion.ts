@@ -2,6 +2,7 @@ import { SubCommand } from "nd-commandline-interpreter";
 import { Command, Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
+// import omelette from "omelette";
 
 export default (cli: Commandline, _: IConfiguration) => {
   cli.command(
