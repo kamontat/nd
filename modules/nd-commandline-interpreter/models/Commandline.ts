@@ -189,6 +189,8 @@ export default class Commandline implements IOptionable {
 
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} ${s.name} has been executed; remove in cache`);
           c = undefined;
+          s = undefined;
+          continue; // skip
         } else {
           if (!this.isOption(arg))
             LoggerService.log(LOGGER_CLI_BUILDER, `  - ${arg} isn't a subcommand of ${c.name} !`);
@@ -210,6 +212,7 @@ export default class Commandline implements IOptionable {
 
           LoggerService.log(LOGGER_CLI_BUILDER, `${c.name} has been executed; remove in cache`);
           c = undefined;
+          continue; // skip
         }
       }
 
