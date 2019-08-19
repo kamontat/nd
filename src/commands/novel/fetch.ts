@@ -46,7 +46,7 @@ const __fetch_path = async (value: string, opts: { chapter: boolean; thread: num
   const format = FormatterFactory.Build().get<NovelSummary>("novel");
   const result = format
     .save(novel)
-    .config({ chapters: true, path: fileManager.system.directory, short: true, _format: true, history: false })
+    .config({ chapters: opts.chapter, path: fileManager.system.directory, short: true, _format: true, history: false })
     .build();
 
   LoggerService.console.log(result);
