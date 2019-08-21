@@ -1,4 +1,4 @@
-import Colorize from "./models/colorize";
+import Colorize from "./models/Colorize";
 import Package from "./package.json";
 import LoggerService from "./services";
 
