@@ -16,4 +16,4 @@ This is a technical knowledge of implement this command: [technical](docs/Techni
 
 ## Release notes
 
-[release-notes](releases)
+[release-notes](https://github.com/kamontat/nd/releases/latest)
