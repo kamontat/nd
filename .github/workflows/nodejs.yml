@@ -7,17 +7,17 @@ on:
 
 jobs:
   build:
-    name: Test on node ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: built node-${{ matrix.node-version }} [${{ matrix.os }}]
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -25,12 +25,15 @@ jobs:
       - name: use yarn to install all dependencies
         run: |
           yarn install
+
       - name: yarn compile typescript code
         run: |
           yarn compile
+
       - name: yarn compile typescript with production setting
         run: |
           yarn compile:prod
+
       - name: yarn build standalone execuable script files
         run: |
           yarn build
