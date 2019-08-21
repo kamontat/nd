@@ -16,21 +16,21 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: npm install
-      run: |
-        npm install
-    - name: npm compile
-      run: |
-        npm run compile
-    - name: npm compile in production
-      run: |
-        npm run compile:prod
-    - name: build production execuable files
-      run: |
-        npm build
+      - name: use yarn to install all dependencies
+        run: |
+          yarn install
+      - name: yarn compile typescript code
+        run: |
+          yarn compile
+      - name: yarn compile typescript with production setting
+        run: |
+          yarn compile:prod
+      - name: yarn build standalone execuable script files
+        run: |
+          yarn build
