@@ -2,56 +2,18 @@
 
 Work in process... stay tune :)
 
-- [Usecase part](#usecase-part)
-- [Business part](#business-part)
-- [Technical part](#technical-part)
-  - [Libraries creator](#libraries-creator)
+## Usecases
 
-## Usecase part
-
-... [WIP]
+This is how this program can be use to: [usecases](docs/Usecases.md)
 
 ## Business part
 
-... [WIP]
+This is why and the value of this command: [business](docs/Business.md)
 
 ## Technical part
 
-### Libraries creator
+This is a technical knowledge of implement this command: [technical](docs/Technical.md)
 
-1. Create folder called `nd-*`
-2. Add `package.json`
+## Release notes
 
-```json
-{
-  "name": "nd-*",
-  "version": "0.0.1-alpha.1",
-  "description": "description template",
-  "dependencies": {
-    "nd-logger": "./modules/nd-logger",
-    "nd-error": "./modules/nd-error"
-  },
-  "changelog": {
-    "0.0.1-alpha.1": {
-      "message": "changelog template",
-      "date": "xx Jul 2019"
-    }
-  }
-}
-```
-
-3. add `index.ts`
-
-```typescript
-import Package from "./package.json";
-
-export const XXX = () => {}
-
-export { Package }
-```
-
-4. run install via `yarn add ./modules/nd-*`
-5. add to Makefile (section **lib** and **loc**)
-6. add to version command and version detail [link](./src/constants/content.ts)
-   1. function `VERSION_FULL`
-   2. function `VERSION_FULL_DETAIL`
+[release-notes](releases)
