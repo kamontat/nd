@@ -1,6 +1,6 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
-import FileManager from "nd-file";
+import { DeprecateFileManager } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { PathUtils } from "nd-helper";
 import LoggerService, { LOGGER_NOVEL_FETCHER } from "nd-logger";
@@ -35,7 +35,7 @@ const __fetch_path = async (value: string, opts: { chapter: boolean; thread: num
   config.set("novel.location", value);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager.write(location || PathUtils.GetCurrentPath(), undefined, opts.thread);
+  const fileManager = new DeprecateFileManager.write(location || PathUtils.GetCurrentPath(), undefined, opts.thread);
 
   LoggerService.log(LOGGER_NOVEL_FETCHER, `get path as parameter; ${value}`);
   LoggerService.log(LOGGER_NOVEL_FETCHER, `Options: %O`, opts);

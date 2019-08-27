@@ -1,7 +1,7 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
 import ExceptionService, { ERR_NLV } from "nd-error";
-import FileManager from "nd-file";
+import { DeprecateFileManager } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { Optional, PathUtils } from "nd-helper";
 import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
@@ -94,7 +94,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const thread = apis.config.get<number>("novel.thread", 4);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager.write(location || PathUtils.GetCurrentPath(), undefined, thread);
+  const fileManager = new DeprecateFileManager.write(location || PathUtils.GetCurrentPath(), undefined, thread);
 
   fileManager.onError("folder-not-empty", ({ path, again }) => {
     if (replace) {

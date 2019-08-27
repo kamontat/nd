@@ -9,6 +9,7 @@ import { HELP_HEADER, HELP_NOVEL } from "../constants/content";
 import downloadCallback from "./novel/download";
 import fetchCallback from "./novel/fetch";
 import rawDownloadCallback from "./novel/raw";
+import updateCallback from "./novel/update";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const factory = FormatterFactory.Build();
@@ -54,6 +55,10 @@ export default (cli: Commandline, config: IConfiguration) => {
     return opt.option(Option.build("fast", false, ({ apis }) => apis.config.set("fetch.fast", true)));
   };
 
+  const updateOption = <T extends IOptionable>(opt: T) => {
+    return opt.option(Option.build("recusive", false, ({ apis }) => apis.config.set("novel.update.recusive", true)));
+  };
+
   /**
    * Command setup
    */
@@ -71,11 +76,14 @@ ${HELP_NOVEL(self.name)}`);
           }),
         )
         .sub(downloadOption(SubCommand.build("download", true, downloadCallback)))
+        .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback)))
         .sub(fetchOption(SubCommand.build("fetch", true, fetchCallback)))
-        .sub(rawDownloadOption(SubCommand.build("raw", true, rawDownloadCallback))),
+        .sub(updateOption(SubCommand.build("update", true, updateCallback))),
     ),
   );
 
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
+
   cli.command(fetchOption(Command.build("fetch", true, fetchCallback)));
+  cli.command(updateOption(Command.build("update", true, updateCallback)));
 };

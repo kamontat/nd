@@ -1,6 +1,6 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
-import FileManager from "nd-file";
+import { DeprecateFileManager } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { ArrayUtils, Optional, PathUtils } from "nd-helper";
 import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
@@ -94,7 +94,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const change = apis.config.get<boolean>("novel.change", false);
 
   const location = config.get("novel.location");
-  const fileManager = new FileManager.write(location || PathUtils.GetCurrentPath());
+  const fileManager = new DeprecateFileManager.write(location || PathUtils.GetCurrentPath());
 
   LoggerService.log(LOGGER_CLI, `Start download as a raw chapter nid=${id} [${chapters}]`);
 
