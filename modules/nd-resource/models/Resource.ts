@@ -1,4 +1,4 @@
-import FileManager, { File } from "nd-file";
+import { DeprecateFile, DeprecateFileManager } from "nd-file";
 import LoggerService, { LOGGER_NOVEL_RESOURCE } from "nd-logger";
 import { Novel } from "nd-novel";
 import { Encryption } from "nd-security";
@@ -18,7 +18,7 @@ export default class Resource {
     constructor(directory: string, fileName: string = RESOURCE_FILENAME) {
       super(fileName);
 
-      const file = new File(directory);
+      const file = new DeprecateFile(directory);
       const obj = file.readSync({ filename: fileName, alias: "resource" });
 
       this.json = obj.resource;
@@ -46,11 +46,11 @@ export default class Resource {
     return Encryption.encrypt(this._json);
   }
 
-  public read<T extends FileManager>(fileManager: T) {
+  public read<T extends DeprecateFileManager>(fileManager: T) {
     fileManager.add({ filename: this.fileName, alias: "resource" });
   }
 
-  public write<T extends FileManager>(fileManager: T) {
+  public write<T extends DeprecateFileManager>(fileManager: T) {
     fileManager.add({ filename: this.fileName, content: this.encode(), opts: { force: false } });
   }
 }
