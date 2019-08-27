@@ -1,4 +1,4 @@
-export type ErrorType = "folder-not-empty" | "file-exist" | "folder-not-found";
+export type ErrorType = "folder-not-empty" | "folder-empty" | "file-exist" | "file-not-exist" | "folder-not-found";
 
 export interface IErrorCallbackParam {
   path: string;

@@ -2,7 +2,7 @@ import fs from "fs";
 import ExceptionService, { ERR_FLE } from "nd-error";
 import LoggerService, { LOGGER_FILE } from "nd-logger";
 import path from "path";
-import util from "util";
+import util, { promisify } from "util";
 
 import { ErrorCallback, ErrorManager, ErrorType } from "../manager/ErrorManager";
 
@@ -28,6 +28,10 @@ export interface IReadFileOption {
   filename: string;
 }
 
+export interface FileOption {
+  recursive: boolean;
+}
+
 export default class File {
   public get directory() {
     return this._directory;
@@ -40,13 +44,26 @@ export default class File {
     if (name) this._directory = this.buildPath(name); // append name to directory
   }
 
-  /**
-   * This method is for load current directory to file system.
-   * You must call this method before perform any action on this object.
-   *
-   * Except: If you already called name() is work as the same thing
-   */
-  public load() {
+  public async load() {
+    const exist = promisify(fs.exists);
+    const mkdir = promisify(fs.mkdir);
+    const readdir = promisify(fs.readdir);
+
+    const isExist = await exist(this.directory);
+    if (!isExist) {
+      LoggerService.log(LOGGER_FILE, `base directory is not exist (${this.directory})`);
+      await mkdir(this.directory, { recursive: true });
+    } else {
+      const lists = await readdir(this.directory);
+      if (lists.length > 0) {
+        this._error.execute("folder-not-empty", { path: this.directory, again: () => this.load() });
+        throw ExceptionService.build(ERR_FLE, `Folder(${this.directory}) is not empty`);
+      } else {
+        this._error.execute("folder-empty", { path: this.directory, again: () => this.load() });
+        throw ExceptionService.build(ERR_FLE, `Folder(${this.directory}) is empty`);
+      }
+    }
+
     if (!fs.existsSync(this.directory)) {
       LoggerService.log(LOGGER_FILE, `base directory is not exist (${this.directory})`);
       fs.mkdirSync(this.directory, { recursive: true });
@@ -62,21 +79,9 @@ export default class File {
    */
   public name(name?: string) {
     if (!name) return;
-
     this._directory = this.buildPath(name); // append name to directory
-    if (!fs.existsSync(this.directory)) {
-      LoggerService.log(LOGGER_FILE, `extend directory is not exist (${this.directory})`);
-      fs.mkdirSync(this.directory, { recursive: true });
-    } else {
-      const lists = fs.readdirSync(this.directory);
-      if (lists.length > 0)
-        this._error.execute("folder-not-empty", {
-          path: this.directory,
-          again: () => {
-            this.load();
-          },
-        });
-    }
+
+    return this.load();
   }
 
   public onError(type: ErrorType, callback: ErrorCallback) {
