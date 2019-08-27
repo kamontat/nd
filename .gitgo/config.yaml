@@ -1,0 +1,16 @@
+version: 3
+log: true
+commit:
+  message: true
+  scope:
+    size: 20
+  message:
+    size: 80
+branch:
+  iteration:
+    require: true
+  description:
+    require: true
+  issue:
+    require: false
+    hashtag: false
