@@ -2,7 +2,7 @@ import { IncomingMessage } from "http";
 import ndDecoder from "nd-decoder";
 import ExceptionService, { ERR_DWL } from "nd-error";
 import LoggerService, { LOGGER_DOWNLOADER_DECODER, LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
-import { ThreadManager } from "nd-thread";
+import { DeprecatedThreadManager } from "nd-thread";
 
 import { HttpGet } from "../apis/HttpGet";
 
@@ -15,7 +15,7 @@ interface IDownloadManagerVariable {
   initTime: number;
 }
 
-export default class Manager<T> extends ThreadManager<IDownloadManagerVariable, string, IResponse<T | string>> {
+export default class Manager<T> extends DeprecatedThreadManager<IDownloadManagerVariable, string, IResponse<T | string>> {
   public get event() {
     return this._event;
   }
