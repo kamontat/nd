@@ -1,6 +1,6 @@
 {
   "name": "nd-resource",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "manage novel resource file",
   "dependencies": {
     "nd-security": "./modules/nd-security",
@@ -10,6 +10,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.0-beta.4": {
+      "message": "nd-file models name change",
+      "date": "27 Aug 2019"
+    },
     "1.0.0-beta.3": {
       "message": "rewrite more object in Resource file and remove builder",
       "date": "13 Aug 2019"
