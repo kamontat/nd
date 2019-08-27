@@ -1,53 +1,95 @@
-import { mapLimit } from "async";
+import { Dictionary, eachOfLimit, mapValuesLimit } from "async";
 import LoggerService, { LOGGER_THREAD } from "nd-logger";
 
 import { THREAD_NUMBER } from "../constants";
 
-import { IThreadable } from "./IThreadable";
+import { EachFn, IThreadable, MapFn } from "./IThreadable";
 
-export default abstract class ThreadManager<V, T, R = T> implements IThreadable<T, R> {
-  protected _list: Array<T>;
-  protected _results: Array<R>;
+type KeyType = string | number;
 
-  protected _thread: number;
-  protected _variable?: V;
-
-  private isVariableSet: boolean;
-
-  public get size() {
-    return this._list.length;
+export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> implements IThreadable<K, V, OO> {
+  protected get optionOnceExist() {
+    return this._optionOnce !== undefined;
   }
+
+  protected get optionsExist() {
+    return this._options !== undefined;
+  }
+
+  protected _list: Map<K, V>;
+
+  protected _optionOnce?: OO;
+  protected _options?: O;
+  protected _thread: number;
 
   constructor(thread: number = THREAD_NUMBER) {
     if (thread) this._thread = thread;
     else this._thread = THREAD_NUMBER;
 
-    this._list = new Array();
-    this._results = new Array();
-
-    this._variable = undefined;
-    this.isVariableSet = false;
+    this._list = new Map();
   }
 
-  public add(t: T) {
-    LoggerService.log(LOGGER_THREAD, `add value %O`, t);
-    this._list.push(t);
+  public add(key: K, value: V) {
+    this._list.set(key, value);
     return this;
   }
 
-  public run() {
-    return (mapLimit(this._list, this._thread, (i: T, callback) => {
-      LoggerService.log(LOGGER_THREAD, `start transform object %O with options=%O`, i, this._variable);
-      this.transform(i, this._variable)
-        .then(r => callback(undefined, r))
-        .catch(err => callback(err));
-    }) as unknown) as Promise<R[]>;
+  public abstract run(): Promise<any>;
+
+  public setOptionOnce(o: OO) {
+    if (!this.optionOnceExist) {
+      this._optionOnce = o;
+      return undefined;
+    }
+    return this._optionOnce;
   }
 
-  protected initVariable(variable: V) {
-    if (this.isVariableSet) return;
-    this._variable = variable;
+  /**
+   * execute fn in any order with async task
+   * @param fn function to be executed
+   */
+  protected _each(fn: EachFn<K, V, O, OO>) {
+    return (eachOfLimit((this._list as unknown) as Dictionary<V>, this._thread, (v, k, callback) => {
+      LoggerService.log(
+        LOGGER_THREAD,
+        `start map object %O with options=%O and optionOnce=%O`,
+        { key: k, value: v },
+        this._options,
+        this._optionOnce,
+      );
+
+      this.setOption(
+        fn({ key: (k as unknown) as K, value: v }, callback, { option: this._options, optionOnce: this._optionOnce }),
+      );
+    }) as unknown) as Promise<void>;
   }
 
-  protected abstract transform(item: T, variable?: V): Promise<R>;
+  /**
+   * async mapping input array to output array
+   */
+  protected _map(fn: MapFn<K, V, R, O, OO>) {
+    return (mapValuesLimit(
+      (this._list as unknown) as Dictionary<V>, // input map object
+      this._thread, // input limit number
+      (v, k, callback) => {
+        LoggerService.log(
+          LOGGER_THREAD,
+          `start map object %O with options=%O and optionOnce=%O`,
+          { key: k, value: v },
+          this._options,
+          this._optionOnce,
+        );
+
+        fn({ key: (k as unknown) as K, value: v }, callback, { option: this._options, optionOnce: this._optionOnce });
+      },
+      undefined as any,
+    ) as unknown) as Promise<R[]>;
+  }
+
+  protected setOption(o: O) {
+    const caches = this._options;
+    this._options = o;
+
+    return caches;
+  }
 }
