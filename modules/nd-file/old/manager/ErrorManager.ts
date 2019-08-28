@@ -1,3 +1,5 @@
+import LoggerService, { LOGGER_FILE } from "nd-logger";
+
 export type ErrorType = "folder-not-empty" | "folder-empty" | "file-exist" | "file-not-exist" | "folder-not-found";
 
 export interface IErrorCallbackParam {
@@ -12,6 +14,11 @@ export class ErrorManager {
   private _errors: Map<ErrorType, ErrorCallback>;
 
   constructor() {
+    LoggerService.warn(
+      LOGGER_FILE,
+      "ErrorManager is depend on deprecated version of nd-file; will be remove when public version is released",
+    );
+
     this._errors = new Map();
   }
 

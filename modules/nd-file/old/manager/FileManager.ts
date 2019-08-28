@@ -1,3 +1,4 @@
+import LoggerService, { LOGGER_FILE } from "nd-logger";
 import { DeprecatedThreadManager } from "nd-thread";
 
 import File, { IReadFileOption, IWriteFileOption } from "../models/File";
@@ -40,6 +41,7 @@ export default abstract class FileManager<
 
   constructor(private _type: "write" | "read", directory: string, name?: string, thread?: number) {
     super(thread);
+    LoggerService.warn(LOGGER_FILE, "FileManager is deprecated; please use new version of FileSystem instead");
 
     this.file = new File(directory, name);
   }

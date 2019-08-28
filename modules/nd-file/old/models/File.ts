@@ -40,6 +40,11 @@ export default class File {
   private _error: ErrorManager;
 
   constructor(private _directory: string, name?: string) {
+    LoggerService.warn(
+      LOGGER_FILE,
+      "File have rename to FileManager; It's class will be remove when public version is released",
+    );
+
     this._error = new ErrorManager();
     if (name) this._directory = this.buildPath(name); // append name to directory
   }
