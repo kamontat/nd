@@ -21,7 +21,10 @@ export default abstract class ThreadManager<V, T, R = T> {
   }
 
   constructor(thread: number = THREAD_NUMBER) {
-    LoggerService.warn(LOGGER_THREAD, "This class is deprecated; will be remove when public version is released");
+    LoggerService.warn(
+      LOGGER_THREAD,
+      "This ThreadManager will be removed after public version is released; consider to use v2 ThreadManager instead",
+    );
 
     if (thread) this._thread = thread;
     else this._thread = THREAD_NUMBER;
