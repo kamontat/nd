@@ -1,6 +1,6 @@
 {
   "name": "nd-thread",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "thread management for nd command",
   "dependencies": {
     "async": "3.1.0",
@@ -8,6 +8,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "2.0.0-alpha.2": {
+      "message": "implement warning message more specify",
+      "date": "28 Aug 2019"
+    },
     "2.0.0-alpha.1": {
       "message": "improve more abstract thread manager class be",
       "date": "27 Aug 2019"
