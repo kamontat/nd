@@ -72,6 +72,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
             // caches file first
             await this.rename(getBasename(this.directory), options.tmp, { recursive: true, once: true });
             await mkdir(this.directory, { recursive: true });
+            return FileLoadResult.Ext; // exist
           }
           return FileLoadResult.NotEmp;
         } else return FileLoadResult.Emp;

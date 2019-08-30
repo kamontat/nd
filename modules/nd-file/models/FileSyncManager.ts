@@ -59,6 +59,7 @@ export default class FileSyncManager extends FileManager implements IFileSyncMan
             // caches file first
             this.rename(path.basename(this.directory), options.tmp, { recursive: true, once: true });
             fs.mkdirSync(this.directory, { recursive: true });
+            return FileLoadResult.Ext; // exist
           }
           return FileLoadResult.NotEmp;
         } else return FileLoadResult.Emp;
