@@ -1,13 +1,16 @@
 {
   "name": "nd-decoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "File decoder for html in nd command",
   "dependencies": {
     "iconv-lite": "0.5.0",
-    "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.1": {
+      "message": "make it more lightweight :)",
+      "date": "30 Aug 2019"
+    },
     "1.0.0": {
       "message": "support every encode format in iconv-lite",
       "date": "15 Jul 2019"
