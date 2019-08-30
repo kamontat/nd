@@ -1,32 +1,24 @@
-import { isAbsolute as absolute, resolve } from "path";
+import { IException } from "nd-error";
+import { ThreadManager } from "nd-thread";
 
+import { FileAction, FileType } from "../models/enum";
 import FileASyncManager from "../models/FileAsyncManager";
 import { FileInput, ILoadOptions } from "../models/interface/defined";
 import { IFileASyncManager } from "../models/interface/IFileAsyncManager";
 
-type Path = string;
-type Content = string | undefined;
+import { SystemAdder } from "./interface";
+import SystemResponse from "./SystemResponse";
 
-interface ISystemAdder {
-  alias: string;
-  content: Content;
-  name: string;
-}
+export default class extends ThreadManager<string, SystemAdder, undefined, SystemResponse, undefined> {
 
-export default class {
-  private list: Map<Path, ISystemAdder>; // Map<Path, Content>
+  public get directory() {
+    return this.manager.directory;
+  }
   private manager: IFileASyncManager;
 
-  constructor(private root: string) {
-    this.manager = new FileASyncManager(root);
-    this.list = new Map();
-  }
-
-  public add(p: ISystemAdder): this {
-    if (absolute(p.name)) this.list.set(p.alias, p);
-    else this.list.set(p.alias, Object.assign(p, { name: resolve(this.root, p.name) }));
-
-    return this;
+  constructor(directory: string, thread?: number) {
+    super(thread);
+    this.manager = new FileASyncManager(directory);
   }
 
   public append(input: FileInput, opts?: ILoadOptions) {
@@ -34,7 +26,29 @@ export default class {
   }
 
   public async run() {
-    if (!this.manager.loaded) await this.manager.load({ create: true });
-    return this.manager;
+    if (!this.manager.loaded) await this.manager.load({ create: true, tmp: undefined });
+
+    return this._each(async elem => {
+      if (elem.value.action === FileAction.READ) {
+        this.manager
+          .read({ name: elem.value.name, type: FileType.FILE })
+          .then(content =>
+            this.promify(this.setOption(SystemResponse.singleton().__set(elem.key, elem.value, content))),
+          );
+      } else if (elem.value.action === FileAction.WRITE) {
+        this.manager
+          .write(elem.value.content, elem.value.name, elem.value.opts)
+          .then(content =>
+            this.promify(this.setOption(SystemResponse.singleton().__set(elem.key, elem.value, content))),
+          );
+      }
+    }).then(() => this.option(SystemResponse.singleton()));
+  }
+
+  private promify<T>(v: T, err?: IException) {
+    return new Promise<T>((res, rej) => {
+      if (err) rej(err);
+      else res(v);
+    });
   }
 }
