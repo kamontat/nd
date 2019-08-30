@@ -1,12 +1,16 @@
 {
   "name": "nd-file",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "2.0.0-alpha.3": {
+      "message": "implement new FileSystem to multiple thread task",
+      "date": "30 Aug 2019"
+    },
     "2.0.0-alpha.2": {
       "message": "add deprecate message as warning in stdout",
       "date": "28 Aug 2019"
