@@ -1,6 +1,6 @@
 {
   "name": "nd-thread",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "thread management for nd command",
   "dependencies": {
     "async": "3.1.0",
@@ -8,6 +8,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "2.0.0-alpha.5": {
+      "message": "fix compile error",
+      "date": "30 Aug 2019"
+    },
     "2.0.0-alpha.4": {
       "message": "fix each function should return optional option",
       "date": "30 Aug 2019"
