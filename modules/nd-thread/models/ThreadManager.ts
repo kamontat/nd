@@ -8,6 +8,10 @@ import { EachFn, IThreadable, MapFn } from "./IThreadable";
 type KeyType = string | number;
 
 export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> implements IThreadable<K, V, OO> {
+  public get size() {
+    return this._list.size;
+  }
+
   protected get optionOnceExist() {
     return this._optionOnce !== undefined;
   }
@@ -17,10 +21,10 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
   }
 
   protected _list: Map<K, V>;
-
-  protected _optionOnce?: OO;
-  protected _options?: O;
   protected _thread: number;
+
+  private _optionOnce?: OO;
+  private _options?: O;
 
   constructor(thread: number = THREAD_NUMBER) {
     if (thread) this._thread = thread;
@@ -32,6 +36,14 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
   public add(key: K, value: V) {
     this._list.set(key, value);
     return this;
+  }
+
+  public option(d: O) {
+    return this._options || d;
+  }
+
+  public optionOnce(d: OO) {
+    return this._optionOnce || d;
   }
 
   public abstract run(): Promise<any>;
@@ -58,9 +70,12 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
         this._optionOnce,
       );
 
-      this.setOption(
-        fn({ key: (k as unknown) as K, value: v }, callback, { option: this._options, optionOnce: this._optionOnce }),
-      );
+      return fn({ key: (k as unknown) as K, value: v }, { option: this._options, optionOnce: this._optionOnce })
+        .then(o => {
+          this.setOption(o);
+          callback(undefined);
+        })
+        .catch(err => callback(err));
     }) as unknown) as Promise<void>;
   }
 
@@ -80,7 +95,9 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
           this._optionOnce,
         );
 
-        fn({ key: (k as unknown) as K, value: v }, callback, { option: this._options, optionOnce: this._optionOnce });
+        fn({ key: (k as unknown) as K, value: v }, { option: this._options, optionOnce: this._optionOnce })
+          .then(v => callback(undefined, v))
+          .catch(err => callback(err, undefined));
       },
       undefined as any,
     ) as unknown) as Promise<R[]>;
