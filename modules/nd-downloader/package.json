@@ -1,6 +1,6 @@
 {
   "name": "nd-downloader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
     "nd-thread": "./modules/nd-thread",
@@ -8,6 +8,10 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.2": {
+      "message": "remove all deprecated code from thread v2",
+      "date": "30 Aug 2019"
+    },
     "1.0.1": {
       "message": "update thread to version 2",
       "date": "27 Aug 2019"
