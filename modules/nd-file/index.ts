@@ -1,8 +1,5 @@
 import FileAsyncManager from "./models/FileAsyncManager";
 import FileSyncManager from "./models/FileSyncManager";
-import { ErrorManager as DeprecateErrorManager } from "./old/manager/ErrorManager";
-import DeprecateFileManager from "./old/manager/FileManager";
-import DeprecateFile from "./old/models/File";
 import Package from "./package.json";
 import FileSystem from "./services/FileSystem";
 
@@ -84,12 +81,18 @@ import FileSystem from "./services/FileSystem";
 // --------------------
 
 // const system = new FileSystem("/tmp/directory");
-// system.append({type: FileType.DIR, name: "Hello world"}, {create: true});
+// system.append({ type: FileType.DIR, name: "Hello world" }, { create: true });
 
-// system.add({name:"chapter-1.html", alias:"chapter1"}, "hello from chapter 1")
-// system.add({name:"chapter-2.html", alias:"chapter2"}, "hello from chapter 2")
-// system.add({name:"chapter-3.html", alias:"chapter3"}, "hello from chapter 3")
-// system.add({name:"chapter-4.html", alias:"chapter4"}, "hello from chapter 4")
+// system.add("chapter1", { action: FileAction.WRITE, name: "chapter-1.html", content: "hello from chapter 1" });
+// system.add("chapter2", { action: FileAction.READ, name: "chapter-2.html" });
+
+// system.run().then(v => {
+//   console.log(v.get("chapter2").action); // read
+//   console.log(v.get("chapter2").result); // content(string)
+
+//   console.log(v.get("chapter1").action); // write
+//   console.log(v.get("chapter1").result); // completed(boolean)
+// });
 
 // file system
 export default FileSystem;
@@ -98,11 +101,9 @@ export default FileSystem;
 export { Package, FileSyncManager, FileAsyncManager };
 
 // Type constants
-export { FileLoadResult, FileType } from "./models/enum";
+export { FileLoadResult, FileType, FileAction } from "./models/enum";
 
 // manager interface
+export { IFileManager } from "./models/interface/IFileManager";
 export { IFileSyncManager } from "./models/interface/IFileSyncManager";
 export { IFileASyncManager } from "./models/interface/IFileAsyncManager";
-
-// deprecated models
-export { DeprecateFileManager, DeprecateFile, DeprecateErrorManager };
