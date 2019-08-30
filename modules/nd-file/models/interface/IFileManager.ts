@@ -17,6 +17,8 @@ export interface IFileManager {
 
   find(input: IFindFileInput, opts?: FindOptions): string[] | Promise<string[]>;
 
+  join(name: string): string;
+
   /**
    * load and check file from file system to memory
    *

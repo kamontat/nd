@@ -15,12 +15,11 @@ import {
 } from "./interface/defined";
 
 export abstract class FileManager {
-  public get loaded() {
-    return this._loaded;
-  }
-
   public get directory() {
     return this._directory;
+  }
+  public get loaded() {
+    return this._loaded;
   }
 
   public get type() {
@@ -42,6 +41,10 @@ export abstract class FileManager {
   }
 
   public abstract find(input: IFindFileInput, opts?: FindOptions): string[] | Promise<string[]>;
+
+  public join(name: string) {
+    return this.buildPath(name);
+  }
 
   public abstract load(opts?: ILoadOptions): any;
 
