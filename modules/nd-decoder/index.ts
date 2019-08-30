@@ -1,6 +1,5 @@
 import { decode } from "iconv-lite";
 import ExceptionService, { ERR_DCR } from "nd-error";
-import LoggerService, { LOGGER_DOWNLOADER_DECODER } from "nd-logger";
 
 import Package from "./package.json";
 
