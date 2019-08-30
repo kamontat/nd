@@ -1,5 +1,4 @@
 import Manager from "./models/ThreadManager";
-import OLD from "./models/ThreadManagerOld";
 import Package from "./package.json";
 
 // Usage A
@@ -20,7 +19,7 @@ import Package from "./package.json";
 // });
 
 // This will be remove when public was released
-export { OLD as DeprecatedThreadManager };
+
 export { Manager as ThreadManager };
 
 export { IThreadable } from "./models/IThreadable";
