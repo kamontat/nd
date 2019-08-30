@@ -1,7 +1,7 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
 import ExceptionService, { ERR_NLV } from "nd-error";
-import { DeprecateFileManager } from "nd-file";
+import FileSystem, { FileAction, FileLoadResult, FileType } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { Optional, PathUtils } from "nd-helper";
 import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
@@ -10,6 +10,7 @@ import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE } from "nd-logger";
 import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
 import { Resource } from "nd-resource";
 import { Security } from "nd-security";
+import { join } from "path";
 
 import { Package } from "../../build/Package";
 
@@ -94,28 +95,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const thread = apis.config.get<number>("novel.thread", 4);
 
   const location = config.get("novel.location");
-  const fileManager = new DeprecateFileManager.write(location || PathUtils.GetCurrentPath(), undefined, thread);
-
-  fileManager.onError("folder-not-empty", ({ path, again }) => {
-    if (replace) {
-      const newPath = PathUtils.Cachedir(path);
-      fileManager.system.renameSync(path, newPath);
-
-      LoggerService.console.log(
-        `${Colorize.path(path)} had been rename to ${Colorize.path(newPath)} as a caching directory`,
-      );
-      return again && again();
-    }
-
-    ExceptionService.build(
-      ERR_NLV,
-      `Novel folder already exist!! you might want to ${Colorize.appname(Package.name)} ${Colorize.command(
-        "update",
-      )} "${Colorize.param(path || "")}" or replace by add ${Colorize.option("--replace")}`,
-    )
-      .print(LOGGER_FILE)
-      .exit();
-  });
+  const system = new FileSystem(location || PathUtils.GetCurrentPath(), thread);
 
   LoggerService.log(
     LOGGER_CLI,
@@ -123,49 +103,66 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   );
 
   const builder = new NovelBuilder(parseInt(value || "", 10));
-  return builder
-    .build(thread)
-    .then(novel => {
-      fileManager.name(novel.normalizeName);
+  const novel = await builder.build(thread);
 
-      const factory = FormatterFactory.Build();
-      const result = factory
-        .get<NovelSummary>("novel")
-        .save(novel)
-        .config({
-          short: true,
-          history: change,
-          chapters,
-          _format: true,
-          path: fileManager.system.directory,
-        })
-        .build();
+  const novelPath = join(system.directory, novel.normalizeName);
+  const loading = await system.append(
+    { name: novel.normalizeName, type: FileType.DIR },
+    { create: true, tmp: PathUtils.Cachename(novel.normalizeName, "d") },
+  );
 
-      LoggerService.console.log(result);
+  if (loading === FileLoadResult.NotEmp) {
+    ExceptionService.build(
+      ERR_NLV,
+      `Novel folder already exist!! you might want to ${Colorize.appname(Package.name)} ${Colorize.command(
+        "update",
+      )} "${Colorize.param(novelPath)}" or replace by add ${Colorize.option("--replace")}`,
+    )
+      .print(LOGGER_FILE)
+      .exit();
+  }
 
-      return new Promise<{ html: string; novel: Novel }>(res => {
-        const html = generateHtmlGeneratorConfig("default", "novel", secure, novel);
-        res({ novel, html });
-      });
+  LoggerService.log(LOGGER_CLI, `Loading novel directory to file system result is ${loading}`);
+
+  const factory = FormatterFactory.Build();
+  const result = factory
+    .get<NovelSummary>("novel")
+    .save(novel)
+    .config({
+      short: true,
+      history: change,
+      chapters,
+      _format: true,
+      path: system.directory,
     })
-    .then(({ html, novel }) => {
-      fileManager.add({ filename: "index.html", content: html, opts: { force: false } });
-      return new Promise<Novel>(res => res(novel));
-    })
-    .then(novel => {
-      const resource = new Resource.Novel(novel);
-      resource.write(fileManager);
+    .build();
+  LoggerService.console.log(result);
 
-      // chapter file
-      Array.from(novel.chapters).forEach(c => {
-        if (c.status === ChapterStatus.COMPLETED) {
-          const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
-          fileManager.add({ content: html, filename: `chapter-${c.cid}.html`, opts: { force: false } });
-        }
+  // generate html
+  const content = generateHtmlGeneratorConfig("default", "novel", secure, novel);
+
+  system.add("index", { action: FileAction.WRITE, name: "index.html", content, opts: { force: false } });
+
+  // generate resource file
+  const resource = new Resource.Novel(novel);
+  resource.write(system);
+
+  // generate chapter
+  Array.from(novel.chapters).forEach(c => {
+    if (c.status === ChapterStatus.COMPLETED) {
+      const html = generateHtmlGeneratorConfig("default", "chapter", secure, novel, c);
+      system.add(`chapter${c.cid}`, {
+        action: FileAction.WRITE,
+        name: `chapter-${c.cid}.html`,
+        content: html,
+        opts: { force: false },
       });
+    }
+  });
 
-      return fileManager.run();
-    }) as Promise<undefined>;
+  await system.run();
+
+  return undefined;
 };
 
 export default __main;
