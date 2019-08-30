@@ -2,34 +2,46 @@ import { IncomingMessage } from "http";
 import ndDecoder from "nd-decoder";
 import ExceptionService, { ERR_DWL } from "nd-error";
 import LoggerService, { LOGGER_DOWNLOADER_DECODER, LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
-import { DeprecatedThreadManager } from "nd-thread";
+import { ThreadManager } from "nd-thread";
 
 import { HttpGet } from "../apis/HttpGet";
 
 import { IResponse, Response } from "./IResponse";
 import { IManagerEvent, ManagerEvent } from "./ManagerEvent";
 
-interface IDownloadManagerVariable {
+interface IDownloadOption {
   completed: number;
   count: number;
+}
+
+interface IDownloadOnetimeOption {
   initTime: number;
 }
 
-export default class Manager<T> extends DeprecatedThreadManager<IDownloadManagerVariable, string, IResponse<T | string>> {
+export default class Manager<T> extends ThreadManager<
+  string,
+  string,
+  IResponse<T | string>,
+  IDownloadOption,
+  IDownloadOnetimeOption
+> {
   public get event() {
     return this._event;
   }
-
   private _builder?: (r: IResponse<string>) => IResponse<T>;
+
+  private counter: number;
 
   constructor(thread?: number, private _event: IManagerEvent<string> = new ManagerEvent()) {
     super(thread);
+
+    this.counter = 0;
   }
 
   public add(link: string) {
     const res = new Response(link);
     this.event.emit("add", res);
-    return super.add(link);
+    return super.add((this.counter++).toString(), link);
   }
 
   public build(buildingFn: (r: IResponse<string>) => IResponse<T>) {
@@ -37,35 +49,12 @@ export default class Manager<T> extends DeprecatedThreadManager<IDownloadManager
   }
 
   public run() {
-    this.initVariable({ count: 0, completed: 0, initTime: +new Date() });
-    return super.run();
+    this.setOptionOnce(this.returnOnetimeOption());
+    this.setOption(this.returnOption());
+    return super._map(elem => this.transform(elem.value));
   }
 
-  protected transform(link: string, variable: IDownloadManagerVariable) {
-    return this._download(link, this._variable || { count: 0, initTime: +new Date() }).then(value => {
-      variable.completed++;
-
-      let response: IResponse<T | string> = value.iresponse;
-
-      response.headers = value.res.headers; // set header
-      response.code = value.res.statusCode || -1; // set status code
-      response.result = value.data; // set body
-
-      this.event.emit("downloaded", response as IResponse<string>, variable.completed, this.size);
-
-      if (this._builder) {
-        LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
-
-        response = this._builder(response as IResponse<string>);
-        // This log is too long
-        // LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, response.result);
-      }
-
-      return new Promise<IResponse<T | string>>(res => res(response));
-    });
-  }
-
-  private _download(link: string, opts: { count: number; initTime: number }) {
+  private _download(link: string) {
     return new Promise<{ data: string; iresponse: IResponse<string>; res: IncomingMessage }>((res, rej) => {
       let start = +new Date(); // start
 
@@ -89,10 +78,16 @@ export default class Manager<T> extends DeprecatedThreadManager<IDownloadManager
           const chunkSize = Buffer.byteLength(str);
 
           // LoggerService.log(LOGGER_DOWNLOADER, `${opts.count} + ${chunkSize}`);
-          this.event.emit("downloading", opts.count, chunkSize, +new Date() - start, +new Date() - opts.initTime);
+          this.event.emit(
+            "downloading",
+            this.option(this.returnOption()).count,
+            chunkSize,
+            +new Date() - start,
+            +new Date() - this.optionOnce({ initTime: +new Date() }).initTime,
+          );
           start = +new Date(); // update start
 
-          opts.count += chunkSize;
+          this.option(this.increase("count", chunkSize));
 
           rawData += str;
         });
@@ -108,6 +103,50 @@ export default class Manager<T> extends DeprecatedThreadManager<IDownloadManager
         }
         return rej(e);
       });
+    });
+  }
+
+  private increase(t: "count" | "completed", num: number) {
+    const old = this.option({ count: 0, completed: 0 });
+    if (t === "count") old.count += num;
+    else if (t === "completed") old.completed += num;
+    return old;
+  }
+
+  private returnOnetimeOption() {
+    return { initTime: +new Date() };
+  }
+
+  private returnOption() {
+    return { count: 0, completed: 0 };
+  }
+
+  private transform(link: string) {
+    return this._download(link).then(value => {
+      this.setOption(this.increase("completed", 1));
+
+      let response: IResponse<T | string> = value.iresponse;
+
+      response.headers = value.res.headers; // set header
+      response.code = value.res.statusCode || -1; // set status code
+      response.result = value.data; // set body
+
+      this.event.emit(
+        "downloaded",
+        response as IResponse<string>,
+        this.option(this.returnOption()).completed,
+        this.size,
+      );
+
+      if (this._builder) {
+        LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start build own result`);
+
+        response = this._builder(response as IResponse<string>);
+        // This log is too long
+        // LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `build result: %O`, response.result);
+      }
+
+      return new Promise<IResponse<T | string>>(res => res(response));
     });
   }
 }
