@@ -72,7 +72,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
 
       return fn({ key: (k as unknown) as K, value: v }, { option: this._options, optionOnce: this._optionOnce })
         .then(o => {
-          this.setOption(o);
+          if (o) this.setOption(o);
           callback(undefined);
         })
         .catch(err => callback(err));
