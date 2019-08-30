@@ -55,26 +55,45 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
     const readdir = promisify(_readdir);
     const mkdir = promisify(_mkdir);
 
-    const options = this.options(opts, { create: true });
+    const options = this.options(opts, { create: true, tmp: undefined });
     const isExist = await exist(this.directory);
     LoggerService.log(LOGGER_FILE, `directory is ${isExist ? "already" : "not"} exist`);
 
     if (isExist) {
-      const lists = await readdir(this.directory);
-      if (lists.length > 0) return FileLoadResult.NotEmp;
-      else return FileLoadResult.Emp;
+      if (this.type === FileType.FILE) {
+        const content = await this.read();
+        if (content.length > 0) return FileLoadResult.NotEmp;
+        else return FileLoadResult.Emp;
+      } else if (this.type === FileType.DIR) {
+        const lists = await readdir(this.directory);
+        if (lists.length > 0) {
+          if (options.tmp) {
+            LoggerService.log(LOGGER_FILE, `option tmp exist; create caches folder first`);
+            // caches file first
+            await this.rename(getBasename(this.directory), options.tmp, { recursive: true, once: true });
+            await mkdir(this.directory, { recursive: true });
+          }
+          return FileLoadResult.NotEmp;
+        } else return FileLoadResult.Emp;
+      } else {
+        return FileLoadResult.Err; // unknown result
+      }
     } else {
       if (options.create) {
-        LoggerService.log(LOGGER_FILE, `creating... directory: ${this.directory}`);
-        await mkdir(this.directory, { recursive: true });
-        return FileLoadResult.Ext; // exist
+        if (this.type === FileType.DIR) {
+          LoggerService.log(LOGGER_FILE, `creating... directory: ${this.directory}`);
+          await mkdir(this.directory, { recursive: true });
+          return FileLoadResult.Ext; // exist
+        } else {
+          return FileLoadResult.NotExt; // not exist
+        }
       } else {
         return FileLoadResult.NotExt; // not exist
       }
     }
   }
 
-  public async read(input?: IFileFileInput): Promise<any> {
+  public async read(input?: IFileFileInput): Promise<string> {
     const readFile = promisify(_readFile);
     const directory = input ? this.buildPath(input.name) : this.directory;
     const buffer = await readFile(directory);

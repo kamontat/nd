@@ -43,25 +43,42 @@ export default class FileSyncManager extends FileManager implements IFileSyncMan
 
     LoggerService.log(LOGGER_FILE, `loading... new directory to filesystem`);
 
-    const options = this.options(opts, { create: true });
+    const options = this.options(opts, { create: true, tmp: undefined });
     const isExist = fs.existsSync(this.directory);
     LoggerService.log(LOGGER_FILE, `directory is ${isExist ? "already" : "not"} exist`);
     if (isExist) {
-      const lists = fs.readdirSync(this.directory);
-      if (lists.length > 0) return FileLoadResult.NotEmp;
-      else return FileLoadResult.Emp;
+      if (this.type === FileType.FILE) {
+        const content = this.read();
+        if (content.length > 0) return FileLoadResult.NotEmp;
+        else return FileLoadResult.Emp;
+      } else if (this.type === FileType.DIR) {
+        const lists = fs.readdirSync(this.directory);
+        if (lists.length > 0) {
+          if (options.tmp) {
+            LoggerService.log(LOGGER_FILE, `option tmp exist; create caches folder first`);
+            // caches file first
+            this.rename(path.basename(this.directory), options.tmp, { recursive: true, once: true });
+            fs.mkdirSync(this.directory, { recursive: true });
+          }
+          return FileLoadResult.NotEmp;
+        } else return FileLoadResult.Emp;
+      } else return FileLoadResult.Err;
     } else {
       if (options.create) {
-        LoggerService.log(LOGGER_FILE, `creating... directory: ${this.directory}`);
-        fs.mkdirSync(this.directory, { recursive: true });
-        return FileLoadResult.Ext; // exist
+        if (this.type === FileType.DIR) {
+          LoggerService.log(LOGGER_FILE, `creating... directory: ${this.directory}`);
+          fs.mkdirSync(this.directory, { recursive: true });
+          return FileLoadResult.Ext; // exist
+        } else {
+          return FileLoadResult.NotExt; // not exist
+        }
       } else {
         return FileLoadResult.NotExt; // not exist
       }
     }
   }
 
-  public read(input?: IFileFileInput): any {
+  public read(input?: IFileFileInput): string {
     if (!input) {
       // find all directory and sub directory
       return fs.readFileSync(this.directory).toString("utf8"); // read content in file
