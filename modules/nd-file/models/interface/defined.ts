@@ -73,6 +73,7 @@ export interface INotForceWriteOption {
 
 export interface ILoadOptions {
   create: boolean;
+  tmp: string | undefined;
 }
 
 export type WriteOption = IForceWriteOption | INotForceWriteOption;
