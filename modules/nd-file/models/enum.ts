@@ -1,4 +1,5 @@
 export enum FileLoadResult {
+  Err = "error",
   NotExt = "not-exist",
   Ext = "exist",
   Emp = "empty",
@@ -8,4 +9,9 @@ export enum FileLoadResult {
 export enum FileType {
   DIR = "directory",
   FILE = "file",
+}
+
+export enum FileAction {
+  READ = "read",
+  WRITE = "write",
 }
