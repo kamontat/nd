@@ -49,6 +49,7 @@ export default class {
 
   public reset(obj: IConfigObject) {
     this._obj = this.makeDefault(obj);
+    return this;
   }
 
   private makeDefault(obj: IConfigObject) {
