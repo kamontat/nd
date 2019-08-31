@@ -1,12 +1,19 @@
 {
   "name": "nd-html-generator",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "html template and novel content generator",
   "dependencies": {
-    "nd-logger": "./modules/nd-logger",
-    "nd-error": "./modules/nd-error"
+    "mustache": "3.0.1",
+    "nd-security": "./modules/nd-security",
+    "nd-novel": "./modules/nd-novel",
+    "nd-helper": "./modules/nd-helper",
+    "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0-beta.2": {
+      "message": "update generator from method to class with load()",
+      "date": "31 Aug 2019"
+    },
     "1.0.0-beta.1": {
       "message": "generate html string using configuration object",
       "date": "22 Jul 2019"
