@@ -1,6 +1,6 @@
 {
   "name": "nd-html-generator",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "html template and novel content generator",
   "dependencies": {
     "mustache": "3.0.1",
@@ -10,6 +10,10 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0-beta.5": {
+      "message": "fix date is not exist",
+      "date": "01 Sep 2019"
+    },
     "1.0.0-beta.4": {
       "message": "fix is theme design is missing",
       "date": "01 Sep 2019"
