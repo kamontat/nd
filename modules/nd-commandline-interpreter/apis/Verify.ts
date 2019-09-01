@@ -2,6 +2,7 @@ import { IConfiguration } from "nd-config";
 import { Database, DatabaseService } from "nd-database";
 import ExceptionService, { ERR_SCT } from "nd-error";
 import { Security } from "nd-security";
+import { sep } from "path";
 
 export default {
   IsExist(n: any) {
@@ -31,6 +32,13 @@ export default {
   },
   IsId(n?: any) {
     return this.IsNumber(n);
+  },
+  IsPath(n: any) {
+    // check is not url
+    if (!this.IsUrl(n)) return false;
+    // check is seperate exist; assume is a file system path
+    const __arr = (n as string).match(sep);
+    return __arr && __arr.length > 0;
   },
   IsUrl(n?: any) {
     if (!this.IsString(n)) return false;
