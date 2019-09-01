@@ -8,7 +8,22 @@ const Visualizer = require('webpack-visualizer-plugin');
 
 const pjson = require("./package.json")
 
-const isDev = process.env.NODE_ENV === "development"
+const DIST_FOLDER = process.env.DIST_FOLDER || "dist"
+const REPORT_FOLDER = process.env.REPORT_FOLDER || "reports"
+
+const DEV_STATISTIC_HTML = process.env.DEV_STATISTIC_HTML || "statistic-dev.html"
+const STATISTIC_HTML = process.env.STATISTIC_HTML || "statistics.html"
+
+const NODE_ENV = process.env.NODE_ENV || "development"
+if (!["development", "testing", "production"].includes(NODE_ENV)) NODE_ENV = "development"
+
+const isDev = NODE_ENV === "development"
+
+const appName = pjson.name
+const appFile = `./${pjson.main}`
+
+const adminName = pjson.admin.name
+const adminFile = `./${pjson.admin.main}`
 
 const minimizer = [new ClosurePlugin({
   mode: 'STANDARD',
@@ -44,12 +59,13 @@ if (!isDev) minimizer.push(new UglifyJsPlugin({
   }
 }))
 
+const entry = {}
+entry[appName] = appFile;
+entry[adminName] = adminFile;
+
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: {
-    nd: "./index.ts",
-    "nd-admin": "./admin.ts"
-  },
+  mode: NODE_ENV,
+  entry,
   module: {
     rules: [{
         test: /\.ts$/,
@@ -92,7 +108,7 @@ module.exports = {
     ]
   },
   optimization: {
-    nodeEnv: process.env.NODE_ENV,
+    nodeEnv: NODE_ENV,
     mangleWasmImports: true,
     moduleIds: isDev ? 'named' : 'hashed',
     minimize: !isDev,
@@ -103,7 +119,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "__NODE_ENV__": JSON.stringify(process.env.NODE_ENV),
+      "__NODE_ENV__": JSON.stringify(NODE_ENV),
       "__COMPILE_DATE__": JSON.stringify(+new Date()),
       "__VERSION__": JSON.stringify(pjson.version),
       "__FIREBASE_API_KEY__": JSON.stringify("AIzaSyArv4QISPsrR56iE24ZCvDzSkaRj5qnfRM"),
@@ -117,7 +133,7 @@ module.exports = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new Visualizer({
-      filename: '../reports/statistics.html'
+      filename: `../${REPORT_FOLDER}/${isDev ? DEV_STATISTIC_HTML : STATISTIC_HTML}`
     })
   ],
   resolve: {
@@ -125,8 +141,7 @@ module.exports = {
   },
   output: {
     filename: isDev ? '[name].js' : '[name].min.js',
-    chunkFilename: '[name]-[id].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, DIST_FOLDER)
   },
   target: "node",
   externals: [nodeExternals({

@@ -3,6 +3,10 @@
   "version": "1.0.0-alpha.2",
   "description": "download manager for novel",
   "main": "index.ts",
+  "admin": {
+    "name": "nd-admin",
+    "main": "admin.ts"
+  },
   "bin": "dist/nd.min.js",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
