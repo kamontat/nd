@@ -1,6 +1,6 @@
 {
   "name": "nd-thread",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0",
   "description": "thread management for nd command",
   "dependencies": {
     "async": "3.1.0",
@@ -8,6 +8,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "2.0.0": {
+      "message": "release public version",
+      "date": "01 Sep 2019"
+    },
     "2.0.0-beta.1": {
       "message": "fix callback function didn't return value as expected",
       "date": "01 Sep 2019"
