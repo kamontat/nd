@@ -75,11 +75,15 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   // Start create novel directory
   // -------------------------------------
 
+  LoggerService.log(LOGGER_FILE, "start create novel directory and files");
+
   const novelPath = join(system.directory, novel.normalizeName);
   const loading = await system.append(
     { name: novel.normalizeName, type: FileType.DIR },
     { create: true, tmp: PathUtils.Cachename(novel.normalizeName, "d") },
   );
+
+  LoggerService.log(LOGGER_FILE, "created novel directory");
 
   if (loading === FileLoadResult.NotEmp) {
     ExceptionService.build(
