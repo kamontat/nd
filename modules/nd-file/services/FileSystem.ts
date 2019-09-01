@@ -1,4 +1,5 @@
 import { IException } from "nd-error";
+import LoggerService, { LOGGER_FILE } from "nd-logger";
 import { ThreadManager } from "nd-thread";
 
 import { FileAction, FileType } from "../models/enum";
@@ -10,7 +11,6 @@ import { SystemAdder } from "./interface";
 import SystemResponse from "./SystemResponse";
 
 export default class extends ThreadManager<string, SystemAdder, undefined, SystemResponse, undefined> {
-
   public get directory() {
     return this.manager.directory;
   }
@@ -29,14 +29,16 @@ export default class extends ThreadManager<string, SystemAdder, undefined, Syste
     if (!this.manager.loaded) await this.manager.load({ create: true, tmp: undefined });
 
     return this._each(async elem => {
+      // LoggerService.log(LOGGER_FILE, `start file system ran: ${elem}`);
+
       if (elem.value.action === FileAction.READ) {
-        this.manager
+        return this.manager
           .read({ name: elem.value.name, type: FileType.FILE })
           .then(content =>
             this.promify(this.setOption(SystemResponse.singleton().__set(elem.key, elem.value, content))),
           );
       } else if (elem.value.action === FileAction.WRITE) {
-        this.manager
+        return this.manager
           .write(elem.value.content, elem.value.name, elem.value.opts)
           .then(content =>
             this.promify(this.setOption(SystemResponse.singleton().__set(elem.key, elem.value, content))),
