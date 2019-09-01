@@ -84,7 +84,8 @@ const NOVEL = (name: string) => {
        {yellow <location>}              - {gray [required]} {blue location} must be directory with novel resource [WIP]
      option:
        {cyan --change}                - {gray [optional]} print all change and chapter in updating novel [WIP]
-       {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default; this option prevent not to do that [WIP]
+       {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default; 
+                               - this option prevent not to do that [WIP]
        {cyan --recursive} {gray <number>}    - {gray [optional]} {blue number} how deep recursive are.
                                - {underline default is 1 subfolder} [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta fetch}            -- fetch information from novel (support both local and server)
