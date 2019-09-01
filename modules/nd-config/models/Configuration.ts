@@ -65,7 +65,14 @@ export class Configuration extends Event implements IConfiguration {
           if (!result) throw ExceptionService.build(ERR_CFG).description("invalid config format");
           result.forEach(r => {
             try {
-              Configuration.CONST().set(r.key, r.value);
+              LoggerService.warn(LOGGER_CONFIG, `receive ${r.key}=${r.value} from config file`);
+
+              // update output.level only when set higher level
+              if (r.key === "output.level")
+                if (parseInt(r.value.toString()) > parseInt(Configuration.CONST().get(r.key)))
+                  Configuration.CONST().set(r.key, r.value);
+                else LoggerService.warn(LOGGER_CONFIG, `this ${r.key} key with ${r.value} never be saved`);
+              else Configuration.CONST().set(r.key, r.value);
             } catch (e) {
               ExceptionService.cast(e)
                 .print(LOGGER_CONFIG)
@@ -139,7 +146,7 @@ export class Configuration extends Event implements IConfiguration {
       "auth.salt": "please_enter_your_salt",
       "output.color": true,
       "output.file": true,
-      "output.level": "1",
+      "output.level": "0",
       "novel.location": ".",
       "command.version.detail.limit": 5,
     };
