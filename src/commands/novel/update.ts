@@ -38,7 +38,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const novel = new Novel.Resource(resource);
 
   const builder = new NovelBuilder(novel.id);
-  const newNovel = await builder.update(novel);
+  const newNovel = await builder.update(novel, opts.thread);
   const result = FormatterFactory.Build()
     .get<NovelSummary>("novel")
     .save(newNovel)
