@@ -23,11 +23,11 @@ export default class {
   public load(type: TemplateType) {
     LoggerService.log(LOGGER_HTML_GENERATOR, `start generate ${type} html pages`);
 
-    const mustache: string = require("./templates/index.mustache");
+    const mustache: string = require("../templates/index.mustache");
 
     LoggerService.log(LOGGER_HTML_GENERATOR, `loaded root index of mustache file`);
 
-    const css: string = require("./templates/index.sass");
+    const css: string = require("../templates/index.sass");
 
     LoggerService.log(LOGGER_HTML_GENERATOR, `loaded root css file`);
 
