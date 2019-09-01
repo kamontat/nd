@@ -15,7 +15,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
-  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "you must input valid novel id");
+  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, `you pass ${value} instead of novel id`);
 
   const id = parseInt(value || "", 10);
   const showChapter = apis.config.get<boolean>("novel.chapter", false);

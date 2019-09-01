@@ -22,7 +22,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
-  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_CLI, "you must input valid novel id");
+  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_CLI, `you pass ${value} instead of novel id`);
 
   // -------------------------------------
   // Get option configuration
