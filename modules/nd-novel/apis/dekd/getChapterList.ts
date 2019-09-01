@@ -24,9 +24,11 @@ export default (parser: IParser<string, string, Cheerio>) => {
           LOGGER_NOVEL_BUILDER,
           `preload: chapter title of ${url.searchParams.get("chapter")} is ${title2}`,
         );
+        // name
         chapter.name = title2;
       }
 
+      LoggerService.log(LOGGER_NOVEL_BUILDER, `receive ${chapter.cid} from <a> tag`);
       chapters.push(chapter);
     }
   });
