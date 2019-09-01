@@ -25,6 +25,7 @@ export default (name: TemplateType, obj: IConfigObject & IFunctionObject): Loade
       version: isNaN(cssVersion) ? 1 : cssVersion,
       novel: require(`../templates/${name}/novel.sass`),
       chapter: require(`../templates/${name}/chapter.sass`),
+      root: "",
     },
     name: pjson.name,
     version: pjson.version,

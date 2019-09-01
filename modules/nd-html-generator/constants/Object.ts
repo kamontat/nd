@@ -1,6 +1,6 @@
 import { Chapter } from "nd-novel";
 
-import ILoaderResponse, { ILoaderExtra } from "./LoaderResponse";
+import ILoaderResponse from "./LoaderResponse";
 
 export interface IFunctionObject {
   dateENString(): (text: string, render: (s: string) => string) => string;
@@ -8,7 +8,7 @@ export interface IFunctionObject {
 }
 
 export interface ITemplateObject {
-  template: ILoaderResponse & ILoaderExtra;
+  template: ILoaderResponse;
 }
 
 export interface IConfigObject {

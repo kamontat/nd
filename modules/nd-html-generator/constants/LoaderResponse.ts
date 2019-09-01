@@ -9,14 +9,9 @@ export default interface ILoaderResponse {
     chapter: string;
     name: TemplateType;
     novel: string;
+    root: string;
     version: number;
   };
   name: string;
   version: string;
-}
-
-export interface ILoaderExtra {
-  css: {
-    root: string;
-  };
 }

@@ -4,7 +4,7 @@ import { Package as SecurityPackage } from "nd-security";
 
 import { Package as CorePackage } from "../../../src/build/Package";
 import { DateENString, DateTHString } from "../api/date";
-import ILoaderResponse, { ILoaderExtra } from "../constants/LoaderResponse";
+import ILoaderResponse from "../constants/LoaderResponse";
 import IObject, { IConfigObject, IFunctionObject } from "../constants/Object";
 import TemplateType from "../constants/TemplateType";
 import loader from "../loader";
@@ -31,10 +31,8 @@ export default class {
 
     LoggerService.log(LOGGER_HTML_GENERATOR, `loaded root css file`);
 
-    const loadResponse: ILoaderResponse & ILoaderExtra = Object.assign(
-      loader(type, Object.assign(this._obj, this._func)),
-      { css: { root: css } },
-    );
+    const loadResponse: ILoaderResponse = loader(type, Object.assign(this._obj, this._func));
+    loadResponse.css.root = css; // replace exist mock root
 
     const variable: IObject = {
       ...this._obj,
