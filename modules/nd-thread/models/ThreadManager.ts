@@ -34,6 +34,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
   }
 
   public add(key: K, value: V) {
+    LoggerService.log(LOGGER_THREAD, `add ${key} => ${value} to thread manager map`);
     this._list.set(key, value);
     return this;
   }
@@ -61,16 +62,16 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
    * @param fn function to be executed
    */
   protected _each(fn: EachFn<K, V, O, OO>) {
-    return (eachOfLimit((this._list as unknown) as Dictionary<V>, this._thread, (v, k, callback) => {
+    return (eachOfLimit((this._list as unknown) as Dictionary<[K, V]>, this._thread, (v, _, callback) => {
       LoggerService.log(
         LOGGER_THREAD,
         `start map object %O with options=%O and optionOnce=%O`,
-        { key: k, value: v },
+        { key: v[0], value: v[1] },
         this._options,
         this._optionOnce,
       );
 
-      return fn({ key: (k as unknown) as K, value: v }, { option: this._options, optionOnce: this._optionOnce })
+      return fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
         .then(o => {
           if (o) this.setOption(o);
           callback(undefined);
@@ -84,18 +85,18 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
    */
   protected _map(fn: MapFn<K, V, R, O, OO>) {
     return (mapValuesLimit(
-      (this._list as unknown) as Dictionary<V>, // input map object
+      (this._list as unknown) as Dictionary<[K, V]>, // input map object
       this._thread, // input limit number
-      (v, k, callback) => {
+      (v, _, callback) => {
         LoggerService.log(
           LOGGER_THREAD,
           `start map object %O with options=%O and optionOnce=%O`,
-          { key: k, value: v },
+          { key: v[0], value: v[1] },
           this._options,
           this._optionOnce,
         );
 
-        fn({ key: (k as unknown) as K, value: v }, { option: this._options, optionOnce: this._optionOnce })
+        fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
           .then(v => callback(undefined, v))
           .catch(err => callback(err, undefined));
       },
