@@ -56,7 +56,9 @@ export default (cli: Commandline, config: IConfiguration) => {
   };
 
   const updateOption = <T extends IOptionable>(opt: T) => {
-    return opt.option(Option.build("recusive", false, ({ apis }) => apis.config.set("novel.update.recusive", true)));
+    return opt
+      .option(Option.build("no-replace", false, ({ apis }) => apis.config.set("novel.replace", false)))
+      .option(Option.build("recusive", false, ({ apis }) => apis.config.set("novel.update.recusive", true)));
   };
 
   /**
