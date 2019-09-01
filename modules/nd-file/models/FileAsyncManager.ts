@@ -195,7 +195,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
       await write(directory, content);
       return true;
       // save to content
-    } else if (!exist) {
+    } else if (!isExist) {
       await write(directory, content);
       return true;
     } else {

@@ -2,7 +2,7 @@ import { IncomingHttpHeaders } from "http";
 import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "nd-downloader";
 import ExceptionService, { ERR_NLV } from "nd-error";
 import { Optional } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL_BUILDER, LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
 
 import { NovelAPIs } from "../apis";
 import { ChapterStatus } from "../models/novel/ChapterStatus";
@@ -37,6 +37,16 @@ export class NovelBuilder {
         .forEach(c => (c.status = ChapterStatus.IGNORED));
       return this.buildChapter(novel, thread);
     });
+  }
+
+  // TODO: implement this method
+  public async update(n: Novel, thread?: number) {
+    const nn = await this.buildNovel(thread);
+
+    LoggerService.log(LOGGER_NOVEL_BUILDER, n);
+    LoggerService.log(LOGGER_NOVEL_BUILDER, nn);
+
+    return n;
   }
 
   private buildChapter(novel: Novel, thread?: number): Promise<Novel> {
@@ -76,7 +86,7 @@ export class NovelBuilder {
     return manager
       .run()
       .then(rs => {
-        const r = rs.pop() as IResponse<Novel> | undefined;
+        const r = Object.values(rs).pop() as IResponse<Novel> | undefined;
         return new Promise<Novel>((res, rej) => {
           if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
           else if (r.error) rej(r.error);
@@ -122,7 +132,7 @@ export class NovelBuilder {
     });
 
     return manager.run().then(_r => {
-      const r = _r.pop() as IResponse<Novel> | undefined;
+      const r = Object.values(_r).pop() as IResponse<Novel> | undefined;
       return new Promise<Novel>((res, rej) => {
         if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
         else if (r.error) rej(r.error);
