@@ -18,6 +18,7 @@ const randomUserAgent = () => {
 // interface of get https with redirect 301 or 302
 export const HttpGet = (url: string, callback: (res: IncomingMessage) => void) => {
   const agent = randomUserAgent();
+  LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `GET ${url}`);
   LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `Random agent to ${agent}`);
 
   return https.get(
