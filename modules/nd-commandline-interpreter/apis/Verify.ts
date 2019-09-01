@@ -1,8 +1,8 @@
+import { readFileSync as readFile } from "fs";
 import { IConfiguration } from "nd-config";
-import { Database, DatabaseService } from "nd-database";
 import ExceptionService, { ERR_SCT } from "nd-error";
 import { Security } from "nd-security";
-import { sep } from "path";
+import { resolve, sep } from "path";
 
 export default {
   IsExist(n: any) {
@@ -39,6 +39,15 @@ export default {
     // check is seperate exist; assume is a file system path
     const __arr = (n as string).match(sep);
     return __arr && __arr.length > 0;
+  },
+  IsFileExist(n: any, filename: string) {
+    if (!this.IsPath(n)) return false;
+    try {
+      const b = readFile(resolve(n, filename));
+      return b.length > 0;
+    } catch (e) {
+      return false;
+    }
   },
   IsUrl(n?: any) {
     if (!this.IsString(n)) return false;
