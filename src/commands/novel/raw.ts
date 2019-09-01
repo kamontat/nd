@@ -1,86 +1,21 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
-import { DeprecateFileManager } from "nd-file";
+import ExceptionService, { ERR_NLV } from "nd-error";
+import FileSystem, { FileAction } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { ArrayUtils, Optional, PathUtils } from "nd-helper";
-import { HtmlGenerator, ITemplateObject } from "nd-html-generator";
-import { TemplateType } from "nd-html-generator/loader";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
-import { Chapter, ChapterStatus, Novel, NovelBuilder } from "nd-novel";
-import { Security } from "nd-security";
+import { ArrayUtils, PathUtils } from "nd-helper";
+import { TemplateType } from "nd-html-generator";
+import { Generator } from "nd-html-generator";
+import LoggerService, { LOGGER_CLI, LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
+import { ChapterStatus, NovelBuilder } from "nd-novel";
 
-const generateHtmlGeneratorConfig = (
-  template: TemplateType,
-  type: "novel" | "chapter",
-  secure: Security,
-  novel: Novel,
-  chapter?: Chapter,
-) => {
-  const htmlConfig = {
-    auth: {
-      username: Optional.of<any, string>(secure.response)
-        .transform(r => r.username)
-        .or(""),
-      name: config.get("auth.name") as string,
-      expireat: Optional.of<any, number>(secure.response)
-        .transform(r => r.expire)
-        .or(0),
-      issueat: Optional.of<any, number>(secure.response)
-        .transform(r => r.issue)
-        .or(0),
-    },
-    novel: {
-      id: novel.id,
-      size: novel.size,
-      title: novel.name || "",
-      description: novel.abstract || "",
-      link: novel.link.href,
-      author: novel.author || "",
-      tags: novel.tags.join(","),
-      updateat: novel.updateAt || 0,
-      downloadat: novel.downloadAt || 0,
-      chapters: Array.from(novel.chapters),
-      abstract: novel.abstract,
-    },
-    contents: novel.content,
-  } as ITemplateObject;
-
-  if (type === "chapter" && chapter) {
-    const prev = novel.chapter(chapter.cid - 1);
-    const next = novel.chapter(chapter.cid + 1);
-
-    htmlConfig.contents = chapter.content;
-    htmlConfig.chapter = {
-      nid: chapter.nid,
-      cid: chapter.cid,
-      name: chapter.name || "",
-      link: chapter.link.href,
-      updateat: chapter.updateAt || 0,
-      downloadat: chapter.downloadAt || 0,
-      status: chapter.status,
-    };
-
-    if (htmlConfig.chapter && prev)
-      htmlConfig.chapter.prev = {
-        cid: prev.cid,
-        link: prev.link.href,
-        status: prev.status,
-      };
-
-    if (htmlConfig.chapter && next)
-      htmlConfig.chapter.next = {
-        cid: next.cid,
-        link: next.link.href,
-        status: next.status,
-      };
-  }
-
-  return HtmlGenerator(template, htmlConfig);
-};
+import { htmlConfigBuilder } from "./helper";
 
 const __main: ICommandCallback = async ({ value, apis }) => {
   const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
+
+  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_NLV, "you must input valid novel id");
 
   const id = parseInt(value || "", 10);
   const showChapter = apis.config.get<boolean>("novel.chapter", false);
@@ -94,37 +29,46 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const change = apis.config.get<boolean>("novel.change", false);
 
   const location = config.get("novel.location");
-  const fileManager = new DeprecateFileManager.write(location || PathUtils.GetCurrentPath());
+  const system = new FileSystem(location || PathUtils.GetCurrentPath(), thread);
 
-  LoggerService.log(LOGGER_CLI, `Start download as a raw chapter nid=${id} [${chapters}]`);
+  const factory = FormatterFactory.Build();
+
+  LoggerService.log(
+    LOGGER_CLI,
+    `start download ${value} (nid) raw chapters [${chapters}] to ${location} with replace=${replace},change=${change},chapter=${chapters},thread=${thread}`,
+  );
 
   const builder = new NovelBuilder(parseInt(value || "", 10));
-  return builder.partialBuild(chapters, thread).then(novel => {
-    const factory = FormatterFactory.Build();
-    const result = factory
-      .get<NovelSummary>("novel")
-      .save(novel)
-      .config({
-        short: true,
-        history: change,
-        chapters: showChapter,
-        _format: true,
-        path: fileManager.system.directory,
-      })
-      .build();
 
-    LoggerService.console.log(result);
+  const novel = await builder.partialBuild(chapters, thread);
+  const result = factory
+    .get<NovelSummary>("novel")
+    .save(novel)
+    .config({
+      short: true,
+      history: change,
+      chapters: showChapter,
+      _format: true,
+      path: system.directory,
+    })
+    .build();
+  LoggerService.console.log(result);
 
-    Array.from(novel.chapters).forEach(c =>
-      fileManager.add({
-        filename: `chapter-${c.cid}`,
-        content: generateHtmlGeneratorConfig("default", "chapter", secure, novel, c),
+  const generator = new Generator(htmlConfigBuilder("novel", secure, novel));
+
+  Array.from(novel.chapters).forEach(c => {
+    if (c.status === ChapterStatus.COMPLETED)
+      system.add(`chapter${c.cid}`, {
+        action: FileAction.WRITE,
+        name: `chapter-${c.cid}.html`,
+        content: generator.reset(htmlConfigBuilder("chapter", secure, novel, c)).load(TemplateType.Default),
         opts: { force: replace, tmp: PathUtils.Cachename(name, "f.html") },
-      }),
-    );
+      });
+    else LoggerService.warn(LOGGER_NOVEL_DOWNLOADER, `found chapter ${c.cid} status is not completed [${c.status}]`);
+  });
 
-    return fileManager.run();
-  }) as Promise<undefined>;
+  await system.run();
+  return undefined;
 };
 
 export default __main;
