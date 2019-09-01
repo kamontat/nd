@@ -84,8 +84,8 @@ ${HELP_NOVEL(self.name)}`);
     ),
   );
 
+  cli.command(Command.build("download", true, downloadCallback));
   cli.command(rawDownloadOption(Command.build("raw", true, rawDownloadCallback)));
-
   cli.command(fetchOption(Command.build("fetch", true, fetchCallback)));
   cli.command(updateOption(Command.build("update", true, updateCallback)));
 };
