@@ -1,11 +1,15 @@
 {
   "name": "nd-config",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "configuration of nd command",
   "dependencies": {
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.6.1": {
+      "message": "output.level will go high and higher",
+      "date": "01 Sep 2019"
+    },
     "1.6.0": {
       "message": "add configuration validation on set method",
       "date": "24 Jul 2019"
