@@ -1,6 +1,7 @@
 import { Commandline } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import LoggerService from "nd-logger";
+import { config } from "nd-config";
+import LoggerService, { LOGGER_CLI } from "nd-logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";
@@ -10,11 +11,11 @@ export const UpdateLogInfo = (args: any[]) => {
   const i = args.findIndex(v => /^--level$/.test(v));
   if (i >= 0) {
     const v = args[i + 1];
-    // before logger initial in cli
-    // console.log(`start update logger level to ${v}`);
+
+    config.set("output.level", v);
 
     // update log level
-    LoggerService.level(v);
+    LoggerService.log(LOGGER_CLI, "update output.level via command option");
   }
 };
 
