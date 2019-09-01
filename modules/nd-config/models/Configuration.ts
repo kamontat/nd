@@ -65,7 +65,7 @@ export class Configuration extends Event implements IConfiguration {
           if (!result) throw ExceptionService.build(ERR_CFG).description("invalid config format");
           result.forEach(r => {
             try {
-              LoggerService.warn(LOGGER_CONFIG, `receive ${r.key}=${r.value} from config file`);
+              LoggerService.log(LOGGER_CONFIG, `receive ${r.key}=${r.value} from config file`);
 
               // update output.level only when set higher level
               if (r.key === "output.level")
