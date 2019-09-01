@@ -1,4 +1,5 @@
 import ExceptionService, { ERR_FLE } from "nd-error";
+import LoggerService, { LOGGER_FILE } from "nd-logger";
 import path from "path";
 
 import { FileType } from "./enum";
@@ -31,11 +32,15 @@ export abstract class FileManager {
 
   constructor(protected _directory: string, input?: FileInput) {
     if (!input) {
+      LoggerService.log(LOGGER_FILE, `fallback to DIR since no file type exist`);
       this._type = FileType.DIR;
     } else {
+      LoggerService.log(LOGGER_FILE, `custom type input`);
       this._type = input.type;
       this._directory = this.buildPath(input.name);
     }
+
+    LoggerService.log(LOGGER_FILE, `start ${this._type} ${this._directory} on file manager`);
 
     this._loaded = false;
   }
@@ -49,7 +54,7 @@ export abstract class FileManager {
   public abstract load(opts?: ILoadOptions): any;
 
   public name(input: FileInput, opts?: ILoadOptions): any {
-    if (!this.validate(input)) {
+    if (this.isFile(input)) {
       throw ExceptionService.build(ERR_FLE, "[TECH] you input is already files; cannot load with name()");
     }
 
@@ -94,16 +99,16 @@ export abstract class FileManager {
     return path.resolve(this.directory, name);
   }
 
+  protected isFile(input?: FileInput) {
+    return this.type === FileType.FILE && input !== undefined;
+  }
+
   /**
    * @param opts is a client options input
    * @param def is a default option incase client didn't input anything
    */
   protected options<O>(opts: O | undefined, def: O) {
     return Object.assign(def, opts);
-  }
-
-  protected validate(input?: FileInput) {
-    return this.type === FileType.FILE && input !== undefined;
   }
 
   protected abstract walk(directory?: IFindInput, limit?: number): IFileOutput[] | Promise<IFileOutput[]>;
