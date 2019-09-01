@@ -68,7 +68,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
         const lists = await readdir(this.directory);
         if (lists.length > 0) {
           if (options.tmp) {
-            LoggerService.log(LOGGER_FILE, `option tmp exist; create caches folder first`);
+            LoggerService.log(LOGGER_FILE, `option tmp is ${options.tmp}; create caches folder first`);
             // caches file first
             await this.rename(getBasename(this.directory), options.tmp, { recursive: true, once: true });
             await mkdir(this.directory, { recursive: true });
@@ -120,7 +120,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
     }
 
     const __array = dir.split(sep);
-    const __last = __array.pop();
+    const __last = __array[__array.length - 1];
 
     if (!options.recursive) {
       if (__last) finalDirectory = __last.replace(input, output);
