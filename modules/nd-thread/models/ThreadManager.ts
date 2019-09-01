@@ -63,13 +63,13 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
    */
   protected _each(fn: EachFn<K, V, O, OO>) {
     return (eachOfLimit((this._list as unknown) as Dictionary<[K, V]>, this._thread, (v, _, callback) => {
-      LoggerService.log(
-        LOGGER_THREAD,
-        `start map object %O with options=%O and optionOnce=%O`,
-        { key: v[0], value: v[1] },
-        this._options,
-        this._optionOnce,
-      );
+      // LoggerService.log(
+      //   LOGGER_THREAD,
+      //   `start loop each object %O with options=%O and optionOnce=%O`,
+      //   { key: v[0], value: v[1] },
+      //   this._options,
+      //   this._optionOnce,
+      // );
 
       return fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
         .then(o => {
@@ -88,13 +88,13 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
       (this._list as unknown) as Dictionary<[K, V]>, // input map object
       this._thread, // input limit number
       (v, _, callback) => {
-        LoggerService.log(
-          LOGGER_THREAD,
-          `start map object %O with options=%O and optionOnce=%O`,
-          { key: v[0], value: v[1] },
-          this._options,
-          this._optionOnce,
-        );
+        // LoggerService.log(
+        //   LOGGER_THREAD,
+        //   `start map object %O with options=%O and optionOnce=%O`,
+        //   { key: v[0], value: v[1] },
+        //   this._options,
+        //   this._optionOnce,
+        // );
 
         fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
           .then(v => callback(undefined, v))
