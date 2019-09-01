@@ -91,12 +91,12 @@
     <div class="credit">
       {{#chapter}}
       <small id="detail">
-        <a target="_blank" href="{{{chapter.link}}}">chapter-{{chapter.cid}}</a> was downloaded on {{#dateToString}}{{chapter.downloadat}}{{/dateToString}} by {{command.name}} command version {{command.version}}
+        <a target="_blank" href="{{{chapter.link}}}">chapter-{{chapter.cid}}</a> was downloaded on {{#dateENString}}{{chapter.downloadat}}{{/dateENString}} by {{command.name}} command version {{command.version}}
       </small>
       {{/chapter}}
       {{^chapter}}
       <small id="detail">
-        <a class="small" target="_blank" href="{{{novel.link}}}">{{novel.id}}</a> was downloaded on {{#dateToString}}{{novel.downloadat}}{{/dateToString}} by {{command.name}} command version {{command.version}}
+        <a class="small" target="_blank" href="{{{novel.link}}}">{{novel.id}}</a> was downloaded on {{#dateENString}}{{novel.downloadat}}{{/dateENString}} by {{command.name}} command version {{command.version}}
       </small>
       {{/chapter}}
     </div>
