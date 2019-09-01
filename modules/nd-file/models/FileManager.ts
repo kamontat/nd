@@ -59,8 +59,7 @@ export abstract class FileManager {
     return this.load(opts);
   }
 
-  public abstract read(): string | Promise<string>;
-  public abstract read(input: IFileFileInput): string | Promise<string>;
+  public abstract read(input?: IFileFileInput): string | Promise<string>;
 
   public abstract rename(input: string, output: string, opts?: RenameOptions): boolean | Promise<boolean>;
 
