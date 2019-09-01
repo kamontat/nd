@@ -101,7 +101,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
           .catch(err => callback(err, undefined));
       },
       undefined as any,
-    ) as unknown) as Promise<R[]>;
+    ) as unknown) as Promise<{ [key in K]: R }>;
   }
 
   protected setOption(o: O) {
