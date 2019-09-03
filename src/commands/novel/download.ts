@@ -55,36 +55,19 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   // Build novel object
   // -------------------------------------
 
-  const novel = await builder.build(thread);
-
-  // Show novel result
-  const result = factory
-    .get<NovelSummary>("novel")
-    .save(novel)
-    .config({
-      short: true,
-      history: change,
-      chapters,
-      _format: true,
-      path: system.directory,
-    })
-    .build();
-  LoggerService.console.log(result);
-
-  // -------------------------------------
-  // Start create novel directory
-  // -------------------------------------
+  // Build only index novel
+  let novel = await builder.build(thread, true);
 
   LoggerService.log(LOGGER_FILE, "start create novel directory and files");
-
   const novelPath = join(system.directory, novel.normalizeName);
+  const cachePath = PathUtils.Cachename(novel.normalizeName, "d");
+
   const loading = await system.append(
     { name: novel.normalizeName, type: FileType.DIR },
-    { create: true, tmp: PathUtils.Cachename(novel.normalizeName, "d") },
+    { create: true, tmp: replace ? cachePath : undefined },
   );
 
-  LoggerService.log(LOGGER_FILE, "created novel directory");
-
+  // Error if folder is already exist
   if (loading === FileLoadResult.NotEmp) {
     ExceptionService.build(
       ERR_NLV,
@@ -96,7 +79,25 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       .exit();
   }
 
-  LoggerService.log(LOGGER_CLI, `Loading novel directory to file system result is ${loading}`);
+  LoggerService.log(LOGGER_CLI, `novel directory system result is ${loading}`);
+
+  LoggerService.log(LOGGER_CLI, `continue build chapter next`);
+  novel = await builder.continue(novel, thread);
+
+  // Show novel result
+  const result = factory
+    .get<NovelSummary>("novel")
+    .save(novel)
+    .config({
+      short: true,
+      history: change,
+      chapters,
+      _format: true,
+      path: novelPath,
+      caches: replace ? cachePath : undefined,
+    })
+    .build();
+  LoggerService.console.log(result);
 
   // -------------------------------------
   // Generate HTML message
