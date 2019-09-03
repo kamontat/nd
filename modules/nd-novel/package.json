@@ -1,6 +1,6 @@
 {
   "name": "nd-novel",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -10,6 +10,10 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
+    "1.4.1": {
+      "message": "add continue() to NovelBuilder",
+      "date": "03 Sep 2019"
+    },
     "1.4.0": {
       "message": "add support resource file and fixes some bug in chapter name",
       "date": "13 Aug 2019"
