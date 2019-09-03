@@ -1,6 +1,6 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -9,6 +9,10 @@
     "nd-config": "./modules/nd-config"
   },
   "changelog": {
+    "1.2.3": {
+      "message": "fix isPath() is not work as expected",
+      "date": "03 Sep 2019"
+    },
     "1.2.2": {
       "message": "add more verify helper method (IsPath())",
       "date": "01 Sep 2019"
