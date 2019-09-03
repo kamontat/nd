@@ -5,6 +5,7 @@ import { ChapterStatus, History, Novel } from "nd-novel";
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 
 interface INovelConfigFormat extends IDefaultConfigFormat {
+  caches?: string;
   chapters: boolean;
   history: boolean;
   path: string;
@@ -82,6 +83,7 @@ name        =  ${Colorize.important(this._obj.name || "unknown")}
       str += `update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
 download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
 ${this._config && `path        =  ${Colorize.path(this._config.path)}`}`;
+      if (this._config && this._config.caches) str += `cache path   = ${this._config.caches}`;
 
       this._appendSummary(str);
     }
