@@ -35,7 +35,8 @@ export default {
   },
   IsPath(n: any) {
     // check is not url
-    if (!this.IsUrl(n)) return false;
+    if (this.IsUrl(n)) return false;
+
     // check is seperate exist; assume is a file system path
     const __arr = (n as string).match(sep);
     return __arr && __arr.length > 0;
