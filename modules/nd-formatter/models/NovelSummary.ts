@@ -8,7 +8,7 @@ interface INovelConfigFormat extends IDefaultConfigFormat {
   caches?: string;
   chapters: boolean;
   history: boolean;
-  path: string;
+  path?: string;
   short: boolean;
 }
 
@@ -63,29 +63,37 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
         else if (c.status === ChapterStatus.UNKNOWN) unknown.push(c.cid);
       });
 
-      let str = `
-id          =  ${Colorize.id(this._obj.id.toString())} | ${Colorize.url(this._obj.link.href)}
-name        =  ${Colorize.important(this._obj.name || "unknown")}
-`;
+      // newline
+      this._appendSummary(``);
+
+      this._appendSummary(
+        `id          =  ${Colorize.id(this._obj.id.toString())} | ${Colorize.url(this._obj.link.href)}`,
+      );
+      this._appendSummary(`name        =  ${Colorize.important(this._obj.name || "unknown")}`);
 
       const c = ArrayUtils.ReadableArray(completed);
-      if (c !== "empty") str += `chapters    =  ${c}\n`;
+      if (c !== "empty") this._appendSummary(`chapters    =  ${c}`);
 
       const C = ArrayUtils.ReadableArray(closed);
-      if (C !== "empty") str += `closed      =  ${C}\n`;
+      if (C !== "empty") this._appendSummary(`closed      =  ${C}`);
 
       const s = ArrayUtils.ReadableArray(sold);
-      if (s !== "empty") str += `sold        =  ${s}\n`;
+      if (s !== "empty") this._appendSummary(`sold        =  ${s}`);
 
       const u = ArrayUtils.ReadableArray(unknown);
-      if (u !== "empty") str += `unknown     =  ${u}\n`;
+      if (u !== "empty") this._appendSummary(`unknown     =  ${u}`);
 
-      str += `update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}
-download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}
-${this._config && `path        =  ${Colorize.path(this._config.path)}`}`;
-      if (this._config && this._config.caches) str += `cache path   = ${this._config.caches}`;
+      this._appendSummary(
+        `update at   =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.updateAt)))}`,
+      );
+      this._appendSummary(
+        `download at =  ${Colorize.date(TimeUtils.FormatDate(TimeUtils.GetDate(this._obj.downloadAt)))}`,
+      );
 
-      this._appendSummary(str);
+      if (this._config) {
+        if (this._config.path) this._appendSummary(`path        =  ${Colorize.path(this._config.path)}`);
+        if (this._config.caches) this._appendSummary(`cache path  =  ${Colorize.path(this._config.caches)}`);
+      }
     }
   }
 
