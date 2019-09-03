@@ -60,11 +60,12 @@ const __main: ICommandCallback = async ({ value, apis }) => {
 
   LoggerService.log(LOGGER_FILE, "start create novel directory and files");
   const novelPath = join(system.directory, novel.normalizeName);
-  const cachePath = PathUtils.Cachename(novel.normalizeName, "d");
+  const cacheName = PathUtils.Cachename(novel.normalizeName, "d");
+  const cachePath = join(system.directory, cacheName);
 
   const loading = await system.append(
     { name: novel.normalizeName, type: FileType.DIR },
-    { create: true, tmp: replace ? cachePath : undefined },
+    { create: true, tmp: replace ? cacheName : undefined },
   );
 
   // Error if folder is already exist
