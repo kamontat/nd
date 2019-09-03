@@ -29,6 +29,11 @@ export class NovelBuilder {
       });
   }
 
+  // run this to build chapter; IF novel already built
+  public continue(novel: Novel, thread?: number) {
+    return this.buildChapter(novel, thread);
+  }
+
   public partialBuild(chapters: number[], thread?: number) {
     return this.buildNovel(thread).then(novel => {
       // filter not include and set as ignore
