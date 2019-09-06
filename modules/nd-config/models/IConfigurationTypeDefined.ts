@@ -20,7 +20,7 @@ type OutputFileKey = "output.file";
 type OutputFileValue = boolean;
 
 type OutputLevelKey = "output.level";
-type OutputLevelValue = "0" | "1" | "2" | "3";
+type OutputLevelValue = 0 | 1 | 2 | 3;
 
 type NovelLocationKey = "novel.location";
 type NovelLocationValue = string;

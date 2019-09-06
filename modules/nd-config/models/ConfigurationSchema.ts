@@ -1,7 +1,7 @@
 import ExceptionService, { ERR_CFG } from "nd-error";
 
 interface IConfigurationSchema {
-  choices?: Array<string>;
+  choices?: Array<string | number>;
   type: "string" | "boolean" | "number" | "choices";
 }
 
@@ -31,7 +31,7 @@ const ConfigurationSchema = {
   },
   "output.level": {
     type: "choices",
-    choices: ["0", "1", "2", "3"],
+    choices: [0, 1, 2, 3],
   },
   "novel.location": {
     type: "string",
