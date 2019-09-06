@@ -1,6 +1,5 @@
 import ms from "ms";
 import { Command, Commandline, Option } from "nd-commandline-interpreter";
-import ExceptionService, { ERR_CLI } from "nd-error";
 import LoggerService, { LOGGER_ADMIN } from "nd-logger";
 import { Security } from "nd-security";
 import readline from "readline";
@@ -24,7 +23,6 @@ export const BuildAdminCommandline = async (
   cli.option(
     Option.build("help", false, ({ apis }) => {
       LoggerService.console.log(HelpMessage(Package));
-
       return apis.end;
     }),
   );
