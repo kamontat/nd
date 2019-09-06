@@ -73,7 +73,13 @@ export class Configuration extends Event implements IConfiguration {
               if (r.key === "output.level")
                 if (parseInt(r.value.toString()) > parseInt(Configuration.CONST().get(r.key)))
                   Configuration.CONST().set(r.key, r.value);
-                else LoggerService.warn(LOGGER_CONFIG, `this ${r.key} key with ${r.value} never be saved`);
+                else
+                  LoggerService.warn(
+                    LOGGER_CONFIG,
+                    `${r.key} with ${r.value} will never be saved because (app=${parseInt(
+                      Configuration.CONST().get(r.key),
+                    )}) > (new=${parseInt(r.value.toString())})`,
+                  );
               else Configuration.CONST().set(r.key, r.value);
             } catch (e) {
               ExceptionService.cast(e)
