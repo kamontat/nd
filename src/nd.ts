@@ -11,8 +11,9 @@ export const UpdateLogInfo = (args: any[]) => {
   const i = args.findIndex(v => /^--level$/.test(v));
   if (i >= 0) {
     const v = args[i + 1];
+    const n = parseInt(v);
 
-    config.set("output.level", v);
+    if (!isNaN(n)) config.set("output.level", n);
 
     // update log level
     LoggerService.log(LOGGER_CLI, "update output.level via command option");
