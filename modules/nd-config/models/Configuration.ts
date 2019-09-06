@@ -48,7 +48,7 @@ export class Configuration extends Event implements IConfiguration {
     return new Promise<Configuration>((res, rej) => {
       try {
         if (!fs.existsSync(this.filepath)) {
-          this.set("output.level", "1");
+          this.set("output.level", 1);
           LoggerService.warn(LOGGER_CONFIG, `configuration file not exist, create new one saved to ${this.filepath}`);
 
           fs.mkdirSync(_path || "", { recursive: true }); // create directory and subdirectory if not exist
