@@ -27,12 +27,12 @@ export default class Storage implements IDatabase {
         messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
         appId: __FIREBASE_APP_ID__,
       });
-      LoggerService.log(LOGGER_FIREBASE, app);
+      // LoggerService.log(LOGGER_FIREBASE, app);
 
       this._storage = firebase.storage(app);
     } else this._storage = firebase.storage();
 
-    LoggerService.log(LOGGER_FIREBASE_STORAGE, this._storage);
+    // LoggerService.log(LOGGER_FIREBASE_STORAGE, this._storage);
   }
 
   /**

@@ -27,12 +27,12 @@ export default class Database implements IDatabase<firestore.DocumentSnapshot> {
         messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
         appId: __FIREBASE_APP_ID__,
       });
-      LoggerService.log(LOGGER_FIREBASE, app);
+      // LoggerService.log(LOGGER_FIREBASE, app);
 
       this._db = firebase.firestore(app);
     } else this._db = firebase.firestore();
 
-    LoggerService.log(LOGGER_FIREBASE_NOSQL, this._db);
+    // LoggerService.log(LOGGER_FIREBASE_NOSQL, this._db);
   }
 
   public read(path: string) {
