@@ -1,4 +1,5 @@
 import ExceptionService, { ERR_CFG } from "nd-error";
+import LoggerService, { LOGGER_CONFIG } from "nd-logger";
 
 interface IConfigurationSchema {
   choices?: Array<string | number>;
@@ -31,7 +32,7 @@ const ConfigurationSchema = {
   },
   "output.level": {
     type: "choices",
-    choices: [0, 1, 2, 3],
+    choices: ["0", "1", "2", "3"],
   },
   "novel.location": {
     type: "string",
@@ -41,6 +42,8 @@ const ConfigurationSchema = {
   },
 } as { [key: string]: IConfigurationSchema };
 
+const TECH_CHOICE_MISSING = (name: string) =>
+  ExceptionService.warn.build(ERR_CFG, `Schema object is wrong, ${name} consider as choices but non of choices passed`);
 const CONFIG_KEY_NOT_EXIST = (name: string) =>
   ExceptionService.warn.build(ERR_CFG, `'${name}' config key is not exist in application`);
 const CONFIG_VALUE_NOT_EXIST = (name: string) =>
@@ -59,8 +62,13 @@ export const DoValidation = <T>(key: string, value?: any): { err?: Error; value?
   if (!schema) return { err: CONFIG_KEY_NOT_EXIST(key) };
   if (value === undefined || value === "" || value === null) return { err: CONFIG_VALUE_NOT_EXIST(key) };
 
+  LoggerService.log(LOGGER_CONFIG, `do validation`);
+  LoggerService.log(LOGGER_CONFIG, `   key: ${key}`);
+  LoggerService.log(LOGGER_CONFIG, `   value: ${value} (type=${typeof value})`);
+
   if (schema.type === "choices") {
-    if (schema.choices && schema.choices.includes(value)) return { value };
+    if (!schema.choices) return { err: TECH_CHOICE_MISSING(key) };
+    if (schema.choices.includes(value.toString())) return { value };
     else return { err: CONFIG_MISS_TYPE(key, value) };
   } else {
     if (schema.type === "string" && typeof value === schema.type) return { value };
