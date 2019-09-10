@@ -79,13 +79,13 @@ const NOVEL = (name: string) => {
        {cyan --chapter}               - {gray [optional]} print all downloaded chapter
        {cyan --replace}               - {gray [optional]} create backup and replace if folder exist
        {cyan --change}                - {gray [optional]} print all history that occurred on the downloading
-{gray $} {green ${name}} {magentaBright [novel]} {magenta update}           -- update exist local novel [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta update}           -- update exist local novel
      parameter:
-       {yellow <location>}              - {gray [required]} {blue location} must be directory with novel resource [WIP]
+       {yellow <location>}              - {gray [required]} {blue location} must be directory with novel resource
      option:
-       {cyan --change}                - {gray [optional]} print all change and chapter in updating novel [WIP]
+       {cyan --change}                - {gray [optional]} print all change and chapter in updating novel
        {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default; 
-                               - this option prevent not to do that [WIP]
+                               - this option prevent not to do that
        {cyan --recursive} {gray <number>}    - {gray [optional]} {blue number} how deep recursive are.
                                - {underline default is 1 subfolder} [WIP]
 {gray $} {green ${name}} {magentaBright [novel]} {magenta fetch}            -- fetch information from novel (support both local and server)
