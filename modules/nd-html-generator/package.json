@@ -1,6 +1,6 @@
 {
   "name": "nd-html-generator",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "html template and novel content generator",
   "dependencies": {
     "mustache": "3.0.1",
@@ -10,6 +10,10 @@
     "nd-logger": "./modules/nd-logger"
   },
   "changelog": {
+    "1.0.0-beta.6": {
+      "message": "fix previous button is not clickable",
+      "date": "10 Sep 2019"
+    },
     "1.0.0-beta.5": {
       "message": "fix date is not exist",
       "date": "01 Sep 2019"
