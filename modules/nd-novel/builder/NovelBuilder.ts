@@ -44,14 +44,11 @@ export class NovelBuilder {
     });
   }
 
-  // TODO: implement this method
   public async update(n: Novel, thread?: number) {
-    const nn = await this.buildNovel(thread);
+    const nn = await this.buildNovel(thread); // new request novel
+    const nnn = NovelAPIs.merge(n, nn); // merged novel
 
-    LoggerService.log(LOGGER_NOVEL_BUILDER, n);
-    LoggerService.log(LOGGER_NOVEL_BUILDER, nn);
-
-    return n;
+    return this.buildChapter(nnn, thread);
   }
 
   private buildChapter(novel: Novel, thread?: number): Promise<Novel> {
@@ -59,7 +56,7 @@ export class NovelBuilder {
 
     const manager = new DownloadManager<Novel>(thread, this.downloadEvent);
     for (const chapter of Array.from(novel.chapters)) {
-      if (chapter.status !== ChapterStatus.IGNORED && chapter.status !== ChapterStatus.DOWNLOADED)
+      if (chapter.status !== ChapterStatus.IGNORED && chapter.status !== ChapterStatus.COMPLETED)
         manager.add(chapter.link.href);
     }
 
