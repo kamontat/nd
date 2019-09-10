@@ -16,7 +16,8 @@ const __fetch_url = async (value: number, opts: { chapter: boolean; fast: boolea
   const factory = FormatterFactory.Build();
   const builder = new NovelBuilder(value);
 
-  const novel = await builder.build(opts.thread, opts.fast);
+  // build fast when not chapter exist
+  const novel = await builder.build(opts.thread, opts.fast || !opts.chapter);
   const result = factory
     .get<NovelSummary>("novel")
     .save(novel)
