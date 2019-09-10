@@ -70,3 +70,5 @@ update at:    $RELEASE_NOTE_DATE
 # tag that changes
 
 git tag "$TAG_NAME"
+
+make build mode=production quite=true
