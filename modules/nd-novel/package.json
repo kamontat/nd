@@ -1,6 +1,6 @@
 {
   "name": "nd-novel",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Novel models and parser",
   "dependencies": {
     "nd-logger": "./modules/nd-logger",
@@ -10,6 +10,10 @@
     "nd-helper": "./modules/nd-helper"
   },
   "changelog": {
+    "1.4.2": {
+      "message": "didn't collect history when load via resource",
+      "date": "10 Sep 2019"
+    },
     "1.4.1": {
       "message": "add continue() to NovelBuilder",
       "date": "03 Sep 2019"
