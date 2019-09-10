@@ -26,7 +26,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const opts = {
     thread: apis.config.get<number>("novel.thread", 4), // thread number to fetch and update
     change: apis.config.get<boolean>("novel.change", false), // show updating changes
-    replace: apis.config.get<boolean>("novel.replace", true),
+    replace: apis.config.get<boolean>("novel.replace", true), // replace=true mean replace without create tmp files; replace=false mean create tmp file before replace occurred
     recursive: apis.config.get<boolean>("novel.update.recusive", false), // recursive check subfolder
   };
 
@@ -59,7 +59,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
     action: FileAction.WRITE,
     name: "index.html",
     content: generator.load(TemplateType.Default),
-    opts: { force: opts.replace, tmp: PathUtils.Cachename(name, "f.html") },
+    opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(`index.html`, 0) },
   });
 
   // add chapter files
@@ -69,14 +69,14 @@ const __main: ICommandCallback = async ({ value, apis }) => {
         action: FileAction.WRITE,
         name: `chapter-${c.cid}.html`,
         content: generator.reset(htmlConfigBuilder("chapter", secure, novel, c)).load(TemplateType.Default),
-        opts: { force: opts.replace, tmp: PathUtils.Cachename(name, "f.html") },
+        opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(`chapter-${c.cid}.html`, 0) },
       });
     else LoggerService.warn(LOGGER_NOVEL_DOWNLOADER, `found chapter ${c.cid} status is not completed [${c.status}]`);
   });
 
   // add resource file
   const newResource = new Resource.Novel(newNovel);
-  newResource.write(system);
+  newResource.write(system, { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(RESOURCE_FILENAME, 0) });
 
   await system.run();
 };
