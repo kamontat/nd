@@ -6,45 +6,10 @@ import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
 
 import { Chapter } from "./Chapter";
-import { ChapterStatus, ChapterStatusUtils } from "./ChapterStatus";
+import { ChapterStatusUtils } from "./ChapterStatus";
 import { NovelType } from "./NovelType";
 
 export class Novel {
-  public static Resource = class extends Novel {
-    constructor(resource: Resource) {
-      const decode = resource.decode();
-      LoggerService.log(LOGGER_NOVEL_BUILDER, "decoded resource content; %O", decode);
-      const json = JSON.parse(decode);
-      LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
-
-      super(json.id);
-      this.name = json.name;
-      this.type = json.type;
-
-      this.abstract = json.abstract;
-
-      this.content = json.content; // never save content to resource file
-
-      json.tags.forEach((t: string) => this.addTag(t));
-      this.author = json.author;
-
-      this.downloadAt = json.downloadAt;
-      this.updateAt = json.updateAt;
-
-      json.chapters.forEach((c: { [key: string]: any }) => {
-        const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
-
-        chapter.name = c.name;
-        chapter.downloadAt = c.downloadAt;
-        chapter.updateAt = c.updateAt;
-
-        chapter.content = c.content;
-
-        this.addChapter(chapter.cid, chapter);
-      });
-    }
-  };
-
   public get abstract() {
     return this._abstract;
   }
@@ -131,10 +96,51 @@ export class Novel {
     this.eventHandler("update at", { before: this._updateAt, after: udAt });
     this._updateAt = udAt;
   }
+
+  public static Resource = class extends Novel {
+    constructor(resource: Resource) {
+      const decode = resource.decode();
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "decoded resource content; %O", decode);
+      const json = JSON.parse(decode);
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
+
+      // disable history event
+      super(json.id, false);
+      this.name = json.name;
+      this.type = json.type;
+
+      this.abstract = json.abstract;
+
+      this.content = json.content; // never save content to resource file
+
+      json.tags.forEach((t: string) => this.addTag(t));
+      this.author = json.author;
+
+      this.downloadAt = json.downloadAt;
+      this.updateAt = json.updateAt;
+
+      json.chapters.forEach((c: { [key: string]: any }) => {
+        const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
+
+        chapter.name = c.name;
+        chapter.downloadAt = c.downloadAt;
+        chapter.updateAt = c.updateAt;
+
+        chapter.content = c.content;
+
+        this.addChapter(chapter.cid, chapter);
+      });
+
+      // reenable history event
+      this.enableEvent();
+    }
+  };
   private _abstract?: string;
   private _author?: string;
   private _chapters: Map<number, Chapter>;
   private _content: string[];
+
+  private _disableEvent: boolean;
   private _downloadAt?: number;
   private _event: HistoryEvent;
 
@@ -145,7 +151,9 @@ export class Novel {
   private _type: NovelType;
   private _updateAt?: number;
 
-  constructor(private _id: number, event?: HistoryEvent) {
+  constructor(private _id: number, hasEvent: boolean = true, event?: HistoryEvent) {
+    this._disableEvent = !hasEvent;
+
     this._type = NovelType.UNKNOWN;
 
     this._link = buildViewURL(_id);
@@ -172,6 +180,16 @@ export class Novel {
     return this._chapters.get(num);
   }
 
+  public disableEvent() {
+    this._disableEvent = true;
+    LoggerService.log(LOGGER_NOVEL_BUILDER, "history event has been disabled");
+  }
+
+  public enableEvent() {
+    this._disableEvent = false;
+    LoggerService.log(LOGGER_NOVEL_BUILDER, "history event has been enabled");
+  }
+
   public toJSON(_opts?: { content?: boolean }) {
     const opts = Object.assign({ content: true }, _opts);
 
@@ -193,6 +211,6 @@ export class Novel {
   }
 
   private eventHandler(name: string, value: { after: any; before: any }) {
-    return this._event.classify(`Novel ${name}`, value);
+    if (!this._disableEvent) this._event.classify(`Novel ${name}`, value);
   }
 }
