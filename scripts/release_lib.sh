@@ -40,7 +40,7 @@ APPNAME="${1}"
 
 echo "Starting...   release $APPNAME"
 
-cd "./modules/${APPNAME}"
+cd "./packages/${APPNAME}"
 
 echo "Moving...     to ${APPNAME}"
 

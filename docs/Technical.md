@@ -9,8 +9,8 @@
   "version": "0.0.1-alpha.1",
   "description": "description template",
   "dependencies": {
-    "nd-logger": "./modules/nd-logger",
-    "nd-error": "./modules/nd-error"
+    "nd-logger": "./lib/nd-logger",
+    "nd-error": "./lib/nd-error"
   },
   "changelog": {
     "0.0.1-alpha.1": {
@@ -31,7 +31,7 @@ export const XXX = () => {}
 export { Package }
 ```
 
-4. run install via `yarn add ./modules/nd-*`
+4. run install via `yarn add ./packages/nd-*`
 5. add to Makefile (section **lib** and **loc**)
 6. add to version command and version detail [link](./src/constants/content.ts)
    1. function `VERSION_FULL`

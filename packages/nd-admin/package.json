@@ -1,0 +1,27 @@
+{
+  "name": "nd-admin",
+  "description": "this is a private script for generate token for nd command",
+  "version": "1.2.0",
+  "dependencies": {
+    "nd-security": "./packages/nd-security",
+    "nd-logger": "./packages/nd-logger",
+    "nd-commandline-interpreter": "./packages/nd-commandline-interpreter",
+    "nd-helper": "./packages/nd-helper"
+  },
+  "changelog": {
+    "1.2.0": {
+      "message": "add new command firebase and upgrade dependency version",
+      "date": "18 Aug 2019"
+    },
+    "1.1.0": {
+      "message": "change logic to async-await and add new key fbname for firebase db",
+      "date": "11 Aug 2019"
+    },
+    "1.0.0": {
+      "message": "first publish admin version",
+      "date": "07 Jul 2019"
+    },
+    "1.0.0-alpha.1": "release first alpha version"
+  },
+  "support": ["1.0.0-alpha.1", "1.0.0-alpha.2"]
+}

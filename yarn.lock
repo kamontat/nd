@@ -4257,115 +4257,117 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-nd-admin@./modules/nd-admin:
+nd-admin@./packages/nd-admin:
   version "1.2.0"
   dependencies:
-    nd-commandline-interpreter "./modules/nd-commandline-interpreter"
-    nd-helper "./modules/nd-helper"
-    nd-logger "./modules/nd-logger"
-    nd-security "./modules/nd-security"
+    nd-commandline-interpreter "./packages/nd-commandline-interpreter"
+    nd-helper "./packages/nd-helper"
+    nd-logger "./packages/nd-logger"
+    nd-security "./packages/nd-security"
 
-nd-commandline-interpreter@./modules/nd-commandline-interpreter:
-  version "1.2.1"
+nd-commandline-interpreter@./packages/nd-commandline-interpreter:
+  version "1.2.3"
   dependencies:
-    nd-config "./modules/nd-config"
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
-    nd-security "./modules/nd-security"
+    nd-config "./packages/nd-config"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
+    nd-security "./packages/nd-security"
 
-nd-config@./modules/nd-config:
-  version "1.6.0"
+nd-config@./packages/nd-config:
+  version "1.6.4"
   dependencies:
-    nd-logger "./modules/nd-logger"
+    nd-logger "./packages/nd-logger"
 
-nd-database@./modules/nd-database:
-  version "1.0.0-beta.5"
+nd-database@./packages/nd-database:
+  version "1.0.0-beta.6"
   dependencies:
     firebase "6.4.0"
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
 
-nd-decoder@./modules/nd-decoder:
-  version "1.0.0"
+nd-decoder@./packages/nd-decoder:
+  version "1.0.1"
   dependencies:
     iconv-lite "0.5.0"
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    nd-error "./packages/nd-error"
 
-nd-downloader@./modules/nd-downloader:
-  version "1.0.0"
+nd-downloader@./packages/nd-downloader:
+  version "1.0.3"
   dependencies:
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
-    nd-thread "./modules/nd-thread"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
+    nd-thread "./packages/nd-thread"
 
-nd-error@./modules/nd-error:
+nd-error@./packages/nd-error:
   version "2.2.2"
   dependencies:
-    nd-logger "./modules/nd-logger"
+    nd-logger "./packages/nd-logger"
 
-nd-file@./modules/nd-file:
-  version "1.0.2"
+nd-file@./packages/nd-file:
+  version "2.0.0-rc.2"
   dependencies:
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
 
-nd-formatter@./modules/nd-formatter:
-  version "1.2.2"
+nd-formatter@./packages/nd-formatter:
+  version "1.2.4"
   dependencies:
-    nd-logger "./modules/nd-logger"
+    nd-logger "./packages/nd-logger"
     table "5.4.1"
 
-nd-helper@./modules/nd-helper:
-  version "0.7.3"
+nd-helper@./packages/nd-helper:
+  version "0.7.4"
 
-nd-html-generator@./modules/nd-html-generator:
-  version "1.0.0-beta.1"
+nd-html-generator@./packages/nd-html-generator:
+  version "1.0.0-beta.6"
   dependencies:
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    mustache "3.0.1"
+    nd-helper "./packages/nd-helper"
+    nd-logger "./packages/nd-logger"
+    nd-novel "./packages/nd-novel"
+    nd-security "./packages/nd-security"
 
-nd-logger@./modules/nd-logger:
+nd-logger@./packages/nd-logger:
   version "1.2.4"
   dependencies:
     debug "4.1.1"
-    nd-config "./modules/nd-config"
-    nd-error "./modules/nd-error"
-    nd-helper "./modules/nd-helper"
+    nd-config "./packages/nd-config"
+    nd-error "./packages/nd-error"
+    nd-helper "./packages/nd-helper"
 
-nd-novel@./modules/nd-novel:
-  version "1.4.0"
+nd-novel@./packages/nd-novel:
+  version "1.4.2"
   dependencies:
-    nd-downloader "./modules/nd-downloader"
-    nd-error "./modules/nd-error"
-    nd-helper "./modules/nd-helper"
-    nd-logger "./modules/nd-logger"
-    nd-resource "./modules/nd-resource"
+    nd-downloader "./packages/nd-downloader"
+    nd-error "./packages/nd-error"
+    nd-helper "./packages/nd-helper"
+    nd-logger "./packages/nd-logger"
+    nd-resource "./packages/nd-resource"
 
-nd-resource@./modules/nd-resource:
-  version "1.0.0-beta.3"
+nd-resource@./packages/nd-resource:
+  version "1.0.1"
   dependencies:
-    nd-error "./modules/nd-error"
-    nd-file "./modules/nd-file"
-    nd-logger "./modules/nd-logger"
-    nd-novel "./modules/nd-novel"
-    nd-security "./modules/nd-security"
+    nd-error "./packages/nd-error"
+    nd-file "./packages/nd-file"
+    nd-logger "./packages/nd-logger"
+    nd-novel "./packages/nd-novel"
+    nd-security "./packages/nd-security"
 
-nd-security@./modules/nd-security:
+nd-security@./packages/nd-security:
   version "1.6.1"
   dependencies:
     bcryptjs "2.4.3"
     jsonwebtoken "8.5.1"
-    nd-database "./modules/nd-database"
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    nd-database "./packages/nd-database"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
 
-nd-thread@./modules/nd-thread:
-  version "1.0.0-rc.1"
+nd-thread@./packages/nd-thread:
+  version "2.0.0"
   dependencies:
     async "3.1.0"
-    nd-error "./modules/nd-error"
-    nd-logger "./modules/nd-logger"
+    nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
 
 needle@^2.2.1:
   version "2.4.0"
@@ -6778,7 +6780,7 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack-visualizer-plugin@./modules/webpack-visualizer:
+webpack-visualizer-plugin@./packages/webpack-visualizer:
   version "0.1.11"
   dependencies:
     d3 "^3.5.6"

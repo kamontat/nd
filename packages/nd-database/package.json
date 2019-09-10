@@ -1,0 +1,36 @@
+{
+  "name": "nd-database",
+  "version": "1.0.0-beta.6",
+  "description": "database interface for nd command and storage",
+  "dependencies": {
+    "firebase": "6.4.0",
+    "nd-logger": "./packages/nd-logger",
+    "nd-error": "./packages/nd-error"
+  },
+  "changelog": {
+    "1.0.0-beta.6": {
+      "message": "remove sensitive information on logger",
+      "date": "06 Sep 2019"
+    },
+    "1.0.0-beta.5": {
+      "message": "support filebase storage",
+      "date": "18 Aug 2019"
+    },
+    "1.0.0-beta.4": {
+      "message": "change mainly database to firestore",
+      "date": "18 Aug 2019"
+    },
+    "1.0.0-beta.3": {
+      "message": "fix some error message throw quitely",
+      "date": "13 Aug 2019"
+    },
+    "1.0.0-beta.2": {
+      "message": "add write access of firebase and mock data",
+      "date": "11 Aug 2019"
+    },
+    "1.0.0-beta.1": {
+      "message": "first release with read-only of firebase",
+      "date": "10 Aug 2019"
+    }
+  }
+}

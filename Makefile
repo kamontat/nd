@@ -9,45 +9,45 @@ test:
 		--reporter mochawesome \
 		--reporter-options reportPageTitle=ND\ Test\ Reporter,reportTitle=Report,charts=true,cdn=true,reportDir=reports,timestamp=,inline=true,reportFilename=mocha-report \
 		--require ts-node/register \
-		./modules/**/*.spec.ts ./src/**/*.spec.ts
+		./packages/**/*.spec.ts ./src/**/*.spec.ts
 
 lib:
 ifeq "$(quite)" "true"
 	@$(npm_client) add \
-		./modules/nd-logger \
-		./modules/nd-commandline-interpreter \
-		./modules/nd-security \
-		./modules/nd-helper \
-		./modules/nd-config \
-		./modules/nd-error \
-		./modules/nd-admin \
-		./modules/nd-formatter \
-		./modules/nd-downloader \
-		./modules/nd-novel \
-		./modules/nd-decoder \
-		./modules/nd-html-generator \
-		./modules/nd-file \
-		./modules/nd-thread \
-		./modules/nd-resource \
-		./modules/nd-database >/dev/null
+		./packages/nd-logger \
+		./packages/nd-commandline-interpreter \
+		./packages/nd-security \
+		./packages/nd-helper \
+		./packages/nd-config \
+		./packages/nd-error \
+		./packages/nd-admin \
+		./packages/nd-formatter \
+		./packages/nd-downloader \
+		./packages/nd-novel \
+		./packages/nd-decoder \
+		./packages/nd-html-generator \
+		./packages/nd-file \
+		./packages/nd-thread \
+		./packages/nd-resource \
+		./packages/nd-database >/dev/null
 else
 	@$(npm_client) add \
-		./modules/nd-logger \
-		./modules/nd-commandline-interpreter \
-		./modules/nd-security \
-		./modules/nd-helper \
-		./modules/nd-config \
-		./modules/nd-error \
-		./modules/nd-admin \
-		./modules/nd-formatter \
-		./modules/nd-downloader \
-		./modules/nd-novel \
-		./modules/nd-decoder \
-		./modules/nd-html-generator \
-		./modules/nd-file \
-		./modules/nd-thread \
-		./modules/nd-resource \
-		./modules/nd-database
+		./packages/nd-logger \
+		./packages/nd-commandline-interpreter \
+		./packages/nd-security \
+		./packages/nd-helper \
+		./packages/nd-config \
+		./packages/nd-error \
+		./packages/nd-admin \
+		./packages/nd-formatter \
+		./packages/nd-downloader \
+		./packages/nd-novel \
+		./packages/nd-decoder \
+		./packages/nd-html-generator \
+		./packages/nd-file \
+		./packages/nd-thread \
+		./packages/nd-resource \
+		./packages/nd-database
 endif
 
 compile: lib
@@ -71,22 +71,22 @@ endif
 loc:
 ifeq "$(type)" "lib"
 	@cloc ./index.ts ./package.json ./src --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CORE.md
-	@cloc ./modules/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-LOGGER.md
-	@cloc ./modules/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CLI_BUILDER.md
-	@cloc ./modules/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-SECURITY.md
-	@cloc ./modules/nd-helper --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HELPER.md
-	@cloc ./modules/nd-config --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CONFIG.md
-	@cloc ./modules/nd-error --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ERROR.md
-	@cloc ./admin.ts ./modules/nd-admin --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ADMIN.md
-	@cloc ./modules/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FORMATTER.md
-	@cloc ./modules/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
-	@cloc ./modules/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-NOVEL.md
-	@cloc ./modules/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DECODER.md
-	@cloc ./modules/nd-file --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FILE.md
-	@cloc ./modules/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HTML_GEN.md
-	@cloc ./modules/nd-thread --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-THREAD.md
-	@cloc ./modules/nd-resource --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-RESOURCE.md
-	@cloc ./modules/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DATABASE.md
+	@cloc ./packages/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-LOGGER.md
+	@cloc ./packages/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CLI_BUILDER.md
+	@cloc ./packages/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-SECURITY.md
+	@cloc ./packages/nd-helper --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HELPER.md
+	@cloc ./packages/nd-config --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CONFIG.md
+	@cloc ./packages/nd-error --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ERROR.md
+	@cloc ./admin.ts ./packages/nd-admin --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ADMIN.md
+	@cloc ./packages/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FORMATTER.md
+	@cloc ./packages/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
+	@cloc ./packages/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-NOVEL.md
+	@cloc ./packages/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DECODER.md
+	@cloc ./packages/nd-file --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FILE.md
+	@cloc ./packages/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HTML_GEN.md
+	@cloc ./packages/nd-thread --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-THREAD.md
+	@cloc ./packages/nd-resource --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-RESOURCE.md
+	@cloc ./packages/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DATABASE.md
 else
 	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./reports/loc/LOC.md
 

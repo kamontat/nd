@@ -1,0 +1,44 @@
+{
+  "name": "nd-formatter",
+  "version": "1.2.4",
+  "description": "table formatting of nd output",
+  "dependencies": {
+    "nd-logger": "./packages/nd-logger",
+    "table": "5.4.1"
+  },
+  "changelog": {
+    "1.2.4": {
+      "message": "update NovelSummary to more clean and useful",
+      "date": "03 Sep 2019"
+    },
+    "1.2.3": {
+      "message": "support caches path to output",
+      "date": "03 Sep 2019"
+    },
+    "1.2.2": {
+      "message": "support show chapter that sold, closed or unknown status",
+      "date": "12 Aug 2019"
+    },
+    "1.2.1": {
+      "message": "remove support long format for novel; and fix long not exist",
+      "date": "12 Aug 2019"
+    },
+    "1.2.0": {
+      "message": "implement seperate chapters and history list",
+      "date": "08 Aug 2019"
+    },
+    "1.1.0": {
+      "message": "add support to novel and chapter print",
+      "date": "27 Jul 2019"
+    },
+    "1.0.0": {
+      "message": "first release formatter with novel json and table format",
+      "date": "22 Jul 2019"
+    },
+    "0.2.0": {
+      "message": "formatting json as string (with color support)",
+      "date": "07 Jul 2019"
+    },
+    "0.1.0": "formatting object/array to table"
+  }
+}

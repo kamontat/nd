@@ -2,7 +2,7 @@
   "include": [
     "index.ts",
     "src/**/*.ts",
-    "modules/**/*.ts",
+    "packages/**/*.ts",
     "node_modules/nd-*/**/*.ts",
     "**/*.json",
     "templates/commands/_template.ts"

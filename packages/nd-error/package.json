@@ -1,0 +1,41 @@
+{
+  "name": "nd-error",
+  "version": "2.2.2",
+  "description": "error and exception in nd command",
+  "dependencies": {
+    "nd-logger": "./packages/nd-logger"
+  },
+  "changelog": {
+    "2.2.2": {
+      "message": "add new file system error",
+      "date": "13 Aug 2019"
+    },
+    "2.2.1": {
+      "message": "add more error type for database and firebase",
+      "date": "10 Aug 2019"
+    },
+    "2.2.0": {
+      "message": "support stack Error object when develop; more easy to debug",
+      "date": "28 Jul 2019"
+    },
+    "2.1.0": {
+      "message": "add suffix to different type of exception; is error or warning",
+      "date": "12 Jul 2019"
+    },
+    "2.0.0": {
+      "message": "change the way to build exception; BREAK CHANGES",
+      "date": "11 Jul 2019"
+    },
+    "1.0.0": {
+      "message": "refactor code and release first version",
+      "date": "10 Jul 2019"
+    },
+    "0.2.0": {
+      "message": "support multiple format in different environment",
+      "date": "09 Jul 2019"
+    },
+    "0.1.0": "release public version",
+    "0.1.0-beta.2": "change all constants name [breakchange]",
+    "0.1.0-beta.1": "release for first beta version"
+  }
+}

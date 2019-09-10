@@ -1,0 +1,79 @@
+{
+  "name": "nd-file",
+  "version": "2.0.0-rc.2",
+  "description": "save, update and delete content to file or directory",
+  "dependencies": {
+    "nd-logger": "./packages/nd-logger",
+    "nd-error": "./packages/nd-error"
+  },
+  "changelog": {
+    "2.0.0-rc.2": {
+      "message": "fix rename in async didn't append result to final directory",
+      "date": "10 Sep 2019"
+    },
+    "2.0.0-rc.1": {
+      "message": "should be fine to release public version",
+      "date": "01 Sep 2019"
+    },
+    "2.0.0-alpha.4": {
+      "message": "fix alot of bug in new version",
+      "date": "01 Sep 2019"
+    },
+    "2.0.0-alpha.3": {
+      "message": "implement new FileSystem to multiple thread task",
+      "date": "30 Aug 2019"
+    },
+    "2.0.0-alpha.2": {
+      "message": "add deprecate message as warning in stdout",
+      "date": "28 Aug 2019"
+    },
+    "2.0.0-alpha.1": {
+      "message": "new implementation of file manager and file system for multiple thread",
+      "date": "27 Aug 2019"
+    },
+    "1.0.2": {
+      "message": "add readSync() method and default generic for fileManager",
+      "date": "13 Aug 2019"
+    },
+    "1.0.1": {
+      "message": "export more necessary property to support more usecase",
+      "date": "13 Aug 2019"
+    },
+    "1.0.0": {
+      "message": "a lot of breakchange; now support read,write,rename files with multiple thread",
+      "date": "13 Aug 2019"
+    },
+    "0.3.0": {
+      "message": "now we can cache file if file is already exist",
+      "date": "08 Aug 2019"
+    },
+    "0.2.0": {
+      "message": "add file move and retry when error occurred",
+      "date": "03 Aug 2019"
+    },
+    "0.1.1": {
+      "message": "fix folder-not-empty not throw when load by name",
+      "date": "27 Jul 2019"
+    },
+    "0.1.0": {
+      "message": "refactor all code and first release",
+      "date": "27 Jul 2019"
+    },
+    "0.1.0-rc.4": {
+      "message": "add new error event when folder not empty",
+      "date": "27 Jul 2019"
+    },
+    "0.1.0-rc.3": {
+      "message": "add custom callback when exception occurred",
+      "date": "27 Jul 2019"
+    },
+    "0.1.0-rc.2": {
+      "message": "export path name",
+      "date": "22 Jul 2019"
+    },
+    "0.1.0-rc.1": {
+      "message": "first version release",
+      "date": "22 Jul 2019"
+    }
+  }
+}

@@ -9,7 +9,7 @@
     "request": "launch",
     "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
     "stopOnEntry": false,
-    "args": ["--require", "ts-node/register", "${workspaceRoot}/modules/**/*.spec.ts", "${workspaceRoot}/src/**/*.spec.ts"],
+    "args": ["--require", "ts-node/register", "${workspaceRoot}/packages/**/*.spec.ts", "${workspaceRoot}/src/**/*.spec.ts"],
     "cwd": "${workspaceRoot}",
     "protocol": "inspector",
     "env": {

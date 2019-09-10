@@ -1,0 +1,46 @@
+{
+  "name": "nd-novel",
+  "version": "1.4.2",
+  "description": "Novel models and parser",
+  "dependencies": {
+    "nd-logger": "./packages/nd-logger",
+    "nd-error": "./packages/nd-error",
+    "nd-resource": "./packages/nd-resource",
+    "nd-downloader": "./packages/nd-downloader",
+    "nd-helper": "./packages/nd-helper"
+  },
+  "changelog": {
+    "1.4.2": {
+      "message": "didn't collect history when load via resource",
+      "date": "10 Sep 2019"
+    },
+    "1.4.1": {
+      "message": "add continue() to NovelBuilder",
+      "date": "03 Sep 2019"
+    },
+    "1.4.0": {
+      "message": "add support resource file and fixes some bug in chapter name",
+      "date": "13 Aug 2019"
+    },
+    "1.3.0": {
+      "message": "full support history in novel, chapter; and support exportable to JSON",
+      "date": "04 Aug 2019"
+    },
+    "1.2.1": {
+      "message": "update downloader to latest version",
+      "date": "28 Jul 2019"
+    },
+    "1.2.0": {
+      "message": "Support toString chapter and novel format with collect data in novel object",
+      "date": "27 Jul 2019"
+    },
+    "1.1.0": {
+      "message": "support new attributes and support downloaded novel, and fix some bug about update time",
+      "date": "22 Jul 2019"
+    },
+    "1.0.0": {
+      "message": "able to build novel and chapter with parser",
+      "date": "16 Jul 2019"
+    }
+  }
+}
