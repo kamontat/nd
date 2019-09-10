@@ -36,6 +36,11 @@ export const HttpGet = (url: string, callback: (res: IncomingMessage) => void) =
       ) {
         LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start redirect to ${response.headers.location}`);
         HttpGet(response.headers.location, callback);
+      } else if (response.statusCode === 429) {
+        setTimeout(() => {
+          LoggerService.warn(LOGGER_DOWNLOADER_MANAGER, "we seem sent to many request but we still keep request :)");
+          HttpGet(url, callback);
+        }, 1000); // wait 1 second
       } else {
         callback(response);
       }
