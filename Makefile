@@ -60,7 +60,7 @@ else
 endif
 
 build: compile
-	npx pkg . --out-path dist/bin --targets "node10-macos-x64,node10-linux-x64,node10-alpine-x64"
+	npx pkg . --out-path dist/bin --targets "node12-macos-x64,node12-linux-x64,node12-alpine-x64,node12-win-x64"
 
 clean:
 ifeq "$(all)" "true"
