@@ -1,5 +1,6 @@
 import { Chapter } from "../../models/novel/Chapter";
 import { ChapterStatus } from "../../models/novel/ChapterStatus";
+import { Novel } from "../../models/novel/Novel";
 import { IParser } from "../../models/parser/IParser";
 
 export interface INovelAPIs<K = string, R = string> {
@@ -15,4 +16,5 @@ export interface INovelAPIs<K = string, R = string> {
   getNovelName(parser: IParser<string, K, R>): string;
 
   isNovelExist(parser: IParser<string, K, R>): boolean;
+  merge(base: Novel, diff: Novel): Novel;
 }
