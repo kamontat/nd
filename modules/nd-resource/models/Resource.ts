@@ -1,4 +1,5 @@
 import FileSystem, { FileAction, FileSyncManager, FileType } from "nd-file";
+import { WriteOption } from "nd-file/models/interface/defined"; // rare case
 import LoggerService, { LOGGER_NOVEL_RESOURCE } from "nd-logger";
 import { Novel } from "nd-novel";
 import { Encryption } from "nd-security";
@@ -48,12 +49,14 @@ export default class Resource {
     return system.add("resource", { action: FileAction.READ, name: this.fileName });
   }
 
-  public write(system: FileSystem) {
+  public write(system: FileSystem, options?: WriteOption) {
+    if (!options) options = { force: false };
+
     return system.add("resource", {
       action: FileAction.WRITE,
       name: this.fileName,
       content: this.encode(),
-      opts: { force: false },
+      opts: options,
     });
   }
 }
