@@ -190,6 +190,16 @@ export class Novel {
     LoggerService.log(LOGGER_NOVEL_BUILDER, "history event has been enabled");
   }
 
+  public removeChapter(num: number) {
+    this.eventHandler("chapter", { before: this.chapter(num), after: undefined });
+    this._chapters.delete(num);
+  }
+
+  public setTag(ts: string[]) {
+    this.eventHandler("tag", { before: this._tags, after: ts });
+    this._tags = ts;
+  }
+
   public toJSON(_opts?: { content?: boolean }) {
     const opts = Object.assign({ content: true }, _opts);
 
