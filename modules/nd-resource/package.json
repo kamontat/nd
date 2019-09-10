@@ -1,6 +1,6 @@
 {
   "name": "nd-resource",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "manage novel resource file",
   "dependencies": {
     "nd-security": "./modules/nd-security",
@@ -10,6 +10,10 @@
     "nd-error": "./modules/nd-error"
   },
   "changelog": {
+    "1.0.1": {
+      "message": "write() is custom write option from resource object",
+      "date": "10 Sep 2019"
+    },
     "1.0.0": {
       "message": "update public version of nd-file and public this too",
       "date": "01 Sep 2019"
