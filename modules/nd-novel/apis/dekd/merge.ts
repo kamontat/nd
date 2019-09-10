@@ -46,7 +46,7 @@ export default (resource: N, refresh: N) => {
 
   // if base version is latest version
   if ((resource.updateAt || 0) >= (refresh.updateAt || 0)) {
-    throw ExceptionService.warn.build(ERR_NLV, `nothing changes on novel ${resource.id} (${resource.name})`);
+    throw ExceptionService.build(ERR_NLV, `nothing changes on novel ${resource.id} (${resource.name})`);
   }
 
   // merge all information
