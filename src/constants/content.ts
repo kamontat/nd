@@ -336,7 +336,7 @@ export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
   else return __COMMAND_INFORMATION_TEXT(name);
 };
 
-export const __COMMAND_INFORMATION_JSON = (name: string) => {
+export const __COMMAND_INFORMATION_JSON = async (name: string) => {
   const obj: { [key: string]: any } = {
     command: {
       name,
@@ -352,6 +352,8 @@ export const __COMMAND_INFORMATION_JSON = (name: string) => {
 
   try {
     const response = secure.decrypt(config.get("auth.token") as string, config.get("auth.salt") as string);
+    const err = await secure.server.isActivated();
+    if (err) throw err;
 
     obj.security = {
       success: true,
@@ -364,6 +366,9 @@ export const __COMMAND_INFORMATION_JSON = (name: string) => {
         salt: config.get("auth.salt"),
         name: config.get("auth.name"),
       },
+      server: {
+        activated: true,
+      },
     };
   } catch (e) {
     obj.security = {
@@ -375,7 +380,7 @@ export const __COMMAND_INFORMATION_JSON = (name: string) => {
   return JSON.stringify(obj);
 };
 
-export const __COMMAND_INFORMATION_TEXT = (name: string) => {
+export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
   let result = Colorize.format`
 Command name:            {greenBright ${name}}
 Command version:         {greenBright ${CorePackage.version}}
@@ -386,8 +391,11 @@ Admin version:           {greenBright ${AdminPackage.version}}
 `;
 
   const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
-
-  if (secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
+  if (!secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
+    result += Colorize.format`
+Authentication           {red.bold FAIL}
+`;
+  } else {
     result += Colorize.format`
 Username:                {greenBright ${(secure.response && secure.response.username) || ""}}
 Start date:              {greenBright ${TimeUtils.FormatDate(
@@ -399,10 +407,17 @@ Expire date:             {greenBright ${TimeUtils.FormatDate(
 Issue date:              {greenBright ${TimeUtils.FormatDate(
       TimeUtils.GetDate(secure.response && secure.response.issue),
     )}}
+    `;
+  }
+
+  const err = await secure.server.isActivated();
+  if (err) {
+    result += Colorize.format`
+Authentication server    {red.bold NOT ACTIVATED}
 `;
   } else {
     result += Colorize.format`
-Authentication           {red.bold FAIL}
+Authentication server    {greenBright ACTIVATED}
 `;
   }
 

@@ -11,12 +11,12 @@ export default (cli: Commandline, _: IConfiguration) => {
     let msg = "";
     const json = apis.config.get("command.output.json", false);
     if (json) {
-      const root = JSON.parse(COMMAND_INFORMATION(self.name, { json }));
+      const root = JSON.parse(await COMMAND_INFORMATION(self.name, { json }));
       const next = JSON.parse(await ProgramVerification(self, { json }));
 
       msg = JSON.stringify({ ...root, ...next }, undefined, "  ");
     } else {
-      msg = COMMAND_INFORMATION(self.name, { json });
+      msg = await COMMAND_INFORMATION(self.name, { json });
       msg += "\n\n\n";
       msg += await ProgramVerification(self, { json });
     }
