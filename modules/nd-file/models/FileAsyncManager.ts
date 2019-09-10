@@ -9,7 +9,7 @@ import {
 } from "fs";
 import ExceptionService, { ERR_FLE } from "nd-error";
 import LoggerService, { LOGGER_FILE } from "nd-logger";
-import { basename as getBasename, dirname as getDirname, join, sep } from "path";
+import { basename, basename as getBasename, dirname as getDirname, join, sep } from "path";
 import { promisify } from "util";
 
 import { FileLoadResult, FileType } from "./enum";
@@ -120,10 +120,10 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
     }
 
     const __array = dir.split(sep);
-    const __last = __array[__array.length - 1];
+    const __last = getBasename(dir);
 
     if (!options.recursive) {
-      if (__last) finalDirectory = __last.replace(input, output);
+      if (__last) finalDirectory = this.buildPath(__last.replace(input, output));
       else {
         LoggerService.log(LOGGER_FILE, "cannot get latest path for recursive rename");
         return false;
