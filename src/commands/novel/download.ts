@@ -112,10 +112,6 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   // add index.html file
   system.add("index", { action: FileAction.WRITE, name: "index.html", content, opts: { force: false } });
 
-  // add resource file
-  const resource = new Resource.Novel(novel);
-  resource.write(system);
-
   // loop add chapters
   Array.from(novel.chapters).forEach(c => {
     if (c.status === ChapterStatus.COMPLETED)
@@ -127,6 +123,10 @@ const __main: ICommandCallback = async ({ value, apis }) => {
       });
     else LoggerService.warn(LOGGER_NOVEL_DOWNLOADER, `found chapter ${c.cid} status is not completed [${c.status}]`);
   });
+
+  // add resource file
+  const resource = new Resource.Novel(novel);
+  resource.write(system);
 
   // Start write message to file system
   await system.run();
