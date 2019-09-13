@@ -83,6 +83,7 @@ const NOVEL = (name: string) => {
      parameter:
        {yellow <location>}              - {gray [required]} {blue location} must be directory with novel resource
      option:
+       {cyan --dry-run}               - {gray [optional]} fetch data only but never save to file system
        {cyan --change}                - {gray [optional]} print all change and chapter in updating novel
        {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default; 
                                - this option prevent not to do that
@@ -96,6 +97,7 @@ const NOVEL = (name: string) => {
        {cyan --chapter}               - {gray [optional]} list all novel and chapter information
        {cyan --fast}                  - {gray [optional]} fetching only index page and receive information ({red.underline ID} only)
                                - this might cause lack of information to print
+       {cyan --check}                 - {gray [optional]} compare current novel with the server version
 {gray $} {green ${name}} {magentaBright [novel]} {magenta export}           -- export novel from html to pdf file [WIP]
      parameter:
        {yellow <in>}                    - {gray [required]} {blue in} must be directory with novel resource [WIP]
