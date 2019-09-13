@@ -24,6 +24,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
 
   const location = config.get("novel.location");
   const opts = {
+    dry: apis.config.get<boolean>("novel.update.dry", false), // dry run mean never save data to file system
     thread: apis.config.get<number>("novel.thread", 4), // thread number to fetch and update
     change: apis.config.get<boolean>("novel.change", false), // show updating changes
     replace: apis.config.get<boolean>("novel.replace", true), // replace=true mean replace without create tmp files; replace=false mean create tmp file before replace occurred
@@ -45,7 +46,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
     .config({
       short: true,
       history: opts.change,
-      chapters: false,
+      chapters: opts.dry,
       _format: true,
       path: system.directory,
     })
@@ -78,7 +79,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const newResource = new Resource.Novel(newNovel);
   newResource.write(system, { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(RESOURCE_FILENAME, 0) });
 
-  await system.run();
+  if (!opts.dry) await system.run();
 };
 
 export default __main;
