@@ -24,7 +24,7 @@ export class History {
   private static instance?: History;
 
   private nodes: HistoryNode[];
-  private constructor() {
+  constructor() {
     this.nodes = new Array();
   }
 
