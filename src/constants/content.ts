@@ -98,7 +98,7 @@ const NOVEL = (name: string) => {
        {cyan --fast}                  - {gray [optional]} fetching only index page and receive information ({red.underline ID} only)
                                - this might cause lack of information to print
        {cyan --check}                 - {gray [optional]} compare current novel with the server version
-{gray $} {green ${name}} {magentaBright [novel]} {magenta export}           -- export novel from html to pdf file [WIP]
+{gray $} {green ${name}} {magentaBright [novel]} {magenta export}           -- export novel from html to pdf file with tools call 'https://wkhtmltopdf.org' [WIP]
      parameter:
        {yellow <in>}                    - {gray [required]} {blue in} must be directory with novel resource [WIP]
      option:
