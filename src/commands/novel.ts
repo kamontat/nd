@@ -52,11 +52,14 @@ export default (cli: Commandline, config: IConfiguration) => {
   };
 
   const fetchOption = <T extends IOptionable>(opt: T) => {
-    return opt.option(Option.build("fast", false, ({ apis }) => apis.config.set("fetch.fast", true)));
+    return opt
+      .option(Option.build("check", false, ({ apis }) => apis.config.set("novel.fetch.check", true)))
+      .option(Option.build("fast", false, ({ apis }) => apis.config.set("novel.fetch.fast", true)));
   };
 
   const updateOption = <T extends IOptionable>(opt: T) => {
     return opt
+      .option(Option.build("dry-run", false, ({ apis }) => apis.config.set("novel.update.dry", true)))
       .option(Option.build("no-replace", false, ({ apis }) => apis.config.set("novel.replace", false)))
       .option(Option.build("recusive", false, ({ apis }) => apis.config.set("novel.update.recusive", true)));
   };
