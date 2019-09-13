@@ -2,9 +2,10 @@ import { IncomingHttpHeaders } from "http";
 import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "nd-downloader";
 import ExceptionService, { ERR_NLV } from "nd-error";
 import { Optional } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_BUILDER, LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
 
 import { NovelAPIs } from "../apis";
+import { Merge } from "../apis/novel";
 import { ChapterStatus } from "../models/novel/ChapterStatus";
 import { Novel } from "../models/novel/Novel";
 import { NovelType } from "../models/novel/NovelType";
@@ -46,7 +47,7 @@ export class NovelBuilder {
 
   public async update(n: Novel, thread?: number) {
     const nn = await this.buildNovel(thread); // new request novel
-    const nnn = NovelAPIs.merge(n, nn); // merged novel
+    const nnn = Merge(n, nn); // merged novel
 
     return this.buildChapter(nnn, thread);
   }
