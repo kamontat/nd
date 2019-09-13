@@ -9,10 +9,8 @@ import getNovelDate from "./getNovelDate";
 import getNovelName from "./getNovelName";
 import { INovelAPIs } from "./INovelAPIs";
 import isNovelExist from "./isNovelExist";
-import merge from "./merge";
 
 export const NovelAPIs: INovelAPIs<any, Cheerio> = {
-  merge,
   getChapterContent,
   getChapterDate,
   getChapterList,
