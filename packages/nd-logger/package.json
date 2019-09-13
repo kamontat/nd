@@ -1,6 +1,6 @@
 {
   "name": "nd-logger",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
@@ -8,6 +8,10 @@
     "nd-config": "./packages/nd-config"
   },
   "changelog": {
+    "1.2.5": {
+      "message": "remove nd-helper to make it lighter",
+      "date": "13 Sep 2019"
+    },
     "1.2.4": {
       "message": "change color for some namespace and add boolean support",
       "date": "18 Aug 2019"
