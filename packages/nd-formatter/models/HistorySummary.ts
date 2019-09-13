@@ -8,7 +8,7 @@ export class HistorySummary implements IFormatter<IDefaultConfigFormat, History>
   public build() {
     let str = "";
     if (this._obj) {
-      this._obj.events.forEach(n => (str += n.toString({ color: true })));
+      this._obj.events.forEach(n => (str += `${n.toString({ color: true })}\n`));
     }
     return str;
   }
