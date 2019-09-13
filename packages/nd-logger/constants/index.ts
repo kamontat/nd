@@ -12,6 +12,8 @@ export const LOGGER_SECURITY = LOGGER_ROOT.extend("security");
 
 export const LOGGER_CONFIG = LOGGER_ROOT.extend("config");
 
+export const LOGGER_HELPER = LOGGER_ROOT.extend("helper");
+
 export const LOGGER_THREAD = LOGGER_ROOT.extend("thread");
 
 export const LOGGER_DOWNLOADER = LOGGER_ROOT.extend("download");
