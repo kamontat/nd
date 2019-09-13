@@ -1,4 +1,5 @@
 import ExceptionService, { ERR_NLV } from "nd-error";
+import { TimeUtils } from "nd-helper";
 import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
 
 import { History } from "../models/history/History";
@@ -88,19 +89,25 @@ export const Merge = (resource: N, refresh: N) => {
 };
 
 export const Compare = (resource: N, refresh: N) => {
-  if (resource.id !== refresh.id) {
-    LoggerService.warn(LOGGER_NOVEL_BUILDER, "cannot merge 2 difference novel id");
-    return resource;
-  }
-
   const event = new HistoryEvent();
   const history = new History();
   history.addEvent(event);
+
+  if (resource.id !== refresh.id) {
+    LoggerService.warn(LOGGER_NOVEL_BUILDER, "cannot merge 2 difference novel id");
+    return history;
+  }
 
   // if base version is latest version
   if ((resource.updateAt || 0) === (refresh.updateAt || 0)) {
     return history;
   }
+
+  const date = (n?: number) =>
+    TimeUtils.FormatDate(TimeUtils.GetDate(n), {
+      format: "short",
+      lang: "th",
+    });
 
   // compare all information changes
   if (changesString(resource.name, refresh.name))
@@ -112,11 +119,11 @@ export const Compare = (resource: N, refresh: N) => {
   if (changesString(resource.abstract, refresh.abstract))
     event.classify("Novel abstract", { before: resource.abstract, after: refresh.abstract });
   if (changesNumber(resource.updateAt, refresh.updateAt))
-    event.classify("Novel update at", { before: resource.updateAt, after: refresh.updateAt });
+    event.classify("Novel update at", { before: date(resource.updateAt), after: date(refresh.updateAt) });
 
   // NOTES: this might not neccessary because I always be present
   if (changesNumber(resource.downloadAt, refresh.downloadAt))
-    event.classify("Novel download at", { before: resource.downloadAt, after: refresh.downloadAt });
+    event.classify("Novel download at", { before: date(resource.downloadAt), after: date(refresh.downloadAt) });
 
   const max = Math.max(refresh.size, resource.size);
   for (let i = 1; i <= max; i++) {
@@ -132,15 +139,24 @@ export const Compare = (resource: N, refresh: N) => {
       if ((resourceChapter.updateAt || 0) < (refresh.updateAt || 0)) {
         // compare all chapter information changes
         if (changesString(resourceChapter.name, refreshChapter.name))
-          event.classify("Chapter name", { before: resourceChapter.name, after: refreshChapter.name });
+          event.classify(`Chapter ${refreshChapter.cid} name`, {
+            before: resourceChapter.name,
+            after: refreshChapter.name,
+          });
         if (changesString(resourceChapter.status, refreshChapter.status))
-          event.classify("Chapter status", { before: resourceChapter.status, after: refreshChapter.status });
+          event.classify(`Chapter ${refreshChapter.cid} status`, {
+            before: resourceChapter.status,
+            after: refreshChapter.status,
+          });
         if (changesNumber(resourceChapter.updateAt, refreshChapter.updateAt))
-          event.classify("Chapter update at", { before: resourceChapter.updateAt, after: refreshChapter.updateAt });
+          event.classify(`Chapter ${refreshChapter.cid} last update`, {
+            before: date(resourceChapter.updateAt),
+            after: date(refreshChapter.updateAt),
+          });
         if (changesNumber(resourceChapter.downloadAt, refreshChapter.downloadAt))
-          event.classify("Chapter download at", {
-            before: resourceChapter.downloadAt,
-            after: refreshChapter.downloadAt,
+          event.classify(`Chapter ${refreshChapter.cid} download at`, {
+            before: date(resourceChapter.downloadAt),
+            after: date(refreshChapter.downloadAt),
           });
       }
     }
