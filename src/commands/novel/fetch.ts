@@ -3,7 +3,7 @@ import { config } from "nd-config";
 import ExceptionService, { ERR_CLI } from "nd-error";
 import FileSystem from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { PathUtils } from "nd-helper";
+import { is, PathUtils } from "nd-helper";
 import LoggerService, { LOGGER_NOVEL_FETCHER } from "nd-logger";
 import { Novel } from "nd-novel";
 import { NovelBuilder } from "nd-novel";
@@ -65,9 +65,9 @@ const __main: ICommandCallback = async ({ value, apis }) => {
 
   LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options thread=${thread},chapter=${chapter},fast=${fast}`);
 
-  if (apis.verify.IsNumber(value)) await __fetch_url(parseInt(value || "0"), { thread, chapter, fast });
-  else if (apis.verify.IsPath(value)) {
-    if (!apis.verify.IsFileExist(value, RESOURCE_FILENAME))
+  if (is.id(value)) await __fetch_url(parseInt(value || "0"), { thread, chapter, fast });
+  else if (is.path(value)) {
+    if (!is.file(resolve(value || "", RESOURCE_FILENAME)))
       throw ExceptionService.build(ERR_CLI, "input must be valid nd novel directory");
 
     await __fetch_path(value || "", { thread, chapter });

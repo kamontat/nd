@@ -3,7 +3,7 @@ import { config } from "nd-config";
 import ExceptionService, { ERR_CLI, ERR_FLE } from "nd-error";
 import FileSystem, { FileAction } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { PathUtils } from "nd-helper";
+import { is, PathUtils } from "nd-helper";
 import { Generator, TemplateType } from "nd-html-generator";
 import LoggerService, { LOGGER_NOVEL_DOWNLOADER, LOGGER_NOVEL_UPDATER } from "nd-logger";
 import { ChapterStatus, Novel, NovelBuilder } from "nd-novel";
@@ -16,8 +16,8 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
-  if (!apis.verify.IsPath(value)) throw ExceptionService.build(ERR_CLI, "update parameter must be local path");
-  if (!apis.verify.IsFileExist(value, RESOURCE_FILENAME))
+  if (!is.path(value)) throw ExceptionService.build(ERR_CLI, "update parameter must be local path");
+  if (!is.file(resolve(value || "", RESOURCE_FILENAME)))
     throw ExceptionService.build(ERR_CLI, "input must be valid nd novel directory");
 
   config.set("novel.location", resolve(value || ""));

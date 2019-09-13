@@ -3,7 +3,7 @@ import { config } from "nd-config";
 import ExceptionService, { ERR_CLI, ERR_NLV } from "nd-error";
 import FileSystem, { FileAction, FileLoadResult, FileType } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { PathUtils } from "nd-helper";
+import { is, PathUtils } from "nd-helper";
 import { Generator, TemplateType } from "nd-html-generator";
 import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE, LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
 import { ChapterStatus, NovelBuilder } from "nd-novel";
@@ -22,7 +22,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   const { err, secure } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
-  if (!apis.verify.IsNumber(value)) throw ExceptionService.build(ERR_CLI, `you pass ${value} instead of novel id`);
+  if (!is.id(value)) throw ExceptionService.build(ERR_CLI, `you pass ${value} instead of novel id`);
 
   // -------------------------------------
   // Get option configuration
