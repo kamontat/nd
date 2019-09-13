@@ -1,6 +1,6 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "nd-logger": "./packages/nd-logger",
@@ -9,6 +9,10 @@
     "nd-config": "./packages/nd-config"
   },
   "changelog": {
+    "1.2.4": {
+      "message": "more lightweight and understandable code",
+      "date": "13 Sep 2019"
+    },
     "1.2.3": {
       "message": "fix isPath() is not work as expected",
       "date": "03 Sep 2019"
