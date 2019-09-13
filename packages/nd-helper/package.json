@@ -2,6 +2,9 @@
   "name": "nd-helper",
   "version": "0.7.4",
   "description": "interface, absolute class and other helper methods",
+  "dependencies": {
+    "nd-logger": "./packages/nd-logger"
+  },
   "changelog": {
     "0.7.4": {
       "message": "tmp name and caches name is customable",
