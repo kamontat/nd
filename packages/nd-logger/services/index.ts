@@ -1,7 +1,7 @@
 import debug from "debug";
 import { config } from "nd-config";
-import { CheckerUtils } from "nd-helper";
 
+import CheckerUtils from "../apis/checker";
 import Logger from "../models/Logger";
 
 export default class LoggerService {
