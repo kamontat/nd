@@ -3,9 +3,10 @@ import { config } from "nd-config";
 import ExceptionService, { ERR_CLI } from "nd-error";
 import FileSystem from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
+import { HistorySummary } from "nd-formatter/models/HistorySummary";
 import { is, PathUtils } from "nd-helper";
 import LoggerService, { LOGGER_NOVEL_FETCHER } from "nd-logger";
-import { Novel } from "nd-novel";
+import { Compare, Novel } from "nd-novel";
 import { NovelBuilder } from "nd-novel";
 import { Resource, RESOURCE_FILENAME } from "nd-resource";
 import { resolve } from "path";
@@ -32,7 +33,7 @@ const __fetch_url = async (value: number, opts: { chapter: boolean; fast: boolea
   LoggerService.console.log(result);
 };
 
-const __fetch_path = async (value: string, opts: { chapter: boolean; thread: number }) => {
+const __fetch_path = async (value: string, opts: { chapter: boolean; check: boolean; thread: number }) => {
   LoggerService.log(
     LOGGER_NOVEL_FETCHER,
     `fetch local novel at ${value} ${opts.chapter ? "with" : "without"} chapter list`,
@@ -44,33 +45,45 @@ const __fetch_path = async (value: string, opts: { chapter: boolean; thread: num
   const system = new FileSystem(location || PathUtils.GetCurrentPath(), opts.thread);
 
   const resource = new Resource.File(system.directory);
+
   const novel = new Novel.Resource(resource);
 
   const formatter = FormatterFactory.Build().get<NovelSummary>("novel");
-  const result = formatter
+  let result = formatter
     .save(novel)
     .config({ chapters: opts.chapter, path: system.directory, short: true, _format: true, history: false })
     .build();
 
   LoggerService.console.log(result);
+
+  if (opts.check) {
+    const newNovel = await new NovelBuilder(novel.id).build(opts.thread);
+
+    const historySummary = new HistorySummary();
+    result = historySummary.save(Compare(novel, newNovel)).build();
+    LoggerService.console.log(result);
+  }
 };
 
 const __main: ICommandCallback = async ({ value, apis }) => {
   const { err } = await apis.verify.CheckAuthenication(config);
   if (err) throw err;
 
-  const thread = apis.config.get<number>("novel.thread", 4);
-  const chapter = apis.config.get<boolean>("novel.chapter", false);
-  const fast = apis.config.get<boolean>("fetch.fast", false);
+  const opts = {
+    thread: apis.config.get<number>("novel.thread", 4),
+    chapter: apis.config.get<boolean>("novel.chapter", false),
+    fast: apis.config.get<boolean>("novel.fetch.fast", false),
+    check: apis.config.get<boolean>("novel.fetch.check", false),
+  };
 
-  LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options thread=${thread},chapter=${chapter},fast=${fast}`);
+  LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options %O`, opts);
 
-  if (is.id(value)) await __fetch_url(parseInt(value || "0"), { thread, chapter, fast });
+  if (is.id(value)) await __fetch_url(parseInt(value || "0"), opts);
   else if (is.path(value)) {
     if (!is.file(resolve(value || "", RESOURCE_FILENAME)))
       throw ExceptionService.build(ERR_CLI, "input must be valid nd novel directory");
 
-    await __fetch_path(value || "", { thread, chapter });
+    await __fetch_path(value || "", opts);
   } else throw ExceptionService.build(ERR_CLI, "cannot classify input; you must input either number or local path");
 };
 
