@@ -2,6 +2,7 @@ import { ArrayUtils, TimeUtils } from "nd-helper";
 import { Colorize } from "nd-logger";
 import { ChapterStatus, History, Novel } from "nd-novel";
 
+import { HistorySummary } from "./HistorySummary";
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 
 interface INovelConfigFormat extends IDefaultConfigFormat {
@@ -107,8 +108,9 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
   private __buildHistory() {
     if (this._obj) {
       this._appendSummary(this._section("Histories"));
-      const events = History.Get().events;
-      events.forEach(n => this._appendSummary(n.toString({ color: true })));
+
+      const historyFormatter = new HistorySummary();
+      this._appendSummary(historyFormatter.save(History.Get()).build());
     }
   }
 
