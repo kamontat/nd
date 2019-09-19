@@ -28,7 +28,7 @@ export default {
   time: chalk.greenBright,
   url: chalk.green.underline,
   value: chalk.greenBright,
-  version: chalk.blueBright,
+  version: chalk.cyanBright,
   name: chalk.blueBright,
   enum: chalk.redBright,
   boolean: _customBooleanFn,
