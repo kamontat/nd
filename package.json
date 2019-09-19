@@ -56,6 +56,7 @@
     "nd-commandline-interpreter": "./packages/nd-commandline-interpreter",
     "nd-config": "./packages/nd-config",
     "nd-database": "./packages/nd-database",
+    "nd-debug": "./packages/nd-debug",
     "nd-decoder": "./packages/nd-decoder",
     "nd-downloader": "./packages/nd-downloader",
     "nd-error": "./packages/nd-error",

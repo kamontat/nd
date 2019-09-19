@@ -4266,7 +4266,7 @@ nd-admin@./packages/nd-admin:
     nd-security "./packages/nd-security"
 
 nd-commandline-interpreter@./packages/nd-commandline-interpreter:
-  version "1.2.3"
+  version "1.2.4"
   dependencies:
     nd-config "./packages/nd-config"
     nd-error "./packages/nd-error"
@@ -4283,6 +4283,15 @@ nd-database@./packages/nd-database:
   dependencies:
     firebase "6.4.0"
     nd-error "./packages/nd-error"
+    nd-logger "./packages/nd-logger"
+
+nd-debug@./packages/nd-debug:
+  version "0.0.1-alpha.1"
+  dependencies:
+    chalk "2.4.2"
+    nd-config "./packages/nd-config"
+    nd-error "./packages/nd-error"
+    nd-helper "./packages/nd-helper"
     nd-logger "./packages/nd-logger"
 
 nd-decoder@./packages/nd-decoder:
@@ -4310,13 +4319,16 @@ nd-file@./packages/nd-file:
     nd-logger "./packages/nd-logger"
 
 nd-formatter@./packages/nd-formatter:
-  version "1.2.4"
+  version "1.2.6"
   dependencies:
     nd-logger "./packages/nd-logger"
+    nd-novel "./packages/nd-novel"
     table "5.4.1"
 
 nd-helper@./packages/nd-helper:
-  version "0.7.4"
+  version "0.8.0"
+  dependencies:
+    nd-logger "./packages/nd-logger"
 
 nd-html-generator@./packages/nd-html-generator:
   version "1.0.0-beta.6"
@@ -4328,12 +4340,11 @@ nd-html-generator@./packages/nd-html-generator:
     nd-security "./packages/nd-security"
 
 nd-logger@./packages/nd-logger:
-  version "1.2.4"
+  version "1.2.5"
   dependencies:
     debug "4.1.1"
     nd-config "./packages/nd-config"
     nd-error "./packages/nd-error"
-    nd-helper "./packages/nd-helper"
 
 nd-novel@./packages/nd-novel:
   version "1.4.2"
