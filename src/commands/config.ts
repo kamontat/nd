@@ -7,7 +7,7 @@ import { Colorize, LOGGER_CONFIG } from "nd-logger";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 import readline from "readline";
 
-import { HELP_HEADER, HELP_NOVEL } from "../constants/content";
+import { HELP_CONFIGURATION, HELP_HEADER } from "../constants/content";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const getCallback: ICommandCallback = ({ value, apis }) => {
@@ -25,7 +25,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
 ${HELP_HEADER(self.name, self.description)}
-${HELP_NOVEL(self.name)}`);
+${HELP_CONFIGURATION(self.name)}`);
         }),
       )
       .sub(

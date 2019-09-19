@@ -2,7 +2,7 @@ import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-c
 import { config, IConfiguration } from "nd-config";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
-import { COMMAND_INFORMATION, HELP_HEADER, HELP_NOVEL, VERSION, VERSION_FULL } from "../constants/content";
+import { COMMAND_INFORMATION, HELP_COMMAND, HELP_HEADER, VERSION, VERSION_FULL } from "../constants/content";
 
 import ProgramVerification from "./command/verify";
 
@@ -36,7 +36,7 @@ export default (cli: Commandline, _: IConfiguration) => {
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
 ${HELP_HEADER(self.name, self.description)}
-${HELP_NOVEL(self.name)}`);
+${HELP_COMMAND(self.name)}`);
         }),
       )
       .sub(
