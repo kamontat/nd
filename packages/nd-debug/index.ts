@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { appendFileSync } from "fs";
+import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import { config } from "nd-config";
-import { LOG_DIRECTORY, TMP_DIRECTORY } from "nd-helper";
-import LoggerService from "nd-logger";
-import { resolve } from "path";
+import { LOG_DIRECTORY, ND_TMP_LOCATION, TMP_DIRECTORY } from "nd-helper";
+import LoggerService, { Colorize } from "nd-logger";
+import { dirname, resolve } from "path";
 
 import Package from "./package.json";
 
@@ -12,16 +12,33 @@ export class DebugMode {
     return this.logs;
   }
 
-  constructor(private logs: string = LOG_DIRECTORY) {}
+  constructor(private logs: string = LOG_DIRECTORY) {
+    LoggerService.console.log(
+      Colorize.format`{yellow.bold.underline WARNING} You create Debug mode instance. All command will be run as {red.underline.bold DEBUG MODE}
+All result will add to Temporary folder instead at ${Colorize.path(ND_TMP_LOCATION)}
+  1. Log file will be on ${Colorize.path(this.logs)}
+  2. Tmp file will be on ${Colorize.path(TMP_DIRECTORY)}`,
+    );
+  }
 
   public open() {
     config.set("novel.location", TMP_DIRECTORY);
     LoggerService.level(3);
     chalk.level = 0;
 
-    console.log = (...message: string[]) => appendFileSync(resolve(this.logs, "nd.log"), message);
-    console.warn = (...message: string[]) => appendFileSync(resolve(this.logs, "nd.warn"), message);
-    console.error = (...message: string[]) => appendFileSync(resolve(this.logs, "nd.error"), message);
+    console.log = (...message: string[]) => this.save(message, "nd.log");
+    console.warn = (...message: string[]) => this.save(message, "nd.warn");
+    console.error = (...message: string[]) => this.save(message, "nd.error");
+  }
+
+  private save(message: string[], name: string) {
+    const filename = resolve(this.logs, name);
+    try {
+      mkdirSync(dirname(filename), { recursive: true });
+    } catch (e) {}
+
+    if (existsSync(filename)) appendFileSync(filename, message);
+    else writeFileSync(filename, message);
   }
 }
 
