@@ -1,6 +1,6 @@
-import { Commandline } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
-import { config } from "nd-config";
+import { Commandline, Option } from "nd-commandline-interpreter";
+import { config, IConfiguration } from "nd-config";
+import { DebugMode } from "nd-debug";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
@@ -25,6 +25,13 @@ export const UpdateLogInfo = (args: any[]) => {
 // --------------------------- //
 
 export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
+  cli.option(
+    Option.build("debug-mode", false, () => {
+      const mode = new DebugMode();
+      mode.open();
+    }),
+  );
+
   await Help(cli, config);
 
   await Version(cli, config);
