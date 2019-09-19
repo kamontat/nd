@@ -8,3 +8,5 @@ export { Package, RandomUtils, TimeUtils, PathUtils, ArrayUtils };
 
 export { Optional } from "./models/Optional";
 export { is } from "./apis/datetype";
+
+export * from "./constants/files";
