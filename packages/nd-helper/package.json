@@ -1,11 +1,15 @@
 {
   "name": "nd-helper",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "interface, absolute class and other helper methods",
   "dependencies": {
     "nd-logger": "./packages/nd-logger"
   },
   "changelog": {
+    "0.8.1": {
+      "message": "make improvement on file/directory name constants",
+      "date": "19 Sep 2019"
+    },
     "0.8.0": {
       "message": "add datatype checker called 'is'",
       "date": "13 Sep 2019"
