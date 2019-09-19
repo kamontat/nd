@@ -383,13 +383,17 @@ export const __COMMAND_INFORMATION_JSON = async (name: string) => {
 };
 
 export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
-  let result = Colorize.format`
-Command name:            {greenBright ${name}}
-Command version:         {greenBright ${CorePackage.version}}
-Command author:          {greenBright ${CorePackage.author}}
-Command date:            {greenBright ${TimeUtils.FormatDate(new Date(__COMPILE_DATE__))}}
+  let result = `# Authentization
+--------------
+`;
 
-Admin version:           {greenBright ${AdminPackage.version}}
+  result += `
+Command name:            ${Colorize.appname(name)}
+Command version:         ${Colorize.version(CorePackage.version)}
+Command author:          ${Colorize.name(CorePackage.author)}
+Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(__COMPILE_DATE__)))}
+
+Admin version:           ${Colorize.version(AdminPackage.version)}
 `;
 
   const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
