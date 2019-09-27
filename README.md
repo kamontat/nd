@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/icon.png" width="50px">
+  <img src="./assets/icon.png" width="120px">
 </p>
 
 <!-- Title -->
