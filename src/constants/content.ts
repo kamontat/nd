@@ -1,6 +1,7 @@
 import { Package as AdminPackage } from "nd-admin/standalone";
 import { Package as CLIPackage } from "nd-commandline-interpreter";
 import { config, Package as ConfigPackage } from "nd-config";
+import { Package as ContentPackage } from "nd-content";
 import { Package as DatabasePackage } from "nd-database";
 import { Package as EncoderPackage } from "nd-decoder";
 import { Package as DownloaderPackage } from "nd-downloader";
@@ -209,6 +210,7 @@ export const VERSION = () => {
   return Colorize.format`{dim --------------------------------------}
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
+{yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
 {yellowBright ${ResourcePackage.name}}                : {blueBright ${ResourcePackage.version}}
 {yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
@@ -251,6 +253,9 @@ export const VERSION_FULL = (limit: number = 5) => {
 
   // security package
   dependencies.push(genInternalDependency(SecurityPackage));
+
+  // content package
+  dependencies.push(genInternalDependency(ContentPackage));
 
   // novel package
   dependencies.push(genInternalDependency(NovelPackage));

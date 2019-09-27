@@ -55,6 +55,7 @@
     "nd-admin": "./packages/nd-admin",
     "nd-commandline-interpreter": "./packages/nd-commandline-interpreter",
     "nd-config": "./packages/nd-config",
+    "nd-content": "./packages/nd-content",
     "nd-database": "./packages/nd-database",
     "nd-debug": "./packages/nd-debug",
     "nd-decoder": "./packages/nd-decoder",
