@@ -22,7 +22,7 @@ commit:
     enable: true
     require: false
     type: list
-    page: 5
+    page: 12
   title:
     enable: true
     require: true
