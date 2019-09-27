@@ -99,3 +99,6 @@ else
 	@printf "\nCreate date is " >> ./reports/loc/LOC.md
 	@date "+%d/%m/%Y - %H:%M:%S" >> ./reports/loc/LOC.md
 endif
+
+changelog:
+	@git chglog --config .gitgo/chglog/config.yml --output docs/CHANGELOG.md --tag-filter-pattern "^v"

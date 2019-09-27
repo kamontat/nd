@@ -1,0 +1,33 @@
+style: github
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/kamontat/nd
+options:
+  commits:
+    filters:
+      Type:
+        - feat
+        - impr
+        - perf
+        - fix
+        - doc
+  commit_groups:
+    title_maps:
+      feat: Feature
+      impr: Improving application
+      perf: Improving performance
+      fix: Fixes Bug
+      doc: Documentation
+  header:
+    pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+  issues: 
+    prefix: 
+      - "#"
+  notes:
+    keywords:
+      - BREAKING CHANGE
