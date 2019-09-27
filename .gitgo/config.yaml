@@ -1,16 +1,50 @@
-version: 3
-log: true
+# All **type** on each configuration can be 3 value only
+#   1. list      -> in order to use this key the list.yaml must be presented and list of root name must be presented
+#                   the prompt will show as choice input
+#   2. input     -> the prompt will show as string input
+#   3. mulitline -> the prompt will show as multiple line input
+#   4. mix       -> this will mix between list and custom
+
+# enable and require is configuration root level
+# if enable is true, mean command will prompt user to input something
+# and if require is true, you will cannot add empty string to that prompt
+
+version: 4
+settings:
+  log: info
 commit:
-  message: true
+  key:
+    enable: true
+    require: true
+    type: list
+    page: 5
   scope:
-    size: 20
+    enable: true
+    require: false
+    type: list
+    page: 5
+  title:
+    enable: true
+    require: true
+    type: input
+    size: 75
   message:
-    size: 80
+    enable: false
+    require: false
+    type: multiline
+    size: 200
 branch:
   iteration:
+    enable: true
     require: true
+  key:
+    type: list
+    size: 15
+    page: 5
+  title:
+    type: mix
+    size: 20
+    page: 5
   description:
-    require: true
-  issue:
+    enable: true
     require: false
-    hashtag: false

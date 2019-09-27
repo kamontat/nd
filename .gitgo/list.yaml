@@ -1,3 +1,56 @@
-version: 3
-commits:
-branches:
+version: 4
+commit:
+  keys:
+    - type: feat
+      value: Introducing new features.
+    - type: impr
+      value: Improving user experience / usability / reliablity.
+    - type: fix
+      value: Fixing a bug.
+    - type: refac
+      value: A code change that neither fixes a bug nor adds a feature.
+    - type: chore
+      value: Other changes that don't modify src or test files.
+  scopes:
+    - type: cli
+      value: Commandline relevant
+    - type: core
+      value: nd application but not relevant to cli
+    - type: lib
+      value: internal or external libraries
+    - type: script
+      value: Helper shell script
+    - type: docs
+      value: Documentation
+    - type: security
+      value: Security submodules
+    - type: content
+      value: Content submodules
+    - type: novel
+      value: Novel submodules
+    - type: resource
+      value: Resource submodules
+    - type: cli-builder
+      value: Commandline interpreter submodules
+    - type: decoder
+      value: Decoder submodules
+    - type: logger
+      value: Logger submodules
+    - type: formatter
+      value: Formatter submodules
+    - type: database
+      value: Database submodules
+    - type: file
+      value: File submodules
+    - type: html-gen
+      value: Html generator submodules
+    - type: downloader
+      value: Downloader submodules
+    - type: config
+      value: Config submodules
+    - type: error
+      value: Error submodules
+    - type: Thread
+      value: Thread submodules
+    - type: helper
+      value: Helper submodules

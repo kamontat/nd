@@ -1,6 +1,6 @@
-# Gitgo (v3.2.1)
+# Gitgo (v4.0.0-beta.4)
 
-This is a configuration file for gitgo repository with hosting on https://github.com/kamontat/gitgo/tree/version/3.x.x
+This is a configuration file for gitgo repository with hosting on https://github.com/kamontat/gitgo/tree/version/4.x.x
 
 ### Creator
 
@@ -8,7 +8,8 @@ This is a configuration file for gitgo repository with hosting on https://github
 
 ### Datetime
 
-Someone create this configuration on 'Tue Aug 27 12:46:13 UTC 2019'
+Someone create this configuration on 'Fri Sep 27 16:09:29 UTC 2019'
 
 ### Thank you
+
 Thank you for using this command to manage your project :)
