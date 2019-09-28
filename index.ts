@@ -1,23 +1,23 @@
 // disable color if --no-color appear
 ((args: string[]) => {
-    const i = args.findIndex(v => /^--no-color$/.test(v));
-    if (i >= 0) {
-        process.env.DEBUG_COLORS = 'false';
-    } else {
-        process.env.DEBUG_COLORS = 'true';
-    }
+  const i = args.findIndex(v => /^--no-color$/.test(v));
+  if (i >= 0) {
+    process.env.DEBUG_COLORS = "false";
+  } else {
+    process.env.DEBUG_COLORS = "true";
+  }
 })(process.argv);
 
-import chalk from 'chalk';
-import { Commandline } from 'nd-commandline-interpreter';
-import { config } from 'nd-config';
-import { InitialFirebaseDatabase } from 'nd-database';
-import Exception from 'nd-error';
-import LoggerService, { LOGGER_CLI } from 'nd-logger';
-import { homedir } from 'os';
+import chalk from "chalk";
+import { Commandline } from "nd-commandline-interpreter";
+import { config } from "nd-config";
+import { InitialFirebaseDatabase } from "nd-database";
+import Exception from "nd-error";
+import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { homedir } from "os";
 
-import { Package } from './src/build/Package';
-import { BuildCommandline, UpdateLogInfo } from './src/nd';
+import { Package } from "./src/build/Package";
+import { BuildCommandline, UpdateLogInfo } from "./src/nd";
 
 InitialFirebaseDatabase();
 
@@ -26,28 +26,28 @@ const cli = new Commandline(Package.name, Package.description);
 const home = homedir();
 
 (async () => {
-    try {
-        // add config handler
-        config.on('output.level', (level: number, old: number) => {
-            if (level > old) {
-                LoggerService.level(level);
-                LoggerService.log(LOGGER_CLI, `now output level is ${level} (old=${old})`);
-            }
-        });
+  try {
+    // add config handler
+    config.on("output.level", (level: number, old: number) => {
+      if (level > old) {
+        LoggerService.level(level);
+        LoggerService.log(LOGGER_CLI, `now output level is ${level} (old=${old})`);
+      }
+    });
 
-        config.on('output.color', (color: boolean) => {
-            LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
-            if (!color) chalk.level = 0;
-        });
+    config.on("output.color", (color: boolean) => {
+      LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
+      if (!color) chalk.level = 0;
+    });
 
-        UpdateLogInfo(process.argv); // update log info
+    UpdateLogInfo(process.argv); // update log info
 
-        const conf = await config.load(`${home}/.nd/config`);
-        const commandline = await BuildCommandline(cli, conf);
+    const conf = await config.load(`${home}/.nd/config`);
+    const commandline = await BuildCommandline(cli, conf);
 
-        await commandline.run(process.argv);
-    } catch (e) {
-        const err = Exception.cast(e);
-        err.print(LOGGER_CLI).exit(1);
-    }
+    await commandline.run(process.argv);
+  } catch (e) {
+    const err = Exception.cast(e);
+    err.print(LOGGER_CLI).exit(1);
+  }
 })();

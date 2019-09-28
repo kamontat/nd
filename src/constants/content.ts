@@ -1,27 +1,27 @@
-import { Package as AdminPackage } from 'nd-admin/standalone';
-import { Package as CLIPackage } from 'nd-commandline-interpreter';
-import { config, Package as ConfigPackage } from 'nd-config';
-import { Package as ContentPackage } from 'nd-content';
-import { Package as DatabasePackage } from 'nd-database';
-import { Package as EncoderPackage } from 'nd-decoder';
-import { Package as DownloaderPackage } from 'nd-downloader';
-import { Package as ErrorPackage } from 'nd-error';
-import { Package as FilePackage } from 'nd-file';
-import { Package as FormatterPackage } from 'nd-formatter';
-import { Package as HelperPackage, TimeUtils } from 'nd-helper';
-import { Package as HtmlGenPackage } from 'nd-html-generator';
-import { Colorize, Package as LogPackage } from 'nd-logger';
-import { Package as NovelPackage } from 'nd-novel';
-import { Package as ResourcePackage } from 'nd-resource';
-import { Package as SecurityPackage, Security } from 'nd-security';
-import { Package as ThreadPackage } from 'nd-thread';
+import { Package as AdminPackage } from "nd-admin/standalone";
+import { Package as CLIPackage } from "nd-commandline-interpreter";
+import { config, Package as ConfigPackage } from "nd-config";
+import { Package as ContentPackage } from "nd-content";
+import { Package as DatabasePackage } from "nd-database";
+import { Package as EncoderPackage } from "nd-decoder";
+import { Package as DownloaderPackage } from "nd-downloader";
+import { Package as ErrorPackage } from "nd-error";
+import { Package as FilePackage } from "nd-file";
+import { Package as FormatterPackage } from "nd-formatter";
+import { Package as HelperPackage, TimeUtils } from "nd-helper";
+import { Package as HtmlGenPackage } from "nd-html-generator";
+import { Colorize, Package as LogPackage } from "nd-logger";
+import { Package as NovelPackage } from "nd-novel";
+import { Package as ResourcePackage } from "nd-resource";
+import { Package as SecurityPackage, Security } from "nd-security";
+import { Package as ThreadPackage } from "nd-thread";
 
-import { Package as CorePackage } from '../build/Package';
+import { Package as CorePackage } from "../build/Package";
 
 declare let __COMPILE_DATE__: string;
 
 const GLOBAL_OPTION = (name: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {bold # Global option}
 
 {gray $} {green ${name}} {cyan --version}                -- short version message
@@ -33,7 +33,7 @@ const GLOBAL_OPTION = (name: string) => {
 };
 
 const CONFIGURATION = (name: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {bold ## Configuration}
 
 {gray $} {green ${name}} {magentaBright config} {magenta [get]}             -- get value from configuration file
@@ -51,13 +51,13 @@ const CONFIGURATION = (name: string) => {
      option:
        {cyan --backup}                - {gray [optional]} create backup before replace configuration file
 {gray $} {green ${name}} {magentaBright config} {magenta help}              -- show available subcommand of ${Colorize.command(
-        'config',
-    )} command
+    "config",
+  )} command
 `;
 };
 
 const NOVEL = (name: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {bold ## Novel}
 
 {gray $} {green ${name}} {magentaBright [novel]} {magenta [download]}       -- start download novel from website (auto mode)
@@ -125,13 +125,13 @@ const NOVEL = (name: string) => {
      option:
        {cyan --search} {gray <name>}         - {gray [optional]} search input value inside category database [WIP]
 {gray $} {green ${name}} {magentaBright novel} {magenta help}               -- show available subcommand of ${Colorize.command(
-        'novel',
-    )} command
+    "novel",
+  )} command
 `;
 };
 
 const COMMAND = (name: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {bold ## Command}
 
 {gray $} {green ${name}} {magentaBright command} {magenta [verify]}         -- verify all dependencies and components of the command
@@ -145,35 +145,35 @@ const COMMAND = (name: string) => {
      parameter:
        {yellow <version>}               - {gray [required]} specify version number [WIP]
 {gray $} {green ${name}} {magentaBright command} {magenta help}             -- show available subcommand of ${Colorize.command(
-        'command',
-    )} command
+    "command",
+  )} command
 `;
 };
 
 const PS = (_: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {gray P.S. [...] mean optional / default command (can be omit)}
 {gray P.S. <...> mean variable}`;
 };
 
 export const HELP_CONFIGURATION = (name: string) => {
-    return GLOBAL_OPTION(name) + CONFIGURATION(name) + PS(name);
+  return GLOBAL_OPTION(name) + CONFIGURATION(name) + PS(name);
 };
 
 export const HELP_NOVEL = (name: string) => {
-    return GLOBAL_OPTION(name) + NOVEL(name) + PS(name);
+  return GLOBAL_OPTION(name) + NOVEL(name) + PS(name);
 };
 
 export const HELP_COMMAND = (name: string) => {
-    return GLOBAL_OPTION(name) + COMMAND(name) + PS(name);
+  return GLOBAL_OPTION(name) + COMMAND(name) + PS(name);
 };
 
 export const HELP_CONTENT = (name: string) => {
-    return GLOBAL_OPTION(name) + CONFIGURATION(name) + NOVEL(name) + COMMAND(name) + PS(name);
+  return GLOBAL_OPTION(name) + CONFIGURATION(name) + NOVEL(name) + COMMAND(name) + PS(name);
 };
 
 const LICENSE = (name: string) => {
-    return Colorize.format`
+  return Colorize.format`
 {bold END-USER LICENSE AGREEMENT}
 
 BY CLICKING "I AGREE", DOWNLOADING, ACCESSING, INSTALLING, RUNNING OR USING ${name.toUpperCase()} SOFTWARE
@@ -191,23 +191,23 @@ unless laws prohibit those restrictions or you have our written permission.
 };
 
 const AUTHOR = (_: string) => {
-    return Colorize.format`
+  return Colorize.format`
 Enjoy your days; {blueBright ${CorePackage.author}}`;
 };
 
 export const HELP_HEADER = (name: string, description: string) => {
-    const date = new Date(__COMPILE_DATE__);
-    return `${Colorize.appname(name.toUpperCase())} command; ${description}
+  const date = new Date(__COMPILE_DATE__);
+  return `${Colorize.appname(name.toUpperCase())} command; ${description}
 Built at ${Colorize.datetime(date.toLocaleString())}
 Version  ${Colorize.version(CorePackage.version)}`;
 };
 
 export const HELP_FOOTER = (name: string) => {
-    return LICENSE(name) + AUTHOR(name);
+  return LICENSE(name) + AUTHOR(name);
 };
 
 export const VERSION = () => {
-    return Colorize.format`{dim --------------------------------------}
+  return Colorize.format`{dim --------------------------------------}
 {yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
@@ -230,164 +230,164 @@ export const VERSION = () => {
 };
 
 export const VERSION_FULL = (limit = 5) => {
-    interface IDependency {
-        changelog?: { [key: string]: string | { date: string; message: string } };
-        description?: string;
-        name: string;
-        version: string;
+  interface IDependency {
+    changelog?: { [key: string]: string | { date: string; message: string } };
+    description?: string;
+    name: string;
+    version: string;
+  }
+
+  const genInternalDependency = (pjson: { [key: string]: unknown }) => {
+    return {
+      name: pjson.name as string,
+      version: pjson.version as string,
+      description: pjson.description as string,
+      changelog: pjson.changelog as { date: string; message: string },
+    };
+  };
+
+  const dependencies: Array<IDependency> = [];
+
+  // core package
+  dependencies.push(genInternalDependency(CorePackage));
+
+  // security package
+  dependencies.push(genInternalDependency(SecurityPackage));
+
+  // content package
+  dependencies.push(genInternalDependency(ContentPackage));
+
+  // novel package
+  dependencies.push(genInternalDependency(NovelPackage));
+
+  // resource package
+  dependencies.push(genInternalDependency(ResourcePackage));
+
+  // commandline package
+  dependencies.push(genInternalDependency(CLIPackage));
+
+  // encoder package
+  dependencies.push(genInternalDependency(EncoderPackage));
+
+  // logger package
+  dependencies.push(genInternalDependency(LogPackage));
+
+  // formatter package
+  dependencies.push(genInternalDependency(FormatterPackage));
+
+  // database package
+  dependencies.push(genInternalDependency(DatabasePackage));
+
+  // file package
+  dependencies.push(genInternalDependency(FilePackage));
+
+  // html generator package
+  dependencies.push(genInternalDependency(HtmlGenPackage));
+
+  // downloader package
+  dependencies.push(genInternalDependency(DownloaderPackage));
+
+  // config package
+  dependencies.push(genInternalDependency(ConfigPackage));
+
+  // error package
+  dependencies.push(genInternalDependency(ErrorPackage));
+
+  // thread package
+  dependencies.push(genInternalDependency(ThreadPackage));
+
+  // helper package
+  dependencies.push(genInternalDependency(HelperPackage));
+
+  // NOTES: just disable external dependency because It might have vulnerability
+  // external dependency
+  // Object.keys(CorePackage.dependencies)
+  //   .filter(v => !v.includes("nd-"))
+  //   .forEach(name => {
+  //     const version = (CorePackage.dependencies as any)[name];
+  //     const description = (CorePackage as any).dependency[name];
+  //     dependencies.push({
+  //       name,
+  //       version,
+  //       description,
+  //     });
+  //   });
+
+  let str = dependencies.reduce((p, c) => {
+    let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ""}}\n`;
+    if (c.changelog) {
+      Object.keys(c.changelog).forEach((k, i) => {
+        if (i >= limit) return; // exceed limit number
+
+        const v = c.changelog && c.changelog[k];
+        if (v) {
+          // old version of changelog
+          if (typeof v === "string") s += Colorize.format`  - {blueBright ${k}} {dim ${v || ""}}\n`;
+          // new version which include date
+          else s += Colorize.format`  - {blueBright ${k}} {dim ${v.message}} {dim.underline ${v.date}}\n`;
+        } else {
+          // no changelog
+          s += Colorize.format`  - {blueBright ${k}}\n`;
+        }
+      });
     }
 
-    const genInternalDependency = (pjson: { [key: string]: unknown }) => {
-        return {
-            name: pjson.name,
-            version: pjson.version,
-            description: pjson.description,
-            changelog: pjson.changelog,
-        };
-    };
-
-    const dependencies: Array<IDependency> = [];
-
-    // core package
-    dependencies.push(genInternalDependency(CorePackage));
-
-    // security package
-    dependencies.push(genInternalDependency(SecurityPackage));
-
-    // content package
-    dependencies.push(genInternalDependency(ContentPackage));
-
-    // novel package
-    dependencies.push(genInternalDependency(NovelPackage));
-
-    // resource package
-    dependencies.push(genInternalDependency(ResourcePackage));
-
-    // commandline package
-    dependencies.push(genInternalDependency(CLIPackage));
-
-    // encoder package
-    dependencies.push(genInternalDependency(EncoderPackage));
-
-    // logger package
-    dependencies.push(genInternalDependency(LogPackage));
-
-    // formatter package
-    dependencies.push(genInternalDependency(FormatterPackage));
-
-    // database package
-    dependencies.push(genInternalDependency(DatabasePackage));
-
-    // file package
-    dependencies.push(genInternalDependency(FilePackage));
-
-    // html generator package
-    dependencies.push(genInternalDependency(HtmlGenPackage));
-
-    // downloader package
-    dependencies.push(genInternalDependency(DownloaderPackage));
-
-    // config package
-    dependencies.push(genInternalDependency(ConfigPackage));
-
-    // error package
-    dependencies.push(genInternalDependency(ErrorPackage));
-
-    // thread package
-    dependencies.push(genInternalDependency(ThreadPackage));
-
-    // helper package
-    dependencies.push(genInternalDependency(HelperPackage));
-
-    // NOTES: just disable external dependency because It might have vulnerability
-    // external dependency
-    // Object.keys(CorePackage.dependencies)
-    //   .filter(v => !v.includes("nd-"))
-    //   .forEach(name => {
-    //     const version = (CorePackage.dependencies as any)[name];
-    //     const description = (CorePackage as any).dependency[name];
-    //     dependencies.push({
-    //       name,
-    //       version,
-    //       description,
-    //     });
-    //   });
-
-    let str = dependencies.reduce((p, c) => {
-        let s = Colorize.format`{yellowBright ${c.name}}: {dim ${c.description || ''}}\n`;
-        if (c.changelog) {
-            Object.keys(c.changelog).forEach((k, i) => {
-                if (i >= limit) return; // exceed limit number
-
-                const v = c.changelog && c.changelog[k];
-                if (v) {
-                    // old version of changelog
-                    if (typeof v === 'string') s += Colorize.format`  - {blueBright ${k}} {dim ${v || ''}}\n`;
-                    // new version which include date
-                    else s += Colorize.format`  - {blueBright ${k}} {dim ${v.message}} {dim.underline ${v.date}}\n`;
-                } else {
-                    // no changelog
-                    s += Colorize.format`  - {blueBright ${k}}\n`;
-                }
-            });
-        }
-
-        return p + s;
-    }, Colorize.format`{dim --------------------------------------}\n`);
-    str += Colorize.format`{dim --------------------------------------}`;
-    return str;
+    return p + s;
+  }, Colorize.format`{dim --------------------------------------}\n`);
+  str += Colorize.format`{dim --------------------------------------}`;
+  return str;
 };
 
 export const __COMMAND_INFORMATION_JSON = async (name: string) => {
-    const obj: { [key: string]: unknown } = {
-        command: {
-            name,
-            version: CorePackage.version,
-            author: CorePackage.author,
-        },
-        admin: {
-            version: AdminPackage.version,
-        },
+  const obj: { [key: string]: unknown } = {
+    command: {
+      name,
+      version: CorePackage.version,
+      author: CorePackage.author,
+    },
+    admin: {
+      version: AdminPackage.version,
+    },
+  };
+
+  const secure = new Security(config.get("version") as "v1", config.get("auth.name") as string);
+
+  try {
+    const response = secure.decrypt(config.get("auth.token") as string, config.get("auth.salt") as string);
+    const err = await secure.server.isActivated();
+    if (err) throw err;
+
+    obj.security = {
+      success: true,
+      username: response.username,
+      expire: response.expire, // token cannot be use after this time
+      issue: response.issue, // token has been built
+      activate: response.notBefore, // token can be use since this time
+      detail: {
+        token: config.get("auth.token"),
+        salt: config.get("auth.salt"),
+        name: config.get("auth.name"),
+      },
+      server: {
+        activated: true,
+      },
     };
+  } catch (e) {
+    obj.security = {
+      success: false,
+      reason: e,
+    };
+  }
 
-    const secure = new Security(config.get('version') as unknown, config.get('auth.name') as string);
-
-    try {
-        const response = secure.decrypt(config.get('auth.token') as string, config.get('auth.salt') as string);
-        const err = await secure.server.isActivated();
-        if (err) throw err;
-
-        obj.security = {
-            success: true,
-            username: response.username,
-            expire: response.expire, // token cannot be use after this time
-            issue: response.issue, // token has been built
-            activate: response.notBefore, // token can be use since this time
-            detail: {
-                token: config.get('auth.token'),
-                salt: config.get('auth.salt'),
-                name: config.get('auth.name'),
-            },
-            server: {
-                activated: true,
-            },
-        };
-    } catch (e) {
-        obj.security = {
-            success: false,
-            reason: e,
-        };
-    }
-
-    return JSON.stringify(obj);
+  return JSON.stringify(obj);
 };
 
 export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
-    let result = `# Authentization
+  let result = `# Authentization
 --------------
 `;
 
-    result += `
+  result += `
 Command name:            ${Colorize.appname(name)}
 Command version:         ${Colorize.version(CorePackage.version)}
 Command author:          ${Colorize.name(CorePackage.author)}
@@ -396,51 +396,51 @@ Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(__COM
 Admin version:           ${Colorize.version(AdminPackage.version)}
 `;
 
-    const secure = new Security(config.get('version') as unknown, config.get('auth.name') as string);
-    if (!secure.isVerified(config.get('auth.token') as string, config.get('auth.salt') as string)) {
-        result += Colorize.format`
+  const secure = new Security(config.get("version") as "v1", config.get("auth.name") as string);
+  if (!secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
+    result += Colorize.format`
 Authentication           {red.bold FAIL}
 `;
-    } else {
-        result += Colorize.format`
-Username:                {greenBright ${(secure.response && secure.response.username) || ''}}
+  } else {
+    result += Colorize.format`
+Username:                {greenBright ${(secure.response && secure.response.username) || ""}}
 Start date:              {greenBright ${TimeUtils.FormatDate(
-            TimeUtils.GetDate(secure.response && secure.response.notBefore),
-        )}}
+      TimeUtils.GetDate(secure.response && secure.response.notBefore),
+    )}}
 Expire date:             {greenBright ${TimeUtils.FormatDate(
-            TimeUtils.GetDate(secure.response && secure.response.expire),
-        )}}
+      TimeUtils.GetDate(secure.response && secure.response.expire),
+    )}}
 Issue date:              {greenBright ${TimeUtils.FormatDate(
-            TimeUtils.GetDate(secure.response && secure.response.issue),
-        )}}
+      TimeUtils.GetDate(secure.response && secure.response.issue),
+    )}}
     `;
-    }
+  }
 
-    const err = await secure.server.isActivated();
-    if (err) {
-        result += Colorize.format`
+  const err = await secure.server.isActivated();
+  if (err) {
+    result += Colorize.format`
 Authentication server    {red.bold NOT ACTIVATED}
 `;
-    } else {
-        result += Colorize.format`
+  } else {
+    result += Colorize.format`
 Authentication server    {greenBright ACTIVATED}
 `;
-    }
+  }
 
-    return (
-        result +
-        Colorize.format`
-Authentication token:    {greenBright ${(config.get('auth.token') as string).substr(0, 7)}...${(config.get(
-            'auth.token',
-        ) as string).slice(-13)}}
-Authentication salt:     {greenBright ${(config.get('auth.salt') as string).substr(0, 7)}...${(config.get(
-            'auth.salt',
-        ) as string).slice(-13)}}
-Authentication name:     {greenBright ${config.get('auth.name') as string}}`
-    );
+  return (
+    result +
+    Colorize.format`
+Authentication token:    {greenBright ${(config.get("auth.token") as string).substr(0, 7)}...${(config.get(
+      "auth.token",
+    ) as string).slice(-13)}}
+Authentication salt:     {greenBright ${(config.get("auth.salt") as string).substr(0, 7)}...${(config.get(
+      "auth.salt",
+    ) as string).slice(-13)}}
+Authentication name:     {greenBright ${config.get("auth.name") as string}}`
+  );
 };
 
 export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
-    if (opts.json) return __COMMAND_INFORMATION_JSON(name);
-    else return __COMMAND_INFORMATION_TEXT(name);
+  if (opts.json) return __COMMAND_INFORMATION_JSON(name);
+  else return __COMMAND_INFORMATION_TEXT(name);
 };

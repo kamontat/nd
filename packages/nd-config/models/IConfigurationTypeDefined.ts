@@ -69,6 +69,7 @@ export interface IConfigurationTypeDefined {
   get(key: OutputFileKey): OutputFileValue | undefined;
   get(key: OutputLevelKey): OutputLevelValue | undefined;
   get(key: NovelLocationKey): NovelLocationValue | undefined;
+  get(key: CommandVersionDetailLimitKey): CommandVersionDetailLimitValue | undefined;
   // get(key: NovelExportKey): NovelExportValue | undefined;
 
   set(key: ModeKey, value?: ModeValue): void;
@@ -80,5 +81,6 @@ export interface IConfigurationTypeDefined {
   set(key: OutputFileKey, value?: OutputFileValue): void;
   set(key: OutputLevelKey, value?: OutputLevelValue): void;
   set(key: NovelLocationKey, value?: NovelLocationValue): void;
+  set(key: CommandVersionDetailLimitKey, value?: CommandVersionDetailLimitValue): void;
   // set(key: NovelExportKey, value?: NovelExportValue): void;
 }
