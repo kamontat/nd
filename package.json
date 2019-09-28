@@ -133,10 +133,14 @@
     "access": "restricted"
   },
   "pkg": {
-    "assets": ["package.json"]
+    "assets": [
+      "package.json"
+    ]
   },
   "nyc": {
-    "extension": [".ts"],
+    "extension": [
+      ".ts"
+    ],
     "exclude": [
       "**/constants/**/*.ts",
       "**/*.d.ts",
@@ -150,7 +154,10 @@
       "admin.ts",
       "webpack.config.js"
     ],
-    "reporter": ["html", "text"],
+    "reporter": [
+      "html",
+      "text"
+    ],
     "all": true
   },
   "engines": {
