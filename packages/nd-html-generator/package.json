@@ -10,6 +10,10 @@
     "mustache": "3.0.1"
   },
   "changelog": {
+    "1.0.0-beta.7": {
+      "message": "change package name from nd-html-generator to @nd/html-generator",
+      "date": "28 Sep 2019"
+    },
     "1.0.0-beta.6": {
       "message": "fix previous button is not clickable",
       "date": "10 Sep 2019"
