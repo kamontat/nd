@@ -1,12 +1,12 @@
 {
   "name": "nd-commandline-interpreter",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "commandline interpreter and helper",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-security": "./packages/nd-security",
+    "nd-config": "./packages/nd-config",
     "nd-error": "./packages/nd-error",
-    "nd-config": "./packages/nd-config"
+    "nd-logger": "./packages/nd-logger",
+    "nd-security": "./packages/nd-security"
   },
   "changelog": {
     "1.2.4": {

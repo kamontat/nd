@@ -1,6 +1,6 @@
 {
   "name": "nd-helper",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "interface, absolute class and other helper methods",
   "dependencies": {
     "nd-logger": "./packages/nd-logger"

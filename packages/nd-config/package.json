@@ -1,6 +1,6 @@
 {
   "name": "nd-config",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "configuration of nd command",
   "dependencies": {
     "nd-logger": "./packages/nd-logger"

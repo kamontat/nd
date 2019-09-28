@@ -1,6 +1,6 @@
 {
   "name": "nd-formatter",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "table formatting of nd output",
   "dependencies": {
     "nd-logger": "./packages/nd-logger",

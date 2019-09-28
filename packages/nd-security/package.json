@@ -1,13 +1,13 @@
 {
   "name": "nd-security",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "security management for nd command",
   "dependencies": {
     "bcryptjs": "2.4.3",
     "jsonwebtoken": "8.5.1",
-    "nd-logger": "./packages/nd-logger",
+    "nd-database": "./packages/nd-database",
     "nd-error": "./packages/nd-error",
-    "nd-database": "./packages/nd-database"
+    "nd-logger": "./packages/nd-logger"
   },
   "changelog": {
     "1.6.1": {

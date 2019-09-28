@@ -1,11 +1,11 @@
 {
   "name": "nd-logger",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "logger service for nd command",
   "dependencies": {
     "debug": "4.1.1",
-    "nd-error": "./packages/nd-error",
-    "nd-config": "./packages/nd-config"
+    "nd-config": "./packages/nd-config",
+    "nd-error": "./packages/nd-error"
   },
   "changelog": {
     "1.2.5": {

@@ -1,13 +1,13 @@
 {
   "name": "nd-resource",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "manage novel resource file",
   "dependencies": {
-    "nd-security": "./packages/nd-security",
-    "nd-novel": "./packages/nd-novel",
+    "nd-error": "./packages/nd-error",
     "nd-file": "./packages/nd-file",
     "nd-logger": "./packages/nd-logger",
-    "nd-error": "./packages/nd-error"
+    "nd-novel": "./packages/nd-novel",
+    "nd-security": "./packages/nd-security"
   },
   "changelog": {
     "1.0.1": {

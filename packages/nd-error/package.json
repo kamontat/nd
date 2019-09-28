@@ -1,6 +1,6 @@
 {
   "name": "nd-error",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "error and exception in nd command",
   "dependencies": {
     "nd-logger": "./packages/nd-logger"
