@@ -51,5 +51,6 @@
     "0.4.0": "add optional object",
     "0.3.0": "add path utils",
     "0.2.0": "add time management"
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

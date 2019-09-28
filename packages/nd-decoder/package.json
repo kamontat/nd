@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "description": "File decoder for html in nd command",
   "dependencies": {
-    "iconv-lite": "0.5.0",
-    "@nd/error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error",
+    "iconv-lite": "0.5.0"
   },
   "changelog": {
     "1.0.1": {
@@ -19,5 +19,6 @@
       "message": "implement to support encode utf-8 and tis-620",
       "date": "12 Jul 2019"
     }
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

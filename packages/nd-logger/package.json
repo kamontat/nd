@@ -3,9 +3,9 @@
   "version": "1.2.6",
   "description": "logger service for nd command",
   "dependencies": {
-    "debug": "4.1.1",
     "@nd/config": "./packages/nd-config",
-    "@nd/error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error",
+    "debug": "4.1.1"
   },
   "changelog": {
     "1.2.5": {
@@ -63,5 +63,6 @@
     "1.0.3": "add more namespace for cli builder",
     "1.0.2": "add support changelog tags",
     "1.0.1": "first release version"
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

@@ -3,11 +3,11 @@
   "version": "1.0.0-beta.7",
   "description": "html template and novel content generator",
   "dependencies": {
-    "mustache": "3.0.1",
     "@nd/helper": "./packages/nd-helper",
     "@nd/logger": "./packages/nd-logger",
     "@nd/novel": "./packages/nd-novel",
-    "@nd/security": "./packages/nd-security"
+    "@nd/security": "./packages/nd-security",
+    "mustache": "3.0.1"
   },
   "changelog": {
     "1.0.0-beta.6": {
@@ -34,5 +34,6 @@
       "message": "generate html string using configuration object",
       "date": "22 Jul 2019"
     }
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

@@ -51,5 +51,6 @@
     "1.0.0-beta.4": "add event with option or command executed",
     "1.0.0-beta.3": "update algorithm to exit command when finish",
     "1.0.0-beta.2": "release first beta version"
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

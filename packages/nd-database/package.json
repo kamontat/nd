@@ -3,9 +3,9 @@
   "version": "1.0.0-beta.7",
   "description": "database interface for nd command and storage",
   "dependencies": {
-    "firebase": "6.4.0",
     "@nd/error": "./packages/nd-error",
-    "@nd/logger": "./packages/nd-logger"
+    "@nd/logger": "./packages/nd-logger",
+    "firebase": "6.4.0"
   },
   "changelog": {
     "1.0.0-beta.6": {
@@ -32,5 +32,6 @@
       "message": "first release with read-only of firebase",
       "date": "10 Aug 2019"
     }
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }

@@ -3,11 +3,11 @@
   "version": "1.6.2",
   "description": "security management for nd command",
   "dependencies": {
-    "bcryptjs": "2.4.3",
-    "jsonwebtoken": "8.5.1",
     "@nd/database": "./packages/nd-database",
     "@nd/error": "./packages/nd-error",
-    "@nd/logger": "./packages/nd-logger"
+    "@nd/logger": "./packages/nd-logger",
+    "bcryptjs": "2.4.3",
+    "jsonwebtoken": "8.5.1"
   },
   "changelog": {
     "1.6.1": {
@@ -37,5 +37,6 @@
     "1.1.3": "expire date '1m' is not exist; change to '30d'",
     "1.1.2": "fix dependency error",
     "1.1.1": "support reasonable config name"
-  }
+  },
+  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
 }
