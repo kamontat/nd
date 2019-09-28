@@ -58,3 +58,5 @@ commit:
       value: Thread submodules
     - type: helper
       value: Helper submodules
+    - type: release
+      value: For release new packages
