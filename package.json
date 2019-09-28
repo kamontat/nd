@@ -51,7 +51,7 @@
     "firebase": "6.4.0",
     "iconv-lite": "0.5.0",
     "jsonwebtoken": "8.5.1",
-    "mustache": "3.0.1",
+    "mustache": "3.1.0",
     "nd-admin": "./packages/nd-admin",
     "nd-commandline-interpreter": "./packages/nd-commandline-interpreter",
     "nd-config": "./packages/nd-config",
