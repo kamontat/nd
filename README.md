@@ -20,7 +20,7 @@
 <!-- CI/CD badge -->
 <p align="center">
   <a href="https://app.dependabot.com/accounts/kamontat/projects/96974">
-    <img src="[image-link](https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843)" alt="Dependabot Status" />
+    <img src="https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843" alt="Dependabot Status" />
   </a>
 </p>
 
