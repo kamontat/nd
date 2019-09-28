@@ -1,12 +1,16 @@
 {
   "name": "@nd/file",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
     "@nd/error": "./packages/nd-error",
     "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "2.0.0": {
+      "message": "change package name from nd-file to @nd/file",
+      "date": "28 Sep 2019"
+    },
     "2.0.0-rc.2": {
       "message": "fix rename in async didn't append result to final directory",
       "date": "10 Sep 2019"
@@ -75,6 +79,5 @@
       "message": "first version release",
       "date": "22 Jul 2019"
     }
-  },
-  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
+  }
 }
