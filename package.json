@@ -9,7 +9,8 @@
   },
   "bin": "dist/nd.min.js",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
-  "private": false,
+  "private": true,
+  "license": "PRIVATE",
   "changelog": {
     "1.0.0-alpha.3": {
       "message": "fully support download, raw download, fetch and update novel with some of options",
