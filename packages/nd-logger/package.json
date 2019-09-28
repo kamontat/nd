@@ -67,6 +67,5 @@
     "1.0.3": "add more namespace for cli builder",
     "1.0.2": "add support changelog tags",
     "1.0.1": "first release version"
-  },
-  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
+  }
 }

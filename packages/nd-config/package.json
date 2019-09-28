@@ -49,6 +49,5 @@
     "1.2.0": "configuration support comment with # character",
     "1.1.0": "fix and improve workflow when config not found",
     "1.0.0": "first release new config modules"
-  },
-  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
+  }
 }
