@@ -8,7 +8,6 @@ import LoggerService, { LOGGER_CLI } from "nd-logger";
 import readline from "readline";
 
 import { HELP_CONFIGURATION, HELP_HEADER } from "../constants/content";
-import { ConfigKey, ConfigValue } from "nd-config/models/IConfigurationTypeDefined";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const getCallback: ICommandCallback = ({ value, apis }) => {
@@ -49,7 +48,7 @@ ${HELP_CONFIGURATION(self.name)}`);
 
           parsed.forEach(c => {
             try {
-              config.set(c.key as any, c.value as any);
+              config.set(c.key as any, c.value as any); // eslint-disable-line @typescript-eslint/no-explicit-any
               LoggerService.console.log(`  - set ${Colorize.key(c.key)} to ${Colorize.value(c.value.toString())}`);
             } catch (e) {
               ExceptionService.cast(e)

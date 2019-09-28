@@ -18,7 +18,7 @@ interface ITokenConfig {
 
 type versionName = "v1";
 
-interface IResponseFormat {
+export interface IResponseFormat {
   expire: number;
   fbname: string;
   issue: number;

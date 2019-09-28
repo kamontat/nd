@@ -2,19 +2,19 @@ import { config } from "nd-config";
 import { Optional } from "nd-helper";
 import { IConfigObject } from "nd-html-generator";
 import { Chapter, Novel } from "nd-novel";
-import { Security } from "nd-security";
+import { Security, IResponseFormat } from "nd-security";
 
 export const htmlConfigBuilder = (type: "novel" | "chapter", secure: Security, novel: Novel, chapter?: Chapter) => {
   const htmlConfig = {
     auth: {
-      username: Optional.of<any, string>(secure.response)
+      username: Optional.of<IResponseFormat, string>(secure.response)
         .transform(r => r.username)
         .or(""),
       name: config.get("auth.name") as string,
-      expireat: Optional.of<any, number>(secure.response)
+      expireat: Optional.of<IResponseFormat, number>(secure.response)
         .transform(r => r.expire)
         .or(0),
-      issueat: Optional.of<any, number>(secure.response)
+      issueat: Optional.of<IResponseFormat, number>(secure.response)
         .transform(r => r.issue)
         .or(0),
     },

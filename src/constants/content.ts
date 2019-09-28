@@ -18,7 +18,7 @@ import { Package as ThreadPackage } from "nd-thread";
 
 import { Package as CorePackage } from "../build/Package";
 
-declare var __COMPILE_DATE__: string;
+declare let __COMPILE_DATE__: string;
 
 const GLOBAL_OPTION = (name: string) => {
   return Colorize.format`
@@ -229,7 +229,7 @@ export const VERSION = () => {
 `;
 };
 
-export const VERSION_FULL = (limit: number = 5) => {
+export const VERSION_FULL = (limit = 5) => {
   interface IDependency {
     changelog?: { [key: string]: string | { date: string; message: string } };
     description?: string;
@@ -237,6 +237,7 @@ export const VERSION_FULL = (limit: number = 5) => {
     version: string;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const genInternalDependency = (pjson: { [key: string]: any }) => {
     return {
       name: pjson.name,
@@ -338,12 +339,8 @@ export const VERSION_FULL = (limit: number = 5) => {
   return str;
 };
 
-export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
-  if (opts.json) return __COMMAND_INFORMATION_JSON(name);
-  else return __COMMAND_INFORMATION_TEXT(name);
-};
-
 export const __COMMAND_INFORMATION_JSON = async (name: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const obj: { [key: string]: any } = {
     command: {
       name,
@@ -355,6 +352,7 @@ export const __COMMAND_INFORMATION_JSON = async (name: string) => {
     },
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
 
   try {
@@ -401,6 +399,7 @@ Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(__COM
 Admin version:           ${Colorize.version(AdminPackage.version)}
 `;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const secure = new Security(config.get("version") as any, config.get("auth.name") as string);
   if (!secure.isVerified(config.get("auth.token") as string, config.get("auth.salt") as string)) {
     result += Colorize.format`
@@ -443,4 +442,9 @@ Authentication salt:     {greenBright ${(config.get("auth.salt") as string).subs
     ) as string).slice(-13)}}
 Authentication name:     {greenBright ${config.get("auth.name") as string}}`
   );
+};
+
+export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
+  if (opts.json) return __COMMAND_INFORMATION_JSON(name);
+  else return __COMMAND_INFORMATION_TEXT(name);
 };

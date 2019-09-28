@@ -1,6 +1,5 @@
-import { Command, Commandline, ICommandCallback, IOptionable, Option, SubCommand } from "nd-commandline-interpreter";
+import { Command, Commandline, IOptionable, Option, SubCommand } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import ExceptionService, { ERR_NLV } from "nd-error";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 

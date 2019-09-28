@@ -14,7 +14,7 @@ const REPORT_FOLDER = process.env.REPORT_FOLDER || "reports";
 const DEV_STATISTIC_HTML = process.env.DEV_STATISTIC_HTML || "statistic-dev.html";
 const STATISTIC_HTML = process.env.STATISTIC_HTML || "statistics.html";
 
-const NODE_ENV = process.env.NODE_ENV || "development";
+let NODE_ENV = process.env.NODE_ENV || "development";
 if (!["development", "testing", "production"].includes(NODE_ENV)) NODE_ENV = "development";
 
 const isDev = NODE_ENV === "development";

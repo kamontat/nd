@@ -56,15 +56,15 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   // -------------------------------------
 
   // Build only index novel
-  let novel = await builder.build(thread, true);
+  const _novel = await builder.build(thread, true);
 
   LoggerService.log(LOGGER_FILE, "start create novel directory and files");
-  const novelPath = join(system.directory, novel.normalizeName);
-  const cacheName = PathUtils.Cachename(novel.normalizeName, "d");
+  const novelPath = join(system.directory, _novel.normalizeName);
+  const cacheName = PathUtils.Cachename(_novel.normalizeName, "d");
   const cachePath = join(system.directory, cacheName);
 
   const loading = await system.append(
-    { name: novel.normalizeName, type: FileType.DIR },
+    { name: _novel.normalizeName, type: FileType.DIR },
     { create: true, tmp: replace ? cacheName : undefined },
   );
 
@@ -83,7 +83,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
   LoggerService.log(LOGGER_CLI, `novel directory system result is ${loading}`);
 
   LoggerService.log(LOGGER_CLI, `continue build chapter next`);
-  novel = await builder.continue(novel, thread);
+  const novel = await builder.continue(_novel, thread); // assign to new variable to avoid require-atomic-updates
 
   // Show novel result
   const result = factory

@@ -7,6 +7,7 @@ import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";
 
 // set logger level if --level [0|1|2] appear
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UpdateLogInfo = (args: any[]) => {
   const i = args.findIndex(v => /^--level$/.test(v));
   if (i >= 0) {

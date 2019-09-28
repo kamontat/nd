@@ -9,7 +9,7 @@ export const Level = (cli: Commandline, config: IConfiguration) => {
       const n = parseInt(value as string);
 
       // only 0 | 1 | 2 | 3
-      if (!isNaN(n)) config.set("output.level", (n % 4) as any);
+      if (!isNaN(n)) config.set("output.level", (n % 4) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     }),
   );
 };
