@@ -22,6 +22,10 @@ commit:
       value: Helper shell script
     - type: docs
       value: Documentation
+    - type: lint
+      value: Linter and code quality
+    - type: ci
+      value: CI/CD setup
     - type: security
       value: Security submodules
     - type: content

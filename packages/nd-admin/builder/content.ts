@@ -21,7 +21,7 @@ export const Result = (config: IResultBuilder) => {
 ----------------------------------------------------------
 # Result
 
-This is a tutorial for admin user. 
+This is a tutorial for admin user.
 You have responsibility to copy message below to customer with some advice.
 You need to add {greenBright.underline ${config.fbname}} to our database to generate the valid users.
 

@@ -64,7 +64,7 @@ export class NovelBuilder {
     manager.build(r => {
       const url = new URL(r.link);
       const __cid = url.searchParams.get("chapter") || "0";
-      const cid = parseInt(__cid);
+      const cid = parseInt(__cid, 10);
       const html = new HtmlParser(r.result || "");
       const res = r.copy<Novel>();
       const chapter = novel.chapter(cid);

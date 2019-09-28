@@ -5,13 +5,13 @@ import { Colorize } from "nd-logger";
 import os from "os";
 import util from "util";
 
-const completed = "COMPLETED     :)";
+// const completed = "COMPLETED     :)";
 const connected = "CONNECTED     :)";
 const installed = "INSTALLED     :)";
 
-const not_exist = "NOT EXIST     :(";
+const notExist = "NOT EXIST     :(";
 const failure = "FAILURE       :(";
-const invalid = "INVALID       :(";
+// const invalid = "INVALID       :(";
 
 const vRoot = (cli: Commandline) => {
   return cli.name === "" ? false : true;
@@ -94,10 +94,10 @@ Editor:                  ${Colorize.name(process.env.EDITOR || "unknown")}
 # Verification
 --------------
 
-Root command:            ${Colorize.boolean(vRoot(cli), installed, not_exist)}
-Security:                ${Colorize.boolean(vSecure(), installed, not_exist)}
-Database:                ${Colorize.boolean(vDB(), installed, not_exist)}
-Firebase:                ${Colorize.boolean(vFB(), installed, not_exist)}
+Root command:            ${Colorize.boolean(vRoot(cli), installed, notExist)}
+Security:                ${Colorize.boolean(vSecure(), installed, notExist)}
+Database:                ${Colorize.boolean(vDB(), installed, notExist)}
+Firebase:                ${Colorize.boolean(vFB(), installed, notExist)}
 
 Connection:              ${Colorize.boolean(await vInternet(), connected, failure)}
 `;

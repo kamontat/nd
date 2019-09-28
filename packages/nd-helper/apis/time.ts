@@ -75,7 +75,7 @@ export default {
     else return date.getTime();
   },
   GetDate(timestamp?: number | string) {
-    const number = parseInt((timestamp && timestamp.toString()) || "unknown");
+    const number = parseInt((timestamp && timestamp.toString()) || "unknown", 10);
     if (isNaN(number)) return undefined;
     return new Date(number);
   },

@@ -1,6 +1,5 @@
-import { Command, Commandline, ICommandCallback, IOptionable, Option, SubCommand } from "nd-commandline-interpreter";
+import { Command, Commandline, IOptionable, Option, SubCommand } from "nd-commandline-interpreter";
 import { IConfiguration } from "nd-config";
-import ExceptionService, { ERR_NLV } from "nd-error";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
@@ -24,7 +23,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(
-        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4"))),
+        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4", 10))),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
       .option(Option.build("chapter", false, ({ apis }) => apis.config.set("novel.chapter", true)))
@@ -42,7 +41,7 @@ export default (cli: Commandline, config: IConfiguration) => {
         }),
       )
       .option(
-        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4"))),
+        Option.build("thread", true, ({ value, apis }) => apis.config.set("novel.thread", parseInt(value || "4", 10))),
       )
       .option(Option.build("replace", false, ({ apis }) => apis.config.set("novel.replace", true)))
       .option(Option.build("change", false, ({ apis }) => apis.config.set("novel.change", true)))

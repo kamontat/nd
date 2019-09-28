@@ -1,6 +1,6 @@
 import { ICommandCallback } from "nd-commandline-interpreter";
 import { config } from "nd-config";
-import ExceptionService, { ERR_CLI, ERR_FLE } from "nd-error";
+import ExceptionService, { ERR_CLI } from "nd-error";
 import FileSystem, { FileAction } from "nd-file";
 import FormatterFactory, { NovelSummary } from "nd-formatter";
 import { is, PathUtils } from "nd-helper";

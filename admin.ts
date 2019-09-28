@@ -4,7 +4,7 @@ import { config } from "nd-config";
 import ExceptionService from "nd-error";
 import LoggerService, { LOGGER_CLI } from "nd-logger";
 
-declare var __NODE_ENV__: string;
+declare let __NODE_ENV__: string;
 
 const cli = new Commandline(Package.name, Package.description);
 
