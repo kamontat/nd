@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+<a name="v1.0.0-alpha.4"></a>
+
+## [v1.0.0-alpha.4] - 2019-09-28
+
 ### 1. Introduce new features
 
 - **cli:** add debug-mode option
@@ -35,6 +39,10 @@
 - **formatter:** forget to add newline on history summary
 - **logger:** change checker from helper to internal method
 - **test:** fix test error for new exception apis
+
+### Pull Requests
+- Merge pull request [#14](https://github.com/kamontat/nd/issues/14) from kamontat/chore/convert-tslint-to-eslint-prettier
+- Merge pull request [#2](https://github.com/kamontat/nd/issues/2) from kamontat/dependabot/npm_and_yarn/lodash-4.17.15
 
 <a name="v1.0.0-alpha.3"></a>
 
@@ -419,5 +427,6 @@
 - **security:** change allowness of 1 month
 
 
+[v1.0.0-alpha.4]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.3...v1.0.0-alpha.4
 [v1.0.0-alpha.3]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.2...v1.0.0-alpha.3
 [v1.0.0-alpha.2]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.1...v1.0.0-alpha.2
