@@ -1,0 +1,16 @@
+name: Linter on Push and Pull-Request
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: built node-12 [macOS-latest]
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: ESLint checks
+        uses: gimenete/eslint-action@1.0
