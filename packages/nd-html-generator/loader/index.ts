@@ -10,7 +10,7 @@ export default (name: TemplateType, obj: IConfigObject & IFunctionObject): Loade
 
   LoggerService.log(LOGGER_HTML_GENERATOR, "load package.json on template folder: %O", pjson);
 
-  const cssVersion = parseInt(pjson.cssVersion);
+  const cssVersion = parseInt(pjson.cssVersion, 10);
 
   const novel = require(`../templates/${name}/novel.html`);
   const chapter = require(`../templates/${name}/chapter.html`);

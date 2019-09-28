@@ -86,7 +86,7 @@ const NOVEL = (name: string) => {
      option:
        {cyan --dry-run}               - {gray [optional]} fetch data only but never save to file system
        {cyan --change}                - {gray [optional]} print all change and chapter in updating novel
-       {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default; 
+       {cyan --no-replace}            - {gray [optional]} the command will replace any updated chapter by default;
                                - this option prevent not to do that
        {cyan --recursive} {gray <number>}    - {gray [optional]} {blue number} how deep recursive are.
                                - {underline default is 1 subfolder} [WIP]
@@ -179,13 +179,13 @@ const LICENSE = (name: string) => {
 BY CLICKING "I AGREE", DOWNLOADING, ACCESSING, INSTALLING, RUNNING OR USING ${name.toUpperCase()} SOFTWARE
 YOU AGREE (I) THAT THIS EULA IS A LEGALLY BINDING AND VALID AGREEMENT
 
-LICENSE TO USE THE SOFTWARE. The Software is licensed to You, not sold to You. 
-You agree that if the Software requires mandatory activation or email validation, 
+LICENSE TO USE THE SOFTWARE. The Software is licensed to You, not sold to You.
+You agree that if the Software requires mandatory activation or email validation,
 You will complete the process providing with accurate information.
 
 You may {red.underline.bold NOT} {red copy}, {red modify}, {red distribute}, {red sell}, or {red lease} any part of our Services
-or included software, nor may you reverse engineer or 
-attempt to extract the source code of that software, 
+or included software, nor may you reverse engineer or
+attempt to extract the source code of that software,
 unless laws prohibit those restrictions or you have our written permission.
 `;
 };

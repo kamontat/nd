@@ -12,7 +12,7 @@ export const UpdateLogInfo = (args: any[]) => {
   const i = args.findIndex(v => /^--level$/.test(v));
   if (i >= 0) {
     const v = args[i + 1];
-    const n = parseInt(v);
+    const n = parseInt(v, 10);
 
     if (!isNaN(n)) config.set("output.level", n);
 

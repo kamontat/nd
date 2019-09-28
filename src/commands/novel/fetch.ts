@@ -78,7 +78,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
 
   LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options %O`, opts);
 
-  if (is.id(value)) await __fetchUrl(parseInt(value || "0"), opts);
+  if (is.id(value)) await __fetchUrl(parseInt(value || "0", 10), opts);
   else if (is.path(value)) {
     if (!is.file(resolve(value || "", RESOURCE_FILENAME)))
       throw ExceptionService.build(ERR_CLI, "input must be valid nd novel directory");
