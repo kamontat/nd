@@ -8,6 +8,10 @@
     "table": "5.4.1"
   },
   "changelog": {
+    "1.2.7": {
+      "message": "change package name from nd-formatter to @nd/formatter",
+      "date": "28 Sep 2019"
+    },
     "1.2.6": {
       "message": "add newline with history occurred",
       "date": "13 Sep 2019"
