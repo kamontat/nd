@@ -1,6 +1,6 @@
 {
   "name": "@nd/content",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.1",
   "description": "this contains only content node for nd-novel and html/css parser",
   "dependencies": {
     "@nd/error": "./packages/nd-error",
@@ -8,9 +8,8 @@
   },
   "changelog": {
     "0.0.1-alpha.1": {
-      "message": "changelog template",
-      "date": "xx Jul 2019"
+      "message": "change package name from nd-content to @nd/content",
+      "date": "28 Sep 2019"
     }
-  },
-  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
+  }
 }
