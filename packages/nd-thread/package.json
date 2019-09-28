@@ -8,6 +8,10 @@
     "async": "3.1.0"
   },
   "changelog": {
+    "2.0.1": {
+      "message": "change package name from nd-thread to @nd/thread",
+      "date": "28 Sep 2019"
+    },
     "2.0.0": {
       "message": "release public version",
       "date": "01 Sep 2019"
