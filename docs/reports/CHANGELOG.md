@@ -1,5 +1,41 @@
 # ND - Novel Downloader
 
+<a name="unreleased"></a>
+
+## [Unreleased]
+
+### 1. Introduce new features
+
+- **cli:** add debug-mode option
+- **cli:** add support --check in fetch command
+- **cli:** add dry-run option to novel update
+- **formatter:** add history formatter
+- **helper:** export all constants name from nd-helper
+- **lib:** publish new dependencies for open debug mode
+- **lib:** initial new submodule; nd-content for html content
+
+### 2. Command improvement
+
+- **cli:** change 'nd command' response color
+- **cli:** implement new option in main command
+- **docs:** add new badge to readme
+- **formatter:** use history formatter in novel summary
+- **helper:** log and tmp folder is dynamic name
+- **helper:** improve tmp and log name to support apis
+- **helper:** add datatype checker; move from cli-builder
+- **logger:** change version color to cyan
+- **logger:** add new namespace for helper log
+- **novel:** improve compare method and format beautiful format
+- **novel:** move novel merge method from novel apis
+- **novel:** expose history object out
+
+### 3. Command bug destoryer
+
+- **cli:** subcommand help didn't return correct message
+- **formatter:** forget to add newline on history summary
+- **logger:** change checker from helper to internal method
+- **test:** fix test error for new exception apis
+
 <a name="v1.0.0-alpha.3"></a>
 
 ## [v1.0.0-alpha.3] - 2019-09-10
@@ -194,7 +230,6 @@
 - **thread:** return type of _map is a Dic not a array
 - **thread:** async method didn't return value as expected; fix it
 
-
 <a name="v1.0.0-alpha.2"></a>
 
 ## [v1.0.0-alpha.2] - 2019-07-28
@@ -235,7 +270,6 @@
 - **novel:** change code as a api changes
 - **novel:** change category verify object in novel object
 - **script:** just notice that tag come before commit
-
 
 <a name="v1.0.0-alpha.1"></a>
 
