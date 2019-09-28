@@ -9,7 +9,7 @@ const Visualizer = require("webpack-visualizer-plugin");
 const pjson = require("./package.json");
 
 const DIST_FOLDER = process.env.DIST_FOLDER || "dist";
-const REPORT_FOLDER = process.env.REPORT_FOLDER || "reports";
+const REPORT_FOLDER = process.env.REPORT_FOLDER || "docs/reports";
 
 const DEV_STATISTIC_HTML = process.env.DEV_STATISTIC_HTML || "statistic-dev.html";
 const STATISTIC_HTML = process.env.STATISTIC_HTML || "statistics.html";

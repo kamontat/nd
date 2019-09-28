@@ -54,7 +54,7 @@ TAG_NAME="v${VERSION}"
 echo "Starting...   update line of code and add to commit message"
 
 yarn loc
-git add reports/loc
+git add docs/reports/loc
 
 echo "Starting...   commit package.json (assume you just update package.json)"
 

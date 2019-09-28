@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/icon.png" width="120px">
+  <img src="./docs/assets/icon.png" width="120px">
 </p>
 
 <!-- Title -->
@@ -43,5 +43,7 @@
   <span> · </span>
   <a href="docs/Technical.md">Technical</a>
   <span> · </span>
-  <a href="docs/CHANGELOG.md">Changelog</a>
+  <a href="docs/reports/CHANGELOG.md">Changelog</a>
+  <span> · </span>
+  <a href="docs/reports/loc/LOC.md">Line of code</a>
 </h4>
