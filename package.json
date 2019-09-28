@@ -9,7 +9,7 @@
   },
   "bin": "dist/nd.min.js",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
-  "private": true,
+  "private": false,
   "changelog": {
     "1.0.0-alpha.3": {
       "message": "fully support download, raw download, fetch and update novel with some of options",
@@ -125,17 +125,14 @@
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
   },
   "pkg": {
-    "assets": [
-      "package.json"
-    ]
+    "assets": ["package.json"]
   },
   "nyc": {
-    "extension": [
-      ".ts"
-    ],
+    "extension": [".ts"],
     "exclude": [
       "**/constants/**/*.ts",
       "**/*.d.ts",
@@ -149,10 +146,7 @@
       "admin.ts",
       "webpack.config.js"
     ],
-    "reporter": [
-      "html",
-      "text"
-    ],
+    "reporter": ["html", "text"],
     "all": true
   },
   "engines": {
