@@ -7,6 +7,10 @@
     "iconv-lite": "0.5.0"
   },
   "changelog": {
+    "1.0.2": {
+      "message": "change package name from nd-decoder to @nd/decoder",
+      "date": "28 Sep 2019"
+    },
     "1.0.1": {
       "message": "make it more lightweight :)",
       "date": "30 Aug 2019"
@@ -19,6 +23,5 @@
       "message": "implement to support encode utf-8 and tis-620",
       "date": "12 Jul 2019"
     }
-  },
-  "gitHead": "5fb798a26383131c28c638c3ad3dc94e6711fc74"
+  }
 }
