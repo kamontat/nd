@@ -22,6 +22,9 @@
   <a href="https://app.dependabot.com/accounts/kamontat/projects/96974">
     <img src="https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843" alt="Dependabot Status" />
   </a>
+  <a href="https://lerna.js.org/">
+    <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna">
+  </a>
 </p>
 
 <!-- External link -->
