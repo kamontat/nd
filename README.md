@@ -18,11 +18,11 @@
 </p>
 
 <!-- CI/CD badge -->
-<!-- <p align="center">
-  <a href="link">
-    <img src="image-link" alt="name" />
+<p align="center">
+  <a href="https://app.dependabot.com/accounts/kamontat/projects/96974">
+    <img src="[image-link](https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843)" alt="Dependabot Status" />
   </a>
-</p> -->
+</p>
 
 <!-- External link -->
 <!-- <h3 align="center">
