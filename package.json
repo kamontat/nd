@@ -101,6 +101,7 @@
     "google-closure-compiler": "20190729.0.0",
     "html-loader": "0.5.5",
     "jest": "24.9.0",
+    "lerna": "^3.16.4",
     "mocha": "6.2.0",
     "mochawesome": "4.1.0",
     "mock-fs": "4.10.1",
@@ -122,6 +123,9 @@
     "webpack-cli": "3.3.7",
     "webpack-node-externals": "1.7.2",
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "pkg": {
     "assets": [
