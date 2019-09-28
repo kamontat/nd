@@ -1,5 +1,5 @@
-import ExceptionService, { ERR_FLE } from "nd-error";
-import LoggerService, { LOGGER_FILE } from "nd-logger";
+import ExceptionService, { ERR_FLE } from "@nd/error";
+import LoggerService, { LOGGER_FILE } from "@nd/logger";
 import path from "path";
 
 import { FileType } from "./enum";

@@ -9,11 +9,11 @@
 })(process.argv);
 
 import chalk from "chalk";
-import { Commandline } from "nd-commandline-interpreter";
-import { config } from "nd-config";
-import { InitialFirebaseDatabase } from "nd-database";
-import Exception from "nd-error";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Commandline } from "@nd/commandline-interpreter";
+import { config } from "@nd/config";
+import { InitialFirebaseDatabase } from "@nd/database";
+import Exception from "@nd/error";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 import { homedir } from "os";
 
 import { Package } from "./src/build/Package";

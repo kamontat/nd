@@ -1,11 +1,11 @@
 {
-  "name": "nd-downloader",
+  "name": "@nd/downloader",
   "version": "1.0.4",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
-    "nd-error": "./packages/nd-error",
-    "nd-logger": "./packages/nd-logger",
-    "nd-thread": "./packages/nd-thread"
+    "@nd/error": "./packages/nd-error",
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/thread": "./packages/nd-thread"
   },
   "changelog": {
     "1.0.3": {

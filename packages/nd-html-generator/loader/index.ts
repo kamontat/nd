@@ -1,5 +1,5 @@
 import { render } from "mustache";
-import LoggerService, { LOGGER_HTML_GENERATOR } from "nd-logger";
+import LoggerService, { LOGGER_HTML_GENERATOR } from "@nd/logger";
 
 import LoaderResponse from "../constants/LoaderResponse";
 import { IConfigObject, IFunctionObject } from "../constants/Object";

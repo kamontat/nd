@@ -9,8 +9,8 @@
   "version": "0.0.1-alpha.1",
   "description": "description template",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-error": "./packages/nd-error"
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/error": "./packages/nd-error"
   },
   "changelog": {
     "0.0.1-alpha.1": {

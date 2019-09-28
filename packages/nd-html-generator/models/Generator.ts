@@ -1,15 +1,18 @@
 import { render } from "mustache";
-import LoggerService, { LOGGER_HTML_GENERATOR } from "nd-logger";
-import { Package as SecurityPackage } from "nd-security";
+import LoggerService, { LOGGER_HTML_GENERATOR } from "@nd/logger";
+import { Package as SecurityPackage } from "@nd/security";
 
-import { Package as CorePackage } from "../../../src/build/Package";
 import { DateENString, DateTHString } from "../api/date";
 import ILoaderResponse from "../constants/LoaderResponse";
 import IObject, { IConfigObject, IFunctionObject } from "../constants/Object";
 import TemplateType from "../constants/TemplateType";
 import loader from "../loader";
 
-declare var __COMPILE_DATE__: string;
+declare let __NAME__: string;
+declare let __VERSION__: string;
+declare let __DESCRIPTION__: string;
+declare let __AUTHOR__: string;
+declare let __COMPILE_DATE__: string;
 
 export default class {
   private _func: IFunctionObject;
@@ -54,8 +57,8 @@ export default class {
     // default command
     if (!obj.command)
       obj.command = {
-        name: CorePackage.name,
-        version: CorePackage.version,
+        name: __NAME__,
+        version: __VERSION__,
         updateat: parseInt(__COMPILE_DATE__, 10),
       };
 
@@ -69,9 +72,9 @@ export default class {
     if (!obj.year) obj.year = new Date().getFullYear();
 
     // command information
-    if (!obj.title) obj.title = `${CorePackage.name}-command`;
-    if (!obj.description) obj.description = CorePackage.description;
-    if (!obj.author) obj.author = CorePackage.author;
+    if (!obj.title) obj.title = `${__NAME__}-command`;
+    if (!obj.description) obj.description = __DESCRIPTION__;
+    if (!obj.author) obj.author = __AUTHOR__;
 
     return obj;
   }

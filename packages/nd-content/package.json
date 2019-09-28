@@ -1,10 +1,10 @@
 {
-  "name": "nd-content",
+  "name": "@nd/content",
   "version": "0.0.1-alpha.2",
   "description": "this contains only content node for nd-novel and html/css parser",
   "dependencies": {
-    "nd-error": "./packages/nd-error",
-    "nd-logger": "./packages/nd-logger"
+    "@nd/error": "./packages/nd-error",
+    "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
     "0.0.1-alpha.1": {

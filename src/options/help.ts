@@ -1,6 +1,6 @@
-import { Commandline, Option } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Commandline, Option } from "@nd/commandline-interpreter";
+import { IConfiguration } from "@nd/config";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 import { HELP_CONTENT, HELP_FOOTER, HELP_HEADER } from "../constants/content";
 

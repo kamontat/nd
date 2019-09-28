@@ -1,8 +1,8 @@
 import { IncomingHttpHeaders } from "http";
-import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "nd-downloader";
-import ExceptionService, { ERR_NLV } from "nd-error";
-import { Optional } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
+import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "@nd/downloader";
+import ExceptionService, { ERR_NLV } from "@nd/error";
+import { Optional } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "@nd/logger";
 
 import { NovelAPIs } from "../apis";
 import { Merge } from "../apis/novel";

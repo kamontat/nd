@@ -1,6 +1,6 @@
-import ExceptionService, { ERR_NLV } from "nd-error";
-import { TimeUtils } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import ExceptionService, { ERR_NLV } from "@nd/error";
+import { TimeUtils } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
 
 import { History } from "../models/history/History";
 import { HistoryEvent } from "../models/history/HistoryEvent";

@@ -1,13 +1,13 @@
 {
-  "name": "nd-debug",
+  "name": "@nd/debug",
   "version": "0.1.0-rc.2",
   "description": "this package only use when run with debug mode",
   "dependencies": {
     "chalk": "2.4.2",
-    "nd-config": "./packages/nd-config",
-    "nd-error": "./packages/nd-error",
-    "nd-helper": "./packages/nd-helper",
-    "nd-logger": "./packages/nd-logger"
+    "@nd/config": "./packages/nd-config",
+    "@nd/error": "./packages/nd-error",
+    "@nd/helper": "./packages/nd-helper",
+    "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
     "0.1.0-rc.1": {

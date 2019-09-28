@@ -1,5 +1,5 @@
-import { TimeUtils } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import { TimeUtils } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
 
 import { Chapter } from "../../models/novel/Chapter";
 import { IParser } from "../../models/parser/IParser";

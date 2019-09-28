@@ -1,6 +1,6 @@
-import { Database, DatabaseService } from "nd-database";
-import ExceptionService, { ERR_SCT } from "nd-error";
-import LoggerService, { LOGGER_SECURITY } from "nd-logger";
+import { Database, DatabaseService } from "@nd/database";
+import ExceptionService, { ERR_SCT } from "@nd/error";
+import LoggerService, { LOGGER_SECURITY } from "@nd/logger";
 
 import { Security } from "..";
 import { USER_PATH_ACTIVATED, USER_PATH_ROOT } from "../constants";

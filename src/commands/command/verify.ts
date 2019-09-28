@@ -1,7 +1,7 @@
 import dns from "dns";
-import { Commandline } from "nd-commandline-interpreter";
-import { Database } from "nd-database";
-import { Colorize } from "nd-logger";
+import { Commandline } from "@nd/commandline-interpreter";
+import { Database } from "@nd/database";
+import { Colorize } from "@nd/logger";
 import os from "os";
 import util from "util";
 
@@ -19,7 +19,7 @@ const vRoot = (cli: Commandline) => {
 
 const vSecure = () => {
   try {
-    if (require("nd-security")) {
+    if (require("@nd/security")) {
       return true;
     }
   } catch (e) {

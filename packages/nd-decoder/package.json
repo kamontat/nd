@@ -1,10 +1,10 @@
 {
-  "name": "nd-decoder",
+  "name": "@nd/decoder",
   "version": "1.0.2",
   "description": "File decoder for html in nd command",
   "dependencies": {
     "iconv-lite": "0.5.0",
-    "nd-error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error"
   },
   "changelog": {
     "1.0.1": {

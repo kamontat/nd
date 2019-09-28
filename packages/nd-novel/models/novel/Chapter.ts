@@ -1,5 +1,5 @@
-import { TimeUtils } from "nd-helper";
-import { Colorize } from "nd-logger";
+import { TimeUtils } from "@nd/helper";
+import { Colorize } from "@nd/logger";
 
 import { buildViewlongURL } from "../../apis/url";
 import { History } from "../history/History";

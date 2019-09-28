@@ -1,5 +1,5 @@
-import ExceptionService, { ERR_CFG } from "nd-error";
-import LoggerService, { LOGGER_CONFIG } from "nd-logger";
+import ExceptionService, { ERR_CFG } from "@nd/error";
+import LoggerService, { LOGGER_CONFIG } from "@nd/logger";
 
 interface IConfigurationSchema {
   choices?: Array<string | number>;

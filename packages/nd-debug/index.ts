@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
-import { config } from "nd-config";
-import { LOG_DIRECTORY, ND_TMP_LOCATION, TMP_DIRECTORY } from "nd-helper";
-import LoggerService, { Colorize } from "nd-logger";
+import { config } from "@nd/config";
+import { LOG_DIRECTORY, ND_TMP_LOCATION, TMP_DIRECTORY } from "@nd/helper";
+import LoggerService, { Colorize } from "@nd/logger";
 import { dirname, resolve } from "path";
 
 import Package from "./package.json";

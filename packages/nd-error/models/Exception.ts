@@ -1,5 +1,4 @@
-import LoggerService from "nd-logger";
-import Logger from "nd-logger/models/Logger";
+import LoggerService, { Logger } from "@nd/logger";
 
 import { ERR_GNL } from "../constants";
 

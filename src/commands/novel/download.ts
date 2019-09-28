@@ -1,13 +1,13 @@
-import { ICommandCallback } from "nd-commandline-interpreter";
-import { config } from "nd-config";
-import ExceptionService, { ERR_CLI, ERR_NLV } from "nd-error";
-import FileSystem, { FileAction, FileLoadResult, FileType } from "nd-file";
-import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { is, PathUtils } from "nd-helper";
-import { Generator, TemplateType } from "nd-html-generator";
-import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE, LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
-import { ChapterStatus, NovelBuilder } from "nd-novel";
-import { Resource } from "nd-resource";
+import { ICommandCallback } from "@nd/commandline-interpreter";
+import { config } from "@nd/config";
+import ExceptionService, { ERR_CLI, ERR_NLV } from "@nd/error";
+import FileSystem, { FileAction, FileLoadResult, FileType } from "@nd/file";
+import FormatterFactory, { NovelSummary } from "@nd/formatter";
+import { is, PathUtils } from "@nd/helper";
+import { Generator, TemplateType } from "@nd/html-generator";
+import LoggerService, { Colorize, LOGGER_CLI, LOGGER_FILE, LOGGER_NOVEL_DOWNLOADER } from "@nd/logger";
+import { ChapterStatus, NovelBuilder } from "@nd/novel";
+import { Resource } from "@nd/resource";
 import { join } from "path";
 
 import { Package } from "../../build/Package";

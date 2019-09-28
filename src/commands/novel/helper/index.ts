@@ -1,8 +1,8 @@
-import { config } from "nd-config";
-import { Optional } from "nd-helper";
-import { IConfigObject } from "nd-html-generator";
-import { Chapter, Novel } from "nd-novel";
-import { Security, IResponseFormat } from "nd-security";
+import { config } from "@nd/config";
+import { Optional } from "@nd/helper";
+import { IConfigObject } from "@nd/html-generator";
+import { Chapter, Novel } from "@nd/novel";
+import { Security, IResponseFormat } from "@nd/security";
 
 export const htmlConfigBuilder = (type: "novel" | "chapter", secure: Security, novel: Novel, chapter?: Chapter) => {
   const htmlConfig = {

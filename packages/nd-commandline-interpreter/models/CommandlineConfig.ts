@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_CLI_CONFIG } from "nd-logger";
+import LoggerService, { LOGGER_CLI_CONFIG } from "@nd/logger";
 
 export default class CommandlineConfig {
   private static instance?: CommandlineConfig;

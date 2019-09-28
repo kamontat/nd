@@ -1,5 +1,5 @@
 import { Dictionary, eachOfLimit, mapValuesLimit } from "async";
-import LoggerService, { LOGGER_THREAD } from "nd-logger";
+import LoggerService, { LOGGER_THREAD } from "@nd/logger";
 
 import { THREAD_NUMBER } from "../constants";
 

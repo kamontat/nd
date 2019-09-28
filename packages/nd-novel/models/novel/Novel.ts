@@ -1,5 +1,5 @@
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
-import { Resource } from "nd-resource";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
+import { Resource } from "@nd/resource";
 
 import { buildViewURL } from "../../apis";
 import { History } from "../history/History";
