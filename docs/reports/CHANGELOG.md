@@ -1,38 +1,11 @@
-<a name="unreleased"></a>
-## [Unreleased]
-
-### Feature
-- **cli:** add debug-mode option
-- **cli:** add support --check in fetch command
-- **cli:** add dry-run option to novel update
-- **formatter:** add history formatter
-- **helper:** export all constants name from nd-helper
-- **lib:** publish new dependencies for open debug mode
-- **lib:** initial new submodule; nd-content for html content
-
-### Fixes Bug
-- **cli:** subcommand help didn't return correct message
-- **formatter:** forget to add newline on history summary
-- **logger:** change checker from helper to internal method
-
-### Improving application
-- **cli:** change 'nd command' response color
-- **cli:** implement new option in main command
-- **docs:** add new badge to readme
-- **formatter:** use history formatter in novel summary
-- **helper:** log and tmp folder is dynamic name
-- **helper:** improve tmp and log name to support apis
-- **helper:** add datatype checker; move from cli-builder
-- **logger:** change version color to cyan
-- **logger:** add new namespace for helper log
-- **novel:** improve compare method and format beautiful format
-- **novel:** move novel merge method from novel apis
-- **novel:** expose history object out
-
+# ND - Novel Downloader
 
 <a name="v1.0.0-alpha.3"></a>
+
 ## [v1.0.0-alpha.3] - 2019-09-10
-### Feature
+
+### 1. Introduce new features
+
 - **admin:** add new command firebase for get firebase name
 - **admin:** add logger level and print when error occur
 - **cli:** add --json to 'nd command' command
@@ -59,45 +32,8 @@
 - **security:** add new string in jwt; fbname for firebase
 - **thread:** reimplement for more generic and abstract class
 
-### Fixes Bug
-- **admin:** update admin to use async-await instead of promise
-- **ci:** update engines whitelist
-- **cli:** add download as root command too
-- **cli:** fix Cannot read property 'length' of undefined
-- **cli:** caches is not a path
-- **cli:** something log not show because duplicate load low level
-- **cli:** error with input wrong option/params
-- **cli:** fix duplicate logger loader
-- **cli:** due to resource lib changes
-- **cli:** due to file manager changes
-- **cli:** sometime level is not work as expected
-- **cli:** update when thread number from option
-- **cli:** output level didn't load on the first time
-- **cli-builder:** wrong condition on check is path
-- **cli-builder:** config don't load default when number parse
-- **cli-builder:** error when parse param option multiple time
-- **cli-builder:** optional might execute multiple times
-- **config:** wrong logger type
-- **config:** add new config to validation schema
-- **file:** promise must be return to wait their resolve
-- **file:** rename is not work as expected because it remove basename before run
-- **file:** export more some required property
-- **file:** wrong condition to throw type error
-- **file:** rename on async didn't append to final directory
-- **formatter:** remove support long in novel summary
-- **helper:** misunderstand parseInt never throw
-- **html-gen:** update html files path fail
-- **html-gen:** update date formatter generate name for mustache
-- **html-gen:** variable is replace so make some value missing
-- **html-gen:** wrong previous chapter link
-- **logger:** fix file loader in some environment
-- **novel:** decode chapter name is not work when chapter 10+
-- **novel:** due to downloader changes by thread manager result changes
-- **thread:** fix compile error
-- **thread:** return type of _map is a Dic not a array
-- **thread:** async method didn't return value as expected; fix it
+### 2. Command improvement
 
-### Improving application
 - **admin:** add standalone for get package info
 - **admin:** add logger for admin
 - **admin:** use anonymous method instead
@@ -219,10 +155,52 @@
 - **thread:** async function should be promise instead of callback
 - **thread:** remove deprecated models
 
+### 3. Command bug destoryer
+
+- **admin:** update admin to use async-await instead of promise
+- **ci:** update engines whitelist
+- **cli:** add download as root command too
+- **cli:** fix Cannot read property 'length' of undefined
+- **cli:** caches is not a path
+- **cli:** something log not show because duplicate load low level
+- **cli:** error with input wrong option/params
+- **cli:** fix duplicate logger loader
+- **cli:** due to resource lib changes
+- **cli:** due to file manager changes
+- **cli:** sometime level is not work as expected
+- **cli:** update when thread number from option
+- **cli:** output level didn't load on the first time
+- **cli-builder:** wrong condition on check is path
+- **cli-builder:** config don't load default when number parse
+- **cli-builder:** error when parse param option multiple time
+- **cli-builder:** optional might execute multiple times
+- **config:** wrong logger type
+- **config:** add new config to validation schema
+- **file:** promise must be return to wait their resolve
+- **file:** rename is not work as expected because it remove basename before run
+- **file:** export more some required property
+- **file:** wrong condition to throw type error
+- **file:** rename on async didn't append to final directory
+- **formatter:** remove support long in novel summary
+- **helper:** misunderstand parseInt never throw
+- **html-gen:** update html files path fail
+- **html-gen:** update date formatter generate name for mustache
+- **html-gen:** variable is replace so make some value missing
+- **html-gen:** wrong previous chapter link
+- **logger:** fix file loader in some environment
+- **novel:** decode chapter name is not work when chapter 10+
+- **novel:** due to downloader changes by thread manager result changes
+- **thread:** fix compile error
+- **thread:** return type of _map is a Dic not a array
+- **thread:** async method didn't return value as expected; fix it
+
 
 <a name="v1.0.0-alpha.2"></a>
+
 ## [v1.0.0-alpha.2] - 2019-07-28
-### Feature
+
+### 1. Introduce new features
+
 - **cli:** when save file; the command will seperate thread
 - **config:** apply validation and error on set new config
 - **file:** custom file exception callback
@@ -230,15 +208,8 @@
 - **helper:** add new variable checker as a helper
 - **thread:** add new package for manage thread
 
-### Fixes Bug
-- **cli:** no-color, level bug by new config parser
-- **cli:** configuration path should require param
-- **file:** folder-not-empty didn't throw when load subfolder
-- **novel:** change code as a api changes
-- **novel:** change category verify object in novel object
-- **script:** just notice that tag come before commit
+### 2. Command improvement
 
-### Improving application
 - **cli:** command will throw error when novel folder exist
 - **downloader:** move get with redirect as apis
 - **downloader:** implement download with thread management
@@ -256,10 +227,22 @@
 - **thread:** add size of parameters
 - **thread:** add logger to thread manager
 
+### 3. Command bug destoryer
+
+- **cli:** no-color, level bug by new config parser
+- **cli:** configuration path should require param
+- **file:** folder-not-empty didn't throw when load subfolder
+- **novel:** change code as a api changes
+- **novel:** change category verify object in novel object
+- **script:** just notice that tag come before commit
+
 
 <a name="v1.0.0-alpha.1"></a>
+
 ## v1.0.0-alpha.1 - 2019-07-22
-### Feature
+
+### 1. Introduce new features
+
 - **admin:** add admin process and configuration
 - **cli:** add new command `config get`
 - **cli:** add auto download novel from dek-d
@@ -284,27 +267,8 @@
 - **script:** add release core script
 - **setup:** complete first build and deploy
 
-### Fixes Bug
-- **cli:** fix build error because wrong format
-- **cli-builder:** command with parameter will resolve missing param
-- **cli-builder:** configuration didn't apply default value
-- **cli-builder:** fix parameter of option didn't resolve correctly
-- **cli-builder:** --help command does not end the whole command
-- **cli-builder:** skip option is not skipping but stopping
-- **cli-builder:** add commandline event object
-- **config:** cannot load when config file not found
-- **config:** fix command not exit when backup not exist
-- **core:** update config event listener
-- **core:** change console.log didn't matches log setting
-- **help:** fix typo in raw downloading
-- **helper:** update verify helper
-- **logger:** remove invalid empty array
-- **logger:** fix log level not work in cli option
-- **novel:** fix invalid update time due to parse error
-- **option:** --no-color not work with level 2
-- **security:** change allowness of 1 month
+### 2. Command improvement
 
-### Improving application
 - **admin:** update help of admin command
 - **algo:** change the way to delete array
 - **build:** improve new build in main script
@@ -399,7 +363,27 @@
 - **security:** cachable response in decrypt
 - **security:** add new encryption method for string
 
+### 3. Command bug destoryer
 
-[Unreleased]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.3...HEAD
+- **cli:** fix build error because wrong format
+- **cli-builder:** command with parameter will resolve missing param
+- **cli-builder:** configuration didn't apply default value
+- **cli-builder:** fix parameter of option didn't resolve correctly
+- **cli-builder:** --help command does not end the whole command
+- **cli-builder:** skip option is not skipping but stopping
+- **cli-builder:** add commandline event object
+- **config:** cannot load when config file not found
+- **config:** fix command not exit when backup not exist
+- **core:** update config event listener
+- **core:** change console.log didn't matches log setting
+- **help:** fix typo in raw downloading
+- **helper:** update verify helper
+- **logger:** remove invalid empty array
+- **logger:** fix log level not work in cli option
+- **novel:** fix invalid update time due to parse error
+- **option:** --no-color not work with level 2
+- **security:** change allowness of 1 month
+
+
 [v1.0.0-alpha.3]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.2...v1.0.0-alpha.3
 [v1.0.0-alpha.2]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.1...v1.0.0-alpha.2
