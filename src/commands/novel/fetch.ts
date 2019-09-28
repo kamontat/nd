@@ -11,7 +11,7 @@ import { NovelBuilder } from "nd-novel";
 import { Resource, RESOURCE_FILENAME } from "nd-resource";
 import { resolve } from "path";
 
-const __fetch_url = async (value: number, opts: { chapter: boolean; fast: boolean; thread: number }) => {
+const __fetchUrl = async (value: number, opts: { chapter: boolean; fast: boolean; thread: number }) => {
   LoggerService.log(LOGGER_NOVEL_FETCHER, `get url/id as parameter; ${value}`);
 
   const factory = FormatterFactory.Build();
@@ -33,7 +33,7 @@ const __fetch_url = async (value: number, opts: { chapter: boolean; fast: boolea
   LoggerService.console.log(result);
 };
 
-const __fetch_path = async (value: string, opts: { chapter: boolean; check: boolean; thread: number }) => {
+const __fetchPath = async (value: string, opts: { chapter: boolean; check: boolean; thread: number }) => {
   LoggerService.log(
     LOGGER_NOVEL_FETCHER,
     `fetch local novel at ${value} ${opts.chapter ? "with" : "without"} chapter list`,
@@ -78,12 +78,12 @@ const __main: ICommandCallback = async ({ value, apis }) => {
 
   LoggerService.log(LOGGER_NOVEL_FETCHER, `start fetch with options %O`, opts);
 
-  if (is.id(value)) await __fetch_url(parseInt(value || "0"), opts);
+  if (is.id(value)) await __fetchUrl(parseInt(value || "0"), opts);
   else if (is.path(value)) {
     if (!is.file(resolve(value || "", RESOURCE_FILENAME)))
       throw ExceptionService.build(ERR_CLI, "input must be valid nd novel directory");
 
-    await __fetch_path(value || "", opts);
+    await __fetchPath(value || "", opts);
   } else throw ExceptionService.build(ERR_CLI, "cannot classify input; you must input either number or local path");
 };
 

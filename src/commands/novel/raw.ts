@@ -38,7 +38,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
     `start download ${value} (nid) raw chapters [${chapters}] to ${location} with replace=${replace},change=${change},chapter=${chapters},thread=${thread}`,
   );
 
-  const builder = new NovelBuilder(parseInt(value || "", 10));
+  const builder = new NovelBuilder(id);
 
   const novel = await builder.partialBuild(chapters, thread);
   const result = factory

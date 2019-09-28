@@ -8,6 +8,7 @@ import LoggerService, { LOGGER_CLI } from "nd-logger";
 import readline from "readline";
 
 import { HELP_CONFIGURATION, HELP_HEADER } from "../constants/content";
+import { ConfigKey, ConfigValue } from "nd-config/models/IConfigurationTypeDefined";
 
 export default (cli: Commandline, config: IConfiguration) => {
   const getCallback: ICommandCallback = ({ value, apis }) => {
