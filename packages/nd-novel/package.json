@@ -10,6 +10,10 @@
     "@nd/resource": "./packages/nd-resource"
   },
   "changelog": {
+    "1.4.3": {
+      "message": "change package name from nd-novel to @nd/novel",
+      "date": "28 Sep 2019"
+    },
     "1.4.2": {
       "message": "didn't collect history when load via resource",
       "date": "10 Sep 2019"
