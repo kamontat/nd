@@ -69,12 +69,16 @@ module.exports = {
   module: {
     rules: [{
         test: /\.ts$/,
-        enforce: "pre",
         use: [{
-          loader: "tslint-loader",
+          loader: "eslint-loader",
+          exclude: /node_modules/,
           options: {
             typeCheck: false,
-            fix: true
+            fix: true,
+            outputReport: {
+              filePath: 'checkstyle.xml',
+              formatter: 'checkstyle',
+            },
           }
         }]
       },
