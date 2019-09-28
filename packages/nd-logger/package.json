@@ -8,6 +8,10 @@
     "debug": "4.1.1"
   },
   "changelog": {
+    "1.2.6": {
+      "message": "change package name from nd-logger to @nd/logger",
+      "date": "28 Sep 2019"
+    },
     "1.2.5": {
       "message": "remove nd-helper to make it lighter",
       "date": "13 Sep 2019"
