@@ -45,5 +45,5 @@
   <span> · </span>
   <a href="docs/reports/CHANGELOG.md">Changelog</a>
   <span> · </span>
-  <a href="docs/reports/loc/LOC.md">Line of code</a>
+  <a href="docs/reports/loc">Line of code</a>
 </h4>
