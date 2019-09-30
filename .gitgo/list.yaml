@@ -16,7 +16,7 @@ commit:
       value: Commandline relevant
     - type: core
       value: nd application but not relevant to cli
-    - type: lib
+    - type: deps
       value: internal or external libraries
     - type: script
       value: Helper shell script
