@@ -1,11 +1,15 @@
 {
-  "name": "nd-error",
-  "version": "2.2.2",
+  "name": "@nd/error",
+  "version": "2.2.3",
   "description": "error and exception in nd command",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger"
+    "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "2.2.3": {
+      "message": "change package name from nd-error to @nd/error",
+      "date": "28 Sep 2019"
+    },
     "2.2.2": {
       "message": "add new file system error",
       "date": "13 Aug 2019"

@@ -1,6 +1,6 @@
-import { Commandline, Option } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Commandline, Option } from "@nd/commandline-interpreter";
+import { IConfiguration } from "@nd/config";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 export const Level = (cli: Commandline, config: IConfiguration) => {
   cli.option(

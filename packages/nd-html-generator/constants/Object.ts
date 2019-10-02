@@ -1,4 +1,4 @@
-import { Chapter } from "nd-novel";
+import { Chapter } from "@nd/novel";
 
 import ILoaderResponse from "./LoaderResponse";
 

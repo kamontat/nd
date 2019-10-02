@@ -1,4 +1,4 @@
-import ExceptionService, { ERR_DBO } from "nd-error";
+import ExceptionService, { ERR_DBO } from "@nd/error";
 
 import IDatabase from "../models/IDatabase";
 

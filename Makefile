@@ -70,35 +70,35 @@ clean:
 ifeq "$(all)" "true"
 	rm -rf node_modules yarn.lock
 endif
-	rm -rf dist .nyc_output coverage reports/**/*.html
+	rm -rf dist .nyc_output coverage ./docs/reports/**/*.html
 
 loc:
 ifeq "$(type)" "lib"
-	@cloc ./index.ts ./package.json ./src --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CORE.md
-	@cloc ./packages/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-LOGGER.md
-	@cloc ./packages/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CLI_BUILDER.md
-	@cloc ./packages/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-SECURITY.md
-	@cloc ./packages/nd-helper --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HELPER.md
-	@cloc ./packages/nd-config --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CONFIG.md
-	@cloc ./packages/nd-error --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ERROR.md
-	@cloc ./admin.ts ./packages/nd-admin --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-ADMIN.md
-	@cloc ./packages/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FORMATTER.md
-	@cloc ./packages/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DOWNLOADER.md
-	@cloc ./packages/nd-content --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-CONTENT.md
-	@cloc ./packages/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-NOVEL.md
-	@cloc ./packages/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DECODER.md
-	@cloc ./packages/nd-file --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-FILE.md
-	@cloc ./packages/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-HTML_GEN.md
-	@cloc ./packages/nd-thread --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-THREAD.md
-	@cloc ./packages/nd-resource --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-RESOURCE.md
-	@cloc ./packages/nd-debug --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DEBUG.md
-	@cloc ./packages/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./reports/loc/LOC-DATABASE.md
+	@cloc ./index.ts ./package.json ./src --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CORE.md
+	@cloc ./packages/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-LOGGER.md
+	@cloc ./packages/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CLI_BUILDER.md
+	@cloc ./packages/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-SECURITY.md
+	@cloc ./packages/nd-helper --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-HELPER.md
+	@cloc ./packages/nd-config --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CONFIG.md
+	@cloc ./packages/nd-error --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-ERROR.md
+	@cloc ./admin.ts ./packages/nd-admin --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-ADMIN.md
+	@cloc ./packages/nd-formatter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-FORMATTER.md
+	@cloc ./packages/nd-downloader --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DOWNLOADER.md
+	@cloc ./packages/nd-content --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CONTENT.md
+	@cloc ./packages/nd-novel --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-NOVEL.md
+	@cloc ./packages/nd-decoder --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DECODER.md
+	@cloc ./packages/nd-file --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-FILE.md
+	@cloc ./packages/nd-html-generator --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-HTML_GEN.md
+	@cloc ./packages/nd-thread --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-THREAD.md
+	@cloc ./packages/nd-resource --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-RESOURCE.md
+	@cloc ./packages/nd-debug --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DEBUG.md
+	@cloc ./packages/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DATABASE.md
 else
-	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./reports/loc/LOC.md
+	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./docs/reports/loc/README.md
 
-	@printf "\nCreate date is " >> ./reports/loc/LOC.md
-	@date "+%d/%m/%Y - %H:%M:%S" >> ./reports/loc/LOC.md
+	@printf "\nCreate date is " >> ./docs/reports/loc/README.md
+	@date "+%d/%m/%Y - %H:%M:%S" >> ./docs/reports/loc/README.md
 endif
 
 changelog:
-	@git chglog --config .gitgo/chglog/config.yml --output docs/CHANGELOG.md --tag-filter-pattern "^v"
+	@git chglog --config .gitgo/chglog/config.yml --output docs/reports/CHANGELOG.md --tag-filter-pattern "^v"

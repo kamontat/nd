@@ -1,0 +1,11 @@
+{
+  "packages": ["packages/*"],
+  "npmClient": "yarn",
+  "version": "independent",
+  "command": {
+    "version": {
+      "allowBranch": ["master"],
+      "message": "chore(release): publish new version"
+    }
+  }
+}

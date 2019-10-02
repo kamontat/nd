@@ -1,7 +1,7 @@
-import { Commandline, Option } from "nd-commandline-interpreter";
-import { config, IConfiguration } from "nd-config";
-import { DebugMode } from "nd-debug";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Commandline, Option } from "@nd/commandline-interpreter";
+import { config, IConfiguration } from "@nd/config";
+import { DebugMode } from "@nd/debug";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
 import { Help, Level, Version } from "./options";

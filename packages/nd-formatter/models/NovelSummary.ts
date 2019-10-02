@@ -1,6 +1,6 @@
-import { ArrayUtils, TimeUtils } from "nd-helper";
-import { Colorize } from "nd-logger";
-import { ChapterStatus, History, Novel } from "nd-novel";
+import { ArrayUtils, TimeUtils } from "@nd/helper";
+import { Colorize } from "@nd/logger";
+import { ChapterStatus, History, Novel } from "@nd/novel";
 
 import { HistorySummary } from "./HistorySummary";
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";

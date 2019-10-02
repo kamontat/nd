@@ -1,20 +1,20 @@
-import { Package as AdminPackage } from "nd-admin/standalone";
-import { Package as CLIPackage } from "nd-commandline-interpreter";
-import { config, Package as ConfigPackage } from "nd-config";
-import { Package as ContentPackage } from "nd-content";
-import { Package as DatabasePackage } from "nd-database";
-import { Package as EncoderPackage } from "nd-decoder";
-import { Package as DownloaderPackage } from "nd-downloader";
-import { Package as ErrorPackage } from "nd-error";
-import { Package as FilePackage } from "nd-file";
-import { Package as FormatterPackage } from "nd-formatter";
-import { Package as HelperPackage, TimeUtils } from "nd-helper";
-import { Package as HtmlGenPackage } from "nd-html-generator";
-import { Colorize, Package as LogPackage } from "nd-logger";
-import { Package as NovelPackage } from "nd-novel";
-import { Package as ResourcePackage } from "nd-resource";
-import { Package as SecurityPackage, Security } from "nd-security";
-import { Package as ThreadPackage } from "nd-thread";
+import { Package as AdminPackage } from "@nd/admin/standalone";
+import { Package as CLIPackage } from "@nd/commandline-interpreter";
+import { config, Package as ConfigPackage } from "@nd/config";
+import { Package as ContentPackage } from "@nd/content";
+import { Package as DatabasePackage } from "@nd/database";
+import { Package as EncoderPackage } from "@nd/decoder";
+import { Package as DownloaderPackage } from "@nd/downloader";
+import { Package as ErrorPackage } from "@nd/error";
+import { Package as FilePackage } from "@nd/file";
+import { Package as FormatterPackage } from "@nd/formatter";
+import { Package as HelperPackage, TimeUtils } from "@nd/helper";
+import { Package as HtmlGenPackage } from "@nd/html-generator";
+import { Colorize, Package as LogPackage } from "@nd/logger";
+import { Package as NovelPackage } from "@nd/novel";
+import { Package as ResourcePackage } from "@nd/resource";
+import { Package as SecurityPackage, Security } from "@nd/security";
+import { Package as ThreadPackage } from "@nd/thread";
 
 import { Package as CorePackage } from "../build/Package";
 

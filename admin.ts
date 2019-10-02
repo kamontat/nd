@@ -1,8 +1,8 @@
-import { BuildAdminCommandline, Package } from "nd-admin";
-import { Commandline } from "nd-commandline-interpreter";
-import { config } from "nd-config";
-import ExceptionService from "nd-error";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { BuildAdminCommandline, Package } from "@nd/admin";
+import { Commandline } from "@nd/commandline-interpreter";
+import { config } from "@nd/config";
+import ExceptionService from "@nd/error";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 declare let __NODE_ENV__: string;
 

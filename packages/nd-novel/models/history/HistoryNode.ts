@@ -1,4 +1,4 @@
-import { Colorize } from "nd-logger";
+import { Colorize } from "@nd/logger";
 
 import { EventType } from "./HistoryEvent";
 

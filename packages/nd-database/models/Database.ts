@@ -1,7 +1,7 @@
 import firebase, { firestore } from "firebase/app";
 import "firebase/firestore";
-import ExceptionService, { ERR_DBO } from "nd-error";
-import LoggerService, { LOGGER_FIREBASE, LOGGER_FIREBASE_NOSQL } from "nd-logger";
+import ExceptionService, { ERR_DBO } from "@nd/error";
+import LoggerService, { LOGGER_FIREBASE, LOGGER_FIREBASE_NOSQL } from "@nd/logger";
 
 import IDatabase from "./IDatabase";
 

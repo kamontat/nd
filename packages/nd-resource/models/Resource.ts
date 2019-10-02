@@ -1,8 +1,8 @@
-import FileSystem, { FileAction, FileSyncManager, FileType } from "nd-file";
-import { WriteOption } from "nd-file/models/interface/defined"; // rare case
-import LoggerService, { LOGGER_NOVEL_RESOURCE } from "nd-logger";
-import { Novel } from "nd-novel";
-import { Encryption } from "nd-security";
+import FileSystem, { FileAction, FileSyncManager, FileType } from "@nd/file";
+import { WriteOption } from "@nd/file/models/interface/defined"; // rare case
+import LoggerService, { LOGGER_NOVEL_RESOURCE } from "@nd/logger";
+import { Novel } from "@nd/novel";
+import { Encryption } from "@nd/security";
 
 import { RESOURCE_FILENAME } from "../constants";
 

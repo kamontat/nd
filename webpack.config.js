@@ -9,7 +9,7 @@ const Visualizer = require("webpack-visualizer-plugin");
 const pjson = require("./package.json");
 
 const DIST_FOLDER = process.env.DIST_FOLDER || "dist";
-const REPORT_FOLDER = process.env.REPORT_FOLDER || "reports";
+const REPORT_FOLDER = process.env.REPORT_FOLDER || "docs/reports";
 
 const DEV_STATISTIC_HTML = process.env.DEV_STATISTIC_HTML || "statistic-dev.html";
 const STATISTIC_HTML = process.env.STATISTIC_HTML || "statistics.html";
@@ -134,8 +134,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __NODE_ENV__: JSON.stringify(NODE_ENV),
-      __COMPILE_DATE__: JSON.stringify(+new Date()),
+      __NAME__: JSON.stringify(pjson.name),
+      __DESCRIPTION__: JSON.stringify(pjson.description),
+      __AUTHOR__: JSON.stringify(pjson.author),
       __VERSION__: JSON.stringify(pjson.version),
+      __COMPILE_DATE__: JSON.stringify(+new Date()),
       __FIREBASE_API_KEY__: JSON.stringify("AIzaSyArv4QISPsrR56iE24ZCvDzSkaRj5qnfRM"),
       __FIREBASE_AUTH_DOMAIN__: JSON.stringify("nd-cli.firebaseapp.com"),
       __FIREBASE_DATABASE_URL__: JSON.stringify("https://nd-cli.firebaseio.com"),
@@ -161,7 +164,7 @@ module.exports = {
   externals: [
     nodeExternals({
       whitelist: [
-        /nd-.*/,
+        /@nd\/*/,
         "table",
         "jsonwebtoken",
         "chalk",

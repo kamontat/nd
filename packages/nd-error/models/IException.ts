@@ -1,4 +1,4 @@
-import Logger from "nd-logger/models/Logger";
+import Logger from "@nd/logger/models/Logger";
 
 export interface IException extends Error {
   readonly isExit: boolean;

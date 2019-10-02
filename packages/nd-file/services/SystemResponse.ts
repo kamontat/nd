@@ -1,5 +1,5 @@
-import ExceptionService, { ERR_FLE } from "nd-error";
-import LoggerService, { LOGGER_FILE } from "nd-logger";
+import ExceptionService, { ERR_FLE } from "@nd/error";
+import LoggerService, { LOGGER_FILE } from "@nd/logger";
 
 import { FileAction } from "../models/enum";
 

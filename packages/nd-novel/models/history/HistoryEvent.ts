@@ -1,5 +1,5 @@
 import Event from "events";
-import LoggerService, { LOGGER_HISTORY } from "nd-logger";
+import LoggerService, { LOGGER_HISTORY } from "@nd/logger";
 
 export type EventType = "added" | "modified" | "deleted";
 

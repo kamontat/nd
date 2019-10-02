@@ -1,14 +1,14 @@
-import { ICommandCallback } from "nd-commandline-interpreter";
-import { config } from "nd-config";
-import ExceptionService, { ERR_CLI } from "nd-error";
-import FileSystem from "nd-file";
-import FormatterFactory, { NovelSummary } from "nd-formatter";
-import { HistorySummary } from "nd-formatter/models/HistorySummary";
-import { is, PathUtils } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_FETCHER } from "nd-logger";
-import { Compare, Novel } from "nd-novel";
-import { NovelBuilder } from "nd-novel";
-import { Resource, RESOURCE_FILENAME } from "nd-resource";
+import { ICommandCallback } from "@nd/commandline-interpreter";
+import { config } from "@nd/config";
+import ExceptionService, { ERR_CLI } from "@nd/error";
+import FileSystem from "@nd/file";
+import FormatterFactory, { NovelSummary } from "@nd/formatter";
+import { HistorySummary } from "@nd/formatter/models/HistorySummary";
+import { is, PathUtils } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_FETCHER } from "@nd/logger";
+import { Compare, Novel } from "@nd/novel";
+import { NovelBuilder } from "@nd/novel";
+import { Resource, RESOURCE_FILENAME } from "@nd/resource";
 import { resolve } from "path";
 
 const __fetchUrl = async (value: number, opts: { chapter: boolean; fast: boolean; thread: number }) => {

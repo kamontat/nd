@@ -1,7 +1,7 @@
 import ms from "ms";
-import { Command, Commandline, Option } from "nd-commandline-interpreter";
-import LoggerService, { LOGGER_ADMIN } from "nd-logger";
-import { Security } from "nd-security";
+import { Command, Commandline, Option } from "@nd/commandline-interpreter";
+import LoggerService, { LOGGER_ADMIN } from "@nd/logger";
+import { Security } from "@nd/security";
 import readline from "readline";
 
 import { Package } from "..";

@@ -3,8 +3,9 @@ import * as chai from "chai";
 import "mocha";
 import LoggerMock from "nd-logger/models/__test__/LoggerMock";
 
-import { ERR_CLI, ERR_GNL, ERR_LOG, WRN_NLV } from "../constants";
-import Exception from "../model";
+import { ERR_CLI, ERR_GNL, ERR_LOG, ERR_NLV } from "../constants";
+import Exception from "../models/Exception";
+import ExceptionService from "../index";
 chai.should();
 
 // const addContext = require("mochawesome/addContext");
@@ -51,7 +52,7 @@ describe(rootName, function() {
 
     it("should print to consol in warning", function() {
       const message = "hello world";
-      const exp = new Exception(WRN_NLV);
+      const exp = new Exception(ERR_NLV, undefined, false); // warning
 
       exp.description(message).print(
         new LoggerMock((event, args: any[]) => {
@@ -66,7 +67,7 @@ describe(rootName, function() {
 
   describe("Exception builder", function() {
     it("should create build new exception by static build", function() {
-      const exp = Exception.build(ERR_GNL);
+      const exp = ExceptionService.build(ERR_GNL);
 
       exp.name.should.not.be.undefined;
       exp.message.should.be.equal(ERR_GNL.name);
@@ -82,8 +83,8 @@ describe(rootName, function() {
     });
 
     it("should able to cast own exception to exception", function() {
-      const exp1 = Exception.build(ERR_LOG);
-      const exp2 = Exception.cast(exp1);
+      const exp1 = ExceptionService.build(ERR_LOG);
+      const exp2 = ExceptionService.cast(exp1);
 
       exp1.should.be.equal(exp2);
     });

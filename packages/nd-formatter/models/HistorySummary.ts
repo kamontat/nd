@@ -1,4 +1,4 @@
-import { History } from "nd-novel";
+import { History } from "@nd/novel";
 
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
 

@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_NOVEL } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL } from "@nd/logger";
 
 import { HistoryEvent } from "./HistoryEvent";
 import { HistoryNode } from "./HistoryNode";

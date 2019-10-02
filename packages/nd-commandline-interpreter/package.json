@@ -1,14 +1,18 @@
 {
-  "name": "nd-commandline-interpreter",
-  "version": "1.2.4",
+  "name": "@nd/commandline-interpreter",
+  "version": "1.2.5",
   "description": "commandline interpreter and helper",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-security": "./packages/nd-security",
-    "nd-error": "./packages/nd-error",
-    "nd-config": "./packages/nd-config"
+    "@nd/config": "./packages/nd-config",
+    "@nd/error": "./packages/nd-error",
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/security": "./packages/nd-security"
   },
   "changelog": {
+    "1.2.5": {
+      "message": "change package name from nd-commandline-interpreter to @nd/commandline-interpreter",
+      "date": "28 Sep 2019"
+    },
     "1.2.4": {
       "message": "more lightweight and understandable code",
       "date": "13 Sep 2019"

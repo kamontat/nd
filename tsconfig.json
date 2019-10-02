@@ -3,7 +3,7 @@
     "index.ts",
     "src/**/*.ts",
     "packages/**/*.ts",
-    "node_modules/nd-*/**/*.ts",
+    "node_modules/@nd/**/*.ts",
     "**/*.json",
     "templates/commands/_template.ts"
   ],

@@ -1,12 +1,16 @@
 {
-  "name": "nd-file",
-  "version": "2.0.0-rc.2",
+  "name": "@nd/file",
+  "version": "2.0.0",
   "description": "save, update and delete content to file or directory",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error",
+    "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "2.0.0": {
+      "message": "change package name from nd-file to @nd/file",
+      "date": "28 Sep 2019"
+    },
     "2.0.0-rc.2": {
       "message": "fix rename in async didn't append result to final directory",
       "date": "10 Sep 2019"

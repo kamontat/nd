@@ -1,7 +1,7 @@
-import { Command, Commandline, IOptionable, Option, SubCommand } from "nd-commandline-interpreter";
-import { IConfiguration } from "nd-config";
-import FormatterFactory, { NovelSummary } from "nd-formatter";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Command, Commandline, IOptionable, Option, SubCommand } from "@nd/commandline-interpreter";
+import { IConfiguration } from "@nd/config";
+import FormatterFactory, { NovelSummary } from "@nd/formatter";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 import { HELP_HEADER, HELP_NOVEL } from "../constants/content";
 

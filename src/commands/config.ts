@@ -1,10 +1,10 @@
-import { Command, Commandline, ICommandCallback, Option, SubCommand } from "nd-commandline-interpreter";
-import { ConfigParser, IConfiguration } from "nd-config";
-import Exception, { ERR_CFG } from "nd-error";
-import ExceptionService from "nd-error";
-import { ObjectJson, ObjectTable } from "nd-formatter";
-import { Colorize, LOGGER_CONFIG } from "nd-logger";
-import LoggerService, { LOGGER_CLI } from "nd-logger";
+import { Command, Commandline, ICommandCallback, Option, SubCommand } from "@nd/commandline-interpreter";
+import { ConfigParser, IConfiguration } from "@nd/config";
+import Exception, { ERR_CFG } from "@nd/error";
+import ExceptionService from "@nd/error";
+import { ObjectJson, ObjectTable } from "@nd/formatter";
+import { Colorize, LOGGER_CONFIG } from "@nd/logger";
+import LoggerService, { LOGGER_CLI } from "@nd/logger";
 import readline from "readline";
 
 import { HELP_CONFIGURATION, HELP_HEADER } from "../constants/content";

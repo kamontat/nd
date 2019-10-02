@@ -1,11 +1,11 @@
 import assert from "assert";
 import * as chai from "chai";
 import "mocha";
-import { Commandline, Option } from "nd-commandline-interpreter";
-import { CommandlineEvent } from "nd-commandline-interpreter";
-import { MockArguments } from "nd-commandline-interpreter/__test__/high-level.spec";
-import MockConfiguration from "nd-config/models/__test__/MockConfiguration";
-import LoggerService from "nd-logger";
+import { Commandline, Option } from "@nd/commandline-interpreter";
+import { CommandlineEvent } from "@nd/commandline-interpreter";
+import { MockArguments } from "@nd/commandline-interpreter/__test__/high-level.spec";
+import MockConfiguration from "@nd/config/models/__test__/MockConfiguration";
+import LoggerService from "@nd/logger";
 
 import { BuildCommandline } from "../nd";
 chai.should();

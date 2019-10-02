@@ -1,12 +1,16 @@
 {
-  "name": "nd-decoder",
-  "version": "1.0.1",
+  "name": "@nd/decoder",
+  "version": "1.0.2",
   "description": "File decoder for html in nd command",
   "dependencies": {
-    "iconv-lite": "0.5.0",
-    "nd-error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error",
+    "iconv-lite": "0.5.0"
   },
   "changelog": {
+    "1.0.2": {
+      "message": "change package name from nd-decoder to @nd/decoder",
+      "date": "28 Sep 2019"
+    },
     "1.0.1": {
       "message": "make it more lightweight :)",
       "date": "30 Aug 2019"

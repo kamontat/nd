@@ -1,7 +1,7 @@
 import { genSaltSync, hashSync } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
-import Exception, { ERR_SCT } from "nd-error";
-import LoggerService, { LOGGER_SECURITY } from "nd-logger";
+import Exception, { ERR_SCT } from "@nd/error";
+import LoggerService, { LOGGER_SECURITY } from "@nd/logger";
 
 import { hash, unhash } from "../apis/hash";
 import GenerateFirebaseName from "../apis/methods/GenerateFirebaseName";
