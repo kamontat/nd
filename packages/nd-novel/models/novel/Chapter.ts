@@ -6,6 +6,7 @@ import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
 
 import { ChapterStatus } from "./ChapterStatus";
+import { HtmlEntity } from "@nd/content";
 
 export class Chapter {
   public get cid() {
@@ -18,7 +19,7 @@ export class Chapter {
   public get content() {
     return this._content;
   }
-  public set content(c: string[]) {
+  public set content(c: HtmlEntity[]) {
     this.eventHandler("content", { before: this._content, after: c });
     this._content = c;
   }
@@ -64,7 +65,7 @@ export class Chapter {
     this._updateAt = u;
   }
 
-  private _content: string[];
+  private _content: HtmlEntity[];
   private _downloadAt?: number;
 
   private _event: HistoryEvent;

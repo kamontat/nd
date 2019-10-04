@@ -8,6 +8,7 @@ import { HistoryEvent } from "../history/HistoryEvent";
 import { Chapter } from "./Chapter";
 import { ChapterStatusUtils } from "./ChapterStatus";
 import { NovelType } from "./NovelType";
+import { HtmlEntity } from "@nd/content";
 
 export class Novel {
   public get abstract() {
@@ -32,7 +33,7 @@ export class Novel {
     return this._chapters.values();
   }
 
-  public set content(c: string[]) {
+  public set content(c: HtmlEntity[]) {
     this.eventHandler("content", { before: this._content, after: c });
     this._content = c;
   }
@@ -138,7 +139,7 @@ export class Novel {
   private _abstract?: string;
   private _author?: string;
   private _chapters: Map<number, Chapter>;
-  private _content: string[];
+  private _content: HtmlEntity[];
 
   private _disableEvent: boolean;
   private _downloadAt?: number;
