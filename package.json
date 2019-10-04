@@ -66,6 +66,7 @@
     "@nd/security": "./packages/nd-security",
     "@nd/thread": "./packages/nd-thread",
     "async": "3.1.0",
+    "ava": "2.4.0",
     "bcryptjs": "2.4.3",
     "chalk": "2.4.2",
     "cheerio": "1.0.0-rc.3",
@@ -84,9 +85,7 @@
     "@types/cheerio": "0.22.13",
     "@types/debug": "4.1.5",
     "@types/expect": "1.20.4",
-    "@types/jest": "24.0.18",
     "@types/jsonwebtoken": "8.3.4",
-    "@types/mocha": "5.2.7",
     "@types/mock-fs": "3.6.30",
     "@types/ms": "0.7.30",
     "@types/mustache": "0.8.32",
@@ -104,10 +103,7 @@
     "eslint-plugin-prettier": "3.1.1",
     "google-closure-compiler": "20190729.0.0",
     "html-loader": "0.5.5",
-    "jest": "24.9.0",
-    "lerna": "^3.16.4",
-    "mocha": "6.2.0",
-    "mochawesome": "4.1.0",
+    "lerna": "3.16.4",
     "mock-fs": "4.10.1",
     "node-sass": "4.12.0",
     "nyc": "14.1.1",
@@ -116,7 +112,6 @@
     "rewire": "4.0.1",
     "sass-loader": "7.2.0",
     "to-string-loader": "1.1.5",
-    "ts-jest": "24.1.0",
     "ts-loader": "6.0.4",
     "ts-node": "8.3.0",
     "typedoc": "0.15.0",
@@ -128,37 +123,8 @@
     "webpack-node-externals": "1.7.2",
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
-  },
   "pkg": {
-    "assets": [
-      "package.json"
-    ]
-  },
-  "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/constants/**/*.ts",
-      "**/*.d.ts",
-      "**/*.spec.ts",
-      "docs/reports/**/*",
-      "dist/**/*",
-      "coverage/**/*",
-      "templates/**/*",
-      "packages/webpack-visualizer/**/*",
-      "**/index.ts",
-      "admin.ts",
-      "webpack.config.js"
-    ],
-    "reporter": [
-      "html",
-      "text"
-    ],
-    "all": true
+    "assets": ["package.json"]
   },
   "engines": {
     "node": ">=8.0.0 <13.0.0",

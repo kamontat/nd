@@ -3,13 +3,8 @@ npm_client=yarn
 test:
 	@TS_NODE_SKIP_IGNORE=true \
 	NODE_ENV="$(mode)" \
-	nyc \
-		mocha \
-		--no-timeouts \
-		--reporter mochawesome \
-		--reporter-options reportPageTitle=ND\ Test\ Reporter,reportTitle=Report,charts=true,cdn=true,reportDir=reports,timestamp=,inline=true,reportFilename=mocha-report \
-		--require ts-node/register \
-		./packages/**/*.spec.ts ./src/**/*.spec.ts
+	tsc && \
+		nyc ava
 
 lib:
 ifeq "$(quite)" "true"

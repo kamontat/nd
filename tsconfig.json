@@ -4,7 +4,6 @@
     "src/**/*.ts",
     "packages/**/*.ts",
     "node_modules/@nd/**/*.ts",
-    "**/*.json",
     "templates/commands/_template.ts"
   ],
   "exclude": ["**/*.spec.ts"],
