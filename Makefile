@@ -2,8 +2,8 @@ npm_client=yarn
 
 test:
 	@TS_NODE_SKIP_IGNORE=true \
+	TS_NODE_IGNORE=false \
 	NODE_ENV="$(mode)" \
-	tsc && \
 		nyc ava
 
 lib:
@@ -65,7 +65,7 @@ clean:
 ifeq "$(all)" "true"
 	rm -rf node_modules yarn.lock
 endif
-	rm -rf dist .nyc_output coverage ./docs/reports/**/*.html
+	rm -rf dist .nyc_output coverage ./docs/reports/**/*.html .caches
 
 loc:
 ifeq "$(type)" "lib"
