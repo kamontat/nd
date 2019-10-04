@@ -208,7 +208,7 @@ export const HELP_FOOTER = (name: string) => {
 
 export const VERSION = () => {
   return Colorize.format`{dim --------------------------------------}
-{yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
+{yellowBright ${CorePackage.name}}                          : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
