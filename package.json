@@ -124,7 +124,7 @@
     "typescript": "3.6.3",
     "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.39.2",
-    "webpack-cli": "3.3.7",
+    "webpack-cli": "3.3.9",
     "webpack-node-externals": "1.7.2",
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
