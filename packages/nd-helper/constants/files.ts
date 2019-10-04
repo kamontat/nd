@@ -2,9 +2,11 @@ import { resolve } from "path";
 
 import PathUtils from "../apis/path";
 
-declare var __COMPILE_DATE__: string;
+// Hack when run on test environment
+declare let __COMPILE_DATE__: string;
+const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
-export const ND_TMP_LOCATION = resolve(`/tmp`, `nd-${__COMPILE_DATE__}`);
+export const ND_TMP_LOCATION = resolve(`/tmp`, `nd-${COMPILE_DATE}`);
 
 // ------------
 

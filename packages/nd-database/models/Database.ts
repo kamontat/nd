@@ -19,13 +19,13 @@ export default class Database implements IDatabase<firestore.DocumentSnapshot> {
   constructor() {
     if (firebase.apps.length === 0) {
       const app = firebase.initializeApp({
-        apiKey: __FIREBASE_API_KEY__,
-        authDomain: __FIREBASE_AUTH_DOMAIN__,
-        databaseURL: __FIREBASE_DATABASE_URL__,
-        projectId: __FIREBASE_PROJECT_ID__,
-        storageBucket: __FIREBASE_STORAGE_BUCKET__,
-        messagingSenderId: __FIREBASE_MESSAGING_SENDER_ID__,
-        appId: __FIREBASE_APP_ID__,
+        apiKey: process.env.NODE_ENV === "test" ? "" : __FIREBASE_API_KEY__,
+        authDomain: process.env.NODE_ENV === "test" ? "" : __FIREBASE_AUTH_DOMAIN__,
+        databaseURL: process.env.NODE_ENV === "test" ? "" : __FIREBASE_DATABASE_URL__,
+        projectId: process.env.NODE_ENV === "test" ? "" : __FIREBASE_PROJECT_ID__,
+        storageBucket: process.env.NODE_ENV === "test" ? "" : __FIREBASE_STORAGE_BUCKET__,
+        messagingSenderId: process.env.NODE_ENV === "test" ? "" : __FIREBASE_MESSAGING_SENDER_ID__,
+        appId: process.env.NODE_ENV === "test" ? "" : __FIREBASE_APP_ID__,
       });
       // LoggerService.log(LOGGER_FIREBASE, app);
 

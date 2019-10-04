@@ -19,6 +19,7 @@ import { Package as ThreadPackage } from "@nd/thread";
 import { Package as CorePackage } from "../build/Package";
 
 declare let __COMPILE_DATE__: string;
+const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
 const GLOBAL_OPTION = (name: string) => {
   return Colorize.format`
@@ -196,7 +197,7 @@ Enjoy your days; {blueBright ${CorePackage.author}}`;
 };
 
 export const HELP_HEADER = (name: string, description: string) => {
-  const date = new Date(__COMPILE_DATE__);
+  const date = new Date(COMPILE_DATE);
   return `${Colorize.appname(name.toUpperCase())} command; ${description}
 Built at ${Colorize.datetime(date.toLocaleString())}
 Version  ${Colorize.version(CorePackage.version)}`;
@@ -394,7 +395,7 @@ export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
 Command name:            ${Colorize.appname(name)}
 Command version:         ${Colorize.version(CorePackage.version)}
 Command author:          ${Colorize.name(CorePackage.author)}
-Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(__COMPILE_DATE__)))}
+Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(COMPILE_DATE)))}
 
 Admin version:           ${Colorize.version(AdminPackage.version)}
 `;

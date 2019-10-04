@@ -1,10 +1,17 @@
 import test from "ava";
+import { Optional } from "./optional";
 
-test("foo", t => {
-  t.pass();
+test("create with string data", t => {
+  const o = Optional.of("string");
+  t.is(o.or("default"), "string");
 });
 
-test("bar", async t => {
-  const bar = Promise.resolve("bar");
-  t.is(await bar, "bar");
+test("create with int data", t => {
+  const o = Optional.of(20);
+  t.is(o.or(0), 20);
+});
+
+test("create with bool data", t => {
+  const o = Optional.of(false);
+  t.is(o.or(true), false);
 });

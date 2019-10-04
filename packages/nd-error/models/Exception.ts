@@ -5,6 +5,7 @@ import { ERR_GNL } from "../constants";
 import { IExceptionState, MessageType } from "./IExceptionState";
 
 declare var __NODE_ENV__: string;
+const NODE_ENV = process.env.NODE_ENV === "test" ? "" : __NODE_ENV__;
 
 export default class Exception extends Error {
   public get warn() {
@@ -19,7 +20,7 @@ export default class Exception extends Error {
   constructor(private _code: IExceptionState, description?: string | Error, private _exit: boolean = true) {
     super(``);
 
-    this.env = __NODE_ENV__;
+    this.env = NODE_ENV;
     if (description === undefined || description === null) this._description = `Error: ${_code.name}`;
     else if (typeof description === "string") this._description = description || "";
     else
