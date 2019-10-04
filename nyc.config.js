@@ -16,4 +16,14 @@ module.exports = {
     "admin.ts",
     "**/*.js",
   ],
+  branches: 70,
+  lines: 70,
+  functions: 70,
+  statements: 70,
+  watermarks: {
+    lines: [70, 85],
+    functions: [70, 85],
+    branches: [70, 85],
+    statements: [70, 85],
+  },
 };
