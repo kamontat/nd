@@ -21,6 +21,6 @@ module.exports.default = {
   compileEnhancements: false,
   verbose: chooseByEnv(true, true, false),
   extensions: ["ts"],
-  require: ["ts-node/register"],
+  require: ["ts-node/register", "tsconfig-paths/register"],
   environmentVariables: {},
 };

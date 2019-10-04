@@ -114,6 +114,7 @@
     "to-string-loader": "1.1.5",
     "ts-loader": "6.0.4",
     "ts-node": "8.3.0",
+    "tsconfig-paths": "^3.9.0",
     "typedoc": "0.15.0",
     "typedoc-plugin-external-module-name": "2.1.0",
     "typescript": "3.6.3",
@@ -124,7 +125,9 @@
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
   "pkg": {
-    "assets": ["package.json"]
+    "assets": [
+      "package.json"
+    ]
   },
   "engines": {
     "node": ">=8.0.0 <13.0.0",
