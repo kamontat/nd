@@ -1,6 +1,6 @@
 {
   "name": "@nd/html-generator",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "html template and novel content generator",
   "dependencies": {
     "@nd/helper": "./packages/nd-helper",
@@ -11,6 +11,10 @@
     "mustache": "3.0.1"
   },
   "changelog": {
+    "1.0.0-beta.8": {
+      "message": "add support new content object from @nd/content",
+      "date": "04 Oct 2019"
+    },
     "1.0.0-beta.7": {
       "message": "change package name from nd-html-generator to @nd/html-generator",
       "date": "28 Sep 2019"
