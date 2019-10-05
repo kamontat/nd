@@ -22,6 +22,9 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": ["warn", {
       fixToUnknown: false,
       ignoreRestArgs: false,
+    }],
+    "@typescript-eslint/class-name-casing": ["warn", { 
+      "allowUnderscorePrefix": true 
     }]
   },
   "env": {

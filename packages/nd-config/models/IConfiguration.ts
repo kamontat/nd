@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { ReadLine } from "readline";
 
-import { ConfigKey, ConfigSchema, IConfigurationTypeDefined } from "./IConfigurationTypeDefined";
+import { ConfigSchema, IConfigurationTypeDefined } from "./IConfigurationTypeDefined";
 
 export interface IConfiguration extends IConfigurationTypeDefined, EventEmitter {
   /**

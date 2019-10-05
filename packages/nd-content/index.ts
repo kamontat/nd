@@ -4,7 +4,7 @@ import Entity from "./models/html/entity";
 import { EntityType } from "./models/html/type";
 
 import Class from "./models/css/class";
-import { Style, StyleUtils, Styles } from "./models/css/style";
+import { IStyle, StyleUtils, Styles } from "./models/css/style";
 
 // Usage:
 
@@ -23,7 +23,7 @@ export {
   Entity as HtmlEntity,
   EntityType as HtmlEntityType,
   Class as CssClass,
-  Style as CssStyle,
+  IStyle as CssStyle,
   StyleUtils as CssStyleUtils,
   Styles as CssStyles,
 };

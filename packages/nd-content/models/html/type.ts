@@ -1,6 +1,3 @@
-import Class from "../css/class";
-import { Styles } from "../css/style";
-
 export class EntityType {
   public static P = new EntityType("p");
   public static Paragraph = new EntityType("p");

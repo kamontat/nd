@@ -9,7 +9,7 @@ import {
 } from "fs";
 import ExceptionService, { ERR_FLE } from "@nd/error";
 import LoggerService, { LOGGER_FILE } from "@nd/logger";
-import { basename, basename as getBasename, dirname as getDirname, join, sep } from "path";
+import { basename as getBasename, dirname as getDirname, join, sep } from "path";
 import { promisify } from "util";
 
 import { FileLoadResult, FileType } from "./enum";
