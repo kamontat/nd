@@ -6,7 +6,6 @@ ifeq "$(fix)" "true"
 else
 	@$(npm_client) eslint . --ext .ts
 endif
-	
 
 test:
 	@TS_NODE_SKIP_IGNORE=true \
