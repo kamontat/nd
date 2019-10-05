@@ -1,4 +1,4 @@
-name: Compile and build project
+name: Compile and build in production
 
 on:
   push:
@@ -26,14 +26,6 @@ jobs:
         run: |
           yarn install
 
-      - name: yarn compile typescript code
-        run: |
-          yarn compile
-
       - name: yarn compile typescript with production setting
         run: |
           yarn compile:prod
-
-      - name: yarn build standalone execuable script files
-        run: |
-          yarn build

@@ -13,4 +13,5 @@ jobs:
         with:
           node-version: 12.x
       - name: ESLint checks
-        uses: gimenete/eslint-action@1.0
+        run: |
+          yarn lint
