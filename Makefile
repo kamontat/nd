@@ -1,9 +1,13 @@
 npm_client=yarn
 
+lint:
+	@$(npm_client) eslint . --ext .ts
+
 test:
 	@TS_NODE_SKIP_IGNORE=true \
 	TS_NODE_IGNORE=false \
 	NODE_ENV="$(mode)" \
+		$(npm_client) \
 		nyc ava
 
 lib:
