@@ -73,7 +73,7 @@ export class HistoryNode implements IHistoryNode {
     return "Error: unknown event type";
   }
 
-  private limit(str: string, size: number = 30) {
+  private limit(str: string, size = 30) {
     if (str.length > size) return `${str.substr(0, size)}...`;
     else return str;
   }

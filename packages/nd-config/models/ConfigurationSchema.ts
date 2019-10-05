@@ -7,11 +7,11 @@ interface IConfigurationSchema {
 }
 
 const ConfigurationSchema = {
-  "mode": {
+  mode: {
     type: "choices",
     choices: ["development", "production", "testing"],
   },
-  "version": {
+  version: {
     type: "choices",
     choices: ["v1", "v2"],
   },

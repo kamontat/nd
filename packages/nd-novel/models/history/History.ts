@@ -25,7 +25,7 @@ export class History {
 
   private nodes: HistoryNode[];
   constructor() {
-    this.nodes = new Array();
+    this.nodes = [];
   }
 
   public static Get() {

@@ -114,7 +114,7 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     }
   }
 
-  private _appendSummary(a: any, newline: boolean = true) {
+  private _appendSummary(a: any, newline = true) {
     this.__summary += a;
     if (newline) this.__summary += "\n";
   }

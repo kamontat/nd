@@ -5,13 +5,13 @@ import LoggerService, { LOGGER_FIREBASE, LOGGER_FIREBASE_STORAGE } from "@nd/log
 
 import { IDatabase } from "..";
 
-declare var __FIREBASE_API_KEY__: string;
-declare var __FIREBASE_AUTH_DOMAIN__: string;
-declare var __FIREBASE_DATABASE_URL__: string;
-declare var __FIREBASE_PROJECT_ID__: string;
-declare var __FIREBASE_STORAGE_BUCKET__: string;
-declare var __FIREBASE_MESSAGING_SENDER_ID__: string;
-declare var __FIREBASE_APP_ID__: string;
+declare let __FIREBASE_API_KEY__: string;
+declare let __FIREBASE_AUTH_DOMAIN__: string;
+declare let __FIREBASE_DATABASE_URL__: string;
+declare let __FIREBASE_PROJECT_ID__: string;
+declare let __FIREBASE_STORAGE_BUCKET__: string;
+declare let __FIREBASE_MESSAGING_SENDER_ID__: string;
+declare let __FIREBASE_APP_ID__: string;
 
 export default class Storage implements IDatabase {
   private _storage: storage.Storage;

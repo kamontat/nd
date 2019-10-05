@@ -17,7 +17,7 @@ export class Configuration extends Event implements IConfiguration {
   private static o: Configuration;
 
   protected _object: ConfigSchema;
-  private filepath: string = "./config.ndc";
+  private filepath = "./config.ndc";
 
   protected constructor() {
     super();

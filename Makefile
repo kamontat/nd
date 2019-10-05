@@ -1,7 +1,12 @@
 npm_client=yarn
 
 lint:
+ifeq "$(fix)" "true"
+	@$(npm_client) eslint . --ext .ts --fix
+else
 	@$(npm_client) eslint . --ext .ts
+endif
+	
 
 test:
 	@TS_NODE_SKIP_IGNORE=true \
