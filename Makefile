@@ -107,6 +107,12 @@ endif
 
 apidoc:
 	@$(npm_client) typedoc
+ifeq "$(publish)" "true"
+	@$(npm_client) gh-pages \
+		--dist docs/api \
+		--message "chore(gh-pages): publish new apidoc" \
+		--dotfiles
+endif
 
 changelog:
 	@git chglog --config .gitgo/chglog/config.yml --output docs/reports/CHANGELOG.md --tag-filter-pattern "^v"

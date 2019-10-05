@@ -26,7 +26,8 @@
     "clean": "make clean",
     "clean:all": "make clean all=true",
     "loc": "make loc type=sum && make loc type=lib",
-    "docs": "make apidoc"
+    "docs": "make apidoc",
+    "docs:publish": "make apidoc publish=true"
   },
   "dependencies": {
     "@nd/admin": "./packages/nd-admin",
@@ -85,6 +86,7 @@
     "eslint-config-prettier": "6.3.0",
     "eslint-loader": "3.0.2",
     "eslint-plugin-prettier": "3.1.1",
+    "gh-pages": "2.1.1",
     "google-closure-compiler": "20190729.0.0",
     "html-loader": "0.5.5",
     "lerna": "3.16.4",
