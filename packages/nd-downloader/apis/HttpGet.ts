@@ -26,7 +26,7 @@ export const HttpGet = (url: string, callback: (res: IncomingMessage) => void) =
     {
       headers: {
         "user-agent": encodeURIComponent(agent),
-        "accept": "text/html",
+        accept: "text/html",
       },
     },
     response => {

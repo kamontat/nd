@@ -4,7 +4,7 @@ import IDatabase from "../IDatabase";
  * NOTES: Never tested; be aware when use this
  */
 export default abstract class DatabaseMock implements IDatabase {
-  private static index: number = 0;
+  private static index = 0;
 
   protected __list: { [key: string]: any };
 

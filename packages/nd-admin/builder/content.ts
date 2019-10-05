@@ -2,6 +2,7 @@ import { TimeUtils } from "@nd/helper";
 import { Colorize } from "@nd/logger";
 
 declare let __NAME__: string;
+const APPNAME = process.env.NODE_ENV === "test" ? "" : __NAME__;
 
 export interface IResultBuilder {
   date: {
@@ -43,7 +44,7 @@ Created date   = {blueBright ${TimeUtils.FormatDate(TimeUtils.GetDate(config.dat
 
 ## Usage
 
-to setup this token please run '${__NAME__} --help'
+to setup this token please run '${APPNAME} --help'
 and go to initial section. Thank you
 ----------------------------------------------------------`;
 };
@@ -60,6 +61,6 @@ Usage
 {dim $} {greenBright ${pjson.name}} {blueBright firebase} --token <auth.token> --name <auth.name> --salt <auth.salt>
 
 ${pjson.name} version: ${pjson.version}
-Support ${__NAME__} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
+Support ${APPNAME} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
   );
 };

@@ -14,7 +14,7 @@ export default {
    *
    * @returns tmpname - The result will be in {timestamp}-{random(size)}-{suffix} format
    */
-  Tmpname(suffix?: string, size: number = 6) {
+  Tmpname(suffix?: string, size = 6) {
     const _suffix = suffix || "tmp";
     return `${+new Date()}-${RandomUtils.RandomString(size)}-${_suffix}`;
   },
@@ -26,7 +26,7 @@ export default {
    *
    * @see Tmpname - I use this method to generate Tmpname
    */
-  Tmpdir(dirPath: string, size: number = 6) {
+  Tmpdir(dirPath: string, size = 6) {
     const root = path.dirname(dirPath);
     const name = this.Tmpname("d", size);
     return path.resolve(root, name);
@@ -40,7 +40,7 @@ export default {
    *
    * @see Tmpname - I use this method to generate Tmpname
    */
-  Tmpfile(dirPath: string, ext: string = ".tmp", size: number = 6) {
+  Tmpfile(dirPath: string, ext = ".tmp", size = 6) {
     const name = this.Tmpname("f", size);
     return path.resolve(dirPath, `${name}${ext}`);
   },
@@ -53,7 +53,7 @@ export default {
    *
    * @returns cache - The result string will be on {name}-{random(size)}-{suffix} format
    */
-  Cachename(name: string, suffix?: string, size: number = 3) {
+  Cachename(name: string, suffix?: string, size = 3) {
     const _suffix = suffix || "tmp";
     return `${name}-${RandomUtils.RandomString(size)}-${_suffix}`;
   },
@@ -63,7 +63,7 @@ export default {
    * @param dirPath directory path (should be absolute path)
    * @param size size of random string in result
    */
-  Cachedir(dirPath: string, size: number = 3) {
+  Cachedir(dirPath: string, size = 3) {
     const root = path.dirname(dirPath);
     const name = this.Cachename(path.basename(dirPath), "d", size);
     return path.resolve(root, name);
@@ -75,7 +75,7 @@ export default {
    * @param ext file extension (default is .txt)
    * @param size size of random string in result
    */
-  Cachefile(filePath: string, ext: string = ".txt", size: number = 3) {
+  Cachefile(filePath: string, ext = ".txt", size = 3) {
     const root = path.dirname(filePath);
     const name = this.Cachename(path.basename(filePath), "f", size);
     return path.resolve(root, `${name}${ext}`);

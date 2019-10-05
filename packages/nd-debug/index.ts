@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import { config } from "@nd/config";
 import { LOG_DIRECTORY, ND_TMP_LOCATION, TMP_DIRECTORY } from "@nd/helper";
-import LoggerService, { Colorize } from "@nd/logger";
+import LoggerService, { Colorize, LOGGER_DEBUG } from "@nd/logger";
 import { dirname, resolve } from "path";
 
 import Package from "./package.json";
@@ -35,7 +35,9 @@ All result will add to Temporary folder instead at ${Colorize.path(ND_TMP_LOCATI
     const filename = resolve(this.logs, name);
     try {
       mkdirSync(dirname(filename), { recursive: true });
-    } catch (e) {}
+    } catch (e) {
+      LoggerService.log(LOGGER_DEBUG, "cannot create new directory; this can be happen");
+    }
 
     if (existsSync(filename)) appendFileSync(filename, message);
     else writeFileSync(filename, message);

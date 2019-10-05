@@ -8,6 +8,10 @@ import { HistoryEvent } from "../history/HistoryEvent";
 import { Chapter } from "./Chapter";
 import { ChapterStatusUtils } from "./ChapterStatus";
 import { NovelType } from "./NovelType";
+import { HtmlEntity } from "@nd/content";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Json<T = any> = { [key: string]: T };
 
 export class Novel {
   public get abstract() {
@@ -32,7 +36,7 @@ export class Novel {
     return this._chapters.values();
   }
 
-  public set content(c: string[]) {
+  public set content(c: HtmlEntity[]) {
     this.eventHandler("content", { before: this._content, after: c });
     this._content = c;
   }
@@ -68,6 +72,7 @@ export class Novel {
 
   public get normalizeName() {
     if (!this._name) return `unknown-name-${this.id}`;
+    // eslint-disable-next-line no-useless-escape
     return this._name.replace(/([ \n\t\r\n])/g, "-").replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
   }
 
@@ -119,7 +124,7 @@ export class Novel {
       this.downloadAt = json.downloadAt;
       this.updateAt = json.updateAt;
 
-      json.chapters.forEach((c: { [key: string]: any }) => {
+      json.chapters.forEach((c: Json) => {
         const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
 
         chapter.name = c.name;
@@ -138,7 +143,7 @@ export class Novel {
   private _abstract?: string;
   private _author?: string;
   private _chapters: Map<number, Chapter>;
-  private _content: string[];
+  private _content: HtmlEntity[];
 
   private _disableEvent: boolean;
   private _downloadAt?: number;
@@ -151,7 +156,7 @@ export class Novel {
   private _type: NovelType;
   private _updateAt?: number;
 
-  constructor(private _id: number, hasEvent: boolean = true, event?: HistoryEvent) {
+  constructor(private _id: number, hasEvent = true, event?: HistoryEvent) {
     this._disableEvent = !hasEvent;
 
     this._type = NovelType.UNKNOWN;
@@ -214,12 +219,13 @@ export class Novel {
       chapters: Array.from(this.chapters).map(c => c.toJSON(_opts)),
       updateAt: this.updateAt,
       downloadAt: this.downloadAt,
-    } as { [key: string]: any };
+    } as Json;
 
     if (opts.content) json.content = this.content;
     return json;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private eventHandler(name: string, value: { after: any; before: any }) {
     if (!this._disableEvent) this._event.classify(`Novel ${name}`, value);
   }

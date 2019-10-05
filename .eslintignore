@@ -1,0 +1,5 @@
+packages/webpack-visualizer/**/*.*
+
+node_modules/**/*.ts
+templates/**/*.ts
+docs/**/*.ts

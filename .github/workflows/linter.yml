@@ -12,5 +12,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: ESLint checks
-        uses: gimenete/eslint-action@1.0
+      - name: use yarn to install all dependencies
+        run: |
+          yarn install
+      - name: eslinter checks
+        run: |
+          yarn lint

@@ -5,6 +5,7 @@ import ExceptionService from "@nd/error";
 import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 declare let __NODE_ENV__: string;
+const NODE_ENV = process.env.NODE_ENV === "test" ? "test" : __NODE_ENV__;
 
 const cli = new Commandline(Package.name, Package.description);
 
@@ -17,7 +18,7 @@ const cli = new Commandline(Package.name, Package.description);
     }
   });
 
-  if (__NODE_ENV__ === "production") config.set("output.level", 1);
+  if (NODE_ENV === "production") config.set("output.level", 1);
   else config.set("output.level", 3);
 
   try {

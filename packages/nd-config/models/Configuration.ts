@@ -1,6 +1,6 @@
 import Event from "events";
 import fs from "fs";
-import ExceptionService, { ERR_CFG, ERR_CLI } from "@nd/error";
+import ExceptionService, { ERR_CFG } from "@nd/error";
 import { PathUtils } from "@nd/helper";
 import LoggerService, { Colorize, LOGGER_CONFIG } from "@nd/logger";
 import { resolve } from "path";
@@ -17,7 +17,7 @@ export class Configuration extends Event implements IConfiguration {
   private static o: Configuration;
 
   protected _object: ConfigSchema;
-  private filepath: string = "./config.ndc";
+  private filepath = "./config.ndc";
 
   protected constructor() {
     super();

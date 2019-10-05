@@ -1,15 +1,20 @@
 {
   "name": "@nd/novel",
-  "version": "1.4.3",
+  "version": "1.5.0-beta.1",
   "description": "Novel models and parser",
   "dependencies": {
     "@nd/downloader": "./packages/nd-downloader",
     "@nd/error": "./packages/nd-error",
     "@nd/helper": "./packages/nd-helper",
     "@nd/logger": "./packages/nd-logger",
-    "@nd/resource": "./packages/nd-resource"
+    "@nd/resource": "./packages/nd-resource",
+    "@nd/content": "./packages/nd-content"
   },
   "changelog": {
+    "1.5.0-beta.1": {
+      "message": "change return content to be new object type",
+      "date": "04 Oct 2019"
+    },
     "1.4.3": {
       "message": "change package name from nd-novel to @nd/novel",
       "date": "28 Sep 2019"

@@ -9,10 +9,19 @@ import TemplateType from "../constants/TemplateType";
 import loader from "../loader";
 
 declare let __NAME__: string;
+const APPNAME = process.env.NODE_ENV === "test" ? "" : __NAME__;
+
 declare let __VERSION__: string;
+const APPVER = process.env.NODE_ENV === "test" ? "" : __VERSION__;
+
 declare let __DESCRIPTION__: string;
+const APPDESC = process.env.NODE_ENV === "test" ? "" : __DESCRIPTION__;
+
 declare let __AUTHOR__: string;
+const APPAUTHOR = process.env.NODE_ENV === "test" ? "" : __AUTHOR__;
+
 declare let __COMPILE_DATE__: string;
+const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
 export default class {
   private _func: IFunctionObject;
@@ -57,9 +66,9 @@ export default class {
     // default command
     if (!obj.command)
       obj.command = {
-        name: __NAME__,
-        version: __VERSION__,
-        updateat: parseInt(__COMPILE_DATE__, 10),
+        name: APPNAME,
+        version: APPVER,
+        updateat: parseInt(COMPILE_DATE, 10),
       };
 
     // default security
@@ -72,9 +81,9 @@ export default class {
     if (!obj.year) obj.year = new Date().getFullYear();
 
     // command information
-    if (!obj.title) obj.title = `${__NAME__}-command`;
-    if (!obj.description) obj.description = __DESCRIPTION__;
-    if (!obj.author) obj.author = __AUTHOR__;
+    if (!obj.title) obj.title = `${APPNAME}-command`;
+    if (!obj.description) obj.description = APPDESC;
+    if (!obj.author) obj.author = APPAUTHOR;
 
     return obj;
   }

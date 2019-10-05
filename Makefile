@@ -1,19 +1,23 @@
 npm_client=yarn
 
+lint:
+ifeq "$(fix)" "true"
+	@$(npm_client) eslint . --ext .ts --fix
+else
+	@$(npm_client) eslint . --ext .ts
+endif
+
 test:
 	@TS_NODE_SKIP_IGNORE=true \
+	TS_NODE_IGNORE=false \
 	NODE_ENV="$(mode)" \
-	nyc \
-		mocha \
-		--no-timeouts \
-		--reporter mochawesome \
-		--reporter-options reportPageTitle=ND\ Test\ Reporter,reportTitle=Report,charts=true,cdn=true,reportDir=reports,timestamp=,inline=true,reportFilename=mocha-report \
-		--require ts-node/register \
-		./packages/**/*.spec.ts ./src/**/*.spec.ts
+		$(npm_client) \
+		nyc ava
 
 lib:
 ifeq "$(quite)" "true"
 	@$(npm_client) add \
+		./packages/nd-core \
 		./packages/nd-logger \
 		./packages/nd-commandline-interpreter \
 		./packages/nd-security \
@@ -34,6 +38,7 @@ ifeq "$(quite)" "true"
 		./packages/nd-database >/dev/null
 else
 	@$(npm_client) add \
+		./packages/nd-core \
 		./packages/nd-logger \
 		./packages/nd-commandline-interpreter \
 		./packages/nd-security \
@@ -70,11 +75,11 @@ clean:
 ifeq "$(all)" "true"
 	rm -rf node_modules yarn.lock
 endif
-	rm -rf dist .nyc_output coverage ./docs/reports/**/*.html
+	rm -rf dist .nyc_output coverage ./docs/reports/**/*.html .caches
 
 loc:
 ifeq "$(type)" "lib"
-	@cloc ./index.ts ./package.json ./src --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CORE.md
+	@cloc ./packages/nd-core --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CORE.md
 	@cloc ./packages/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-LOGGER.md
 	@cloc ./packages/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CLI_BUILDER.md
 	@cloc ./packages/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-SECURITY.md
@@ -98,6 +103,15 @@ else
 
 	@printf "\nCreate date is " >> ./docs/reports/loc/README.md
 	@date "+%d/%m/%Y - %H:%M:%S" >> ./docs/reports/loc/README.md
+endif
+
+apidoc:
+	@$(npm_client) typedoc
+ifeq "$(publish)" "true"
+	@$(npm_client) gh-pages \
+		--dist docs/api \
+		--message "chore(gh-pages): publish new apidoc" \
+		--dotfiles
 endif
 
 changelog:

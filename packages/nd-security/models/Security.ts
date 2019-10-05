@@ -18,6 +18,14 @@ interface ITokenConfig {
 
 type versionName = "v1";
 
+export interface IRawResponseFormat {
+  exp: number;
+  fbname: string;
+  iat: number;
+  nbf: number;
+  username: string;
+}
+
 export interface IResponseFormat {
   expire: number;
   fbname: string;
@@ -59,7 +67,7 @@ export default class Security {
       const obj = verify(unhash(token), password, {
         jwtid: this._config.id,
         issuer: "admin",
-      }) as any;
+      }) as IRawResponseFormat;
 
       LoggerService.log(LOGGER_SECURITY, `return object %O, `, obj);
       const response = {

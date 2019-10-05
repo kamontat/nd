@@ -1,5 +1,3 @@
-import { pseudoRandomBytes } from "crypto";
-
 export default {
   RandomNumber(_opts: { end?: number; start?: number }) {
     const opt = Object.assign({ end: 10, start: 0 }, _opts);

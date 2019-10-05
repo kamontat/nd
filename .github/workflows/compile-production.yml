@@ -1,6 +1,9 @@
-name: Compile and test on Pull request
+name: Compile and build in production
 
-on: pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -18,15 +21,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: use yarn to install all dependencies
         run: |
           yarn install
-
-      - name: yarn compile typescript code
-        run: |
-          yarn compile
-
       - name: yarn compile typescript with production setting
         run: |
           yarn compile:prod

@@ -17,7 +17,7 @@ export class ObjectTable implements IFormatter<IDefaultConfigFormat, Array<Array
     });
   }
 
-  private capital(str: string, index: number = 0) {
+  private capital(str: string, index = 0) {
     return str.slice(index, index + 1).toUpperCase() + str.slice(index + 1);
   }
 

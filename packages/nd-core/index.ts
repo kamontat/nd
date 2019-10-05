@@ -1,3 +1,5 @@
+import Package from "./package.json";
+
 import { Commandline, Option } from "@nd/commandline-interpreter";
 import { config, IConfiguration } from "@nd/config";
 import { DebugMode } from "@nd/debug";
@@ -50,3 +52,5 @@ export const BuildCommandline = async (cli: Commandline, config: IConfiguration)
 
   return cli;
 };
+
+export { Package };

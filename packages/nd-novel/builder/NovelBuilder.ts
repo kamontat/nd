@@ -22,7 +22,7 @@ export class NovelBuilder {
     this.setupDownloadEvent();
   }
 
-  public build(thread?: number, fast: boolean = false) {
+  public build(thread?: number, fast = false) {
     if (fast) return this.buildNovel(thread);
     else
       return this.buildNovel(thread).then(novel => {

@@ -6,7 +6,7 @@ import Package from "./package.json";
 
 export { Package, RandomUtils, TimeUtils, PathUtils, ArrayUtils };
 
-export { Optional } from "./models/Optional";
+export { Optional } from "./models/optional";
 export { is } from "./apis/datetype";
 
 export * from "./constants/files";

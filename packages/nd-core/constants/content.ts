@@ -15,10 +15,12 @@ import { Package as NovelPackage } from "@nd/novel";
 import { Package as ResourcePackage } from "@nd/resource";
 import { Package as SecurityPackage, Security } from "@nd/security";
 import { Package as ThreadPackage } from "@nd/thread";
+import { Package as CorePackage } from "@nd/core";
 
-import { Package as CorePackage } from "../build/Package";
+import { Package } from "@nd/core";
 
 declare let __COMPILE_DATE__: string;
+const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
 const GLOBAL_OPTION = (name: string) => {
   return Colorize.format`
@@ -196,10 +198,10 @@ Enjoy your days; {blueBright ${CorePackage.author}}`;
 };
 
 export const HELP_HEADER = (name: string, description: string) => {
-  const date = new Date(__COMPILE_DATE__);
+  const date = new Date(COMPILE_DATE);
   return `${Colorize.appname(name.toUpperCase())} command; ${description}
 Built at ${Colorize.datetime(date.toLocaleString())}
-Version  ${Colorize.version(CorePackage.version)}`;
+Version  ${Colorize.version(Package.version)}`;
 };
 
 export const HELP_FOOTER = (name: string) => {
@@ -208,7 +210,8 @@ export const HELP_FOOTER = (name: string) => {
 
 export const VERSION = () => {
   return Colorize.format`{dim --------------------------------------}
-{yellowBright ${CorePackage.name}}                         : {blueBright ${CorePackage.version}}
+{yellowBright ${Package.name}}                          : {blueBright ${Package.version}}
+{yellowBright ${CorePackage.name}}                    : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
@@ -248,6 +251,9 @@ export const VERSION_FULL = (limit = 5) => {
   };
 
   const dependencies: Array<IDependency> = [];
+
+  // root package
+  dependencies.push(genInternalDependency(Package));
 
   // core package
   dependencies.push(genInternalDependency(CorePackage));
@@ -344,8 +350,8 @@ export const __COMMAND_INFORMATION_JSON = async (name: string) => {
   const obj: { [key: string]: any } = {
     command: {
       name,
-      version: CorePackage.version,
-      author: CorePackage.author,
+      version: Package.version,
+      author: Package.author,
     },
     admin: {
       version: AdminPackage.version,
@@ -392,9 +398,9 @@ export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
 
   result += `
 Command name:            ${Colorize.appname(name)}
-Command version:         ${Colorize.version(CorePackage.version)}
+Command version:         ${Colorize.version(Package.version)} (${Colorize.version(CorePackage.version)})
 Command author:          ${Colorize.name(CorePackage.author)}
-Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(__COMPILE_DATE__)))}
+Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(COMPILE_DATE)))}
 
 Admin version:           ${Colorize.version(AdminPackage.version)}
 `;

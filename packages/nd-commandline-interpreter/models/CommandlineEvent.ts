@@ -22,6 +22,7 @@ Default.on("globalOption", (o: Option, arg: string) => {
   else LoggerService.log(LOGGER_CLI_BUILDER, `resolve ${o.option} as option without any parameters`);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 Default.on("end", (num: number = 0) => {
   LoggerService.log(LOGGER_CLI_BUILDER, `commandline resolve finished`);
   // LoggerService.console.log(`Completed...`);
