@@ -107,7 +107,7 @@ export class Chapter {
       content: this.content,
       downloadAt: this.downloadAt,
       updateAt: this.updateAt,
-    } as { [key: string]: any };
+    } as { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     if (opts.content) json.content = this.content;
     return json;
@@ -152,6 +152,7 @@ export class Chapter {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private eventHandler(name: string, value: { after: any; before: any }) {
     return this._event.classify(`Chapter ${name}`, value);
   }

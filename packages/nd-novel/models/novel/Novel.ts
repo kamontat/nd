@@ -10,6 +10,9 @@ import { ChapterStatusUtils } from "./ChapterStatus";
 import { NovelType } from "./NovelType";
 import { HtmlEntity } from "@nd/content";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Json<T = any> = { [key: string]: T };
+
 export class Novel {
   public get abstract() {
     return this._abstract;
@@ -121,7 +124,7 @@ export class Novel {
       this.downloadAt = json.downloadAt;
       this.updateAt = json.updateAt;
 
-      json.chapters.forEach((c: { [key: string]: any }) => {
+      json.chapters.forEach((c: Json) => {
         const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
 
         chapter.name = c.name;
@@ -216,12 +219,13 @@ export class Novel {
       chapters: Array.from(this.chapters).map(c => c.toJSON(_opts)),
       updateAt: this.updateAt,
       downloadAt: this.downloadAt,
-    } as { [key: string]: any };
+    } as Json;
 
     if (opts.content) json.content = this.content;
     return json;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private eventHandler(name: string, value: { after: any; before: any }) {
     if (!this._disableEvent) this._event.classify(`Novel ${name}`, value);
   }
