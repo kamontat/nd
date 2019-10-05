@@ -69,6 +69,7 @@ export class Novel {
 
   public get normalizeName() {
     if (!this._name) return `unknown-name-${this.id}`;
+    // eslint-disable-next-line no-useless-escape
     return this._name.replace(/([ \n\t\r\n])/g, "-").replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
   }
 
@@ -152,7 +153,7 @@ export class Novel {
   private _type: NovelType;
   private _updateAt?: number;
 
-  constructor(private _id: number, hasEvent: boolean = true, event?: HistoryEvent) {
+  constructor(private _id: number, hasEvent = true, event?: HistoryEvent) {
     this._disableEvent = !hasEvent;
 
     this._type = NovelType.UNKNOWN;
