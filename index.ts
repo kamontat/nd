@@ -16,8 +16,7 @@ import Exception from "@nd/error";
 import LoggerService, { LOGGER_CLI } from "@nd/logger";
 import { homedir } from "os";
 
-import { Package } from "./src/build/Package";
-import { BuildCommandline, UpdateLogInfo } from "./src/nd";
+import { BuildCommandline, UpdateLogInfo, Package } from "@nd/core";
 
 InitialFirebaseDatabase();
 

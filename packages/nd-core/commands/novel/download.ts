@@ -10,7 +10,7 @@ import { ChapterStatus, NovelBuilder } from "@nd/novel";
 import { Resource } from "@nd/resource";
 import { join } from "path";
 
-import { Package } from "../../build/Package";
+import { Package } from "@nd/core";
 
 import { htmlConfigBuilder } from "./helper";
 

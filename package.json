@@ -1,6 +1,5 @@
 {
   "name": "nd",
-  "version": "1.0.0-alpha.4",
   "description": "download manager for novel",
   "main": "index.ts",
   "admin": {
@@ -8,26 +7,7 @@
     "main": "admin.ts"
   },
   "bin": "dist/nd.min.js",
-  "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
-  "changelog": {
-    "1.0.0-alpha.4": {
-      "message": "make improvement on code level; nothing change much",
-      "date": "28 Sep 2019"
-    },
-    "1.0.0-alpha.3": {
-      "message": "fully support download, raw download, fetch and update novel with some of options",
-      "date": "10 Sep 2019"
-    },
-    "1.0.0-alpha.2": {
-      "message": "fully support multiple thread management in downloading and saving files",
-      "date": "28 Jul 2019"
-    },
-    "1.0.0-alpha.1": {
-      "message": "first release main command version 1 alpha",
-      "date": "22 Jul 2019"
-    }
-  },
   "scripts": {
     "install:lib": "make lib",
     "lint": "make lint",
@@ -45,13 +25,15 @@
     "release:core": "./scripts/release_core.sh",
     "clean": "make clean",
     "clean:all": "make clean all=true",
-    "loc": "make loc type=sum && make loc type=lib"
+    "loc": "make loc type=sum && make loc type=lib",
+    "docs": "make apidoc"
   },
   "dependencies": {
     "@nd/admin": "./packages/nd-admin",
     "@nd/commandline-interpreter": "./packages/nd-commandline-interpreter",
     "@nd/config": "./packages/nd-config",
     "@nd/content": "./packages/nd-content",
+    "@nd/core": "./packages/nd-core",
     "@nd/database": "./packages/nd-database",
     "@nd/debug": "./packages/nd-debug",
     "@nd/decoder": "./packages/nd-decoder",
@@ -80,6 +62,7 @@
     "table": "5.4.6"
   },
   "devDependencies": {
+    "@strictsoftware/typedoc-plugin-monorepo": "0.2.1",
     "@types/async": "3.0.1",
     "@types/bcryptjs": "2.4.2",
     "@types/chai": "4.2.0",
@@ -117,7 +100,6 @@
     "ts-node": "8.3.0",
     "tsconfig-paths": "3.9.0",
     "typedoc": "0.15.0",
-    "typedoc-plugin-external-module-name": "2.1.0",
     "typescript": "3.6.3",
     "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.39.2",

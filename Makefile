@@ -17,6 +17,7 @@ test:
 lib:
 ifeq "$(quite)" "true"
 	@$(npm_client) add \
+		./packages/nd-core \
 		./packages/nd-logger \
 		./packages/nd-commandline-interpreter \
 		./packages/nd-security \
@@ -37,6 +38,7 @@ ifeq "$(quite)" "true"
 		./packages/nd-database >/dev/null
 else
 	@$(npm_client) add \
+		./packages/nd-core \
 		./packages/nd-logger \
 		./packages/nd-commandline-interpreter \
 		./packages/nd-security \
@@ -77,7 +79,7 @@ endif
 
 loc:
 ifeq "$(type)" "lib"
-	@cloc ./index.ts ./package.json ./src --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CORE.md
+	@cloc ./packages/nd-core --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CORE.md
 	@cloc ./packages/nd-logger --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-LOGGER.md
 	@cloc ./packages/nd-commandline-interpreter --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-CLI_BUILDER.md
 	@cloc ./packages/nd-security --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-SECURITY.md
@@ -102,6 +104,9 @@ else
 	@printf "\nCreate date is " >> ./docs/reports/loc/README.md
 	@date "+%d/%m/%Y - %H:%M:%S" >> ./docs/reports/loc/README.md
 endif
+
+apidoc:
+	@$(npm_client) typedoc
 
 changelog:
 	@git chglog --config .gitgo/chglog/config.yml --output docs/reports/CHANGELOG.md --tag-filter-pattern "^v"
