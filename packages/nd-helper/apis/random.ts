@@ -1,7 +1,25 @@
 export default {
+  /**
+   * This will random number as this expressio; start <= x < end
+   *
+   * @param _opts random number creation object
+   * @param _opts.start inclusive start number
+   * @param _opts.end exclusive end number
+   *
+   * @returns number as integer only
+   */
   RandomNumber(_opts: { end?: number; start?: number }) {
     const opt = Object.assign({ end: 10, start: 0 }, _opts);
-    return opt.start + Math.floor(Math.random() * opt.end);
+
+    // shuffle start and end if end less than start
+    if (opt.start > opt.end) {
+      const tmp = opt.end;
+      opt.end = opt.start;
+      opt.start = tmp;
+    }
+
+    const size = opt.end - opt.start;
+    return opt.start + Math.floor(Math.random() * size);
   },
   RandomString(size = 10) {
     const lower = "abcdefghijklmnopqrstuvwxyz";
