@@ -8,14 +8,18 @@ export class Optional<T, R = T> {
     this._isTransform = false;
   }
 
-  private null() {
+  public null() {
     if (this.isNull) return this.isNull(this._optional);
     else return this._optional === undefined || this._optional === null;
   }
 
-  public static of<T, R = T>(t: T | undefined | null) {
+  public static of<T, R = T>(t: T | undefined | null, isNull?: NullChecker<T>) {
     // LoggerService.log(LOGGER_MODEL, `insert object %O`, t);
-    return new Optional<T, R>(t);
+    return new Optional<T, R>(t, isNull);
+  }
+
+  public static isNull<T>(t: T | undefined | null) {
+    return new Optional(t).null();
   }
 
   public or(r: R): R {
