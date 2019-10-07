@@ -21,7 +21,6 @@
     "build": "make build mode=production",
     "test": "make test mode=test",
     "test:debug": "export TS_NODE_DEBUG=true && yarn test",
-    "test:report": "nyc report --reporter=text-lcov > coverage/coverage.lcov",
     "release:lib": "./scripts/release_lib.sh",
     "release:core": "./scripts/release_core.sh",
     "clean": "make clean",
