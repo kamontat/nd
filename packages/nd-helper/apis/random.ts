@@ -1,4 +1,10 @@
+import { Optional } from "../models/optional";
+
 export default {
+  /**
+   * default value for random when undefined is passed
+   */
+  DefaultValue: 10,
   /**
    * This will random number as this expressio; start <= x < end
    *
@@ -9,19 +15,24 @@ export default {
    * @returns number as integer only
    */
   RandomNumber(_opts: { end?: number; start?: number }) {
-    const opt = Object.assign({ end: 10, start: 0 }, _opts);
+    let start = Optional.of(_opts.start).or(0);
+    let end = Optional.of(_opts.start).or(this.DefaultValue);
 
-    // shuffle start and end if end less than start
-    if (opt.start > opt.end) {
-      const tmp = opt.end;
-      opt.end = opt.start;
-      opt.start = tmp;
-    }
+    if (start === undefined || end === null)
+      if (start > end) {
+        // shuffle start and end if end less than start
+        const tmp = end;
+        end = start;
+        start = tmp;
+      }
 
-    const size = opt.end - opt.start;
-    return opt.start + Math.floor(Math.random() * size);
+    const size = end - start;
+    return start + Math.floor(Math.random() * size);
   },
-  RandomString(size = 10) {
+  RandomString(size?: number) {
+    if (size === undefined || size === null) size = this.DefaultValue;
+    if (size < 0) size = Math.abs(size);
+
     const lower = "abcdefghijklmnopqrstuvwxyz";
     const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const number = "0123456789";
