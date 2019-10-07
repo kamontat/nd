@@ -29,7 +29,7 @@ const chooseByEnv = _opts => {
   return opts.default; // default is test
 };
 
-module.exports.default = {
+const settings = {
   cache: chooseByEnv({ default: true, prod: false }),
   concurrency: chooseByEnv({ default: 5, prod: 1 }),
   files: ["**/*.spec.*", "!**/_*.spec.*"],
@@ -39,3 +39,20 @@ module.exports.default = {
   require: ["ts-node/register", "tsconfig-paths/register"],
   environmentVariables: {},
 };
+
+console.log(`
+Environment:
+  1. node: ${process.env.NODE_ENV}
+  2. ci: ${isCI}
+Settings
+  1. cache: ${settings.cache}
+  2. concurrency: ${settings.concurrency}
+  3. files: ${settings.files}
+  4. compileEnhancements: ${settings.compileEnhancements}
+  5. verbose: ${settings.verbose}
+  6. extensions: ${settings.extensions}
+  7. require: ${settings.require}
+  8. environmentVariables: ${JSON.stringify(settings.environmentVariables)}
+`);
+
+module.exports.default = settings;
