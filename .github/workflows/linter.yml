@@ -1,4 +1,4 @@
-name: Linter on Push and Pull-Request
+name: Lint and Test sourcecode
 
 on: [push, pull_request]
 
@@ -18,3 +18,6 @@ jobs:
       - name: eslinter checks
         run: |
           yarn lint
+      - name: run unittest via ava
+        run: |
+          yarn test
