@@ -3,6 +3,9 @@ interface IJson {
 }
 
 export default {
+  /**
+   * @param str
+   */
   BuildArray: (str: string) => {
     const _arr = str.split(","); // split by ,
     const it = _arr
@@ -13,6 +16,8 @@ export default {
             if (__arr.length === 2) {
               const first = parseInt(__arr[0], 10);
               const last = parseInt(__arr[1], 10);
+              if (isNaN(first) || isNaN(last)) throw new Error("cannot parse to int");
+
               for (let i = first; i <= last; i++) {
                 p.set(i, i);
               }
@@ -28,21 +33,25 @@ export default {
 
     return Array.from(it).sort((a, b) => a - b);
   },
-  ReadableArray: (array: number[]) => {
+  ReadableArray: (array: Array<number | string>) => {
     if (array.length < 1) return "empty";
 
     // sort the array low - high
     array = array.sort((a, b) => {
-      return a - b;
+      const _a = typeof a === "number" ? a : parseInt(a);
+      const _b = typeof b === "number" ? b : parseInt(b);
+      return _a - _b;
     });
 
     let result: string = array[0].toString();
     let cont = false;
     let dash = false;
+
     for (let i = 0; i < array.length; i++) {
-      const current = array[i];
+      const _i = array[i];
+      const current = typeof _i === "number" ? _i : parseInt(_i);
       if (isNaN(current)) {
-        return array.toString();
+        return array.join(", ");
       }
       if (i + 1 < array.length) {
         const next = array[i + 1];
@@ -69,9 +78,20 @@ export default {
 
     return result;
   },
+  /**
+   * this will convert array of json to single json
+   *
+   * @param array is a array of object only; otherwise it will ignore non-object
+   *
+   * @example
+   *   const jsons = [{"foo": "bar"}, {"bar": "hello"}]
+   *   const result = MergeArrayObject(jsons)
+   *   // result = {"foo": "bar", "bar": "hello"}
+   */
   MergeArrayObject: (array: IJson[]) => {
     return array.reduce(
       (p, c) => {
+        if (typeof c !== "object") return p;
         return { ...p, ...c };
       },
       {} as IJson,
