@@ -99,7 +99,7 @@ ifeq "$(type)" "lib"
 	@cloc ./packages/nd-debug --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DEBUG.md
 	@cloc ./packages/nd-database --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer)" --md > ./docs/reports/loc/LOC-DATABASE.md
 else
-	cloc . --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./docs/reports/loc/README.md
+	cloc index.ts admin.ts src packages docs scripts --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --md > ./docs/reports/loc/README.md
 
 	@printf "\nCreate date is " >> ./docs/reports/loc/README.md
 	@date "+%d/%m/%Y - %H:%M:%S" >> ./docs/reports/loc/README.md
