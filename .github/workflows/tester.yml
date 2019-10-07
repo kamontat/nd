@@ -1,4 +1,4 @@
-name: Linter on Push and Pull-Request
+name: Lint and Test sourcecode
 
 on: [push, pull_request]
 
@@ -15,6 +15,18 @@ jobs:
       - name: use yarn to install all dependencies
         run: |
           yarn install
+        env:
+          CI: true
+          NODE_ENV: "test"
       - name: eslinter checks
         run: |
           yarn lint
+        env:
+          CI: true
+          NODE_ENV: "test"
+      - name: run unittest via ava
+        run: |
+          yarn test
+        env:
+          CI: true
+          NODE_ENV: "test"

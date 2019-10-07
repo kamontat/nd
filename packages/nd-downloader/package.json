@@ -1,6 +1,6 @@
 {
   "name": "@nd/downloader",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "multiple thread html files downloader for nd command",
   "dependencies": {
     "@nd/error": "./packages/nd-error",
@@ -8,6 +8,10 @@
     "@nd/thread": "./packages/nd-thread"
   },
   "changelog": {
+    "1.0.5": {
+      "message": "fix typo with fetch data and error in level 2 or more",
+      "date": "06 Oct 2019"
+    },
     "1.0.4": {
       "message": "change package name from nd-downloader to @nd/downloader",
       "date": "28 Sep 2019"

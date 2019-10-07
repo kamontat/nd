@@ -1,6 +1,6 @@
 {
   "name": "@nd/database",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "database interface for nd command and storage",
   "dependencies": {
     "@nd/error": "./packages/nd-error",
@@ -8,6 +8,10 @@
     "firebase": "6.4.0"
   },
   "changelog": {
+    "1.0.0-beta.8": {
+      "message": "remove unknown log and add more readable error on fetching",
+      "date": "06 Oct 2019"
+    },
     "1.0.0-beta.7": {
       "message": "change package name from nd-database to @nd/database",
       "date": "28 Sep 2019"

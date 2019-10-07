@@ -1,6 +1,6 @@
 import firebase, { firestore } from "firebase/app";
 import "firebase/firestore";
-import ExceptionService, { ERR_DBO } from "@nd/error";
+import ExceptionService, { ERR_DBO, ERR_DWL } from "@nd/error";
 import LoggerService, { LOGGER_FIREBASE_NOSQL } from "@nd/logger";
 
 import IDatabase from "./IDatabase";
@@ -44,6 +44,11 @@ export default class Database implements IDatabase<firestore.DocumentSnapshot> {
       .doc(p.next)
       .get()
       .catch(err => {
+        // internet not available
+        if (err.code && err.code === "unavailable" && err.name === "FirebaseError") {
+          return new Promise((_, rej) => rej(ExceptionService.build(ERR_DWL).description("no internet connection")));
+        }
+
         return new Promise((_, rej) => rej(ExceptionService.cast(err, { base: ERR_DBO })));
       }) as Promise<firestore.DocumentSnapshot>;
   }

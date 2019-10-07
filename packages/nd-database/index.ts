@@ -3,6 +3,9 @@ import IDatabase from "./models/IDatabase";
 import Storage from "./models/Storage";
 import Package from "./package.json";
 import DatabaseService from "./services/DatabaseService";
+import fb from "firebase";
+
+fb.firestore.setLogLevel("silent"); // force log to be silent
 
 export const InitialFirebaseDatabase = () => {
   DatabaseService.Set("database", new Database());

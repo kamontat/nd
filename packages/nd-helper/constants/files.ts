@@ -1,6 +1,6 @@
 import { resolve } from "path";
 
-import PathUtils from "../apis/path";
+import { PathUtils } from "..";
 
 // Hack when run on test environment
 declare let __COMPILE_DATE__: string;
