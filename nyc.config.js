@@ -1,7 +1,7 @@
 module.exports = {
   all: true,
   "check-coverage": true,
-  reporter: ["lcov", "text-summary"], // https://istanbul.js.org/docs/advanced/alternative-reporters/
+  reporter: ["lcov", "text-summary", "json"], // https://istanbul.js.org/docs/advanced/alternative-reporters/
   extension: [".ts"],
   include: ["src/**/*.ts", "packages/**/*.ts"],
   exclude: [
