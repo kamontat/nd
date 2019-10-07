@@ -31,7 +31,7 @@ const chooseByEnv = _opts => {
 
 const settings = {
   cache: chooseByEnv({ default: true, prod: false }),
-  concurrency: chooseByEnv({ default: 5, prod: 1 }),
+  concurrency: chooseByEnv({ default: 5, prod: 1, ci: 10 }),
   files: ["**/*.spec.*", "!**/_*.spec.*"],
   compileEnhancements: false,
   verbose: chooseByEnv({ default: false, ci: true }),
