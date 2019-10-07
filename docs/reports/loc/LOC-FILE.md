@@ -1,10 +1,11 @@
+@nd/file: v2.0.0
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (617.8 files/s, 51986.3 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.02 s (829.3 files/s, 69469.2 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-TypeScript|12|191|121|699
+TypeScript|12|191|121|694
 JSON|1|0|0|83
 --------|--------|--------|--------|--------
-SUM:|13|191|121|782
+SUM:|13|191|121|777
