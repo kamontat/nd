@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@strictsoftware/typedoc-plugin-monorepo": "0.2.1",
-    "@types/async": "3.0.1",
+    "@types/async": "3.0.2",
     "@types/bcryptjs": "2.4.2",
     "@types/chai": "4.2.0",
     "@types/cheerio": "0.22.13",
