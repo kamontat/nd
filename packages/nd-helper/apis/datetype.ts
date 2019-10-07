@@ -1,5 +1,5 @@
 import { readFileSync as readFile } from "fs";
-import LoggerService, { LOGGER_HELPER } from "nd-logger";
+import LoggerService, { LOGGER_HELPER } from "@nd/logger";
 import { sep } from "path";
 
 type isfn = (n: any) => boolean;
@@ -58,13 +58,17 @@ const url: isfn = (n: any) => {
 };
 
 const path: isfn = (n: any) => {
+  if (!string(n)) return false;
   if (url(n)) return false;
+
+  if (docatch(() => new URL(n).protocol.startsWith("file"))) return true;
 
   const __arr = (n as string).match(sep);
   return (__arr && __arr.length > 0) || false;
 };
 
 const file: isfn = (n: any) => {
+  if (!string(n)) return false;
   if (!path(n)) return false;
 
   return docatch(() => readFile(n).length > 0);

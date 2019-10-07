@@ -51,10 +51,15 @@ read -r ans
 
 TAG_NAME="v${VERSION}"
 
-echo "Starting...   update line of code and add to commit message"
+echo "Starting...   update line of code and add to commit"
 
 yarn loc
-git add reports/loc
+git add docs/reports/loc
+
+echo "Starting...   update CHANGELOG and add to commit"
+
+make changelog
+git add docs/reports/CHANGELOG.md
 
 echo "Starting...   commit package.json (assume you just update package.json)"
 
@@ -68,7 +73,29 @@ update at:    $RELEASE_NOTE_DATE
 "
 
 # tag that changes
+echo "Starting...   create git tag $TAG_NAME"
 
 git tag "$TAG_NAME"
 
+echo "Starting...   build executable package (using pkg command)"
+
 make build mode=production quite=true
+
+echo "Starting...   push all final change and tag to Github"
+
+git push
+git push --tags
+
+echo "Starting... create release on Github (assume you have hub command installed)"
+
+if command -v hub; then
+  hub release create -d \
+    -m "Create new publish version" \
+    -a ./dist/bin/nd-alpine \
+    -a ./dist/bin/nd-linux \
+    -a ./dist/bin/nd-macos \
+    -a ./dist/bin/nd-win.exe \
+    "$TAG_NAME"
+else
+  echo "cannot start because hub is not exist"
+fi

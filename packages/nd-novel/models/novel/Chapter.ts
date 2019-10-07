@@ -1,11 +1,12 @@
-import { TimeUtils } from "nd-helper";
-import { Colorize } from "nd-logger";
+import { TimeUtils } from "@nd/helper";
+import { Colorize } from "@nd/logger";
 
 import { buildViewlongURL } from "../../apis/url";
 import { History } from "../history/History";
 import { HistoryEvent } from "../history/HistoryEvent";
 
 import { ChapterStatus } from "./ChapterStatus";
+import { HtmlEntity } from "@nd/content";
 
 export class Chapter {
   public get cid() {
@@ -18,7 +19,7 @@ export class Chapter {
   public get content() {
     return this._content;
   }
-  public set content(c: string[]) {
+  public set content(c: HtmlEntity[]) {
     this.eventHandler("content", { before: this._content, after: c });
     this._content = c;
   }
@@ -64,7 +65,7 @@ export class Chapter {
     this._updateAt = u;
   }
 
-  private _content: string[];
+  private _content: HtmlEntity[];
   private _downloadAt?: number;
 
   private _event: HistoryEvent;
@@ -106,7 +107,7 @@ export class Chapter {
       content: this.content,
       downloadAt: this.downloadAt,
       updateAt: this.updateAt,
-    } as { [key: string]: any };
+    } as { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     if (opts.content) json.content = this.content;
     return json;
@@ -151,6 +152,7 @@ export class Chapter {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private eventHandler(name: string, value: { after: any; before: any }) {
     return this._event.classify(`Chapter ${name}`, value);
   }

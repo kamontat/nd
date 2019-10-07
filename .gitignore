@@ -68,4 +68,7 @@ dist
 bin
 !bin/.gitkeep
 
-reports/**/*.html
+docs/reports/**/*.html
+docs/api/**/*
+
+.caches

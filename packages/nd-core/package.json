@@ -1,0 +1,31 @@
+{
+  "name": "@nd/core",
+  "version": "1.0.0-alpha.4",
+  "description": "core interface for commandline and apis",
+  "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
+  "dependencies": {
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/error": "./packages/nd-error",
+    "@nd/config": "./packages/nd-config",
+    "@nd/debug": "./packages/nd-debug",
+    "@nd/commandline-interpreter": "./packages/nd-commandline-interpreter"
+  },
+  "changelog": {
+    "1.0.0-alpha.4": {
+      "message": "make improvement on code level; nothing change much",
+      "date": "28 Sep 2019"
+    },
+    "1.0.0-alpha.3": {
+      "message": "fully support download, raw download, fetch and update novel with some of options",
+      "date": "10 Sep 2019"
+    },
+    "1.0.0-alpha.2": {
+      "message": "fully support multiple thread management in downloading and saving files",
+      "date": "28 Jul 2019"
+    },
+    "1.0.0-alpha.1": {
+      "message": "first release main command version 1 alpha",
+      "date": "22 Jul 2019"
+    }
+  }
+}

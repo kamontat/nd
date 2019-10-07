@@ -5,17 +5,17 @@
 
 ```json
 {
-  "name": "nd-*",
+  "name": "@nd/*",
   "version": "0.0.1-alpha.1",
   "description": "description template",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-error": "./packages/nd-error"
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/error": "./packages/nd-error"
   },
   "changelog": {
     "0.0.1-alpha.1": {
       "message": "changelog template",
-      "date": "xx Jul 2019"
+      "date": "xx Oct 2019"
     }
   }
 }

@@ -1,15 +1,24 @@
 {
-  "name": "nd-html-generator",
-  "version": "1.0.0-beta.6",
+  "name": "@nd/html-generator",
+  "version": "1.0.0-beta.8",
   "description": "html template and novel content generator",
   "dependencies": {
-    "mustache": "3.0.1",
-    "nd-security": "./packages/nd-security",
-    "nd-novel": "./packages/nd-novel",
-    "nd-helper": "./packages/nd-helper",
-    "nd-logger": "./packages/nd-logger"
+    "@nd/helper": "./packages/nd-helper",
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/novel": "./packages/nd-novel",
+    "@nd/security": "./packages/nd-security",
+    "@nd/content": "./packages/nd-content",
+    "mustache": "3.0.1"
   },
   "changelog": {
+    "1.0.0-beta.8": {
+      "message": "add support new content object from @nd/content",
+      "date": "04 Oct 2019"
+    },
+    "1.0.0-beta.7": {
+      "message": "change package name from nd-html-generator to @nd/html-generator",
+      "date": "28 Sep 2019"
+    },
     "1.0.0-beta.6": {
       "message": "fix previous button is not clickable",
       "date": "10 Sep 2019"

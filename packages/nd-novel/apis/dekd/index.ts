@@ -10,6 +10,7 @@ import getNovelName from "./getNovelName";
 import { INovelAPIs } from "./INovelAPIs";
 import isNovelExist from "./isNovelExist";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const NovelAPIs: INovelAPIs<any, Cheerio> = {
   getChapterContent,
   getChapterDate,

@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_NOVEL } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL } from "@nd/logger";
 
 import { HistoryEvent } from "./HistoryEvent";
 import { HistoryNode } from "./HistoryNode";
@@ -25,7 +25,7 @@ export class History {
 
   private nodes: HistoryNode[];
   constructor() {
-    this.nodes = new Array();
+    this.nodes = [];
   }
 
   public static Get() {

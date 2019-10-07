@@ -3,8 +3,8 @@ import { ConfigSchema } from "../IConfigurationTypeDefined";
 
 export default class MockConfiguration extends Configuration {
   protected _object: ConfigSchema = {
-    "mode": "test",
-    "version": "v1",
+    mode: "test",
+    version: "v1",
     "auth.name": "",
     "auth.token": "",
     "auth.salt": "",

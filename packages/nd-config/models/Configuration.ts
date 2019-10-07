@@ -1,8 +1,8 @@
 import Event from "events";
 import fs from "fs";
-import ExceptionService, { ERR_CFG, ERR_CLI } from "nd-error";
-import { PathUtils } from "nd-helper";
-import LoggerService, { Colorize, LOGGER_CONFIG } from "nd-logger";
+import ExceptionService, { ERR_CFG } from "@nd/error";
+import { PathUtils } from "@nd/helper";
+import LoggerService, { Colorize, LOGGER_CONFIG } from "@nd/logger";
 import { resolve } from "path";
 import readline, { ReadLine } from "readline";
 
@@ -17,7 +17,7 @@ export class Configuration extends Event implements IConfiguration {
   private static o: Configuration;
 
   protected _object: ConfigSchema;
-  private filepath: string = "./config.ndc";
+  private filepath = "./config.ndc";
 
   protected constructor() {
     super();
@@ -71,14 +71,15 @@ export class Configuration extends Event implements IConfiguration {
 
               // update output.level only when set higher level
               if (r.key === "output.level")
-                if (parseInt(r.value.toString()) > parseInt(Configuration.CONST().get(r.key)))
+                if (parseInt(r.value.toString(), 10) > parseInt(Configuration.CONST().get(r.key), 10))
                   Configuration.CONST().set(r.key, r.value);
                 else
                   LoggerService.warn(
                     LOGGER_CONFIG,
                     `${r.key} with ${r.value} will never be saved because (app=${parseInt(
                       Configuration.CONST().get(r.key),
-                    )}) > (new=${parseInt(r.value.toString())})`,
+                      10,
+                    )}) > (new=${parseInt(r.value.toString(), 10)})`,
                   );
               else Configuration.CONST().set(r.key, r.value);
             } catch (e) {
@@ -147,8 +148,8 @@ export class Configuration extends Event implements IConfiguration {
 
   public restore(): ConfigSchema {
     this._object = {
-      "mode": "production",
-      "version": "v1",
+      mode: "production",
+      version: "v1",
       "auth.token": "please_enter_your_token",
       "auth.name": "please_enter_your_name",
       "auth.salt": "please_enter_your_salt",

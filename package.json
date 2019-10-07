@@ -1,6 +1,5 @@
 {
   "name": "nd",
-  "version": "1.0.0-alpha.3",
   "description": "download manager for novel",
   "main": "index.ts",
   "admin": {
@@ -8,24 +7,10 @@
     "main": "admin.ts"
   },
   "bin": "dist/nd.min.js",
-  "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "private": true,
-  "changelog": {
-    "1.0.0-alpha.3": {
-      "message": "fully support download, raw download, fetch and update novel with some of options",
-      "date": "10 Sep 2019"
-    },
-    "1.0.0-alpha.2": {
-      "message": "fully support multiple thread management in downloading and saving files",
-      "date": "28 Jul 2019"
-    },
-    "1.0.0-alpha.1": {
-      "message": "first release main command version 1 alpha",
-      "date": "22 Jul 2019"
-    }
-  },
   "scripts": {
     "install:lib": "make lib",
+    "lint": "make lint",
     "compile": "make compile mode=development",
     "compile:prod": "make compile mode=production",
     "dev": "make compile mode=development quite=true && node dist/nd.js",
@@ -40,10 +25,32 @@
     "release:core": "./scripts/release_core.sh",
     "clean": "make clean",
     "clean:all": "make clean all=true",
-    "loc": "make loc type=sum && make loc type=lib"
+    "loc": "make loc type=sum && make loc type=lib",
+    "docs": "make apidoc",
+    "docs:publish": "make apidoc publish=true"
   },
   "dependencies": {
+    "@nd/admin": "./packages/nd-admin",
+    "@nd/commandline-interpreter": "./packages/nd-commandline-interpreter",
+    "@nd/config": "./packages/nd-config",
+    "@nd/content": "./packages/nd-content",
+    "@nd/core": "./packages/nd-core",
+    "@nd/database": "./packages/nd-database",
+    "@nd/debug": "./packages/nd-debug",
+    "@nd/decoder": "./packages/nd-decoder",
+    "@nd/downloader": "./packages/nd-downloader",
+    "@nd/error": "./packages/nd-error",
+    "@nd/file": "./packages/nd-file",
+    "@nd/formatter": "./packages/nd-formatter",
+    "@nd/helper": "./packages/nd-helper",
+    "@nd/html-generator": "./packages/nd-html-generator",
+    "@nd/logger": "./packages/nd-logger",
+    "@nd/novel": "./packages/nd-novel",
+    "@nd/resource": "./packages/nd-resource",
+    "@nd/security": "./packages/nd-security",
+    "@nd/thread": "./packages/nd-thread",
     "async": "3.1.0",
+    "ava": "2.4.0",
     "bcryptjs": "2.4.3",
     "chalk": "2.4.2",
     "cheerio": "1.0.0-rc.3",
@@ -52,100 +59,62 @@
     "iconv-lite": "0.5.0",
     "jsonwebtoken": "8.5.1",
     "mustache": "3.0.1",
-    "nd-admin": "./packages/nd-admin",
-    "nd-commandline-interpreter": "./packages/nd-commandline-interpreter",
-    "nd-config": "./packages/nd-config",
-    "nd-content": "./packages/nd-content",
-    "nd-database": "./packages/nd-database",
-    "nd-debug": "./packages/nd-debug",
-    "nd-decoder": "./packages/nd-decoder",
-    "nd-downloader": "./packages/nd-downloader",
-    "nd-error": "./packages/nd-error",
-    "nd-file": "./packages/nd-file",
-    "nd-formatter": "./packages/nd-formatter",
-    "nd-helper": "./packages/nd-helper",
-    "nd-html-generator": "./packages/nd-html-generator",
-    "nd-logger": "./packages/nd-logger",
-    "nd-novel": "./packages/nd-novel",
-    "nd-resource": "./packages/nd-resource",
-    "nd-security": "./packages/nd-security",
-    "nd-thread": "./packages/nd-thread",
     "omelette": "0.4.12",
     "table": "5.4.6"
   },
   "devDependencies": {
+    "@strictsoftware/typedoc-plugin-monorepo": "0.2.1",
     "@types/async": "3.0.1",
     "@types/bcryptjs": "2.4.2",
     "@types/chai": "4.2.0",
     "@types/cheerio": "0.22.13",
     "@types/debug": "4.1.5",
     "@types/expect": "1.20.4",
-    "@types/jsonwebtoken": "8.3.3",
-    "@types/mocha": "5.2.7",
+    "@types/jsonwebtoken": "8.3.4",
     "@types/mock-fs": "3.6.30",
     "@types/ms": "0.7.31",
     "@types/mustache": "0.8.32",
     "@types/node": "10",
     "@types/rewire": "2.5.28",
     "@types/table": "4.0.6",
+    "@typescript-eslint/eslint-plugin": "2.3.1",
+    "@typescript-eslint/parser": "2.3.1",
     "chai": "4.2.0",
     "closure-webpack-plugin": "2.0.1",
     "css-loader": "3.2.0",
+    "eslint": "6.4.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-loader": "3.0.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "gh-pages": "2.1.1",
     "google-closure-compiler": "20190729.0.0",
     "html-loader": "0.5.5",
-    "mocha": "6.2.0",
-    "mochawesome": "4.1.0",
+    "lerna": "3.16.4",
     "mock-fs": "4.10.1",
     "node-sass": "4.12.0",
     "nyc": "14.1.1",
     "pkg": "4.4.0",
+    "prettier": "1.18.2",
     "rewire": "4.0.1",
     "sass-loader": "7.2.0",
     "to-string-loader": "1.1.5",
     "ts-loader": "6.0.4",
     "ts-node": "8.3.0",
-    "tslint": "5.18.0",
-    "tslint-loader": "3.5.4",
-    "typedoc": "^0.15.0",
-    "typedoc-plugin-external-module-name": "^2.1.0",
-    "typescript": "3.5.3",
+    "tsconfig-paths": "3.9.0",
+    "typedoc": "0.15.0",
+    "typescript": "3.6.3",
     "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.39.2",
-    "webpack-cli": "3.3.7",
+    "webpack-cli": "3.3.9",
     "webpack-node-externals": "1.7.2",
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
   "pkg": {
-    "assets": [
-      "package.json"
-    ]
-  },
-  "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/constants/**/*.ts",
-      "**/*.d.ts",
-      "**/*.spec.ts",
-      "reports/**/*",
-      "dist/**/*",
-      "coverage/**/*",
-      "templates/**/*",
-      "packages/webpack-visualizer/**/*",
-      "**/index.ts",
-      "admin.ts",
-      "webpack.config.js"
-    ],
-    "reporter": [
-      "html",
-      "text"
-    ],
-    "all": true
+    "assets": ["package.json"]
   },
   "engines": {
     "node": ">=8.0.0 <13.0.0",
     "npm": ">=6.0.0 <7.0.0 ",
-    "yarn": ">=1.16.0 <1.18.0"
+    "yarn": ">=1.16.0 <1.20.0"
   }
 }

@@ -1,6 +1,6 @@
-import { IConfiguration } from "nd-config";
-import ExceptionService, { ERR_SCT } from "nd-error";
-import { Security } from "nd-security";
+import { IConfiguration } from "@nd/config";
+import ExceptionService, { ERR_SCT } from "@nd/error";
+import { Security } from "@nd/security";
 
 export default {
   async CheckAuthenication(config: IConfiguration): Promise<{ err?: Error; secure: Security }> {

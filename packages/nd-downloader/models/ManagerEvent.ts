@@ -1,7 +1,7 @@
 import Event, { EventEmitter } from "events";
 import { IncomingHttpHeaders } from "http";
 
-import { IResponse, Response } from "./IResponse";
+import { IResponse } from "./IResponse";
 
 type EventType = "add" | "downloaded" | "end" | "header" | "downloading";
 

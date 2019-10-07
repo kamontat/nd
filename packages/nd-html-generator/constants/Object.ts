@@ -1,6 +1,7 @@
-import { Chapter } from "nd-novel";
+import { Chapter } from "@nd/novel";
 
 import ILoaderResponse from "./LoaderResponse";
+import { HtmlEntity } from "@nd/content";
 
 export interface IFunctionObject {
   dateENString(): (text: string, render: (s: string) => string) => string;
@@ -43,7 +44,7 @@ export interface IConfigObject {
     updateat: number; // timestamp
     version: string;
   };
-  contents: string[]; // might change to object array
+  contents: HtmlEntity[];
   description?: string;
   novel: {
     abstract: string;

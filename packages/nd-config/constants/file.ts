@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_CONFIG } from "nd-logger";
+import LoggerService, { LOGGER_CONFIG } from "@nd/logger";
 
 export const CONFIG_EXTENSION = "ndc";
 

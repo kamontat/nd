@@ -1,15 +1,27 @@
 import { render } from "mustache";
-import LoggerService, { LOGGER_HTML_GENERATOR } from "nd-logger";
-import { Package as SecurityPackage } from "nd-security";
+import LoggerService, { LOGGER_HTML_GENERATOR } from "@nd/logger";
+import { Package as SecurityPackage } from "@nd/security";
 
-import { Package as CorePackage } from "../../../src/build/Package";
 import { DateENString, DateTHString } from "../api/date";
 import ILoaderResponse from "../constants/LoaderResponse";
 import IObject, { IConfigObject, IFunctionObject } from "../constants/Object";
 import TemplateType from "../constants/TemplateType";
 import loader from "../loader";
 
-declare var __COMPILE_DATE__: string;
+declare let __NAME__: string;
+const APPNAME = process.env.NODE_ENV === "test" ? "" : __NAME__;
+
+declare let __VERSION__: string;
+const APPVER = process.env.NODE_ENV === "test" ? "" : __VERSION__;
+
+declare let __DESCRIPTION__: string;
+const APPDESC = process.env.NODE_ENV === "test" ? "" : __DESCRIPTION__;
+
+declare let __AUTHOR__: string;
+const APPAUTHOR = process.env.NODE_ENV === "test" ? "" : __AUTHOR__;
+
+declare let __COMPILE_DATE__: string;
+const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
 export default class {
   private _func: IFunctionObject;
@@ -54,9 +66,9 @@ export default class {
     // default command
     if (!obj.command)
       obj.command = {
-        name: CorePackage.name,
-        version: CorePackage.version,
-        updateat: parseInt(__COMPILE_DATE__, 10),
+        name: APPNAME,
+        version: APPVER,
+        updateat: parseInt(COMPILE_DATE, 10),
       };
 
     // default security
@@ -69,9 +81,9 @@ export default class {
     if (!obj.year) obj.year = new Date().getFullYear();
 
     // command information
-    if (!obj.title) obj.title = `${CorePackage.name}-command`;
-    if (!obj.description) obj.description = CorePackage.description;
-    if (!obj.author) obj.author = CorePackage.author;
+    if (!obj.title) obj.title = `${APPNAME}-command`;
+    if (!obj.description) obj.description = APPDESC;
+    if (!obj.author) obj.author = APPAUTHOR;
 
     return obj;
   }

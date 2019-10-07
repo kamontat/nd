@@ -52,12 +52,23 @@ const prefixZero = (num: number) => {
 };
 
 export default {
-  BuildDate({ year = 0, month = 0, date = 1, hour = 0, minute = 0, second = 0 }) {
+  BuildDate({ year = 0, month = 0, date = 0, hour = 0, minute = 0, second = 0, millisecond = 0 }) {
+    // return current datetime if everything is zero
+    if (
+      year === month &&
+      month === date &&
+      date === hour &&
+      hour === minute &&
+      minute === second &&
+      second === millisecond &&
+      millisecond === 0
+    )
+      return new Date();
     // build to this format: 1995-12-17T03:24:00
-    return new Date(year, month, date, hour, minute, second);
+    return new Date(year, month, date, hour, minute, second, millisecond);
   },
   ConvertThaiMonth(str: string, type: "short" | "long") {
-    if (!str.endsWith(".")) str += ".";
+    if (type === "short" && !str.endsWith(".")) str += ".";
     const arr = type === "short" ? monthsShortTH : monthsTH;
 
     return arr.reduce((p, c, i) => {
@@ -75,7 +86,7 @@ export default {
     else return date.getTime();
   },
   GetDate(timestamp?: number | string) {
-    const number = parseInt((timestamp && timestamp.toString()) || "unknown");
+    const number = parseInt((timestamp && timestamp.toString()) || "unknown", 10);
     if (isNaN(number)) return undefined;
     return new Date(number);
   },

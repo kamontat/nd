@@ -1,5 +1,5 @@
-import { Optional, TimeUtils } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import { Optional, TimeUtils } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
 
 export const convertChapterDate = (dateString: string) => {
   const __arr = dateString.split(" ");

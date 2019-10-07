@@ -1,8 +1,8 @@
 import { IncomingHttpHeaders } from "http";
-import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "nd-downloader";
-import ExceptionService, { ERR_NLV } from "nd-error";
-import { Optional } from "nd-helper";
-import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "nd-logger";
+import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "@nd/downloader";
+import ExceptionService, { ERR_NLV } from "@nd/error";
+import { Optional } from "@nd/helper";
+import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "@nd/logger";
 
 import { NovelAPIs } from "../apis";
 import { Merge } from "../apis/novel";
@@ -22,7 +22,7 @@ export class NovelBuilder {
     this.setupDownloadEvent();
   }
 
-  public build(thread?: number, fast: boolean = false) {
+  public build(thread?: number, fast = false) {
     if (fast) return this.buildNovel(thread);
     else
       return this.buildNovel(thread).then(novel => {
@@ -64,7 +64,7 @@ export class NovelBuilder {
     manager.build(r => {
       const url = new URL(r.link);
       const __cid = url.searchParams.get("chapter") || "0";
-      const cid = parseInt(__cid);
+      const cid = parseInt(__cid, 10);
       const html = new HtmlParser(r.result || "");
       const res = r.copy<Novel>();
       const chapter = novel.chapter(cid);

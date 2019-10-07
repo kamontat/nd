@@ -1,6 +1,5 @@
-import { IException } from "nd-error";
-import LoggerService, { LOGGER_FILE } from "nd-logger";
-import { ThreadManager } from "nd-thread";
+import { IException } from "@nd/error";
+import { ThreadManager } from "@nd/thread";
 
 import { FileAction, FileType } from "../models/enum";
 import FileASyncManager from "../models/FileAsyncManager";

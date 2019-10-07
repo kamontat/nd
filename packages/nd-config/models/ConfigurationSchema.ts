@@ -1,5 +1,5 @@
-import ExceptionService, { ERR_CFG } from "nd-error";
-import LoggerService, { LOGGER_CONFIG } from "nd-logger";
+import ExceptionService, { ERR_CFG } from "@nd/error";
+import LoggerService, { LOGGER_CONFIG } from "@nd/logger";
 
 interface IConfigurationSchema {
   choices?: Array<string | number>;
@@ -7,11 +7,11 @@ interface IConfigurationSchema {
 }
 
 const ConfigurationSchema = {
-  "mode": {
+  mode: {
     type: "choices",
     choices: ["development", "production", "testing"],
   },
-  "version": {
+  version: {
     type: "choices",
     choices: ["v1", "v2"],
   },

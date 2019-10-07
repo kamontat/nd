@@ -1,5 +1,5 @@
 import { decode } from "iconv-lite";
-import ExceptionService, { ERR_DCR } from "nd-error";
+import ExceptionService, { ERR_DCR } from "@nd/error";
 
 import Package from "./package.json";
 

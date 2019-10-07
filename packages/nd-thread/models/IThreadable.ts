@@ -11,7 +11,7 @@ export type MapFn<K, V, R, O, OO> = (
 export interface IThreadable<K, V, O> {
   add(key: K, value: V): this;
 
-  run(): Promise<any>;
+  run(): Promise<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   setOptionOnce(o: O): O | undefined;
 }

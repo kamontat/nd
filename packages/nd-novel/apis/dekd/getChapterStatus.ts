@@ -1,4 +1,4 @@
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
 
 import { ChapterStatus } from "../../models/novel/ChapterStatus";
 import { IParser } from "../../models/parser/IParser";

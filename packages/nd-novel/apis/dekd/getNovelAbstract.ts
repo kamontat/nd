@@ -1,4 +1,4 @@
-import { Optional } from "nd-helper";
+import { Optional } from "@nd/helper";
 
 import { IParser } from "../../models/parser/IParser";
 

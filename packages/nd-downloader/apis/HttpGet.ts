@@ -1,6 +1,6 @@
 import { IncomingMessage } from "http";
 import https from "https";
-import LoggerService, { LOGGER_DOWNLOADER_MANAGER } from "nd-logger";
+import LoggerService, { LOGGER_DOWNLOADER_MANAGER } from "@nd/logger";
 
 const useragents = [
   "Mozilla/5.0 (Windows NT 6.2; rv:20.0) Gecko/20121202 Firefox/20.0",
@@ -19,14 +19,14 @@ const randomUserAgent = () => {
 export const HttpGet = (url: string, callback: (res: IncomingMessage) => void) => {
   const agent = randomUserAgent();
   LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `GET ${url}`);
-  LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `Random agent to ${agent}`);
+  LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `The Agent is ${agent} (randomly)`);
 
   return https.get(
     url,
     {
       headers: {
         "user-agent": encodeURIComponent(agent),
-        "accept": "text/html",
+        accept: "text/html",
       },
     },
     response => {
@@ -34,13 +34,18 @@ export const HttpGet = (url: string, callback: (res: IncomingMessage) => void) =
         (response.statusCode === 300 || response.statusCode === 301 || response.statusCode === 302) &&
         response.headers.location
       ) {
-        LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `start redirect to ${response.headers.location}`);
+        LoggerService.log(LOGGER_DOWNLOADER_MANAGER, `Redirecting to ${response.headers.location}`);
         HttpGet(response.headers.location, callback);
       } else if (response.statusCode === 429) {
+        const waittime = 1000; // wait 1 second
+
         setTimeout(() => {
-          LoggerService.warn(LOGGER_DOWNLOADER_MANAGER, "we seem sent to many request but we still keep request :)");
+          LoggerService.warn(
+            LOGGER_DOWNLOADER_MANAGER,
+            `We got error (code=429), I will wait ${(waittime / 1000).toFixed(2)} second and try again`,
+          );
           HttpGet(url, callback);
-        }, 1000); // wait 1 second
+        }, waittime);
       } else {
         callback(response);
       }

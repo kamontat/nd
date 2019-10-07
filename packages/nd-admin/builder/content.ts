@@ -1,7 +1,8 @@
-import { TimeUtils } from "nd-helper";
-import { Colorize } from "nd-logger";
+import { TimeUtils } from "@nd/helper";
+import { Colorize } from "@nd/logger";
 
-import { Package } from "../../../src/build/Package";
+declare let __NAME__: string;
+const APPNAME = process.env.NODE_ENV === "test" ? "" : __NAME__;
 
 export interface IResultBuilder {
   date: {
@@ -21,7 +22,7 @@ export const Result = (config: IResultBuilder) => {
 ----------------------------------------------------------
 # Result
 
-This is a tutorial for admin user. 
+This is a tutorial for admin user.
 You have responsibility to copy message below to customer with some advice.
 You need to add {greenBright.underline ${config.fbname}} to our database to generate the valid users.
 
@@ -43,7 +44,7 @@ Created date   = {blueBright ${TimeUtils.FormatDate(TimeUtils.GetDate(config.dat
 
 ## Usage
 
-to setup this token please run '${Package.name} --help'
+to setup this token please run '${APPNAME} --help'
 and go to initial section. Thank you
 ----------------------------------------------------------`;
 };
@@ -60,6 +61,6 @@ Usage
 {dim $} {greenBright ${pjson.name}} {blueBright firebase} --token <auth.token> --name <auth.name> --salt <auth.salt>
 
 ${pjson.name} version: ${pjson.version}
-Support ${Package.name} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
+Support ${APPNAME} version [${pjson.support.reduce((p: string, c: string) => (p === "" ? c : `${p}, ${c}`), "")}]`
   );
 };

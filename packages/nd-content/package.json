@@ -1,15 +1,19 @@
 {
-  "name": "nd-content",
-  "version": "0.0.1-alpha.1",
+  "name": "@nd/content",
+  "version": "1.0.0-beta.1",
   "description": "this contains only content node for nd-novel and html/css parser",
   "dependencies": {
-    "nd-logger": "./packages/nd-logger",
-    "nd-error": "./packages/nd-error"
+    "@nd/error": "./packages/nd-error",
+    "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "1.0.0-beta.1": {
+      "message": "add a lot of models for novel content and html generator",
+      "date": "04 Oct 2019"
+    },
     "0.0.1-alpha.1": {
-      "message": "changelog template",
-      "date": "xx Jul 2019"
+      "message": "change package name from nd-content to @nd/content",
+      "date": "28 Sep 2019"
     }
   }
 }

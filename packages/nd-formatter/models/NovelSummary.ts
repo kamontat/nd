@@ -1,6 +1,6 @@
-import { ArrayUtils, TimeUtils } from "nd-helper";
-import { Colorize } from "nd-logger";
-import { ChapterStatus, History, Novel } from "nd-novel";
+import { ArrayUtils, TimeUtils } from "@nd/helper";
+import { Colorize } from "@nd/logger";
+import { ChapterStatus, History, Novel } from "@nd/novel";
 
 import { HistorySummary } from "./HistorySummary";
 import { IDefaultConfigFormat, IFormatter } from "./IFormatter";
@@ -114,7 +114,7 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     }
   }
 
-  private _appendSummary(a: any, newline: boolean = true) {
+  private _appendSummary(a: any, newline = true) {
     this.__summary += a;
     if (newline) this.__summary += "\n";
   }

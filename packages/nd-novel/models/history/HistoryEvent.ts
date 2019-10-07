@@ -1,5 +1,5 @@
 import Event from "events";
-import LoggerService, { LOGGER_HISTORY } from "nd-logger";
+import LoggerService, { LOGGER_HISTORY } from "@nd/logger";
 
 export type EventType = "added" | "modified" | "deleted";
 
@@ -11,7 +11,9 @@ interface IHistoryEvent {
 }
 
 export class HistoryEvent extends Event implements IHistoryEvent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public classify(name: string, value: { after: any; before: any }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const exist = (v: any) => {
       LoggerService.log(LOGGER_HISTORY, `try to check is ${v} exist; type ${typeof v}; %O`, v);
 
@@ -37,6 +39,7 @@ export class HistoryEvent extends Event implements IHistoryEvent {
       return true;
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const equal = (a: any, b: any) => {
       LoggerService.log(LOGGER_HISTORY, `try ${a} === ${b} (a=%O), (b=%O)`, a, b);
       if (a.equals && b.equals) {
@@ -53,9 +56,11 @@ export class HistoryEvent extends Event implements IHistoryEvent {
     else if (exist(value.before) && exist(value.after) && !equal(value.before, value.after))
       this.emit("modified", name, value);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public emit(event: EventType, title: string, value: any) {
     return super.emit(event, title, value);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public on(event: EventType, listener: (title: string, value: any) => void) {
     return super.on(event, listener);
   }

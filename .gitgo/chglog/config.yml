@@ -9,24 +9,20 @@ options:
       Type:
         - feat
         - impr
-        - perf
         - fix
-        - doc
   commit_groups:
     title_maps:
-      feat: Feature
-      impr: Improving application
-      perf: Improving performance
-      fix: Fixes Bug
-      doc: Documentation
+      feat: 1. Introduce new features
+      impr: 2. Command improvement
+      fix: 3. Command bug destoryer
   header:
     pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
     pattern_maps:
       - Type
       - Scope
       - Subject
-  issues: 
-    prefix: 
+  issues:
+    prefix:
       - "#"
   notes:
     keywords:

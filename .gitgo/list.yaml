@@ -16,12 +16,18 @@ commit:
       value: Commandline relevant
     - type: core
       value: nd application but not relevant to cli
-    - type: lib
+    - type: deps
       value: internal or external libraries
     - type: script
-      value: Helper shell script
+      value: utils shell script
     - type: docs
       value: Documentation
+    - type: lint
+      value: Linter and code quality
+    - type: test
+      value: Relevant to ava testing framework
+    - type: ci
+      value: CI/CD setup
     - type: security
       value: Security submodules
     - type: content
@@ -54,3 +60,5 @@ commit:
       value: Thread submodules
     - type: helper
       value: Helper submodules
+    - type: release
+      value: For release new packages

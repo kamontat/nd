@@ -1,4 +1,5 @@
-import LoggerService, { LOGGER_NOVEL_BUILDER } from "nd-logger";
+import LoggerService, { LOGGER_NOVEL_BUILDER } from "@nd/logger";
+import { HtmlEntity, HtmlEntityType } from "@nd/content";
 
 import { IParser } from "../../models/parser/IParser";
 
@@ -12,7 +13,7 @@ const ATTR_BLACKLIST: { key: string; value: string }[] = [
 ];
 
 export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
-  const result: string[] = [];
+  const result: HtmlEntity[] = [];
 
   parser
     .query("table#story_body")
@@ -33,7 +34,7 @@ export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
             if (text !== "" && text !== "\n") {
               if (HTML_BLACKLIST_TEXT.filter(v => text.includes(v)).length < 1) {
                 LoggerService.log(LOGGER_NOVEL_BUILDER, "chapter node become once: %O", text);
-                result.push(text);
+                result.push(new HtmlEntity({ tag: HtmlEntityType.P, content: text }));
               }
             }
           });
@@ -45,7 +46,7 @@ export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
       if (text !== "" && text !== "\n") {
         if (HTML_BLACKLIST_TEXT.filter(v => text.includes(v)).length < 1) {
           LoggerService.log(LOGGER_NOVEL_BUILDER, "chapter node data: %O", text);
-          result.push(text);
+          result.push(new HtmlEntity({ tag: HtmlEntityType.P, content: text }));
         }
       }
       return;
@@ -65,7 +66,7 @@ export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
     .trim();
   if (text) {
     LoggerService.log(LOGGER_NOVEL_BUILDER, "query first content: %O", text);
-    result.push(text);
+    result.push(new HtmlEntity({ tag: HtmlEntityType.P, content: text }));
   }
 
   parser
@@ -76,7 +77,7 @@ export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
       const text = query.text().trim();
       if (text !== "") {
         LoggerService.log(LOGGER_NOVEL_BUILDER, "query p tag content: %O", text);
-        result.push(text);
+        result.push(new HtmlEntity({ tag: HtmlEntityType.P, content: text }));
       }
     });
 
@@ -100,7 +101,7 @@ export default (parser: IParser<string, string | CheerioElement, Cheerio>) => {
       const text = query.text().trim();
       if (text !== "") {
         LoggerService.log(LOGGER_NOVEL_BUILDER, "query div tag content: %O", text);
-        result.push(text);
+        result.push(new HtmlEntity({ tag: HtmlEntityType.P, content: text }));
       }
     });
 

@@ -1,5 +1,5 @@
 import { Dictionary, eachOfLimit, mapValuesLimit } from "async";
-import LoggerService, { LOGGER_THREAD } from "nd-logger";
+import LoggerService, { LOGGER_THREAD } from "@nd/logger";
 
 import { THREAD_NUMBER } from "../constants";
 
@@ -47,6 +47,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
     return this._optionOnce || d;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract run(): Promise<any>;
 
   public setOptionOnce(o: OO) {
@@ -100,7 +101,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> 
           .then(v => callback(undefined, v))
           .catch(err => callback(err, undefined));
       },
-      undefined as any,
+      undefined as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     ) as unknown) as Promise<{ [key in K]: R }>;
   }
 

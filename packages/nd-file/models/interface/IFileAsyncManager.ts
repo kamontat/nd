@@ -3,11 +3,9 @@ import { FileLoadResult } from "../enum";
 import {
   FileInput,
   FindOptions,
-  IFileDirInput,
   IFileFileInput,
   IFindFileInput,
   ILoadOptions,
-  IReadOptions,
   RenameOptions,
   WriteOption,
 } from "./defined";

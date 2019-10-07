@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/icon.png" width="120px">
+  <img src="./docs/assets/icon.png" width="120px">
 </p>
 
 <!-- Title -->
@@ -18,11 +18,14 @@
 </p>
 
 <!-- CI/CD badge -->
-<!-- <p align="center">
-  <a href="link">
-    <img src="image-link" alt="name" />
+<p align="center">
+  <a href="https://app.dependabot.com/accounts/kamontat/projects/96974">
+    <img src="https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843" alt="Dependabot Status" />
   </a>
-</p> -->
+  <a href="https://lerna.js.org/">
+    <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna">
+  </a>
+</p>
 
 <!-- External link -->
 <!-- <h3 align="center">
@@ -43,5 +46,7 @@
   <span> · </span>
   <a href="docs/Technical.md">Technical</a>
   <span> · </span>
-  <a href="docs/CHANGELOG.md">Changelog</a>
+  <a href="docs/reports/CHANGELOG.md">Changelog</a>
+  <span> · </span>
+  <a href="docs/reports/loc">Line of code</a>
 </h4>

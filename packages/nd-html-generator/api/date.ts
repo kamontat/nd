@@ -1,4 +1,4 @@
-import { TimeUtils } from "nd-helper";
+import { TimeUtils } from "@nd/helper";
 
 const __dateToString = (lang: "en" | "th") => {
   return (text: string, render: (s: string) => string) => {

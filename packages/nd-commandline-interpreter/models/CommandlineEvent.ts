@@ -1,5 +1,5 @@
 import Event from "events";
-import LoggerService, { LOGGER_CLI_BUILDER } from "nd-logger";
+import LoggerService, { LOGGER_CLI_BUILDER } from "@nd/logger";
 
 import { Option } from "..";
 
@@ -22,6 +22,7 @@ Default.on("globalOption", (o: Option, arg: string) => {
   else LoggerService.log(LOGGER_CLI_BUILDER, `resolve ${o.option} as option without any parameters`);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 Default.on("end", (num: number = 0) => {
   LoggerService.log(LOGGER_CLI_BUILDER, `commandline resolve finished`);
   // LoggerService.console.log(`Completed...`);

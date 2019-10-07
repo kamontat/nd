@@ -1,4 +1,4 @@
-export const byteToSize = (bytes: number, seperator: string = "") => {
+export const byteToSize = (bytes: number, seperator = "") => {
   const compare = 1000;
   const digit = 2;
 
