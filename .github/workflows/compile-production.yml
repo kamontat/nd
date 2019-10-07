@@ -27,3 +27,7 @@ jobs:
       - name: yarn compile typescript with production setting
         run: |
           yarn compile:prod
+      - name: start call version and help option
+        run: |
+          node dist/nd.min.js --version
+          node dist/nd.min.js --help

@@ -4,8 +4,8 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: built node-12 [macOS-latest]
-    runs-on: macOS-latest
+    name: built node-12 [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Node.js 12.x
