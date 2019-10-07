@@ -1,5 +1,6 @@
+@nd/commandline-interpreter: v1.2.5
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (849.6 files/s, 46941.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (905.4 files/s, 50022.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

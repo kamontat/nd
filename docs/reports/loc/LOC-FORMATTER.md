@@ -1,5 +1,6 @@
+@nd/formatter: v1.2.7
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (647.2 files/s, 33838.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (618.4 files/s, 32335.2 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

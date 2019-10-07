@@ -1,5 +1,6 @@
+@nd/security: v1.6.2
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (815.4 files/s, 23466.8 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (824.3 files/s, 23722.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

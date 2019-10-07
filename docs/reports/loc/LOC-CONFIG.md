@@ -1,5 +1,6 @@
+@nd/config: v1.6.5
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (716.5 files/s, 49756.9 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (686.0 files/s, 47640.9 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

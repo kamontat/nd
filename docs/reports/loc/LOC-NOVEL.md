@@ -1,5 +1,6 @@
+@nd/novel: v1.5.0-beta.1
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.02 s (1250.9 files/s, 65478.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.03 s (1157.8 files/s, 60605.9 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

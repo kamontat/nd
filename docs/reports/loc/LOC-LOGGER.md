@@ -1,5 +1,6 @@
+@nd/logger: v1.2.6
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (735.7 files/s, 27404.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (702.7 files/s, 26177.1 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

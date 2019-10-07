@@ -1,5 +1,6 @@
+@nd/resource: v1.0.2
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (427.8 files/s, 14546.8 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (435.0 files/s, 14789.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code

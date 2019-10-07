@@ -1,5 +1,6 @@
+@nd/admin: v1.2.1
 
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (599.6 files/s, 25882.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (592.2 files/s, 25562.4 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
