@@ -10,8 +10,8 @@ test("get timestamp from date object", t => {
 });
 
 test("get timestamp from string", t => {
-  const date = "25 Jan 2011 12:00:02";
-  const stamp = 1295931602000;
+  const date = "25 Jan 2011 12:00:02 UTC";
+  const stamp = 1295956802000;
 
   const timestamp = TimeUtils.GetTimestamp(date);
   t.is(timestamp, stamp, `The timestamp of ${date} must be ${stamp}`);
