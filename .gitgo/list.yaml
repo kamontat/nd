@@ -19,7 +19,7 @@ commit:
     - type: deps
       value: internal or external libraries
     - type: script
-      value: Helper shell script
+      value: utils shell script
     - type: docs
       value: Documentation
     - type: lint
