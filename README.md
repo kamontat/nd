@@ -20,10 +20,13 @@
 <!-- CI/CD badge -->
 <p align="center">
   <a href="https://app.dependabot.com/accounts/kamontat/projects/96974">
-    <img src="https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843" alt="Dependabot Status" />
+    <img alt="Dependabot Status" src="https://api.dependabot.com/badges/status?host=github&repo=kamontat/nd&identifier=203195843"/>
   </a>
   <a href="https://lerna.js.org/">
-    <img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna">
+    <img alt="lerna" src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg">
+  </a>
+  <a href="https://codecov.io/gh/kamontat/nd">
+    <img alt="Code coverage reports" src="https://codecov.io/gh/kamontat/nd/branch/master/graph/badge.svg?token=mBJkA90wnL" />
   </a>
 </p>
 
