@@ -24,6 +24,8 @@ commit:
       value: Documentation
     - type: lint
       value: Linter and code quality
+    - type: test
+      value: Relevant to ava testing framework
     - type: ci
       value: CI/CD setup
     - type: security
