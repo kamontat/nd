@@ -9,25 +9,39 @@
   "bin": "dist/nd.min.js",
   "private": true,
   "scripts": {
-    "install:lib": "make lib",
-    "lint": "make lint",
-    "compile": "make compile mode=development",
-    "compile:prod": "make compile mode=production",
-    "dev": "make compile mode=development quite=true && node dist/nd.js",
-    "dev:admin": "make compile mode=development quite=true && node dist/nd-admin.js",
-    "prod": "make compile mode=production && node dist/nd.min.js",
-    "start": "node dist/nd.js",
-    "start:prod": "node dist/nd.min.js",
-    "build": "make build mode=production",
-    "test": "make test mode=test",
-    "test:debug": "export TS_NODE_DEBUG=true && yarn test",
-    "release:lib": "./scripts/release_lib.sh",
-    "release:core": "./scripts/release_core.sh",
-    "clean": "make clean",
-    "clean:all": "make clean all=true",
-    "loc": "make loc type=sum && make loc type=lib",
-    "docs": "make apidoc",
-    "docs:publish": "make apidoc publish=true"
+    "helper": "./scripts/start",
+    "install:lib": "./scripts/start install lib",
+    "lint": "./scripts/start lint",
+    "lint:fix": "./scripts/start lint --fix",
+
+    "compile": "./scripts/start compile dev",
+    "compile:prod": "./scripts/start compile prod",
+
+    "dev": "./scripts/start run dev nd ci",
+    "dev:admin": "./scripts/start run dev nd-admin ci",
+    "prod": "./scripts/start run prod nd ci",
+    "prod:admin": "./scripts/start run prod nd-admin ci",
+
+    "start": "./scripts/start run dev nd o",
+    "start:admin": "./scripts/start run dev nd-admin o",
+    "start:prod": "./scripts/start run prod nd o",
+    "start:admin:prod": "./scripts/start run prod nd-admin o",
+
+    "build": "./scripts/start build ci",
+
+    "test": "./scripts/start test",
+    "test:ci": "./scripts/start test ci",
+    "test:debug": "./scripts/start test debug",
+
+    "docs": "./scripts/start docs api",
+    "loc": "./scripts/start docs loc",
+
+    "release:core": "./scripts/start publish core",
+    "release:lib": "./scripts/start publish lib",
+    "release:docs": "./scripts/start publish api",
+
+    "clean": "./scripts/start clean",
+    "clean:all": "./scripts/start clean all"
   },
   "dependencies": {
     "@nd/admin": "./packages/nd-admin",
@@ -77,6 +91,7 @@
     "@types/node": "10",
     "@types/rewire": "2.5.28",
     "@types/table": "4.0.7",
+    "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "2.3.3",
     "@typescript-eslint/parser": "2.3.3",
     "chai": "4.2.0",
@@ -110,9 +125,7 @@
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
   "pkg": {
-    "assets": [
-      "package.json"
-    ]
+    "assets": ["package.json"]
   },
   "engines": {
     "node": ">=8.0.0 <13.0.0",

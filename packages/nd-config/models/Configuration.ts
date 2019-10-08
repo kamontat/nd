@@ -7,7 +7,7 @@ import { resolve } from "path";
 import readline, { ReadLine } from "readline";
 
 import { ConfigParser } from "../apis/parser";
-import { BACKUP_NAME } from "../constants/file";
+import { BACKUP_NAME, CONFIG_PATH } from "../constants/file";
 
 import { DoValidation } from "./ConfigurationSchema";
 import { IConfiguration } from "./IConfiguration";
@@ -17,10 +17,15 @@ export class Configuration extends Event implements IConfiguration {
   private static o: Configuration;
 
   protected _object: ConfigSchema;
-  private filepath = "./config.ndc";
 
-  protected constructor() {
+  private filepath: string;
+
+  protected constructor(path?: string) {
     super();
+
+    if (path) this.filepath = path;
+    else this.filepath = `./${CONFIG_PATH}`;
+
     this._object = this.restore();
   }
 
@@ -28,6 +33,7 @@ export class Configuration extends Event implements IConfiguration {
     if (!Configuration.o) {
       Configuration.o = new Configuration();
     }
+
     return Configuration.o;
   }
 
@@ -42,7 +48,7 @@ export class Configuration extends Event implements IConfiguration {
   public load(_path?: string) {
     if (!_path || _path === "" || _path === ".") _path = PathUtils.GetCurrentPath();
 
-    this.filepath = resolve(`${_path}/config.ndc`); // load config
+    this.filepath = resolve(_path, CONFIG_PATH); // load config
     LoggerService.log(LOGGER_CONFIG, `start load config from ${this.filepath}`);
 
     return new Promise<Configuration>((res, rej) => {

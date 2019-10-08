@@ -1,0 +1,219 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1000
+
+# generate by create-script-file v4.0.1
+# link (https://github.com/Template-generator/create-script-file/tree/v4.0.1)
+
+# set -x #DEBUG - Display commands and their arguments as they are executed.
+# set -v #VERBOSE - Display shell input lines as they are read.
+# set -n #EVALUATE - Check syntax of the script but don't execute.
+
+# Paramaters:
+#   install        [lib|force]
+#   lint           [--fix]
+#   compile        <dev|prod> [i]                      # i = install
+#   compile-silent <dev|prod>
+#   run            <prod|dev> <nd|nd-admin> <i|c|ci|o> # i = install, c = compile, ci = install and compile, o = only run
+#   build          [i|c|ci]
+#   test           [ci] [debug]                        # ci = test in ci
+#   clean          [all]
+#   docs           [loc|api]                           # loc = line of code, api = apidoc to gh-pages, empty = run all
+#   publish        [api|core|lib]                      # api = publish to gh-pages, lib = create tag to lib, core = coreate tag to lib
+
+modules_path=(
+  "./packages/nd-core" "./packages/nd-logger" "./packages/nd-security"
+  "./packages/nd-config" "./packages/nd-helper" "./packages/nd-admin"
+  "./packages/nd-error" "./packages/nd-formatter" "./packages/nd-content"
+  "./packages/nd-downloader" "./packages/nd-commandline-interpreter" "./packages/nd-decoder"
+  "./packages/nd-novel" "./packages/nd-thread" "./packages/nd-file"
+  "./packages/nd-debug" "./packages/nd-resource" "./packages/nd-database"
+  "./packages/nd-html-generator"
+)
+
+modules_name=(
+  "@nd/core" "@nd/logger" "@nd/security"
+  "@nd/config" "@nd/helper" "@nd/admin"
+  "@nd/error" "@nd/formatter" "@nd/content"
+  "@nd/downloader" "@nd/commandline-interpreter" "@nd/decoder"
+  "@nd/novel" "@nd/thread" "@nd/file"
+  "@nd/debug" "@nd/resource" "@nd/database"
+  "@nd/html-generator"
+)
+
+npm_client="yarn"
+bin="./node_modules/.bin"
+
+cmd="$1"
+shift
+
+# @completed
+__install() {
+  if [[ $1 == "lib" ]]; then
+    $npm_client add ${modules_path[@]}
+  elif [[ $1 == "force" ]]; then
+    $npm_client install --force
+  else
+    $npm_client install
+  fi
+}
+
+# @completed
+__install_silent() {
+  __install "$@" >>./logs/install.log
+}
+
+# @completed
+__lint() {
+  "${bin}/eslint" . --ext .ts "$1"
+}
+
+# @completed
+__compile() {
+  if [[ "$1" == "d" ]] || [[ "$1" == "dev" ]] || [[ "$1" == "development" ]]; then
+    export NODE_ENV="development"
+  elif [[ "$1" == "p" ]] || [[ "$1" == "prod" ]] || [[ "$1" == "production" ]]; then
+    export NODE_ENV="production"
+  else
+    export NODE_ENV="$1"
+  fi
+
+  if [[ "$2" == "i" ]] || [[ "$2" == "install" ]]; then
+    __install "lib"
+  fi
+
+  "$bin/webpack"
+}
+
+# @completed
+__compile_silent() {
+  __compile "$@" >>./logs/compile.log
+}
+
+# @completed
+__run() {
+  local _name="$2"
+  local name=""
+
+  if [[ "$3" =~ "i" ]]; then
+    __install_silent "lib"
+  fi
+
+  if [[ "$3" =~ "c" ]]; then
+    __compile_silent "$1"
+  fi
+
+  [[ "${_name}" != "nd" ]] && [[ "${_name}" != "nd-admin" ]] && _name="nd"
+
+  if [[ $NODE_ENV == "development" ]]; then
+    name="${_name}.js"
+  elif [[ $NODE_ENV == "production" ]]; then
+    name="${_name}.min.js"
+  else
+    name="${_name}.js"
+  fi
+
+  shift 3
+
+  node "./dist/${name}" $@
+}
+
+# @completed
+__build() {
+  if [[ "$3" =~ "i" ]]; then
+    __install_silent "lib"
+  fi
+
+  if [[ "$3" =~ "c" ]]; then
+    __compile_silent "production"
+  fi
+
+  npx pkg . --out-path dist/bin --targets "node12-macos-x64,node12-linux-x64,node12-alpine-x64,node12-win-x64"
+}
+
+# @completed
+__test() {
+  if [[ "$1" == "ci" ]] || [[ "$2" == "ci" ]]; then
+    export CI=true
+  else
+    export CI=false
+  fi
+
+  if [[ "$1" == "debug" ]] || [[ "$2" == "debug" ]]; then
+    export TS_NODE_DEBUG=true
+  else
+    export TS_NODE_DEBUG=false
+  fi
+
+  export TS_NODE_SKIP_IGNORE=true
+  export TS_NODE_IGNORE=false
+  export NODE_ENV="test"
+
+  ${npm_client} nyc ava
+}
+
+# @completed
+__clean() {
+  local deleted=("dist" ".nyc_output" "coverage" ".caches" "./docs/reports/statistics-dev.html" "./docs/reports/statistics.html")
+  [[ "$1" == "all" ]] && deleted+=("node_modules" "yarn.lock")
+
+  echo "rm -rf ./docs/reports/**/*.html ${deleted[@]}"
+  rm -rf ${deleted[@]}
+}
+
+# @completed
+__docs() {
+  if [[ $1 == "loc" ]]; then
+    ./scripts/loc.sh "sum" && ./scripts/loc.sh "lib"
+  elif [[ $1 == "api" ]]; then
+    "$npm_client" typedoc
+  else
+    echo "invalid doc command"
+  fi
+}
+
+# @completed
+__publish() {
+  local subcommand="$1"
+  shift
+
+  if [[ "$subcommand" == "api" ]]; then
+    "${bin}/gh-pages" \
+      --dist docs/api \
+      --message "chore(gh-pages): publish new apidoc" \
+      --dotfiles \
+      --add
+  elif [[ "$subcommand" == "core" ]]; then
+    ./scripts/release_core.sh "$@"
+  elif [[ "$subcommand" == "lib" ]]; then
+    ./scripts/release_lib.sh "$@"
+  else
+    echo "invalid subcommand for publish ($subcommand)"
+  fi
+}
+
+if [[ "$cmd" == "install" ]] || [[ "$cmd" == "i" ]]; then
+  __install "$@"
+elif [[ "$cmd" == "install-silent" ]] || [[ "$cmd" == "ls" ]]; then
+  __install_silent "$@"
+elif [[ "$cmd" == "lint" ]] || [[ "$cmd" == "l" ]]; then
+  __lint "$@"
+elif [[ "$cmd" == "compile" ]] || [[ "$cmd" == "c" ]]; then
+  __compile "$@"
+elif [[ "$cmd" == "compile-silent" ]] || [[ "$cmd" == "cs" ]]; then
+  __compile_silent "$@"
+elif [[ "$cmd" == "run" ]] || [[ "$cmd" == "r" ]]; then
+  __run "$@"
+elif [[ "$cmd" == "build" ]] || [[ "$cmd" == "b" ]]; then
+  __build "$@"
+elif [[ "$cmd" == "test" ]] || [[ "$cmd" == "t" ]]; then
+  __test "$@"
+elif [[ "$cmd" == "clean" ]] || [[ "$cmd" == "cn" ]]; then
+  __clean "$@"
+elif [[ "$cmd" == "docs" ]] || [[ "$cmd" == "d" ]]; then
+  __docs "$@"
+elif [[ "$cmd" == "publish" ]] || [[ "$cmd" == "p" ]]; then
+  __publish "$@"
+else
+  echo "invalid \"$cmd\" command"
+  exit 1
+fi
