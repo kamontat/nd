@@ -15,7 +15,7 @@
 #   compile-silent <dev|prod>
 #   run            <prod|dev> <nd|nd-admin> <i|c|ci|o> # i = install, c = compile, ci = install and compile, o = only run
 #   build          [i|c|ci]
-#   test           [ci] [debug]                        # ci = test in ci
+#   test           [491|169|169491]                    # 491 = test in ci, 169 = debug, 169491 = run debug in ci
 #   clean          [all]
 #   docs           [loc|api]                           # loc = line of code, api = apidoc to gh-pages, empty = run all
 #   publish        [api|core|lib]                      # api = publish to gh-pages, lib = create tag to lib, core = coreate tag to lib
@@ -132,23 +132,27 @@ __build() {
 
 # @completed
 __test() {
-  if [[ "$1" == "ci" ]] || [[ "$2" == "ci" ]]; then
+  if [[ $1 =~ "491" ]]; then
     export CI=true
   else
     export CI=false
   fi
 
-  if [[ "$1" == "debug" ]] || [[ "$2" == "debug" ]]; then
+  if [[ $1 =~ "169" ]]; then
     export TS_NODE_DEBUG=true
   else
     export TS_NODE_DEBUG=false
+  fi
+
+  if [[ "$CI" == "true" ]] || [[ "$TS_NODE_DEBUG" == "true" ]]; then
+    shift
   fi
 
   export TS_NODE_SKIP_IGNORE=true
   export TS_NODE_IGNORE=false
   export NODE_ENV="test"
 
-  ${npm_client} nyc ava
+  ${npm_client} nyc ava "$@"
 }
 
 # @completed
