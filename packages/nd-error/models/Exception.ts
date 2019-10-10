@@ -1,4 +1,5 @@
 import LoggerService, { Logger } from "@nd/logger";
+import { RandomUtils } from "@nd/helper";
 
 import { ERR_GNL } from "../constants";
 
@@ -14,27 +15,34 @@ export default class Exception extends Error {
     return this;
   }
 
-  private _description: string;
+  public get isWarn() {
+    return !this._exit;
+  }
+
+  public get id() {
+    return this._id;
+  }
+
+  private _id: string;
+  private _description: string | undefined;
   private env: string;
 
   constructor(private _code: IExceptionState, description?: string | Error, private _exit: boolean = true) {
     super(``);
+    this._id = RandomUtils.RandomString(30);
 
     this.env = NODE_ENV;
-    if (description === undefined || description === null) this._description = `Error: ${_code.name}`;
-    else if (typeof description === "string") this._description = description || "";
-    else
-      this._description =
-        this.env === "production"
-          ? (description as Error).message
-          : `${(description as Error).message}\n${(description as Error).stack}`;
+
+    if (description instanceof Error)
+      this._description = this.env === "production" ? description.message : description.stack;
+    else this._description = description;
 
     this.name = _code.code;
     this.message = _code.buildMessage(_exit ? MessageType.ERROR : MessageType.WARNING, this._description);
   }
 
   public static cast<T extends Error>(e: T, opts?: { base?: IExceptionState }): Exception {
-    if (e instanceof Exception) return e;
+    if (e instanceof Exception) return new Exception(e._code, e._description, e._exit);
 
     return new Exception(!opts || !opts.base ? ERR_GNL : opts.base, e);
   }
