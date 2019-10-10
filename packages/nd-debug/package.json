@@ -1,7 +1,7 @@
 {
   "name": "@nd/debug",
-  "version": "0.1.0-rc.2",
-  "description": "this package only use when run with debug mode",
+  "version": "0.1.0-rc.3",
+  "description": "this will send environment for debug nd command",
   "dependencies": {
     "@nd/config": "./packages/nd-config",
     "@nd/error": "./packages/nd-error",
@@ -10,6 +10,10 @@
     "chalk": "2.4.2"
   },
   "changelog": {
+    "0.1.0-rc.3": {
+      "message": "disable debug color too, but it seem not work",
+      "date": "10 Oct 2019"
+    },
     "0.1.0-rc.2": {
       "message": "change package name from nd-debug to @nd/debug",
       "date": "28 Sep 2019"
