@@ -73,11 +73,9 @@ export const DoValidation = <T>(key: string, value?: any): { err?: Error; value?
   } else {
     if (schema.type === "string" && typeof value === schema.type) return { value };
     else if (schema.type === "number") {
-      try {
-        return { value: parseInt(value, 10) as any };
-      } catch (e) {
-        return { err: CONFIG_MISS_TYPE(key, value) };
-      }
+      const result = parseInt(value, 10);
+      if (isNaN(result)) return { err: CONFIG_MISS_TYPE(key, value) };
+      else return { value: result as any };
     } else if (schema.type === "boolean") {
       if (value === true || value === "true" || value === "1" || value === 1) return { value: true as any };
       else if (value === false || value === "false" || value === "0" || value === 0) return { value: false as any };
