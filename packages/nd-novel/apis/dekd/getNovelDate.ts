@@ -8,7 +8,7 @@ export default (parser: IParser<string, string, Cheerio>) => {
     .query(".writer-section-head")
     .find("span")
     .text()
-    .replace("อัพเดท ", "")
+    .replace(/อั(ต|ป|บ)เด(ท|ต) /g, "")
     .trim();
 
   LoggerService.log(LOGGER_NOVEL_BUILDER, `try to get novel date: ${dateString}`);
