@@ -113,7 +113,9 @@
     "webpack-visualizer-plugin": "./packages/webpack-visualizer"
   },
   "pkg": {
-    "assets": ["package.json"]
+    "assets": [
+      "package.json"
+    ]
   },
   "engines": {
     "node": ">=8.0.0 <13.0.0",
