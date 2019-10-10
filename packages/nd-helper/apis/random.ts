@@ -16,7 +16,7 @@ export default {
    */
   RandomNumber(_opts: { end?: number; start?: number }) {
     let start = Optional.of(_opts.start).or(0);
-    let end = Optional.of(_opts.start).or(this.DefaultValue);
+    let end = Optional.of(_opts.end).or(this.DefaultValue);
 
     if (start === undefined || end === null)
       if (start > end) {
