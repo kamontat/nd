@@ -56,6 +56,8 @@ commit:
       value: Config submodules
     - type: error
       value: Error submodules
+    - type: debug
+      value: Debug submodules
     - type: Thread
       value: Thread submodules
     - type: helper
