@@ -88,10 +88,9 @@ test("exception can custom message by object method", t => {
 });
 
 test("create exception via service", t => {
-  const msg = "3187048293";
   const err = ExceptionService.build(ERR_DBO);
   const err2 = new Exception(ERR_DBO);
 
   t.is(err.name, err2.name, "result of ExceptionService and new Exception should be the same");
-  t.not(err.stack, err2.stack);
+  t.not(err.stack, err2.stack, "since we create exception difference ways, stack shouldn't be the same either");
 });

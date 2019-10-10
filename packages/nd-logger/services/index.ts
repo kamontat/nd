@@ -6,7 +6,7 @@ import Logger from "../models/Logger";
 
 export default class LoggerService {
   public static console = {
-    log(message?: any, ...other: any[]) {
+    log(message?: string, ...other: string[]) {
       const level = config.get("output.level");
       if (level !== "0" && debug.enabled("nd:*")) console.log(message, ...other);
     },
@@ -20,7 +20,8 @@ export default class LoggerService {
     debug.enable(name);
   }
 
-  public static error<T extends Logger>(log: T, message: any, ...args: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static error<T extends Logger>(log: T, message: string, ...args: any[]) {
     log
       .stderr()
       .extend("error")
@@ -36,11 +37,13 @@ export default class LoggerService {
     else if (CheckerUtils.CheckWithNumber(3, level)) this.enable("*");
   }
 
-  public static log<T extends Logger>(log: T, message: any, ...args: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static log<T extends Logger>(log: T, message: string, ...args: any[]) {
     log.stdlog().debug(message, ...args);
   }
 
-  public static warn<T extends Logger>(log: T, message: any, ...args: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static warn<T extends Logger>(log: T, message: string, ...args: any[]) {
     log
       .stdlog()
       .extend("warn")

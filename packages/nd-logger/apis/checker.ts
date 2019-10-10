@@ -1,9 +1,11 @@
 export default {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CheckWithString(checker: string, value?: any) {
     if (value === undefined || value === null) return false;
     if (checker === value) return true;
     else return false;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CheckWithNumber(checker: number, value?: any) {
     if (value === undefined || value === null) return false;
     if (checker === value) return true;
@@ -11,6 +13,7 @@ export default {
 
     return false;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CheckWithBoolean(checker: boolean, value?: any) {
     if (value === undefined || value === null) return false;
     if (checker === true) return value === "true" || value === true || value === "1" || value === 1;

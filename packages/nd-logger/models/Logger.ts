@@ -13,6 +13,7 @@ export default class Logger {
     this._logger = debug(namespace);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public debug(format: any, ...args: any[]) {
     return this._logger(format, ...args);
   }

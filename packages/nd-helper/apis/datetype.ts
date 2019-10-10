@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { readFileSync as readFile } from "fs";
 import LoggerService, { LOGGER_HELPER } from "@nd/logger";
 import { sep } from "path";

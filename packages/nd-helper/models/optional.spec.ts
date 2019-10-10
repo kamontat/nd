@@ -17,12 +17,12 @@ test("create with bool data", t => {
 });
 
 test("create with undefined data", t => {
-  const o = Optional.of<any>(undefined);
+  const o = Optional.of<string>(undefined);
   t.is(o.or("exist"), "exist");
 });
 
 test("create with null data", t => {
-  const o = Optional.of<any>(null);
+  const o = Optional.of<string>(null);
   t.is(o.or("no-null"), "no-null");
 });
 
