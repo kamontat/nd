@@ -1,11 +1,15 @@
 {
   "name": "@nd/helper",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "interface, absolute class and other helper methods",
   "dependencies": {
     "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "0.8.4": {
+      "message": "fix RandomUtils didn't actually random",
+      "date": "10 Oct 2019"
+    },
     "0.8.3": {
       "message": "change package name from nd-helper to @nd/helper",
       "date": "28 Sep 2019"
