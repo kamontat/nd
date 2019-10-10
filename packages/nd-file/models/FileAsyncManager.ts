@@ -173,7 +173,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
       __options = this.options(this.options(opts, fileName), defaultOption) as WriteOption; // pass 2 with only options
     }
 
-    LoggerService.log(LOGGER_FILE, `write() to file with option %O`, __options);
+    LoggerService.log(LOGGER_FILE, `write() to ${directory} with option %O`, __options);
 
     const isExist = await exist(directory);
     // force create
