@@ -1,11 +1,15 @@
 {
   "name": "@nd/helper",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "interface, absolute class and other helper methods",
   "dependencies": {
     "@nd/logger": "./packages/nd-logger"
   },
   "changelog": {
+    "0.8.5": {
+      "message": "add new utils for string, add Padding",
+      "date": "10 Oct 2019"
+    },
     "0.8.4": {
       "message": "fix RandomUtils didn't actually random",
       "date": "10 Oct 2019"
