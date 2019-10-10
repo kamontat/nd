@@ -18,7 +18,6 @@ export class ExceptionState implements IExceptionState {
   }
 
   public buildMessage(type: MessageType, override?: string) {
-    if (override) return override;
-    return `${this.name} ${type === MessageType.ERROR ? "error" : "warning"}`;
+    return `${type === MessageType.ERROR ? "Error" : "Warn"}(${this.code}): ${override ? override : this.name}`;
   }
 }
