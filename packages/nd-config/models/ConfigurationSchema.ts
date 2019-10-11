@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import ExceptionService, { ERR_CFG } from "@nd/error";
 import LoggerService, { LOGGER_CONFIG } from "@nd/logger";
 
