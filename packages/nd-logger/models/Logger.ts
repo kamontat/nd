@@ -7,6 +7,10 @@ export default class Logger {
     return this._logger.enabled;
   }
 
+  get namespace() {
+    return this._logger.namespace;
+  }
+
   private _logger: Debugger;
 
   constructor(namespace: string) {
