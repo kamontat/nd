@@ -26,4 +26,7 @@ options:
       - "#"
   notes:
     keywords:
+      - BREAKCHANGE
+      - BREAK_CHANGE
+      - BREAK CHANGE
       - BREAKING CHANGE
