@@ -38,9 +38,9 @@ echo "Help:
 
 echo "Starting...   release core cli"
 
-VERSION=$(node -p -e "require('./package.json').version")
-RELEASE_NOTE=$(node -p -e "require('./package.json').changelog['${VERSION}'].message")
-RELEASE_NOTE_DATE=$(node -p -e "require('./package.json').changelog['${VERSION}'].date")
+VERSION=$(node -p -e "require('./packages/nd-core/package.json').version")
+RELEASE_NOTE=$(node -p -e "require('./packages/nd-core/package.json').changelog['${VERSION}'].message")
+RELEASE_NOTE_DATE=$(node -p -e "require('./packages/nd-core/package.json').changelog['${VERSION}'].date")
 [[ "$RELEASE_NOTE" == "undefined" ]] && RELEASE_NOTE="NOT FOUND; please update release note first!"
 
 echo "Creating...   tag ${VERSION} 
