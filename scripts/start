@@ -167,12 +167,17 @@ __clean() {
 # @completed
 __docs() {
   if [[ $1 == "loc" ]]; then
-    ./scripts/loc.sh "sum" && ./scripts/loc.sh "lib"
+    bash ./scripts/loc.sh "sum" && bash ./scripts/loc.sh "lib"
   elif [[ $1 == "api" ]]; then
     "$npm_client" typedoc
   else
     echo "invalid doc command"
   fi
+}
+
+# @completed
+__changelog() {
+  git chglog --config .gitgo/chglog/config.yml --output docs/reports/CHANGELOG.md --tag-filter-pattern "^v" "$@"
 }
 
 # @completed
@@ -215,6 +220,8 @@ elif [[ "$cmd" == "clean" ]] || [[ "$cmd" == "cn" ]]; then
   __clean "$@"
 elif [[ "$cmd" == "docs" ]] || [[ "$cmd" == "d" ]]; then
   __docs "$@"
+elif [[ "$cmd" == "changelog" ]] || [[ "$cmd" == "cl" ]]; then
+  __changelog "$@"
 elif [[ "$cmd" == "publish" ]] || [[ "$cmd" == "p" ]]; then
   __publish "$@"
 else
