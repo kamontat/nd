@@ -1,11 +1,9 @@
-@nd/logger: v1.2.6
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (702.7 files/s, 26177.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-TypeScript|7|46|4|177
+TypeScript|7|50|11|183
 JSON|1|0|0|71
 --------|--------|--------|--------|--------
-SUM:|8|46|4|248
+SUM:|8|50|11|254

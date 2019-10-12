@@ -1,6 +1,4 @@
-@nd/html-generator: v1.0.0-beta.8
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.02 s (1260.6 files/s, 40275.3 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code

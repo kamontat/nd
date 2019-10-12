@@ -1,11 +1,9 @@
-@nd/security: v1.6.2
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (824.3 files/s, 23722.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-TypeScript|8|39|1|174
-JSON|1|0|0|45
+TypeScript|8|40|1|175
+JSON|1|0|0|49
 --------|--------|--------|--------|--------
-SUM:|9|39|1|219
+SUM:|9|40|1|224

@@ -1,6 +1,4 @@
-@nd/thread: v2.0.1
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (508.4 files/s, 20947.6 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code

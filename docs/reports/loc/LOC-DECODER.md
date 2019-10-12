@@ -1,6 +1,4 @@
-@nd/decoder: v1.0.2
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (261.2 files/s, 5616.4 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code

@@ -1,11 +1,9 @@
-@nd/error: v2.2.3
-
-cloc|github.com/AlDanial/cloc v 1.84  T=0.01 s (664.2 files/s, 18266.4 lines/s)
+cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-TypeScript|7|41|13|121
+TypeScript|7|44|13|125
 JSON|1|0|0|45
 --------|--------|--------|--------|--------
-SUM:|8|41|13|166
+SUM:|8|44|13|170
