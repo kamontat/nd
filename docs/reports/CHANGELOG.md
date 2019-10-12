@@ -4,6 +4,62 @@
 
 ## [Unreleased]
 
+<a name="v1.0.0-alpha.5"></a>
+
+## [v1.0.0-alpha.5] - 2019-10-12
+
+### 1. Introduce new features
+
+- **content:** add new models for novel content
+- **core:** add new packages is nd-core for core of nd command
+- **database:** support no internet connection error
+- **helper:** add string utils to helper modules
+- **html-gen:** support new content object of novel content
+
+### 2. Command improvement
+
+- **cli-builder:** add version as parameters of commandline
+- **content:** expose object to nd-content
+- **database:** remove unknown log from firebase
+- **debug:** move models to folder and add support disable color in debug log
+- **deps:** update changelog config to support BREAK_CHANGE format
+- **downloader:** update new typo with level 2 is set.
+- **error:** add more helpful method in exception object
+- **error:** update log format
+- **helper:** add more test in random and optional object
+- **logger:** export namespace of logger instance
+- **novel:** add support to novel and chapter object
+- **novel:** update novel apis method to return new content object
+- **security:** update security generate method
+
+### 3. Command bug destoryer
+
+- **ci:** add env var to linter and tester
+- **cli:** update commandline object to support new version
+- **cli:** change application name in help option
+- **config:** parser is working incorrect when enter number
+- **core:** version and command description is switch
+- **docs:** update command version space
+- **helper:** number is not random, it always return 0
+- **helper:** test must specify timezone
+- **helper:** update random method to resolve testcase
+- **helper:** fix some testcase of optional models is fail
+- **helper:** update more usecase to random apis
+- **lint:** resolve any warning in db and config
+- **lint:** remove unused object
+- **logger:** console of log service depend on config only
+- **novel:** resolve something command get invalid update at date
+
+### Pull Requests
+- Merge pull request [#3](https://github.com/kamontat/nd/issues/3) from kamontat/dependabot/npm_and_yarn/webpack-cli-3.3.9
+- Merge pull request [#4](https://github.com/kamontat/nd/issues/4) from kamontat/dependabot/npm_and_yarn/types/jsonwebtoken-8.3.4
+- Merge pull request [#15](https://github.com/kamontat/nd/issues/15) from kamontat/dependabot/npm_and_yarn/mixin-deep-1.3.2
+
+### BREAK_CHANGE
+
+This lead to all security key that generate before this
+version release cannot be used.
+
 <a name="v1.0.0-alpha.4"></a>
 
 ## [v1.0.0-alpha.4] - 2019-09-28
@@ -427,6 +483,7 @@
 - **security:** change allowness of 1 month
 
 
+[v1.0.0-alpha.5]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.4...v1.0.0-alpha.5
 [v1.0.0-alpha.4]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.3...v1.0.0-alpha.4
 [v1.0.0-alpha.3]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.2...v1.0.0-alpha.3
 [v1.0.0-alpha.2]: https://github.com/kamontat/nd/compare/v1.0.0-alpha.1...v1.0.0-alpha.2

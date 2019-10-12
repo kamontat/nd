@@ -58,7 +58,7 @@ git add docs/reports/loc
 
 echo "Starting...   update CHANGELOG and add to commit"
 
-make changelog
+yarn helper changelog
 git add docs/reports/CHANGELOG.md
 
 echo "Starting...   commit package.json (assume you just update package.json)"
@@ -79,7 +79,7 @@ git tag "$TAG_NAME"
 
 echo "Starting...   build executable package (using pkg command)"
 
-make build mode=production quite=true
+yarn build
 
 echo "Starting...   push all final change and tag to Github"
 

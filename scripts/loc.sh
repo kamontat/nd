@@ -14,6 +14,7 @@ run_cloc() {
       --md \
       --fullpath \
       --hide-rate \
+      --quiet \
       --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" \
       --not-match-f="(.*)\.spec\.ts" \
       --report-file ./docs/reports/loc/$filename &&

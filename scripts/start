@@ -119,11 +119,11 @@ __run() {
 
 # @completed
 __build() {
-  if [[ "$3" =~ "i" ]]; then
+  if [[ "$1" =~ "i" ]]; then
     __install_silent "lib"
   fi
 
-  if [[ "$3" =~ "c" ]]; then
+  if [[ "$1" =~ "c" ]]; then
     __compile_silent "production"
   fi
 
