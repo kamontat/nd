@@ -7,7 +7,7 @@ import LoggerService, { LOGGER_CLI } from "@nd/logger";
 declare let __NODE_ENV__: string;
 const NODE_ENV = process.env.NODE_ENV === "test" ? "test" : __NODE_ENV__;
 
-const cli = new Commandline(Package.name, Package.description);
+const cli = new Commandline(Package.name, Package.version, Package.description);
 
 (async () => {
   // add config handler

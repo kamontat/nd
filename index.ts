@@ -18,10 +18,11 @@ import { homedir } from "os";
 
 import { BuildCommandline, UpdateLogInfo } from "@nd/core";
 import { Package } from "./src/build/Package";
+import { Package as CorePackage } from "@nd/core";
 
 InitialFirebaseDatabase();
 
-const cli = new Commandline(Package.name, Package.description);
+const cli = new Commandline(Package.name, CorePackage.version, Package.description);
 
 const home = homedir();
 

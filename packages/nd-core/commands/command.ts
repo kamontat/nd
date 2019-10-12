@@ -11,12 +11,12 @@ export default (cli: Commandline, _: IConfiguration) => {
     let msg = "";
     const json = apis.config.get("command.output.json", false);
     if (json) {
-      const root = JSON.parse(await COMMAND_INFORMATION(self.name, { json }));
+      const root = JSON.parse(await COMMAND_INFORMATION(self.name, self.version, { json }));
       const next = JSON.parse(await ProgramVerification(self, { json }));
 
       msg = JSON.stringify({ ...root, ...next }, undefined, "  ");
     } else {
-      msg = await COMMAND_INFORMATION(self.name, { json });
+      msg = await COMMAND_INFORMATION(self.name, self.version, { json });
       msg += "\n\n\n";
       msg += await ProgramVerification(self, { json });
     }
@@ -35,7 +35,7 @@ export default (cli: Commandline, _: IConfiguration) => {
       .sub(
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
-${HELP_HEADER(self.name, self.description)}
+${HELP_HEADER(self.name, self.version, self.description)}
 ${HELP_COMMAND(self.name)}`);
         }),
       )
@@ -45,7 +45,7 @@ ${HELP_COMMAND(self.name)}`);
 
           if (apis.config.get("version.detail"))
             LoggerService.console.log(VERSION_FULL(config.get("command.version.detail.limit")));
-          else LoggerService.console.log(VERSION());
+          else LoggerService.console.log(VERSION(self.name, self.version));
         }).option(
           Option.build("detail", false, ({ apis }) => {
             LoggerService.log(LOGGER_CLI, `Start version as a fully detail`);

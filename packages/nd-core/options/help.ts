@@ -10,7 +10,7 @@ export const Help = (cli: Commandline, _: IConfiguration) => {
       LoggerService.log(LOGGER_CLI, `${self.name} start --help`);
 
       LoggerService.console.log(`
-${HELP_HEADER(self.name, self.description)}
+${HELP_HEADER(self.name, self.version, self.description)}
 ${HELP_CONTENT(self.name)}
 ${HELP_FOOTER(self.name)}`);
       return apis.end;

@@ -17,8 +17,6 @@ import { Package as SecurityPackage, Security } from "@nd/security";
 import { Package as ThreadPackage } from "@nd/thread";
 import { Package as CorePackage } from "@nd/core";
 
-import { Package } from "@nd/core";
-
 declare let __COMPILE_DATE__: string;
 const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
 
@@ -197,20 +195,20 @@ const AUTHOR = (_: string) => {
 Enjoy your days; {blueBright ${CorePackage.author}}`;
 };
 
-export const HELP_HEADER = (name: string, description: string) => {
+export const HELP_HEADER = (name: string, version: string, description: string) => {
   const date = new Date(COMPILE_DATE);
   return `${Colorize.appname(name.toUpperCase())} command; ${description}
 Built at ${Colorize.datetime(date.toLocaleString())}
-Version  ${Colorize.version(Package.version)}`;
+Version  ${Colorize.version(version)}`;
 };
 
 export const HELP_FOOTER = (name: string) => {
   return LICENSE(name) + AUTHOR(name);
 };
 
-export const VERSION = () => {
+export const VERSION = (name: string, version: string) => {
   return Colorize.format`{dim --------------------------------------}
-{yellowBright ${Package.name}}                          : {blueBright ${Package.version}}
+{yellowBright ${name}}                          : {blueBright ${version}}
 {yellowBright ${CorePackage.name}}                    : {blueBright ${CorePackage.version}}
 {yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
@@ -253,7 +251,7 @@ export const VERSION_FULL = (limit = 5) => {
   const dependencies: Array<IDependency> = [];
 
   // root package
-  dependencies.push(genInternalDependency(Package));
+  // dependencies.push({name: });
 
   // core package
   dependencies.push(genInternalDependency(CorePackage));
@@ -345,13 +343,13 @@ export const VERSION_FULL = (limit = 5) => {
   return str;
 };
 
-export const __COMMAND_INFORMATION_JSON = async (name: string) => {
+export const __COMMAND_INFORMATION_JSON = async (name: string, version: string) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const obj: { [key: string]: any } = {
     command: {
       name,
-      version: Package.version,
-      author: Package.author,
+      version,
+      author: CorePackage.author,
     },
     admin: {
       version: AdminPackage.version,
@@ -391,14 +389,14 @@ export const __COMMAND_INFORMATION_JSON = async (name: string) => {
   return JSON.stringify(obj);
 };
 
-export const __COMMAND_INFORMATION_TEXT = async (name: string) => {
+export const __COMMAND_INFORMATION_TEXT = async (name: string, version: string) => {
   let result = `# Authentization
 --------------
 `;
 
   result += `
 Command name:            ${Colorize.appname(name)}
-Command version:         ${Colorize.version(Package.version)} (${Colorize.version(CorePackage.version)})
+Command version:         ${Colorize.version(version)} (${Colorize.version(CorePackage.version)})
 Command author:          ${Colorize.name(CorePackage.author)}
 Command date:            ${Colorize.datetime(TimeUtils.FormatDate(new Date(COMPILE_DATE)))}
 
@@ -450,7 +448,7 @@ Authentication name:     {greenBright ${config.get("auth.name") as string}}`
   );
 };
 
-export const COMMAND_INFORMATION = (name: string, opts: { json: boolean }) => {
-  if (opts.json) return __COMMAND_INFORMATION_JSON(name);
-  else return __COMMAND_INFORMATION_TEXT(name);
+export const COMMAND_INFORMATION = (name: string, version: string, opts: { json: boolean }) => {
+  if (opts.json) return __COMMAND_INFORMATION_JSON(name, version);
+  else return __COMMAND_INFORMATION_TEXT(name, version);
 };

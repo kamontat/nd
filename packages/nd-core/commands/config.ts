@@ -24,7 +24,7 @@ export default (cli: Commandline, config: IConfiguration) => {
       .sub(
         SubCommand.build("help", false, ({ self }) => {
           LoggerService.console.log(`
-${HELP_HEADER(self.name, self.description)}
+${HELP_HEADER(self.name, self.version, self.description)}
 ${HELP_CONFIGURATION(self.name)}`);
         }),
       )
