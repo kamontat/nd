@@ -10,6 +10,12 @@ import Option from "./Option";
 import Optionable, { IOptionable } from "./Optionable";
 
 export default class Commandline implements IOptionable {
+  get name() {
+    return this._name;
+  }
+  get version() {
+    return this._version;
+  }
   get description() {
     return this._description;
   }
@@ -24,15 +30,17 @@ export default class Commandline implements IOptionable {
   get event() {
     return this._event;
   }
-  get name() {
-    return this._name;
-  }
 
   private _callback?: ICommandCallback;
   private _commands: Map<string, Command>;
   private _globalOptions: Map<string, Option>;
 
-  constructor(private _name: string, private _description: string, private _event: CommandlineEvent = Default) {
+  constructor(
+    private _name: string,
+    private _description: string,
+    private _version: string,
+    private _event: CommandlineEvent = Default,
+  ) {
     this._globalOptions = new Map();
     this._commands = new Map();
 
