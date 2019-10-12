@@ -1,6 +1,6 @@
 {
   "name": "@nd/security",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "security management for nd command",
   "dependencies": {
     "@nd/database": "./packages/nd-database",
@@ -10,6 +10,10 @@
     "jsonwebtoken": "8.5.1"
   },
   "changelog": {
+    "1.7.0": {
+      "message": "change how the key encrypted and decrypted",
+      "date": "12 Oct 2019"
+    },
     "1.6.2": {
       "message": "change package name from nd-security to @nd/security",
       "date": "28 Sep 2019"
