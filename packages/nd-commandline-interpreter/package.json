@@ -1,6 +1,6 @@
 {
   "name": "@nd/commandline-interpreter",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "@nd/config": "./packages/nd-config",
@@ -9,6 +9,10 @@
     "@nd/security": "./packages/nd-security"
   },
   "changelog": {
+    "1.2.6": {
+      "message": "add version as a parameter of commandline and able to use across command object",
+      "date": "12 Oct 2019"
+    },
     "1.2.5": {
       "message": "change package name from nd-commandline-interpreter to @nd/commandline-interpreter",
       "date": "28 Sep 2019"
