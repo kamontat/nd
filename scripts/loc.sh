@@ -9,7 +9,14 @@ run_cloc() {
   [[ "$packages" == "index.ts" ]] && root="./packages/nd-core"
 
   node -p "const package = require('$root/package.json'); package.name + ': v' + package.version" >./docs/reports/loc/$filename &&
-    cloc "$packages" $@ --fullpath --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" --not-match-f="(.*)\.spec\.ts" --md >>./docs/reports/loc/$filename &&
+    cloc \
+      "$packages" $@ \
+      --md \
+      --fullpath \
+      --hide-rate \
+      --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" \
+      --not-match-f="(.*)\.spec\.ts" \
+      --report-file ./docs/reports/loc/$filename &&
     echo "completed" || echo "failure"
 }
 
