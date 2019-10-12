@@ -22,7 +22,7 @@ import { Package as CorePackage } from "@nd/core";
 
 InitialFirebaseDatabase();
 
-const cli = new Commandline(Package.name, CorePackage.version, Package.description);
+const cli = new Commandline(Package.name, Package.description, CorePackage.version);
 
 const home = homedir();
 
