@@ -1,6 +1,6 @@
 {
   "name": "@nd/core",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "core interface for commandline and apis",
   "author": "0110101101100011 0110111011001000101101011000010110010011011010110100101101110",
   "dependencies": {
@@ -11,6 +11,10 @@
     "@nd/commandline-interpreter": "./packages/nd-commandline-interpreter"
   },
   "changelog": {
+    "1.0.0-alpha.5": {
+      "message": "code improvement and a lot of bug destroyer",
+      "date": "12 Oct 2019"
+    },
     "1.0.0-alpha.4": {
       "message": "make improvement on code level; nothing change much",
       "date": "28 Sep 2019"
