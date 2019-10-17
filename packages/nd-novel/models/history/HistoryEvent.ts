@@ -30,7 +30,7 @@ export class HistoryEvent extends Event implements IHistoryEvent {
         } else if (v.toString() === "undefined") {
           LoggerService.log(LOGGER_HISTORY, `undefined string of object type`);
           return false;
-        } else if (v === {}) {
+        } else if (Object.keys(v).length <= 0) {
           LoggerService.log(LOGGER_HISTORY, `empty object type`);
           return false;
         }
