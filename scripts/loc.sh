@@ -1,4 +1,5 @@
 run_cloc() {
+  local title
   local filename="$1"
   local packages="$2"
   shift 2
@@ -8,24 +9,37 @@ run_cloc() {
   root="$packages"
   [[ "$packages" == "index.ts" ]] && root="./packages/nd-core"
 
-  node -p "const package = require('$root/package.json'); package.name + ': v' + package.version" >./docs/reports/loc/$filename &&
-    cloc \
-      "$packages" $@ \
-      --md \
-      --fullpath \
-      --hide-rate \
-      --quiet \
-      --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" \
-      --not-match-f="(.*)\.spec\.ts" \
-      --report-file ./docs/reports/loc/$filename &&
+  title="$(node -p "const package = require('$root/package.json'); package.name + ': \`v' + package.version + '\`'")\n\n"
+
+  cloc \
+    "$packages" $@ \
+    --md \
+    --fullpath \
+    --hide-rate \
+    --quiet \
+    --not-match-d="(node_modules|.nyc_output|coverage|dist|webpack-visualizer|reports)" \
+    --not-match-f="(.*)\.spec\.ts" \
+    --report-file ./docs/reports/loc/$filename &&
+    prepend "$filename" "$title" &&
     echo "completed" || echo "failure"
+
+}
+
+prepend() {
+  local report="./docs/reports/loc/$1"
+  local content
+  shift
+
+  content="$(cat "$report")"
+  printf "$@$content" >$report
+
 }
 
 append() {
   local filename="$1"
   shift
 
-  echo "$@" >>./docs/reports/loc/$filename
+  printf "$@" >>./docs/reports/loc/$filename
 }
 
 if [[ $1 == 'lib' ]]; then
@@ -50,5 +64,6 @@ if [[ $1 == 'lib' ]]; then
   run_cloc "LOC-DATABASE.md" "./packages/nd-database"
 else
   run_cloc "README.md" "index.ts" "admin.ts" "src" "packages" "docs" "scripts"
-  append "README.md" "\nCreate date is $(date "+%d/%m/%Y - %H:%M:%S")"
+
+  append "README.md" "\n\nCreate date is $(date "+%d/%m/%Y - %H:%M:%S")"
 fi
