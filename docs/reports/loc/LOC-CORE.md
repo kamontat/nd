@@ -1,3 +1,5 @@
+@nd/core: `v1.0.0-alpha.5`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

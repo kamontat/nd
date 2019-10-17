@@ -1,3 +1,5 @@
+@nd/security: `v1.7.0`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

@@ -1,3 +1,5 @@
+@nd/novel: `v1.5.0-beta.2`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

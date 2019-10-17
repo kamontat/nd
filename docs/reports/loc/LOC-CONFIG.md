@@ -1,3 +1,5 @@
+@nd/config: `v1.6.5`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

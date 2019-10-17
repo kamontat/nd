@@ -1,3 +1,5 @@
+@nd/formatter: `v1.2.7`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

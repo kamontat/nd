@@ -1,3 +1,5 @@
+@nd/downloader: `v1.0.5`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
