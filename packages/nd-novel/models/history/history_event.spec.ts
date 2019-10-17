@@ -71,7 +71,7 @@ test(
   {
     before: { value: "string" },
     after: new (class {
-      public v: string = "hello, V";
+      public v = "hello, V";
     })(),
   },
   "modified",
