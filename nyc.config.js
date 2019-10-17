@@ -15,6 +15,7 @@ module.exports = {
     "index.ts",
     "admin.ts",
     "**/*.js",
+    "packages/nd-core/**/*", // FIXME: temporary disable core since it effect commandline interface
   ],
   branches: 40,
   lines: 40,
