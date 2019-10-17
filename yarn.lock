@@ -1284,7 +1284,7 @@
     "@nd/security" "./packages/nd-security"
 
 "@nd/commandline-interpreter@./packages/nd-commandline-interpreter":
-  version "1.2.5"
+  version "1.2.6"
   dependencies:
     "@nd/config" "./packages/nd-config"
     "@nd/error" "./packages/nd-error"
@@ -1303,7 +1303,7 @@
     "@nd/logger" "./packages/nd-logger"
 
 "@nd/core@./packages/nd-core":
-  version "1.0.0-alpha.4"
+  version "1.0.0-alpha.5"
   dependencies:
     "@nd/commandline-interpreter" "./packages/nd-commandline-interpreter"
     "@nd/config" "./packages/nd-config"
@@ -1319,7 +1319,7 @@
     firebase "6.4.0"
 
 "@nd/debug@./packages/nd-debug":
-  version "0.1.0-rc.2"
+  version "0.1.0-rc.3"
   dependencies:
     "@nd/config" "./packages/nd-config"
     "@nd/error" "./packages/nd-error"
@@ -1359,7 +1359,7 @@
     table "5.4.1"
 
 "@nd/helper@./packages/nd-helper":
-  version "0.8.4"
+  version "0.8.5"
   dependencies:
     "@nd/logger" "./packages/nd-logger"
 
@@ -1381,7 +1381,7 @@
     debug "4.1.1"
 
 "@nd/novel@./packages/nd-novel":
-  version "1.5.0-beta.1"
+  version "1.5.0-beta.2"
   dependencies:
     "@nd/content" "./packages/nd-content"
     "@nd/downloader" "./packages/nd-downloader"
@@ -1400,7 +1400,7 @@
     "@nd/security" "./packages/nd-security"
 
 "@nd/security@./packages/nd-security":
-  version "1.6.2"
+  version "1.7.0"
   dependencies:
     "@nd/database" "./packages/nd-database"
     "@nd/error" "./packages/nd-error"
@@ -9969,10 +9969,10 @@ typescript@3.5.x:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
   integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
 
-typescript@3.6.3:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.3.tgz#fea942fabb20f7e1ca7164ff626f1a9f3f70b4da"
-  integrity sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==
+typescript@3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
+  integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
 
 ua-parser-js@^0.7.9:
   version "0.7.20"
