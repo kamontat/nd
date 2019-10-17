@@ -1,3 +1,5 @@
+@nd/logger: `v1.2.6`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

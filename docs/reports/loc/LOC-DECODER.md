@@ -1,3 +1,5 @@
+@nd/decoder: `v1.0.2`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

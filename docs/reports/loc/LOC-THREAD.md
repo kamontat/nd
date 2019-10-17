@@ -1,3 +1,5 @@
+@nd/thread: `v2.0.1`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

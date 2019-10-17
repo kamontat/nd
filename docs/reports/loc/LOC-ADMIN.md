@@ -1,3 +1,5 @@
+@nd/admin: `v1.2.1`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

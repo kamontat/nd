@@ -1,3 +1,5 @@
+@nd/file: `v2.0.0`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 

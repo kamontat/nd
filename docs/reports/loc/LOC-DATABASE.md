@@ -1,3 +1,5 @@
+@nd/database: `v1.0.0-beta.8`
+
 cloc|github.com/AlDanial/cloc v 1.84
 --- | ---
 
