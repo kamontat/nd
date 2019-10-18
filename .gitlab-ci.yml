@@ -22,6 +22,11 @@ install:
 compile:
   stage: build
   script: yarn compile
+  artifacts:
+    name: package
+    paths:
+      - dist
+    expire_in: 7 days
 
 compile:prod:
   stage: build
@@ -29,6 +34,11 @@ compile:prod:
   only:
     refs:
       - master
+  artifacts:
+    name: package
+    paths:
+      - dist
+    expire_in: 7 days
 
 lint:
   stage: test
