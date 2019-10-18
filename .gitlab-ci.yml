@@ -34,18 +34,23 @@ lint:
   stage: test
   needs: ["install"]
   script:
-    - yarn lint
+    - yarn helper jlint
+  artifacts:
+    reports:
+      junit: dist/junit/*.xml
 
 test:
   stage: test
   needs: ["install"]
   script:
-    - yarn test
+    - yarn jtest
   coverage: '/Statements   : \d+.\d+/'
   artifacts:
     name: coverage
     paths:
       - coverage
+    reports:
+      junit: dist/junit/*.xml
     expire_in: 3 months
 
 build:
