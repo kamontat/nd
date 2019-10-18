@@ -127,6 +127,7 @@ __build() {
     __compile_silent "production"
   fi
 
+  test -d "dist/bin" || mkdir "dist/bin"
   npx pkg . --out-path dist/bin --targets "node12-macos-x64,node12-linux-x64,node12-alpine-x64,node12-win-x64"
 }
 
