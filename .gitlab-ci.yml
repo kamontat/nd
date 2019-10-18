@@ -44,6 +44,8 @@ test:
   needs: ["install"]
   script:
     - yarn helper jtest
+  after_script:
+    - npx codecov
   coverage: '/Statements   : \d+.\d+/'
   artifacts:
     name: coverage
