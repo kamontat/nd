@@ -9,7 +9,51 @@ cache:
   paths:
     - node_modules/
 
-compile_production:
+stages:
+  - prepare
+  - build
+  - test
+  - deploy
+
+install:
+  stage: prepare
+  script: yarn install
+
+compile:
+  stage: build
+  script: yarn compile
+
+compile:prod:
+  stage: build
+  script: yarn compile:prod
+  only:
+    refs:
+      - master
+
+lint:
+  stage: test
+  needs: ["install"]
   script:
-    - yarn install
-    - yarn compile:prod
+    - yarn lint
+
+test:
+  stage: test
+  needs: ["install"]
+  script:
+    - yarn test
+  coverage: '/Statements   : \d+.\d+/'
+
+build:
+  stage: deploy
+  needs: ["compile:prod"]
+  script:
+    - yarn helper build
+  only:
+    refs:
+      - master
+  artifacts:
+    name: publish
+    paths:
+      - dist
+    untracked: false
+    expire_in: 7 days
