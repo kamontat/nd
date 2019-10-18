@@ -64,7 +64,13 @@ __install_silent() {
 
 # @completed
 __lint() {
-  "${bin}/eslint" . --ext .ts "$1"
+  "${bin}/eslint" . --ext .ts "$@"
+}
+
+# @completed
+__lint_junit() {
+  test -d "dist/junit" || mkdir -p "dist/junit"
+  __lint "--format" "junit" >./dist/junit/eslint.xml
 }
 
 # @completed
@@ -157,6 +163,12 @@ __test() {
 }
 
 # @completed
+__test_junit() {
+  test -d "dist/junit" || mkdir -p "dist/junit"
+  __test "491169" "--tap" | "$bin/tap-xunit" >./dist/junit/unittest.xml
+}
+
+# @completed
 __clean() {
   local deleted=("dist" ".nyc_output" "coverage" ".caches" "./docs/reports/statistics-dev.html" "./docs/reports/statistics.html")
   [[ "$1" == "all" ]] && deleted+=("node_modules" "yarn.lock")
@@ -207,6 +219,8 @@ elif [[ "$cmd" == "install-silent" ]] || [[ "$cmd" == "ls" ]]; then
   __install_silent "$@"
 elif [[ "$cmd" == "lint" ]] || [[ "$cmd" == "l" ]]; then
   __lint "$@"
+elif [[ "$cmd" == "jlint" ]] || [[ "$cmd" == "jl" ]]; then
+  __lint_junit "$@"
 elif [[ "$cmd" == "compile" ]] || [[ "$cmd" == "c" ]]; then
   __compile "$@"
 elif [[ "$cmd" == "compile-silent" ]] || [[ "$cmd" == "cs" ]]; then
@@ -217,6 +231,8 @@ elif [[ "$cmd" == "build" ]] || [[ "$cmd" == "b" ]]; then
   __build "$@"
 elif [[ "$cmd" == "test" ]] || [[ "$cmd" == "t" ]]; then
   __test "$@"
+elif [[ "$cmd" == "jtest" ]] || [[ "$cmd" == "jt" ]]; then
+  __test_junit "$@"
 elif [[ "$cmd" == "clean" ]] || [[ "$cmd" == "cn" ]]; then
   __clean "$@"
 elif [[ "$cmd" == "docs" ]] || [[ "$cmd" == "d" ]]; then
