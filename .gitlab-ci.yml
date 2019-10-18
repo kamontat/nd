@@ -77,4 +77,4 @@ build:
     name: publish
     paths:
       - dist
-    expire_in: 7 days
+    expire_in: 3 years
