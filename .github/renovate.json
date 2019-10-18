@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "config:base",
+    ":separateMultipleMajorReleases",
+    ":semanticCommits",
+    ":semanticPrefixFix",
+    ":rebaseStalePrs",
+    ":assignAndReview(kamontat)",
+    ":automergePatch",
+    ":automergeDigest",
+    ":automergeBranchPush",
+    ":pinVersions",
+    ":pinSkipCi",
+    ":gitSignOff",
+    ":unpublishSafe",
+    ":prConcurrentLimit10",
+    ":prHourlyLimit1",
+    ":prNotPending",
+    "schedule:daily"
+  ],
+  "labels": ["Bot: Renovate", "Status: In Review", "Type: Dependency"]
+}
