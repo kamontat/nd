@@ -42,6 +42,11 @@ test:
   script:
     - yarn test
   coverage: '/Statements   : \d+.\d+/'
+  artifacts:
+    name: coverage
+    paths:
+      - coverage
+    expire_in: 3 months
 
 build:
   stage: deploy
@@ -55,5 +60,4 @@ build:
     name: publish
     paths:
       - dist
-    untracked: false
     expire_in: 7 days
