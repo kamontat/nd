@@ -43,7 +43,7 @@ test:
   stage: test
   needs: ["install"]
   script:
-    - yarn jtest
+    - yarn helper jtest
   coverage: '/Statements   : \d+.\d+/'
   artifacts:
     name: coverage
