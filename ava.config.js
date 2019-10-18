@@ -53,7 +53,6 @@ const settings = {
   }),
   color: chooseByEnv({
     default: true,
-    ci: false,
   }),
   extensions: ["ts"],
   require: ["ts-node/register", "tsconfig-paths/register"],
