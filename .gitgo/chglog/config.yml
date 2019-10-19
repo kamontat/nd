@@ -14,7 +14,7 @@ options:
     title_maps:
       feat: 1. Introduce new features
       impr: 2. Command improvement
-      fix: 3. Command bug destoryer
+      fix: 3. Command bug destroyer
   header:
     pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
     pattern_maps:
