@@ -29,6 +29,9 @@ commands:
       - run:
           name: Move dist to tmp folder
           command: cp -r dist /tmp/caches || exit 0
+      - run:
+          name: Check caches folder
+          command: ls -la /tmp/caches
       - persist_to_workspace:
           root: /tmp
           # Must be relative path from root
@@ -39,6 +42,9 @@ commands:
     steps:
       - attach_workspace:
           at: /tmp/caches
+      - run:
+          name: Check caches folder
+          command: ls -la /tmp/caches
       - run:
           name: Restore node_modules from tmp folder
           command: cp -r /tmp/caches/node_modules . || exit 0
