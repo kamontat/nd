@@ -43,7 +43,7 @@ install_hub() {
   fi
 
   curl -sLo "$path" "$url"
-  tar -xvzf "$path" -C /tmp
+  tar -xvzf "$path" -C "$root"
 
   if ! test -f "$bin"; then
     echo "execuable file of hub command not exist" >&2 && exit 1
