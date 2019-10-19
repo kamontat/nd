@@ -191,6 +191,19 @@ jobs:
     steps:
       - checkout
       - restore-caches
+      - add_ssh_keys:
+          name: Add deployment key
+          fingerprints:
+            - 48:f0:24:f0:88:c6:05:63:b5:bd:87:25:2a:c1:ca:23
+      - restore_cache:
+          keys:
+            - hub-v1-{{ checksum "scripts/release_core.sh" }}
+            - hub-v1-
+            - hub-
       - run:
           name: Run deployment script
-          command: yarn release:core
+          command: yarn release:core ci
+      - save_cache:
+          key: hub-v1-{{ checksum "scripts/release_core.sh" }}
+          paths:
+            - "/tmp/bin"
