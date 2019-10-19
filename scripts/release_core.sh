@@ -28,6 +28,15 @@
 #//               0.0.2b1 -- beta-format
 #//               0.0.2a1 -- alpha-format
 
+if [[ "$CI" == "true" ]]; then
+  echo "Start as CI"
+fi
+
+CI=${CI:-false}
+if [[ "$1" == "ci" ]] || [[ "$1" == "CI" ]] || [[ "$ENV" == "CI" ]]; then
+  CI=true
+fi
+
 echo "Help:
 
 1. make change in src folder
@@ -45,9 +54,17 @@ RELEASE_NOTE_DATE=$(node -p -e "require('./packages/nd-core/package.json').chang
 
 echo "Creating...   tag ${VERSION} 
 Release note is ${RELEASE_NOTE} at ${RELEASE_NOTE_DATE}
+"
 
-[press ENTER to continue]"
-read -r ans
+if [[ "$CI" == "true" ]]; then
+  printf "[wait 5 second for continue]: "
+  sleep 5
+  echo "run as CI"
+else
+  printf "[press enter for continue]: "
+  read -r ans
+  echo "run as USER"
+fi
 
 TAG_NAME="v${VERSION}"
 
@@ -66,7 +83,7 @@ echo "Starting...   commit package.json (assume you just update package.json)"
 # commit changes in package.json
 
 git add package.json # add package.json
-git commit --allow-empty --message "chore(release): ${TAG_NAME} 
+git commit --allow-empty --message "chore(release): ${TAG_NAME} [skip ci]
 
 release note: $RELEASE_NOTE
 update at:    $RELEASE_NOTE_DATE
@@ -88,14 +105,40 @@ git push --tags
 
 echo "Starting... create release on Github (assume you have hub command installed)"
 
-if command -v hub; then
-  hub release create -d \
-    -m "Create new publish version" \
-    -a ./dist/bin/nd-alpine \
-    -a ./dist/bin/nd-linux \
-    -a ./dist/bin/nd-macos \
-    -a ./dist/bin/nd-win.exe \
-    "$TAG_NAME"
-else
-  echo "cannot start because hub is not exist"
+install_hub() {
+  local root="/tmp/bin"
+
+  mkdir "$root"
+
+  local url="https://github.com/github/hub/releases/download/v2.12.8/hub-linux-amd64-2.12.8.tgz"
+  local path="$root/hub.tgz"
+  local bin="$root/hub-linux-amd64-2.12.8/bin/hub"
+
+  if test -f "$bin"; then
+    HUB_CLI="$bin"
+    return 0
+  fi
+
+  curl -sLo "$path" "$url"
+  tar -xvzf "$path" -C /tmp
+
+  if ! test -f "$bin"; then
+    echo "execuable file of hub command not exist" >&2 && exit 1
+  fi
+
+  HUB_CLI="$bin"
+}
+
+HUB_CLI="hub"
+if ! command -v "${HUB_CLI}"; then
+  echo "Hub is not exist, Start to install from github"
+  install_hub
 fi
+
+"${HUB_CLI}" release create -d \
+  -m "Draft new version via deployment script" \
+  -a ./dist/bin/nd-alpine \
+  -a ./dist/bin/nd-linux \
+  -a ./dist/bin/nd-macos \
+  -a ./dist/bin/nd-win.exe \
+  "$TAG_NAME"
