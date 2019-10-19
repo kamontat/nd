@@ -34,6 +34,9 @@
   <a href="https://david-dm.org/kamontat/nd?type=dev">
     <img alt="dev dependencies" src="https://img.shields.io/david/dev/kamontat/nd?style=flat-square">
   </a>
+  <a href="https://app.snyk.io/org/kamontat/project/a5bcf3c4-23ce-43c3-8afe-b63b690252f2">
+    <img alt="vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/github/kamontat/nd?logo=snyk&logoColor=white&style=flat-square">
+  </a>
 </p>
 
 <p align="center">
