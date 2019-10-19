@@ -66,7 +66,7 @@ orbs:
 
 workflows:
   version: 2
-  test:
+  unittest:
     jobs:
       - install
       - compile:
@@ -81,7 +81,7 @@ workflows:
       - codecov:
           requires:
             - test
-  build:
+  deployment:
     jobs:
       - install:
           filters:
