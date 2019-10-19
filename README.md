@@ -22,6 +22,18 @@
   <a href="https://codecov.io/gh/kamontat/nd">
     <img alt="coverage" src="https://img.shields.io/codecov/c/github/kamontat/nd?logo=codecov&logoColor=white&style=flat-square" />
   </a>
+  <a href="https://circleci.com/gh/kamontat/workflows/nd">
+    <img alt="circleci" src="https://img.shields.io/circleci/build/github/kamontat/nd?style=flat-square">
+  </a>
+  <a href="https://libraries.io/github/kamontat/nd">
+    <img alt="libraries.io" src="https://img.shields.io/librariesio/github/kamontat/nd?style=flat-square">
+  </a>
+  <a href="https://david-dm.org/kamontat/nd">
+    <img alt="dependencies" src="https://img.shields.io/david/kamontat/nd?style=flat-square">
+  </a>
+  <a href="https://david-dm.org/kamontat/nd?type=dev">
+    <img alt="dev dependencies" src="https://img.shields.io/david/dev/kamontat/nd?style=flat-square">
+  </a>
 </p>
 
 <p align="center">
