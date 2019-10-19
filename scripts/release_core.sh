@@ -28,6 +28,36 @@
 #//               0.0.2b1 -- beta-format
 #//               0.0.2a1 -- alpha-format
 
+install_hub() {
+  local root="/tmp/bin"
+
+  mkdir "$root"
+
+  local url="https://github.com/github/hub/releases/download/v2.12.8/hub-linux-amd64-2.12.8.tgz"
+  local path="$root/hub.tgz"
+  local bin="$root/hub-linux-amd64-2.12.8/bin/hub"
+
+  if test -f "$bin"; then
+    HUB_CLI="$bin"
+    return 0
+  fi
+
+  curl -sLo "$path" "$url"
+  tar -xvzf "$path" -C /tmp
+
+  if ! test -f "$bin"; then
+    echo "execuable file of hub command not exist" >&2 && exit 1
+  fi
+
+  HUB_CLI="$bin"
+}
+
+HUB_CLI="hub"
+if ! command -v "${HUB_CLI}"; then
+  echo "Hub is not exist, Start to install from github"
+  install_hub
+fi
+
 if [[ "$CI" == "true" ]]; then
   echo "Start as CI"
 fi
@@ -104,36 +134,6 @@ git push
 git push --tags
 
 echo "Starting... create release on Github (assume you have hub command installed)"
-
-install_hub() {
-  local root="/tmp/bin"
-
-  mkdir "$root"
-
-  local url="https://github.com/github/hub/releases/download/v2.12.8/hub-linux-amd64-2.12.8.tgz"
-  local path="$root/hub.tgz"
-  local bin="$root/hub-linux-amd64-2.12.8/bin/hub"
-
-  if test -f "$bin"; then
-    HUB_CLI="$bin"
-    return 0
-  fi
-
-  curl -sLo "$path" "$url"
-  tar -xvzf "$path" -C /tmp
-
-  if ! test -f "$bin"; then
-    echo "execuable file of hub command not exist" >&2 && exit 1
-  fi
-
-  HUB_CLI="$bin"
-}
-
-HUB_CLI="hub"
-if ! command -v "${HUB_CLI}"; then
-  echo "Hub is not exist, Start to install from github"
-  install_hub
-fi
 
 "${HUB_CLI}" release create -d \
   -m "Draft new version via deployment script" \
