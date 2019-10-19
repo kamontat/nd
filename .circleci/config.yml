@@ -150,7 +150,7 @@ jobs:
           path: dist/junit/eslint.xml
           destination: report
       - store_test_results:
-          path: dist/junit/eslint.xml
+          path: dist/junit
       - save-caches
   test:
     executor: node12
@@ -161,7 +161,7 @@ jobs:
           name: Run test
           command: yarn helper jtest
       - store_artifacts:
-          path: dist/junit/unittest.xml
+          path: dist/junit
           destination: test
       - store_artifacts:
           path: coverage
