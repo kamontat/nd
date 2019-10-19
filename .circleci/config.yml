@@ -2,13 +2,13 @@ version: 2.1
 
 executors:
   node12:
-    working_directory: /root/nd/app
+    working_directory: /home/circleci/app
     docker:
       - image: circleci/node:12
     environment:
       CI: "true"
       ENV: "ci"
-      APP: /root/nd/app
+      APP: /home/circleci/app
       CACHE: /tmp/caches
 
 commands:
