@@ -165,7 +165,7 @@ __test() {
 # @completed
 __test_junit() {
   test -d "dist/junit" || mkdir -p "dist/junit"
-  __test "491169" "--tap" | "$bin/tap-xunit" >./dist/junit/unittest.xml
+  __test "491" "--tap" | "$bin/tap-xunit" >./dist/junit/unittest.xml
 }
 
 # @completed
