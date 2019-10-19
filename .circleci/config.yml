@@ -2,12 +2,14 @@ version: 2.1
 
 executors:
   node12:
-    working_directory: /app
+    working_directory: /root/nd/app
     docker:
       - image: circleci/node:12
     environment:
       CI: "true"
       ENV: "ci"
+      APP: /root/nd/app
+      CACHE: /tmp/caches
 
 commands:
   info:
@@ -106,7 +108,7 @@ jobs:
       - checkout
       - info
       - node/with-cache:
-          dir: /app/node_modules
+          dir: $APP/node_modules
           steps:
             - run:
                 name: Install all dependencies
