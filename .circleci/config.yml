@@ -18,7 +18,7 @@ commands:
       - hello/circleci-env-highlights
       - hello/system-info
   save-caches:
-    description: Save node_modules and dist folder
+    description: caches data to another job
     steps:
       - run:
           name: Create tmp folder
@@ -30,6 +30,9 @@ commands:
           name: Move dist to tmp folder
           command: cp -r dist /tmp/caches || exit 0
       - run:
+          name: Move coverage to tmp folder
+          command: cp -r coverage /tmp/caches || exit 0
+      - run:
           name: Check caches folder
           command: ls -la /tmp/caches
       - persist_to_workspace:
@@ -38,7 +41,7 @@ commands:
           paths:
             - caches
   restore-caches:
-    description: Restore dist and node_modules from tmp folder
+    description: Restore caches folder from workspace
     steps:
       - attach_workspace:
           at: /tmp
@@ -51,6 +54,9 @@ commands:
       - run:
           name: Restore dist folder from tmp folder
           command: cp -r /tmp/caches/dist . || exit 0
+      - run:
+          name: Restore coverage from tmp folder
+          command: cp -r /tmp/caches/coverage . || exit 0
 
 orbs:
   hello: circleci/hello-build@0.0.14
@@ -185,6 +191,8 @@ jobs:
   codecov:
     executor: node12
     steps:
+      - checkout
+      - restore-caches
       - codecov/upload:
           flags: unittest
   build:
