@@ -1,0 +1,141 @@
+version: 2.1
+
+executors:
+  node12:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12
+    environment:
+      CI: "true"
+      ENV: "ci"
+
+commands:
+  after-checkout:
+    description: Start workflow
+    steps:
+      - hello/circleci-env-highlights
+      - hello/system-info
+
+orbs:
+  hello: circleci/hello-build@0.0.14
+  node: circleci/node@1.1.6
+  codecov: codecov/codecov@1.0.5
+  packtracker: packtracker/report@2.2.6
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - install
+      - compile:
+          requires:
+            - install
+      - lint:
+          requires:
+            - compile
+      - test:
+          requires:
+            - compile
+      - codecov:
+          requires:
+            - test
+  build:
+    jobs:
+      - install:
+          filters:
+            branches:
+              only: master
+      - compile:prod:
+          requires:
+            - install
+          filters:
+            branches:
+              only: master
+      - build:
+          requires:
+            - compile:prod
+          filters:
+            branches:
+              only: master
+      - deploy:
+          type: approval
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+jobs:
+  install:
+    executor: node12
+    steps:
+      - checkout
+      - after-checkout
+      - node/with-cache:
+          dir: ~/app/node_modules
+          steps:
+            - run: yarn install
+  compile:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Compile Typescript
+          command: yarn compile
+  compile:prod:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Compile Typescript as Production setting
+          command: yarn compile:prod
+      - packtracker/report
+  lint:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Run ESlint
+          command: yarn helper jlint
+      - store_artifacts:
+          path: dist/junit/eslint.xml
+          destination: report
+      - store_test_results:
+          path: dist/junit/eslint.xml
+  test:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Run test
+          command: yarn helper jtest
+      - store_artifacts:
+          path: dist/junit/unittest.xml
+          destination: test
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+      - store_test_results:
+          path: dist/junit/unittest.xml
+  codecov:
+    executor: node12
+    steps:
+      - codecov/upload:
+          flags: unittest
+  build:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Build executable package
+          command: yarn build
+      - store_artifacts:
+          path: dist
+          destination: dist
+  deploy:
+    executor: node12
+    steps:
+      - checkout
+      - run:
+          name: Run deployment script
+          command: yarn release:core
