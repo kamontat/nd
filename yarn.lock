@@ -1354,7 +1354,7 @@
     "@nd/logger" "./packages/nd-logger"
     "@nd/novel" "./packages/nd-novel"
     "@nd/security" "./packages/nd-security"
-    mustache "3.0.1"
+    mustache "3.0.3"
 
 "@nd/logger@./packages/nd-logger":
   version "1.2.6"
@@ -7026,10 +7026,10 @@ multistream@~2.1.1:
     inherits "^2.0.1"
     readable-stream "^2.0.5"
 
-mustache@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/mustache/-/mustache-3.0.1.tgz#873855f23aa8a95b150fb96d9836edbc5a1d248a"
-  integrity sha512-jFI/4UVRsRYdUbuDTKT7KzfOp7FiD5WzYmmwNwXyUVypC0xjoTL78Fqc0jHUPIvvGD+6DQSPHIt1NE7D1ArsqA==
+mustache@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/mustache/-/mustache-3.0.3.tgz#ee4fb971887fa6cc1b6b6d219a74b5e3c7535f32"
+  integrity sha512-vM5FkMHamTYmVYeAujypihuPrJQDtaUIlKeeVb1AMJ73OZLtWiF7GprqrjxD0gJWT53W9JfqXxf97nXQjMQkqA==
 
 mustache@3.1.0:
   version "3.1.0"
