@@ -101,6 +101,8 @@ workflows:
               only: master
       - hold:
           type: approval
+          requires:
+            - compile-prod
           filters:
             branches:
               only: master
