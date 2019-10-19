@@ -18,5 +18,6 @@
     ":prNotPending",
     "schedule:daily"
   ],
+  "ignorePaths": ["packages/webpack-visualizer/**", "templates/**"],
   "labels": ["Bot: Renovate", "Status: In Review", "Type: Dependency"]
 }
