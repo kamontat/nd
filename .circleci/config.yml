@@ -41,7 +41,7 @@ commands:
     description: Restore dist and node_modules from tmp folder
     steps:
       - attach_workspace:
-          at: /tmp/caches
+          at: /tmp
       - run:
           name: Check caches folder
           command: ls -la /tmp/caches
@@ -89,7 +89,7 @@ workflows:
               only: master
       - packtracker/report:
           requires:
-            - install
+            - compile-prod
           filters:
             branches:
               only: master
