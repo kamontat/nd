@@ -69,6 +69,7 @@ bin
 !bin/.gitkeep
 
 docs/reports/**/*.html
+docs/reports/**/*.xml
 docs/api/**/*
 
 .caches

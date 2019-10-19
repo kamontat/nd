@@ -69,8 +69,8 @@ __lint() {
 
 # @completed
 __lint_junit() {
-  test -d "dist/junit" || mkdir -p "dist/junit"
-  __lint "--format" "junit" >./dist/junit/eslint.xml
+  test -d "docs/reports/eslint" || mkdir -p "docs/reports/eslint"
+  __lint "--format" "junit" >./docs/reports/eslint/result.xml
 }
 
 # @completed
@@ -164,8 +164,8 @@ __test() {
 
 # @completed
 __test_junit() {
-  test -d "dist/junit" || mkdir -p "dist/junit"
-  __test "491" "--tap" | "$bin/tap-xunit" >./dist/junit/unittest.xml
+  test -d "docs/reports/unittest" || mkdir -p "docs/reports/unittest"
+  __test "491" "--tap" | "$bin/tap-xunit" >./docs/reports/unittest/result.xml
 }
 
 # @completed

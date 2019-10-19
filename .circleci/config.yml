@@ -136,6 +136,9 @@ jobs:
           name: Compile Typescript
           command: yarn compile
       - save-caches
+      - store_artifacts:
+          path: docs/reports/statistics-dev.html
+          destination: webpack/statistics.html
   compile-prod:
     executor: node12
     steps:
@@ -145,6 +148,9 @@ jobs:
           name: Compile Typescript as Production setting
           command: yarn compile:prod
       - save-caches
+      - store_artifacts:
+          path: docs/reports/statistics.html
+          destination: webpack/statistics.html
   lint:
     executor: node12
     steps:
@@ -154,10 +160,10 @@ jobs:
           name: Run ESlint
           command: yarn helper jlint
       - store_artifacts:
-          path: dist/junit/eslint.xml
-          destination: report
+          path: docs/reports/eslint/result.xml
+          destination: eslint/result.xml
       - store_test_results:
-          path: dist/junit
+          path: docs/reports
       - save-caches
   test:
     executor: node12
@@ -168,13 +174,13 @@ jobs:
           name: Run test
           command: yarn helper jtest
       - store_artifacts:
-          path: dist/junit
-          destination: test
+          path: docs/reports/unittest/result.xml
+          destination: unittest/result.xml
       - store_artifacts:
           path: coverage
           destination: coverage
       - store_test_results:
-          path: dist/junit/unittest.xml
+          path: docs/reports
       - save-caches
   codecov:
     executor: node12
