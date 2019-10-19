@@ -15,8 +15,7 @@
     ":unpublishSafe",
     ":prConcurrentLimit10",
     ":prHourlyLimit1",
-    ":prNotPending",
-    "schedule:daily"
+    ":prNotPending"
   ],
   "ignorePaths": ["packages/webpack-visualizer/**", "templates/**"],
   "labels": ["Bot: Renovate", "Status: In Review", "Type: Dependency"]
