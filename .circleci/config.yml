@@ -45,7 +45,7 @@ workflows:
           filters:
             branches:
               only: master
-      - compile:prod:
+      - compile-prod:
           requires:
             - install
           filters:
@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Compile Typescript
           command: yarn compile
-  compile:prod:
+  compile-prod:
     executor: node12
     steps:
       - checkout
