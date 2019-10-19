@@ -99,10 +99,14 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
+      - hold:
           type: approval
+          filters:
+            branches:
+              only: master
+      - deploy:
           requires:
-            - build
+            - hold
           filters:
             branches:
               only: master
