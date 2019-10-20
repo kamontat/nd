@@ -1,3 +1,9 @@
+### Sonarqube report
+
+##### v1.0.0-beta.5
+
+![image](docs/assets/sonarqube/report-v1.0.0-beta.5.png)
+
 ### How to create internal libraries
 
 1. Create folder called `nd-*`
