@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+#  Usage:
+#    1. ./start docker up    - start docker-compose
+#    2. ./start docker down  - stop docker-compose
+#    3. ./start scanner      - run scanner
+
+TMP="$(pwd)"
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+SONAR_SCANNAR="${ROOT}/executable/bin/sonar-scanner"
+
+echo "Start sonarqube script at $ROOT"
+
+if [[ "$1" == "docker" ]]; then
+  echo "$2 docker"
+  docker-compose --file ./sonarqube/docker-compose.yml "$2" --detach
+elif [[ $1 == "scanner" ]]; then
+  echo "Start scanner"
+  "$SONAR_SCANNAR" --debug -Dproject.settings=$ROOT/scanner.properties
+else
+  echo "either docker or scanner must pass in"
+  cd "$TMP" || exit 2
+  exit 1
+fi
+
+cd "$TMP" || exit 2
