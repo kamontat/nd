@@ -30,5 +30,5 @@ export default abstract class FBO<T> implements IDBO<T> {
   }
 
   public abstract read(path: string): Promise<T>;
-  public abstract write(path: string, value: any): Promise<T>;
+  public abstract write(path: string, value: any): Promise<T>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }

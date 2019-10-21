@@ -2,8 +2,10 @@ import test, { Macro } from "ava";
 import { is } from "./datetype";
 import { resolve } from "path";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type isfn = (n: any) => boolean;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const macro: Macro<[isfn, any, boolean]> = (t, method, value, expected) => {
   const bool = method(value);
   t.is(bool, expected);

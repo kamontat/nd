@@ -32,6 +32,7 @@ export default class Database extends FBO<firestore.DocumentSnapshot> {
       }) as Promise<firestore.DocumentSnapshot>;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public write(path: string, value: any) {
     const p = this.split(path);
     LoggerService.log(LOGGER_FIREBASE_NOSQL, `reading value from { ${p.root}: ${p.next} }`);

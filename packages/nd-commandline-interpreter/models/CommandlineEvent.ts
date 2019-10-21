@@ -6,6 +6,7 @@ import { Option } from "..";
 export type CommandlineEventName = "initial" | "globalOption" | "command" | "subcommand" | "option" | "destory" | "end";
 
 export default class CommandlineEvent extends Event {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public emit(c: CommandlineEventName, ...args: any[]) {
     return super.emit(c, ...args);
   }

@@ -18,6 +18,11 @@ interface IDownloadOnetimeOption {
   initTime: number;
 }
 
+interface IError extends Error {
+  code?: string;
+  syscall?: string;
+}
+
 export default class Manager<T> extends ThreadManager<
   string,
   string,
@@ -73,7 +78,7 @@ export default class Manager<T> extends ThreadManager<
 
         // when data received
         response.on("data", (chunk: Buffer) => {
-          const str = ndDecoder(chunk, encode as any);
+          const str = ndDecoder(chunk, encode as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 
           const chunkSize = Buffer.byteLength(str);
 
@@ -96,7 +101,7 @@ export default class Manager<T> extends ThreadManager<
         response.on("end", () => {
           res({ data: rawData, res: response, iresponse: new Response(link) });
         });
-      }).on("error", (e: any) => {
+      }).on("error", (e: IError) => {
         // internet not found; no internet
         if (e.code && e.code === "ENOTFOUND" && e.syscall && e.syscall === "getaddrinfo") {
           return rej(ExceptionService.build(ERR_DWL).description("no internet connection"));

@@ -4,6 +4,7 @@ import ExceptionService, { ERR_DBO } from "@nd/error";
 
 import FBO from "./FBO";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default class Storage extends FBO<any> {
   private _storage: storage.Storage;
 
