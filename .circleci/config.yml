@@ -63,30 +63,19 @@ orbs:
   node: circleci/node@1.1.6
   codecov: codecov/codecov@1.0.5
   packtracker: packtracker/report@2.2.6
+  sonarcloud: sonarsource/sonarcloud@1.0.0
 
 workflows:
   version: 2
-  unittest:
+  default:
     jobs:
       - install
       - compile:
           requires:
             - install
-      - lint:
-          requires:
-            - compile
-      - test:
-          requires:
-            - compile
-      - codecov:
-          requires:
-            - test
-  deployment:
-    jobs:
-      - install:
           filters:
             branches:
-              only: master
+              ignore: master
       - compile-prod:
           requires:
             - install
@@ -105,9 +94,23 @@ workflows:
           filters:
             branches:
               only: master
+      - lint:
+          requires:
+            - install
+      - analytic:
+          requires:
+            - install
+      - test:
+          requires:
+            - lint
+            - analytic
+      - codecov:
+          requires:
+            - test
       - hold:
           type: approval
           requires:
+            - test
             - packtracker/report
             - build
           filters:
@@ -170,6 +173,13 @@ jobs:
           destination: eslint/result.xml
       - store_test_results:
           path: docs/reports
+      - save-caches
+  analytic:
+    executor: node12
+    steps:
+      - checkout
+      - restore-caches
+      - sonarcloud/scan
       - save-caches
   test:
     executor: node12
