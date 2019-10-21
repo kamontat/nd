@@ -1,6 +1,6 @@
 import Package from "./package.json";
 
-import { Commandline, Option } from "@nd/commandline-interpreter";
+import { Commandline } from "@nd/commandline-interpreter";
 import { config, IConfiguration } from "@nd/config";
 import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
