@@ -8,7 +8,7 @@ export default class LoggerService {
   public static console = {
     log(message?: string, ...other: string[]) {
       const level = config.get("output.level");
-      if (level === "1" || level === 1) console.log(message, ...other);
+      if (level >= 1) console.log(message, ...other);
     },
   };
 
