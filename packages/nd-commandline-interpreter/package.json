@@ -1,6 +1,6 @@
 {
   "name": "@nd/commandline-interpreter",
-  "version": "1.2.6",
+  "version": "1.3.0-beta.1",
   "description": "commandline interpreter and helper",
   "dependencies": {
     "@nd/config": "./packages/nd-config",
@@ -9,6 +9,10 @@
     "@nd/security": "./packages/nd-security"
   },
   "changelog": {
+    "1.3.0-beta.1": {
+      "message": "make global option resolver of new algorithm",
+      "date": "21 Oct 2019"
+    },
     "1.2.6": {
       "message": "add version as a parameter of commandline and able to use across command object",
       "date": "12 Oct 2019"
