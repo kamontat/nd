@@ -13,8 +13,8 @@ options:
   commit_groups:
     title_maps:
       feat: 1. Introduce new features
-      impr: 2. Command improvement
-      fix: 3. Command bug destroyer
+      impr: 2. Improvement
+      fix: 3. Bug destroyer
   header:
     pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
     pattern_maps:
