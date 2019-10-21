@@ -6,9 +6,10 @@
     "packages/**/*.ts",
     "packages/**/*.json",
     "node_modules/@nd/**/*.ts",
-    "node_modules/@nd/**/*.json"
+    "node_modules/@nd/**/*.json",
+    "**/*.spec.ts"
   ],
-  "exclude": ["**/*.spec.ts"],
+  // "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
     /* Basic Options */
     "incremental": true,                      /* Enable incremental compilation */
