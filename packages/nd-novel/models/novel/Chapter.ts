@@ -127,6 +127,7 @@ export class Chapter {
       name: opts.color ? Colorize.name : colorless,
       enum: opts.color ? Colorize.enum : colorless,
       link: opts.color ? Colorize.url : colorless,
+      date: opts.color ? Colorize.date : colorless,
       datetime: opts.color ? Colorize.datetime : colorless,
     };
 
@@ -143,8 +144,8 @@ export class Chapter {
         });
 
         return `${color.chapter(chap)}: ${color.enum(this.status.toUpperCase())}: ${color.name(this.name)}
-  - Updated at    ${updated}
-  - Downloaded at ${downloaded}`;
+  - Updated at    ${color.date(updated)}
+  - Downloaded at ${color.datetime(downloaded)}`;
       } else {
         return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }
