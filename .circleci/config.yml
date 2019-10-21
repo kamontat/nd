@@ -76,24 +76,12 @@ workflows:
       - compile:
           requires:
             - install
-          filters:
-            branches:
-              ignore: master
-      - compile-prod:
-          requires:
-            - install
-          filters:
-            branches:
-              only: master
       - packtracker/report:
           requires:
-            - compile-prod
-          filters:
-            branches:
-              only: master
+            - compile
       - build:
           requires:
-            - compile-prod
+            - compile
           filters:
             branches:
               only: master
@@ -137,21 +125,16 @@ jobs:
       - run:
           name: Compile Typescript
           command: yarn compile
-      - store_artifacts:
-          path: docs/reports/statistics-dev.html
-          destination: webpack/statistics.html
-  compile-prod:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
       - run:
-          name: Compile Typescript as Production setting
+          name: Compile Typescript (Production)
           command: yarn compile:prod
-      - save-caches
       - store_artifacts:
           path: docs/reports/statistics.html
-          destination: webpack/statistics.html
+          destination: webpack/prod/statistics.html
+      - store_artifacts:
+          path: docs/reports/statistics-dev.html
+          destination: webpack/dev/statistics.html
+      - save-caches
   test:
     executor: node12
     steps:
