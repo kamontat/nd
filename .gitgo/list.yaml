@@ -22,8 +22,8 @@ commit:
       value: utils shell script
     - type: docs
       value: Documentation
-    - type: lint
-      value: Linter and code quality
+    - type: analytic
+      value: Code quality and code lint
     - type: test
       value: Relevant to ava testing framework
     - type: ci
