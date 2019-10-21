@@ -97,20 +97,13 @@ workflows:
           filters:
             branches:
               only: master
-      - lint:
-          requires:
-            - install
       - test:
           requires:
             - install
-      - analytic:
-          requires:
-            - lint
-            - test
       - hold:
           type: approval
           requires:
-            - analytic
+            - test
             - build
             - packtracker/report
           filters:
@@ -160,7 +153,7 @@ jobs:
       - store_artifacts:
           path: docs/reports/statistics.html
           destination: webpack/statistics.html
-  lint:
+  test:
     executor: node12
     steps:
       - checkout
@@ -168,29 +161,15 @@ jobs:
       - run:
           name: Run ESlint
           command: yarn helper jlint
-      - store_artifacts:
-          path: docs/reports/eslint/result.xml
-          destination: eslint/result.xml
-      - store_test_results:
-          path: docs/reports
-      - save-caches
-  analytic:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
-      - sonarcloud/scan
-      - save-caches
-  test:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
       - run:
           name: Run test
           command: yarn helper jtest
       - codecov/upload:
           flags: unittest
+      - sonarcloud/scan
+      - store_artifacts:
+          path: docs/reports/eslint/result.xml
+          destination: eslint/result.xml
       - store_artifacts:
           path: docs/reports/unittest/result.xml
           destination: unittest/result.xml
