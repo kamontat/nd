@@ -40,6 +40,7 @@ export class Chapter {
   public set name(n: string | undefined) {
     this.eventHandler("name", { before: this._name, after: n });
     this._name = n;
+    if (this._name) this._name = this._name.trim();
   }
 
   public get nid() {
