@@ -156,7 +156,7 @@ __test() {
   fi
 
   export TS_NODE_SKIP_IGNORE=true
-  export TS_NODE_IGNORE=false
+  export TS_NODE_FILES=true
   export NODE_ENV="test"
 
   ${npm_client} nyc ava "$@"
