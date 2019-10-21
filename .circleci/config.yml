@@ -130,7 +130,7 @@ jobs:
       - checkout
       - info
       - node/with-cache:
-          dir: $APP/node_modules
+          dir: node_modules
           steps:
             - run:
                 name: Install all dependencies
