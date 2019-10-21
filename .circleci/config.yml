@@ -102,8 +102,7 @@ workflows:
             - install
       - test:
           requires:
-            - lint
-            - analytic
+            - install
       - analytic:
           requires:
             - lint
