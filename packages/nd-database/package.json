@@ -5,7 +5,7 @@
   "dependencies": {
     "@nd/error": "./packages/nd-error",
     "@nd/logger": "./packages/nd-logger",
-    "firebase": "6.4.0"
+    "firebase": "6.6.2"
   },
   "changelog": {
     "1.0.0-rc.1": {
