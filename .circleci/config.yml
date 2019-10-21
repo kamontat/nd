@@ -57,6 +57,9 @@ commands:
       - run:
           name: Restore coverage from tmp folder
           command: cp -r /tmp/caches/coverage . || exit 0
+      - run:
+          name: Check project directory
+          command: ls -la .
 
 orbs:
   hello: circleci/hello-build@0.0.14
