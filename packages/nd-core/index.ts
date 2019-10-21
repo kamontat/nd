@@ -2,11 +2,10 @@ import Package from "./package.json";
 
 import { Commandline, Option } from "@nd/commandline-interpreter";
 import { config, IConfiguration } from "@nd/config";
-import { DebugMode } from "@nd/debug";
 import LoggerService, { LOGGER_CLI } from "@nd/logger";
 
 import { CCommand, CConfig, CNovel } from "./commands";
-import { Help, Level, Version } from "./options";
+import { Help, Level, Version, Debug, Color } from "./options";
 
 // set logger level if --level [0|1|2] appear
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,12 +27,9 @@ export const UpdateLogInfo = (args: any[]) => {
 // --------------------------- //
 
 export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
-  cli.option(
-    Option.build("debug-mode", false, () => {
-      const mode = new DebugMode();
-      mode.open();
-    }),
-  );
+  await Color(cli, config);
+
+  await Debug(cli, config);
 
   await Help(cli, config);
 
