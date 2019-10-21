@@ -100,22 +100,23 @@ workflows:
       - lint:
           requires:
             - install
-      - analytic:
-          requires:
-            - install
       - test:
           requires:
             - lint
             - analytic
+      - analytic:
+          requires:
+            - lint
+            - test
       - codecov:
           requires:
             - test
       - hold:
           type: approval
           requires:
-            - test
-            - packtracker/report
+            - analytic
             - build
+            - packtracker/report
           filters:
             branches:
               only: master
