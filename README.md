@@ -37,7 +37,7 @@
   <a href="https://david-dm.org/kamontat/nd?type=dev">
     <img alt="dev dependencies" src="https://img.shields.io/david/dev/kamontat/nd?style=flat-square">
   </a>
-  <img alt="commit activity" src="https://img.shields.io/github/commit-activity/m/kamontat/nd?style=flat-square&cacheSeconds=259200">
+  <img alt="commit activity" src="https://img.shields.io/github/commit-activity/m/kamontat/nd?style=flat-square&cacheSeconds=86400">
 </p>
 
 <!-- Internal link -->
