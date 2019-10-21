@@ -1,4 +1,4 @@
-import { TimeUtils } from "@nd/helper";
+import { TimeUtils, StringUtils } from "@nd/helper";
 import { Colorize } from "@nd/logger";
 
 import { buildViewlongURL } from "../../apis/url";
@@ -131,19 +131,19 @@ export class Chapter {
 
     if (this.name) {
       if (opts.long) {
-        return `${color.chapter(this.cid.toString())}: ${color.name(this.name)} ${color.enum(
-          this.status,
-        )} [Updated ${color.datetime(
-          TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
-            format: "short",
-            lang: "th",
-          }),
-        )}] - [Downloaded ${color.datetime(
-          TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
-            format: "short",
-            lang: "th",
-          }),
-        )}]`;
+        const chap = StringUtils.Padding(this.cid.toString(), 3);
+        const updated = TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
+          format: "short",
+          lang: "th",
+        });
+        const downloaded = TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
+          format: "short",
+          lang: "th",
+        });
+
+        return `${color.chapter(chap)}: ${color.enum(this.status.toUpperCase())}: ${color.name(this.name)}
+  - Updated at    ${updated}
+  - Downloaded at ${downloaded}`;
       } else {
         return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }
