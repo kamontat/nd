@@ -107,9 +107,6 @@ workflows:
           requires:
             - lint
             - test
-      - codecov:
-          requires:
-            - test
       - hold:
           type: approval
           requires:
@@ -192,6 +189,8 @@ jobs:
       - run:
           name: Run test
           command: yarn helper jtest
+      - codecov/upload:
+          flags: unittest
       - store_artifacts:
           path: docs/reports/unittest/result.xml
           destination: unittest/result.xml
@@ -201,13 +200,6 @@ jobs:
       - store_test_results:
           path: docs/reports
       - save-caches
-  codecov:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
-      - codecov/upload:
-          flags: unittest
   build:
     executor: node12
     steps:
