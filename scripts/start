@@ -49,7 +49,7 @@ shift
 # @completed
 __install() {
   if [[ $1 == "lib" ]]; then
-    $npm_client add ${modules_path[@]}
+    $npm_client add ${modules_path[@]} --force
   elif [[ $1 == "force" ]]; then
     $npm_client install --force
   else
