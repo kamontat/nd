@@ -3,6 +3,8 @@ import { HistoryEvent, EventType } from "./HistoryEvent";
 import { RandomUtils } from "@nd/helper";
 
 const random = (size = 20) => RandomUtils.RandomString(size);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const macro: Macro<[{ before: any; after: any }, EventType | undefined]> = (t, obj, type) => {
   t.plan(1);
 

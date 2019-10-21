@@ -45,7 +45,7 @@ test("updated node should update datetime", t => {
 
 test("return Error message when input unknown event type", t => {
   const node = new HistoryNode("title");
-  node.set("unknown" as any, "custom message");
+  node.set("unknown" as any, "custom message"); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   t.regex(node.toString({ color: false }), new RegExp("error", "i"));
 });

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Event from "events";
 import fs from "fs";
 import ExceptionService, { ERR_CFG } from "@nd/error";
