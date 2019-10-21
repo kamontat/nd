@@ -5,7 +5,12 @@ import { CommandApi } from "..";
 
 import Command from "./Command";
 import CommandlineEvent, { Default } from "./CommandlineEvent";
-import { ICommandCallback, ICommandCallbackResult } from "./ICommand";
+import {
+  ICommandCallback,
+  ICommandCallbackResult,
+  ICommandCallbackResultSync,
+  ICommandCallbackResultASync,
+} from "./ICommand";
 import Option from "./Option";
 import Optionable, { IOptionable } from "./Optionable";
 
@@ -74,25 +79,28 @@ export default class Commandline implements IOptionable {
 
     if (global.callback.length > 0) {
       LoggerService.log(LOGGER_CLI_BUILDER, `global callback exist`);
-      LoggerService.log(LOGGER_CLI_BUILDER, `start run global callback...`);
+      LoggerService.log(LOGGER_CLI_BUILDER, `start run global callback... (${global.callback.length})`);
 
-      global.callback.forEach(c => {
+      global.callback.forEach((c, i) => {
         if (c && typeof c === "function") {
-          LoggerService.log(LOGGER_CLI_BUILDER, `callback is function; calling it...`);
+          LoggerService.log(LOGGER_CLI_BUILDER, `${i}). callback is function; calling it...`);
           const isEnd = c();
           if (isEnd === true) {
-            LoggerService.log(LOGGER_CLI_BUILDER, `program should be finish now`);
+            LoggerService.log(LOGGER_CLI_BUILDER, `  - program should be finish now`);
             return this.finish();
           } else {
-            LoggerService.log(LOGGER_CLI_BUILDER, `continue this next process`);
+            LoggerService.log(LOGGER_CLI_BUILDER, `  - continue this next process`);
           }
         } else {
-          LoggerService.log(LOGGER_CLI_BUILDER, `not sure what is a callback type = ${Colorize.important(typeof c)}`);
+          LoggerService.log(
+            LOGGER_CLI_BUILDER,
+            `${i}). not sure what is a callback type = ${Colorize.important(typeof c)}`,
+          );
         }
       });
     }
 
-    args.push(""); // push empty string
+    global.arguments.push(""); // push empty string
     const callback = await this.travisArgumentPath(global.arguments);
     if (callback && typeof callback === "function") {
       const isEnd = callback();
@@ -102,38 +110,69 @@ export default class Commandline implements IOptionable {
     return this.finish();
   }
 
-  private async executeGlobalOptions(opts: string[]) {
+  private executeGlobalOptions(opts: string[]) {
     LoggerService.log(LOGGER_CLI_BUILDER, `start check global option...`);
 
-    const callback: ICommandCallbackResult[] = [];
+    const promises: ICommandCallbackResultASync[] = [];
+    const skips: Map<number, boolean> = new Map();
 
-    await opts.forEach(async (_o, i) => {
-      if (!this.isOption(_o)) return;
+    const makePromise = (res: ICommandCallbackResult) => {
+      if (typeof res === "object" && res !== undefined) {
+        return res as ICommandCallbackResultASync;
+      } else {
+        return new Promise(r => r(res)) as ICommandCallbackResultASync;
+      }
+    };
 
-      const o = _o.replace("--", "");
-      LoggerService.log(LOGGER_CLI_BUILDER, `is ${o} be global option ?`);
-      if (this._globalOptions.has(o)) {
-        const option = this._globalOptions.get(o) as Option;
-        LoggerService.log(
-          LOGGER_CLI_BUILDER,
-          `  - ${Colorize.option(o)} is a global option ${option.needParam ? "need parameter" : "no parameter"} !`,
-        );
+    for (let i = 0; i < opts.length; i++) {
+      const o = opts[i];
+      // skipping
+      if (skips.has(i) && skips.get(i) === true) {
+        LoggerService.log(LOGGER_CLI_BUILDER, `skipping this argument(${o}) because it a parameter of option`);
+        continue;
+      }
 
+      // ignore non option staff
+      if (!this.isOption(o)) {
+        skips.set(i, false);
+        promises.push(new Promise<void>(res => res()));
+        continue;
+      }
+
+      const opt = o.replace("--", "");
+      LoggerService.log(LOGGER_CLI_BUILDER, `checking is ${opt} be global option ?`);
+
+      if (this._globalOptions.has(opt)) {
+        const option = this._globalOptions.get(opt) as Option;
+        const param = option.needParam ? "need parameter" : "no parameter";
+        LoggerService.log(LOGGER_CLI_BUILDER, `  - ${Colorize.option(option.name)} is a global ${param} option !`);
         if (option.needParam) {
-          callback.push(await option.execute(this, opts[i + 1]));
+          skips.set(i, true); // skip
+          skips.set(i + 1, true); // skip
           this._event.emit("globalOption", option, opts[i + 1]);
-          opts.splice(i, 2);
+
+          promises.push(makePromise(option.execute(this, opts[i + 1])));
         } else {
-          callback.push(await option.execute(this, undefined));
+          skips.set(i, true); // skip
           this._event.emit("globalOption", option);
-          opts.splice(i, 1);
+
+          promises.push(makePromise(option.execute(this, undefined)));
         }
       } else {
-        LoggerService.log(LOGGER_CLI_BUILDER, `  - ${Colorize.option(o)} is not a global option !`);
+        skips.set(i, false);
+        LoggerService.log(LOGGER_CLI_BUILDER, `  - ${Colorize.option(opt)} is not a global option !`);
+        promises.push(new Promise<void>(res => res()));
+        continue;
       }
-    });
+    }
 
-    return { arguments: opts, callback };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return Promise.all(promises as Promise<any>[]).then(
+      (callback: ICommandCallbackResultSync[]) =>
+        new Promise<{ arguments: string[]; callback: ICommandCallbackResultSync[] }>(res =>
+          res({ arguments: opts.filter((_, i) => skips.get(i) === false), callback }),
+        ),
+    );
   }
 
   private finish() {
@@ -154,7 +193,7 @@ export default class Commandline implements IOptionable {
   }
 
   private async travisArgumentPath(args: string[]): Promise<ICommandCallbackResult> {
-    LoggerService.log(LOGGER_CLI_BUILDER, `start check arguments...`);
+    LoggerService.log(LOGGER_CLI_BUILDER, `start check arguments... (size=${args})`);
 
     let skip: Array<number> = [];
     let c: Command | undefined;
