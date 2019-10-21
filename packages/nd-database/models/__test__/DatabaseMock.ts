@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import IDatabase from "../IDatabase";
+import IDatabase from "../IDBO";
 
 /**
  * NOTES: Never tested; be aware when use this
