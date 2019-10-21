@@ -60,7 +60,7 @@
     "chalk": "2.4.2",
     "cheerio": "1.0.0-rc.3",
     "debug": "4.1.1",
-    "firebase": "6.4.0",
+    "firebase": "6.6.2",
     "iconv-lite": "0.5.0",
     "jsonwebtoken": "8.5.1",
     "mustache": "3.1.0",
