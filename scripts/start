@@ -110,9 +110,9 @@ __run() {
 
   [[ "${_name}" != "nd" ]] && [[ "${_name}" != "nd-admin" ]] && _name="nd"
 
-  if [[ $NODE_ENV == "development" ]]; then
+  if [[ $NODE_ENV == "development" ]] || [[ $1 == "dev" ]]; then
     name="${_name}.js"
-  elif [[ $NODE_ENV == "production" ]]; then
+  elif [[ $NODE_ENV == "production" ]] || [[ $1 == "prod" ]]; then
     name="${_name}.min.js"
   else
     name="${_name}.js"
