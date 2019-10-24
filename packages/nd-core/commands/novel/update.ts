@@ -60,7 +60,7 @@ const __main: ICommandCallback = async ({ value, apis }) => {
     action: FileAction.WRITE,
     name: "index.html",
     content: generator.load(TemplateType.Default),
-    opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(`index.html`, 0) },
+    opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Cachefile(`index.html`, ".bk", 0) },
   });
 
   // add chapter files
@@ -70,14 +70,17 @@ const __main: ICommandCallback = async ({ value, apis }) => {
         action: FileAction.WRITE,
         name: `chapter-${c.cid}.html`,
         content: generator.reset(htmlConfigBuilder("chapter", secure, novel, c)).load(TemplateType.Default),
-        opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(`chapter-${c.cid}.html`, 0) },
+        opts: { force: true, tmp: opts.replace ? undefined : PathUtils.Cachefile(`chapter-${c.cid}.html`, ".bk", 0) },
       });
     else LoggerService.warn(LOGGER_NOVEL_DOWNLOADER, `found chapter ${c.cid} status is not completed [${c.status}]`);
   });
 
   // add resource file
   const newResource = new Resource.Novel(newNovel);
-  newResource.write(system, { force: true, tmp: opts.replace ? undefined : PathUtils.Tmpname(RESOURCE_FILENAME, 0) });
+  newResource.write(system, {
+    force: true,
+    tmp: opts.replace ? undefined : PathUtils.Cachefile(RESOURCE_FILENAME, ".bk", 0),
+  });
 
   if (!opts.dry) await system.run();
 };
