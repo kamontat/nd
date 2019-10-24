@@ -8,7 +8,7 @@
     "@nd/novel": "./packages/nd-novel",
     "@nd/security": "./packages/nd-security",
     "@nd/content": "./packages/nd-content",
-    "mustache": "3.0.3"
+    "mustache": "3.1.0"
   },
   "changelog": {
     "1.0.0-beta.8": {
