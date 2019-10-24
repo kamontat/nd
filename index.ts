@@ -37,8 +37,9 @@ const home = homedir();
     });
 
     config.on("output.color", (color: boolean) => {
-      LoggerService.log(LOGGER_CLI, `now output color is ${color}`);
-      if (!color) chalk.level = 0;
+      LoggerService.log(LOGGER_CLI, `now output color is ${color}(type=${typeof color})`);
+      if (color !== true) chalk.enabled = false;
+      else chalk.enabled = true;
     });
 
     UpdateLogInfo(process.argv); // update log info
