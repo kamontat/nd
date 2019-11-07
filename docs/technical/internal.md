@@ -1,9 +1,3 @@
-### Sonarqube report
-
-##### v1.0.0-beta.5
-
-![image](docs/assets/sonarqube/report-v1.0.0-beta.5.png)
-
 ### How to create internal libraries
 
 1. Create folder called `nd-*`
@@ -43,18 +37,3 @@ export { Package }
    1. function `VERSION_FULL`
    2. function `VERSION_FULL_DETAIL`
 
-### Deployment
-
-1. run `yarn build` to build executation file
-2. run follow command (only for mac user)
-
-```bash
-# defined bin path
-export BIN_PATH="/usr/local/bin"
-
-# move execute file to bin path
-mv dist/bin/nd-macos ${BIN_PATH}/nd
-
-# move node file to bin path
-mv node_modules/grpc/src/node/extension_binary/node-v72-darwin-x64-unknown/grpc_node.node ${BIN_PATH}
-```
