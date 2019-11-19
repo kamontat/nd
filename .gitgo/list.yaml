@@ -30,6 +30,8 @@ commit:
       value: CI/CD setup
     - type: security
       value: Security submodules
+    - type: auth
+      value: Authentication submodules
     - type: content
       value: Content submodules
     - type: novel
@@ -58,8 +60,10 @@ commit:
       value: Error submodules
     - type: debug
       value: Debug submodules
-    - type: Thread
+    - type: thread
       value: Thread submodules
+    - type: fbase
+      value: Internal firebase submodules
     - type: helper
       value: Helper submodules
     - type: release
