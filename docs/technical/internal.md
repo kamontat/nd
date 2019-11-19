@@ -33,7 +33,7 @@ export { Package }
 
 4. run install via `yarn add ./packages/nd-*`
 5. add to Makefile (section **lib**) and [loc.sh](scripts/loc.sh)
-6. add to version command and version detail [link](./src/constants/content.ts)
+6. add to version command and version detail [link](packages/nd-core/constants/content.ts)
    1. function `VERSION_FULL`
    2. function `VERSION_FULL_DETAIL`
 
