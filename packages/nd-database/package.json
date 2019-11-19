@@ -1,13 +1,17 @@
 {
   "name": "@nd/database",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "database interface for nd command and storage",
   "dependencies": {
     "@nd/error": "./packages/nd-error",
     "@nd/logger": "./packages/nd-logger",
-    "firebase": "6.6.2"
+    "@nd/fbase": "./packages/nd-fbase"
   },
   "changelog": {
+    "1.0.0-rc.2": {
+      "message": "move all firebase relate to fbase project",
+      "date": "19 Nov 2019"
+    },
     "1.0.0-rc.1": {
       "message": "make improvement on code level and introduce break changes",
       "date": "21 Oct 2019"
