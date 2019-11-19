@@ -105,7 +105,7 @@
     "source-map-support": "0.5.13",
     "tap-xunit": "2.4.1",
     "to-string-loader": "1.1.5",
-    "ts-loader": "6.0.4",
+    "ts-loader": "6.2.1",
     "ts-node": "8.3.0",
     "tsconfig-paths": "3.9.0",
     "typedoc": "0.15.0",
