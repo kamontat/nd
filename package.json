@@ -102,7 +102,7 @@
     "prettier": "1.18.2",
     "sass-loader": "7.3.1",
     "sinon": "7.5.0",
-    "source-map-support": "0.5.13",
+    "source-map-support": "0.5.16",
     "tap-xunit": "2.4.1",
     "to-string-loader": "1.1.5",
     "ts-loader": "6.2.1",
