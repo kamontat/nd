@@ -204,8 +204,10 @@ export default class Commandline implements IOptionable {
       // print the log message with current and future argument
       let __msg = `arguments index ${i}`;
       if (arg !== "") __msg += `\n  - current: ${arg}`;
+
       const next = args[i + 1];
       if (next !== "") __msg += `\n  - next   : ${next}`;
+
       LoggerService.log(LOGGER_CLI_BUILDER, __msg);
       LoggerService.log(LOGGER_CLI_BUILDER, `skip value is [${skip}]`);
 

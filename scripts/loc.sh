@@ -33,7 +33,7 @@ prepend() {
   shift
 
   content="$(cat "$report")"
-  printf "$@$content" >$report
+  printf "$*$content" >$report
 
 }
 
