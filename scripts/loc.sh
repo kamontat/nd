@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 run_cloc() {
   local title
   local filename="$1"
