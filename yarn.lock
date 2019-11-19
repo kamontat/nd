@@ -1315,11 +1315,11 @@
     "@nd/logger" "./packages/nd-logger"
 
 "@nd/database@./packages/nd-database":
-  version "1.0.0-rc.1"
+  version "1.0.0-rc.2"
   dependencies:
     "@nd/error" "./packages/nd-error"
+    "@nd/fbase" "./packages/nd-fbase"
     "@nd/logger" "./packages/nd-logger"
-    firebase "6.6.2"
 
 "@nd/debug@./packages/nd-debug":
   version "0.1.0-rc.3"
@@ -1701,10 +1701,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.10.tgz#51babf9c7deadd5343620055fc8aff7995c8b031"
   integrity sha512-LcsGbPomWsad6wmMNv7nBLw7YYYyfdYcz6xryKYQhx89c3XXan+8Q6AJ43G5XDIaklaVkK3mE4fCb0SBvMiPSQ==
 
-"@types/node@10.14.22":
-  version "10.14.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.22.tgz#34bcdf6b6cb5fc0db33d24816ad9d3ece22feea4"
-  integrity sha512-9taxKC944BqoTVjE+UT3pQH0nHZlTvITwfsOZqyc+R3sfJuxaTtxWjfn1K2UlxyPcKHf0rnaXcVFrS9F9vf0bw==
+"@types/node@10.17.5":
+  version "10.17.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.5.tgz#c1920150f7b90708a7d0f3add12a06bc9123c055"
+  integrity sha512-RElZIr/7JreF1eY6oD5RF3kpmdcreuQPjg5ri4oQ5g9sq7YWU8HkfB3eH8GwAwxf5OaCh0VPi7r4N/yoTGelrA==
 
 "@types/node@^10.1.0":
   version "10.14.15"
