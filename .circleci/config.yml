@@ -66,7 +66,7 @@ orbs:
   node: circleci/node@1.1.6
   codecov: codecov/codecov@1.0.5
   packtracker: packtracker/report@2.2.7
-  sonarcloud: sonarsource/sonarcloud@1.0.0
+  sonarcloud: sonarsource/sonarcloud@1.0.1
 
 workflows:
   version: 2
