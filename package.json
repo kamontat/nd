@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@nd/admin": "./packages/nd-admin",
+    "@nd/auth": "./packages/nd-auth",
     "@nd/commandline-interpreter": "./packages/nd-commandline-interpreter",
     "@nd/config": "./packages/nd-config",
     "@nd/content": "./packages/nd-content",
@@ -46,6 +47,7 @@
     "@nd/decoder": "./packages/nd-decoder",
     "@nd/downloader": "./packages/nd-downloader",
     "@nd/error": "./packages/nd-error",
+    "@nd/fbase": "./packages/nd-fbase",
     "@nd/file": "./packages/nd-file",
     "@nd/formatter": "./packages/nd-formatter",
     "@nd/helper": "./packages/nd-helper",
