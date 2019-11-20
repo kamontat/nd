@@ -5,19 +5,31 @@ import { RandomUtils } from "@nd/helper";
 const random = (size = 20) => RandomUtils.RandomString(size);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const macro: Macro<[{ before: any; after: any }, EventType | undefined]> = (t, obj, type) => {
+const macro: Macro<[{ before: any; after: any }, EventType | undefined]> = (
+  t,
+  obj,
+  type
+) => {
   t.plan(1);
 
   const title = random();
   const event = new HistoryEvent();
 
   if (type !== undefined) {
-    event.on("added", tt => (type === "added" ? t.is(tt, title) : t.fail(`expected type tobe ${type}, but got added`)));
+    event.on("added", tt =>
+      type === "added"
+        ? t.is(tt, title)
+        : t.fail(`expected type tobe ${type}, but got added`)
+    );
     event.on("modified", tt =>
-      type === "modified" ? t.is(tt, title) : t.fail(`expected type tobe ${type}, but got modified`),
+      type === "modified"
+        ? t.is(tt, title)
+        : t.fail(`expected type tobe ${type}, but got modified`)
     );
     event.on("deleted", tt =>
-      type === "deleted" ? t.is(tt, title) : t.fail(`expected type tobe ${type}, but got deleted`),
+      type === "deleted"
+        ? t.is(tt, title)
+        : t.fail(`expected type tobe ${type}, but got deleted`)
     );
   }
 
@@ -26,9 +38,9 @@ const macro: Macro<[{ before: any; after: any }, EventType | undefined]> = (t, o
 };
 macro.title = (title = "", obj, type) =>
   `${title} classify when before is '${JSON.stringify(
-    obj.before,
+    obj.before
   )}'(${typeof obj.before}) and after is '${JSON.stringify(
-    obj.after,
+    obj.after
   )}'(${typeof obj.after}), the ${type} event should emit`;
 
 test("able to create history event object", t => {
@@ -74,9 +86,9 @@ test(
     before: { value: "string" },
     after: new (class {
       public v = "hello, V";
-    })(),
+    })()
   },
-  "modified",
+  "modified"
 );
 class HelloWorld {
   public get message() {
@@ -97,13 +109,27 @@ test("5.2)", macro, { before: undefined, after: new HelloWorld() }, "added");
 test(
   "5.3)",
   macro,
-  { before: new HelloWorld("custom hello, world"), after: new HelloWorld("new message") },
-  "modified",
+  {
+    before: new HelloWorld("custom hello, world"),
+    after: new HelloWorld("new message")
+  },
+  "modified"
 );
 test(
   "5.4)",
   macro,
-  { before: new HelloWorld("custom hello, world"), after: new HelloWorld("custom hello, world") },
-  undefined,
+  {
+    before: new HelloWorld("custom hello, world"),
+    after: new HelloWorld("custom hello, world")
+  },
+  undefined
 );
-test("5.5)", macro, { before: new HelloWorld("undefined"), after: new HelloWorld("custom hello, world") }, "added");
+test(
+  "5.5)",
+  macro,
+  {
+    before: new HelloWorld("undefined"),
+    after: new HelloWorld("custom hello, world")
+  },
+  "added"
+);
