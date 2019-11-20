@@ -37,7 +37,6 @@ This badge will represent informative of the repository
 
 | Name         | Badge                                           |
 | ------------ | ----------------------------------------------- |
-| Open PR      | ![gh-open-pr][gh-open-pr]                       |
 | Avg. commit  | ![gh-avg-commit-monthly][gh-avg-commit-monthly] |
 | Top language | ![gh-top-language][gh-top-language]             |
 | Repo size    | ![gh-repo-size][gh-repo-size]                   |
@@ -70,10 +69,8 @@ This badge will represent informative of the repository
 | Dependencies         | [![david][david-badge]][david-link]             |
 | Develop Dependencies | [![david-dev][david-dev-badge]][david-dev-link] |
 
-[gh-last-commit-badge]: https://img.shields.io/github/last-commit/kamontat/nd/master?label=latest&logo=github&logoColor=white&style=flat-square
 [gh-avg-commit-monthly]: https://img.shields.io/github/commit-activity/m/kamontat/nd?label=activity&logo=github&logoColor=white&style=flat-square
 [gh-top-language]: https://img.shields.io/github/languages/top/kamontat/nd?logo=github&logoColor=white&style=flat-square
-[gh-open-pr]: https://img.shields.io/github/issues-pr/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [gh-repo-size]: https://img.shields.io/github/repo-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [gh-code-size]: https://img.shields.io/github/languages/code-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [circleci-badge]: https://img.shields.io/circleci/build/github/kamontat/nd?logo=circleci&logoColor=white&style=flat-square
