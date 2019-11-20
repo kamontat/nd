@@ -79,7 +79,7 @@ export class Chapter {
     private _nid: number,
     private _cid: number,
     private _status: ChapterStatus = ChapterStatus.UNKNOWN,
-    event?: HistoryEvent
+    event?: HistoryEvent,
   ) {
     this._link = buildViewlongURL(this._nid, this._cid);
     this._content = [];
@@ -93,12 +93,7 @@ export class Chapter {
   }
 
   public equals(c: Chapter) {
-    return (
-      this.cid === c.cid &&
-      this.nid === c.nid &&
-      this.status === c.status &&
-      this.name === c.name
-    );
+    return this.cid === c.cid && this.nid === c.nid && this.status === c.status && this.name === c.name;
   }
 
   public toJSON(_opts?: { content?: boolean }) {
@@ -112,7 +107,7 @@ export class Chapter {
       status: this.status,
       content: this.content,
       downloadAt: this.downloadAt,
-      updateAt: this.updateAt
+      updateAt: this.updateAt,
     } as { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     if (opts.content) json.content = this.content;
@@ -133,7 +128,7 @@ export class Chapter {
       enum: opts.color ? Colorize.enum : colorless,
       link: opts.color ? Colorize.url : colorless,
       date: opts.color ? Colorize.date : colorless,
-      datetime: opts.color ? Colorize.datetime : colorless
+      datetime: opts.color ? Colorize.datetime : colorless,
     };
 
     if (this.name) {
@@ -141,28 +136,21 @@ export class Chapter {
         const chap = StringUtils.Padding(this.cid.toString(), 3);
         const updated = TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
           format: "short",
-          lang: "th"
+          lang: "th",
         });
-        const downloaded = TimeUtils.FormatDate(
-          TimeUtils.GetDate(this.downloadAt),
-          {
-            format: "short",
-            lang: "th"
-          }
-        );
+        const downloaded = TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
+          format: "short",
+          lang: "th",
+        });
 
-        return `${color.chapter(chap)}: ${color.enum(
-          this.status.toUpperCase()
-        )}: ${color.name(this.name)}
+        return `${color.chapter(chap)}: ${color.enum(this.status.toUpperCase())}: ${color.name(this.name)}
   - Updated at    ${color.date(updated)}
   - Downloaded at ${color.datetime(downloaded)}`;
       } else {
         return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }
     } else {
-      return `${color.chapter(this.cid.toString())} ${color.enum(
-        this.status
-      )} ${color.link(this.link.toString())}`;
+      return `${color.chapter(this.cid.toString())} ${color.enum(this.status)} ${color.link(this.link.toString())}`;
     }
   }
 

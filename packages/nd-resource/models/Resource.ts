@@ -11,10 +11,7 @@ export default class Resource {
     return this.fileName;
   }
   public set json(json: string) {
-    LoggerService.log(
-      LOGGER_NOVEL_RESOURCE,
-      `updating resource json from ${this._json} to ${json}`
-    );
+    LoggerService.log(LOGGER_NOVEL_RESOURCE, `updating resource json from ${this._json} to ${json}`);
     this._json = json;
   }
 
@@ -33,13 +30,10 @@ export default class Resource {
     }
   };
 
-  constructor(
-    private fileName: string = RESOURCE_FILENAME,
-    private _json: string = ""
-  ) {
+  constructor(private fileName: string = RESOURCE_FILENAME, private _json: string = "") {
     LoggerService.log(
       LOGGER_NOVEL_RESOURCE,
-      `constructor of resource on file=${this.fileName} and content=${this._json}`
+      `constructor of resource on file=${this.fileName} and content=${this._json}`,
     );
   }
 
@@ -52,10 +46,7 @@ export default class Resource {
   }
 
   public read(system: FileSystem) {
-    return system.add("resource", {
-      action: FileAction.READ,
-      name: this.fileName
-    });
+    return system.add("resource", { action: FileAction.READ, name: this.fileName });
   }
 
   public write(system: FileSystem, options?: WriteOption) {
@@ -65,7 +56,7 @@ export default class Resource {
       action: FileAction.WRITE,
       name: this.fileName,
       content: this.encode(),
-      opts: options
+      opts: options,
     });
   }
 }

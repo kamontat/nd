@@ -54,10 +54,7 @@ export default class Security {
     this._config = config[version];
     this._name = name;
 
-    LoggerService.log(
-      LOGGER_SECURITY,
-      `create with version=${version} name=${this._name}`
-    );
+    LoggerService.log(LOGGER_SECURITY, `create with version=${version} name=${this._name}`);
 
     this._server = new Server(this);
   }
@@ -69,7 +66,7 @@ export default class Security {
 
       const obj = verify(unhash(token), password, {
         jwtid: this._config.id,
-        issuer: "admin"
+        issuer: "admin",
       }) as IRawResponseFormat;
 
       LoggerService.log(LOGGER_SECURITY, `return object %O, `, obj);
@@ -78,7 +75,7 @@ export default class Security {
         fbname: obj.fbname,
         expire: obj.exp * 1000,
         issue: obj.iat * 1000,
-        notBefore: obj.nbf * 1000 // convert to millisecond that supported by javascript Date
+        notBefore: obj.nbf * 1000, // convert to millisecond that supported by javascript Date
       };
 
       this._caches = response;
@@ -91,10 +88,7 @@ export default class Security {
   public encrypt(config: ITokenConfig) {
     const salt = genSaltSync(2);
 
-    LoggerService.log(
-      LOGGER_SECURITY,
-      `encrypt token with config=${JSON.stringify(config)}`
-    );
+    LoggerService.log(LOGGER_SECURITY, `encrypt token with config=${JSON.stringify(config)}`);
     LoggerService.log(LOGGER_SECURITY, `encrypt token with salt=${salt}`);
 
     const password = hashSync(this._name, salt);
@@ -106,7 +100,7 @@ export default class Security {
       expiresIn: config.expire,
       notBefore: config.when,
       issuer: config.issuer,
-      jwtid: this._config.id
+      jwtid: this._config.id,
     });
 
     LoggerService.log(LOGGER_SECURITY, `before hash token=${token}`);
@@ -117,7 +111,7 @@ export default class Security {
       salt: hash(salt),
       name: this._name,
       exp: config.expire,
-      nbf: config.when
+      nbf: config.when,
     };
   }
 

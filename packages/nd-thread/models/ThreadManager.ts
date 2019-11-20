@@ -7,8 +7,7 @@ import { EachFn, IThreadable, MapFn } from "./IThreadable";
 
 type KeyType = string | number;
 
-export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O>
-  implements IThreadable<K, V, OO> {
+export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O> implements IThreadable<K, V, OO> {
   public get size() {
     return this._list.size;
   }
@@ -35,10 +34,7 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O>
   }
 
   public add(key: K, value: V) {
-    LoggerService.log(
-      LOGGER_THREAD,
-      `add ${key} => ${value} to thread manager map`
-    );
+    LoggerService.log(LOGGER_THREAD, `add ${key} => ${value} to thread manager map`);
     this._list.set(key, value);
     return this;
   }
@@ -67,29 +63,22 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O>
    * @param fn function to be executed
    */
   protected _each(fn: EachFn<K, V, O, OO>) {
-    return (eachOfLimit(
-      (this._list as unknown) as Dictionary<[K, V]>,
-      this._thread,
-      (v, _, callback) => {
-        // LoggerService.log(
-        //   LOGGER_THREAD,
-        //   `start loop each object %O with options=%O and optionOnce=%O`,
-        //   { key: v[0], value: v[1] },
-        //   this._options,
-        //   this._optionOnce,
-        // );
+    return (eachOfLimit((this._list as unknown) as Dictionary<[K, V]>, this._thread, (v, _, callback) => {
+      // LoggerService.log(
+      //   LOGGER_THREAD,
+      //   `start loop each object %O with options=%O and optionOnce=%O`,
+      //   { key: v[0], value: v[1] },
+      //   this._options,
+      //   this._optionOnce,
+      // );
 
-        return fn(
-          { key: v[0], value: v[1] },
-          { option: this._options, optionOnce: this._optionOnce }
-        )
-          .then(o => {
-            if (o) this.setOption(o);
-            callback(undefined);
-          })
-          .catch(err => callback(err));
-      }
-    ) as unknown) as Promise<void>;
+      return fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
+        .then(o => {
+          if (o) this.setOption(o);
+          callback(undefined);
+        })
+        .catch(err => callback(err));
+    }) as unknown) as Promise<void>;
   }
 
   /**
@@ -108,14 +97,11 @@ export default abstract class ThreadManager<K extends KeyType, V, R, O, OO = O>
         //   this._optionOnce,
         // );
 
-        fn(
-          { key: v[0], value: v[1] },
-          { option: this._options, optionOnce: this._optionOnce }
-        )
+        fn({ key: v[0], value: v[1] }, { option: this._options, optionOnce: this._optionOnce })
           .then(v => callback(undefined, v))
           .catch(err => callback(err, undefined));
       },
-      undefined as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      undefined as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     ) as unknown) as Promise<{ [key in K]: R }>;
   }
 

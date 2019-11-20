@@ -73,9 +73,7 @@ export class Novel {
   public get normalizeName() {
     if (!this._name) return `unknown-name-${this.id}`;
     // eslint-disable-next-line no-useless-escape
-    return this._name
-      .replace(/([ \n\t\r\n])/g, "-")
-      .replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
+    return this._name.replace(/([ \n\t\r\n])/g, "-").replace(/([\(\)\[\]\&\%\$\#\@\^\*\\\/])/g, "_");
   }
 
   public get size() {
@@ -107,17 +105,9 @@ export class Novel {
   public static Resource = class extends Novel {
     constructor(resource: Resource) {
       const decode = resource.decode();
-      LoggerService.log(
-        LOGGER_NOVEL_BUILDER,
-        "decoded resource content; %O",
-        decode
-      );
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "decoded resource content; %O", decode);
       const json = JSON.parse(decode);
-      LoggerService.log(
-        LOGGER_NOVEL_BUILDER,
-        "load novel from resource; %O",
-        json
-      );
+      LoggerService.log(LOGGER_NOVEL_BUILDER, "load novel from resource; %O", json);
 
       // disable history event
       super(json.id, false);
@@ -135,11 +125,7 @@ export class Novel {
       this.updateAt = json.updateAt;
 
       json.chapters.forEach((c: Json) => {
-        const chapter = new Chapter(
-          c.nid,
-          c.cid,
-          ChapterStatusUtils.ToStatus(c.status)
-        );
+        const chapter = new Chapter(c.nid, c.cid, ChapterStatusUtils.ToStatus(c.status));
 
         chapter.name = c.name;
         chapter.downloadAt = c.downloadAt;
@@ -210,10 +196,7 @@ export class Novel {
   }
 
   public removeChapter(num: number) {
-    this.eventHandler("chapter", {
-      before: this.chapter(num),
-      after: undefined
-    });
+    this.eventHandler("chapter", { before: this.chapter(num), after: undefined });
     this._chapters.delete(num);
   }
 
@@ -235,7 +218,7 @@ export class Novel {
       abstract: this.abstract,
       chapters: Array.from(this.chapters).map(c => c.toJSON(_opts)),
       updateAt: this.updateAt,
-      downloadAt: this.downloadAt
+      downloadAt: this.downloadAt,
     } as Json;
 
     if (opts.content) json.content = this.content;

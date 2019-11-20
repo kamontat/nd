@@ -37,31 +37,24 @@ export class HistoryNode implements IHistoryNode {
       title: this.title,
       value: this._value,
       createAt: this._createAt,
-      updateAt: this._updateAt
+      updateAt: this._updateAt,
     };
   }
 
   public toString(_opts: { color?: boolean } = {}) {
     const opts = Object.assign({ color: false }, _opts);
 
-    if (!this._type || !this._value)
-      return "Error: never set type and value in history";
+    if (!this._type || !this._value) return "Error: never set type and value in history";
 
     if (opts.color) {
       switch (this._type) {
         case "added":
-          return `adding ${Colorize.value(
-            this.limit(this._value.toString())
-          )} to ${Colorize.key(this.title)}`;
+          return `adding ${Colorize.value(this.limit(this._value.toString()))} to ${Colorize.key(this.title)}`;
         case "deleted":
-          return `removing ${Colorize.value(
-            this.limit(this._value.toString())
-          )} from ${Colorize.key(this.title)}`;
+          return `removing ${Colorize.value(this.limit(this._value.toString()))} from ${Colorize.key(this.title)}`;
         case "modified":
-          return `changing ${Colorize.value(
-            this.limit((this._value as IModifyValue).before)
-          )} to ${Colorize.value(
-            this.limit((this._value as IModifyValue).after)
+          return `changing ${Colorize.value(this.limit((this._value as IModifyValue).before))} to ${Colorize.value(
+            this.limit((this._value as IModifyValue).after),
           )} in ${Colorize.key(this.title)}`;
       }
     } else {
@@ -71,9 +64,9 @@ export class HistoryNode implements IHistoryNode {
         case "deleted":
           return `removing ${this._value.toString()} from ${this.title}`;
         case "modified":
-          return `changing ${(this._value as IModifyValue).before} to ${
-            (this._value as IModifyValue).after
-          } in ${this.title}`;
+          return `changing ${(this._value as IModifyValue).before} to ${(this._value as IModifyValue).after} in ${
+            this.title
+          }`;
       }
     }
 

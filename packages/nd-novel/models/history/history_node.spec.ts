@@ -81,15 +81,11 @@ test("toString should return event message as output", t => {
 
 test("toString will limit message less than 30 character", t => {
   const title = "random-string";
-  const veryLongMessage1 =
-    "thisisaveryverylongmessagefortestinghistorynodetostringmethod";
+  const veryLongMessage1 = "thisisaveryverylongmessagefortestinghistorynodetostringmethod";
   const veryLongMessage2 =
     "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
 
-  const node = new HistoryNode(title).set("modified", {
-    before: veryLongMessage1,
-    after: veryLongMessage2
-  });
+  const node = new HistoryNode(title).set("modified", { before: veryLongMessage1, after: veryLongMessage2 });
 
   t.notRegex(node.toString({ color: true }), new RegExp(veryLongMessage1));
   t.notRegex(node.toString({ color: true }), new RegExp(veryLongMessage2));

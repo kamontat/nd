@@ -6,5 +6,5 @@ export default {
   },
   decrypt(token: string) {
     return unhash(token);
-  }
+  },
 };

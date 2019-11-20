@@ -49,33 +49,22 @@ const changesArrayString = (s?: string[], ss?: string[]) => {
 // diff is a new novel from current fetching
 export const Merge = (resource: N, refresh: N) => {
   if (resource.id !== refresh.id) {
-    LoggerService.warn(
-      LOGGER_NOVEL_BUILDER,
-      "cannot merge 2 difference novel id"
-    );
+    LoggerService.warn(LOGGER_NOVEL_BUILDER, "cannot merge 2 difference novel id");
     return resource;
   }
 
   // if base version is latest version
   if ((resource.updateAt || 0) >= (refresh.updateAt || 0)) {
-    throw ExceptionService.build(
-      ERR_NLV,
-      `nothing changes on novel ${resource.id} (${resource.name})`
-    );
+    throw ExceptionService.build(ERR_NLV, `nothing changes on novel ${resource.id} (${resource.name})`);
   }
 
   // merge all information
   if (canMergeString(resource.name, refresh.name)) resource.name = refresh.name;
-  if (canMergeString(resource.author, refresh.author))
-    resource.author = refresh.author;
-  if (canMergeArrayString(resource.tags, refresh.tags))
-    resource.setTag(refresh.tags);
-  if (canMergeString(resource.abstract, refresh.abstract))
-    resource.abstract = refresh.abstract;
-  if (canMergeNumber(resource.updateAt, refresh.updateAt))
-    resource.updateAt = refresh.updateAt;
-  if (canMergeNumber(resource.downloadAt, refresh.downloadAt))
-    resource.downloadAt = refresh.downloadAt;
+  if (canMergeString(resource.author, refresh.author)) resource.author = refresh.author;
+  if (canMergeArrayString(resource.tags, refresh.tags)) resource.setTag(refresh.tags);
+  if (canMergeString(resource.abstract, refresh.abstract)) resource.abstract = refresh.abstract;
+  if (canMergeNumber(resource.updateAt, refresh.updateAt)) resource.updateAt = refresh.updateAt;
+  if (canMergeNumber(resource.downloadAt, refresh.downloadAt)) resource.downloadAt = refresh.downloadAt;
 
   const max = Math.max(refresh.size, resource.size);
   for (let i = 1; i <= max; i++) {
@@ -83,10 +72,8 @@ export const Merge = (resource: N, refresh: N) => {
     const refreshChapter = refresh.chapter(i);
 
     // new chapter occurred
-    if (!resourceChapter && refreshChapter)
-      resource.addChapter(refreshChapter.cid, refreshChapter);
-    if (resourceChapter && !refreshChapter)
-      resource.removeChapter(resourceChapter.cid); // NOTES: This might cause chapter missing when chapters list is not correct
+    if (!resourceChapter && refreshChapter) resource.addChapter(refreshChapter.cid, refreshChapter);
+    if (resourceChapter && !refreshChapter) resource.removeChapter(resourceChapter.cid); // NOTES: This might cause chapter missing when chapters list is not correct
 
     if (resourceChapter && refreshChapter) {
       // if base version is latest version
@@ -107,10 +94,7 @@ export const Compare = (resource: N, refresh: N) => {
   history.addEvent(event);
 
   if (resource.id !== refresh.id) {
-    LoggerService.warn(
-      LOGGER_NOVEL_BUILDER,
-      "cannot merge 2 difference novel id"
-    );
+    LoggerService.warn(LOGGER_NOVEL_BUILDER, "cannot merge 2 difference novel id");
     return history;
   }
 
@@ -122,42 +106,24 @@ export const Compare = (resource: N, refresh: N) => {
   const date = (n?: number) =>
     TimeUtils.FormatDate(TimeUtils.GetDate(n), {
       format: "short",
-      lang: "th"
+      lang: "th",
     });
 
   // compare all information changes
   if (changesString(resource.name, refresh.name))
-    event.classify("Novel name", {
-      before: resource.name,
-      after: refresh.name
-    });
+    event.classify("Novel name", { before: resource.name, after: refresh.name });
   if (changesString(resource.author, refresh.author))
-    event.classify("Novel author", {
-      before: resource.author,
-      after: refresh.author
-    });
+    event.classify("Novel author", { before: resource.author, after: refresh.author });
   if (changesArrayString(resource.tags, refresh.tags))
-    event.classify("Novel tags", {
-      before: resource.tags,
-      after: refresh.tags
-    });
+    event.classify("Novel tags", { before: resource.tags, after: refresh.tags });
   if (changesString(resource.abstract, refresh.abstract))
-    event.classify("Novel abstract", {
-      before: resource.abstract,
-      after: refresh.abstract
-    });
+    event.classify("Novel abstract", { before: resource.abstract, after: refresh.abstract });
   if (changesNumber(resource.updateAt, refresh.updateAt))
-    event.classify("Novel update at", {
-      before: date(resource.updateAt),
-      after: date(refresh.updateAt)
-    });
+    event.classify("Novel update at", { before: date(resource.updateAt), after: date(refresh.updateAt) });
 
   // NOTES: this might not neccessary because I always be present
   if (changesNumber(resource.downloadAt, refresh.downloadAt))
-    event.classify("Novel download at", {
-      before: date(resource.downloadAt),
-      after: date(refresh.downloadAt)
-    });
+    event.classify("Novel download at", { before: date(resource.downloadAt), after: date(refresh.downloadAt) });
 
   const max = Math.max(refresh.size, resource.size);
   for (let i = 1; i <= max; i++) {
@@ -165,10 +131,8 @@ export const Compare = (resource: N, refresh: N) => {
     const refreshChapter = refresh.chapter(i);
 
     // new chapter occurred
-    if (!resourceChapter && refreshChapter)
-      event.emit("added", "Chapter", refreshChapter);
-    if (resourceChapter && !refreshChapter)
-      event.emit("deleted", "Chapter", resourceChapter);
+    if (!resourceChapter && refreshChapter) event.emit("added", "Chapter", refreshChapter);
+    if (resourceChapter && !refreshChapter) event.emit("deleted", "Chapter", resourceChapter);
 
     if (resourceChapter && refreshChapter) {
       // if base version is latest version
@@ -177,24 +141,22 @@ export const Compare = (resource: N, refresh: N) => {
         if (changesString(resourceChapter.name, refreshChapter.name))
           event.classify(`Chapter ${refreshChapter.cid} name`, {
             before: resourceChapter.name,
-            after: refreshChapter.name
+            after: refreshChapter.name,
           });
         if (changesString(resourceChapter.status, refreshChapter.status))
           event.classify(`Chapter ${refreshChapter.cid} status`, {
             before: resourceChapter.status,
-            after: refreshChapter.status
+            after: refreshChapter.status,
           });
         if (changesNumber(resourceChapter.updateAt, refreshChapter.updateAt))
           event.classify(`Chapter ${refreshChapter.cid} last update`, {
             before: date(resourceChapter.updateAt),
-            after: date(refreshChapter.updateAt)
+            after: date(refreshChapter.updateAt),
           });
-        if (
-          changesNumber(resourceChapter.downloadAt, refreshChapter.downloadAt)
-        )
+        if (changesNumber(resourceChapter.downloadAt, refreshChapter.downloadAt))
           event.classify(`Chapter ${refreshChapter.cid} download at`, {
             before: date(resourceChapter.downloadAt),
-            after: date(refreshChapter.downloadAt)
+            after: date(refreshChapter.downloadAt),
           });
       }
     }

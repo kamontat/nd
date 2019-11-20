@@ -9,40 +9,27 @@ export default class Server {
   constructor(private security: Security) {}
 
   public async isActivated(): Promise<Error | undefined> {
-    if (!this.security.response)
-      return ExceptionService.build(
-        ERR_SCT,
-        "you didn't query authentication first."
-      );
+    if (!this.security.response) return ExceptionService.build(ERR_SCT, "you didn't query authentication first.");
 
     try {
       LoggerService.log(LOGGER_SECURITY, "connecting to database server...");
 
       const db = DatabaseService.Get<Database>("database");
-      const _value = await db.read(
-        `${USER_PATH_ROOT}/${this.security.response.fbname}`
-      );
+      const _value = await db.read(`${USER_PATH_ROOT}/${this.security.response.fbname}`);
 
       if (!_value.exists) {
         return ExceptionService.build(
           ERR_SCT,
-          "your user data is not exist; contact our admin to manually add to the server"
+          "your user data is not exist; contact our admin to manually add to the server",
         );
       }
 
-      LoggerService.log(
-        LOGGER_SECURITY,
-        "  - data is exist, start verifying..."
-      );
+      LoggerService.log(LOGGER_SECURITY, "  - data is exist, start verifying...");
       const value = _value.data();
-      if (
-        !value ||
-        (value[USER_PATH_ACTIVATED] !== true &&
-          value[USER_PATH_ACTIVATED] !== "true")
-      ) {
+      if (!value || (value[USER_PATH_ACTIVATED] !== true && value[USER_PATH_ACTIVATED] !== "true")) {
         return ExceptionService.build(
           ERR_SCT,
-          "your user is not activated; if you didn't hack our command please contact us."
+          "your user is not activated; if you didn't hack our command please contact us.",
         );
       }
 
