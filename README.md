@@ -40,6 +40,8 @@ This badge will represent informative of the repository
 | Open PR      | ![gh-open-pr][gh-open-pr]                       |
 | Avg. commit  | ![gh-avg-commit-monthly][gh-avg-commit-monthly] |
 | Top language | ![gh-top-language][gh-top-language]             |
+| Repo size    | ![gh-repo-size][gh-repo-size]                   |
+| Code size    | ![gh-code-size][gh-code-size]                   |
 
 ### Test and Coverage
 
@@ -72,6 +74,8 @@ This badge will represent informative of the repository
 [gh-avg-commit-monthly]: https://img.shields.io/github/commit-activity/m/kamontat/nd?label=activity&logo=github&logoColor=white&style=flat-square
 [gh-top-language]: https://img.shields.io/github/languages/top/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [gh-open-pr]: https://img.shields.io/github/issues-pr/kamontat/nd?logo=github&logoColor=white&style=flat-square
+[gh-repo-size]: https://img.shields.io/github/repo-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
+[gh-code-size]: https://img.shields.io/github/languages/code-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [circleci-badge]: https://img.shields.io/circleci/build/github/kamontat/nd?logo=circleci&logoColor=white&style=flat-square
 [circleci-link]: https://circleci.com/gh/kamontat/workflows/nd
 [codecov-badge]: https://img.shields.io/codecov/c/github/kamontat/nd?logo=codecov&logoColor=white&style=flat-square
