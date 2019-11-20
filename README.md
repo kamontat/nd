@@ -6,7 +6,9 @@
 <h1 align="center">
   ND - Novel Downloader
 
-  <img alt="release version" src="https://img.shields.io/github/v/release/kamontat/nd?include_prereleases&logo=github&logoColor=white&sort=semver&style=flat-square">
+  <img alt="release version" src="https://img.shields.io/github/v/release/kamontat/nd?label=release&include_prereleases&logo=github&logoColor=white&sort=semver&style=flat-square">
+
+  <img alt="release version" src="https://img.shields.io/github/release-date-pre/kamontat/nd?label=date&logo=github&logoColor=white&style=flat-square">
 </h1>
 
 <!-- description -->
@@ -33,12 +35,11 @@ This badge will represent informative of the repository
 
 ### Information
 
-| Name          | Badge                                           |
-| ------------- | ----------------------------------------------- |
-| Master commit | ![gh-last-commit-badge][gh-last-commit-badge]   |
-| Avg. commit   | ![gh-avg-commit-monthly][gh-avg-commit-monthly] |
-| Top language  | ![gh-top-language][gh-top-language]             |
-| Open PR       | ![gh-open-pr][gh-open-pr]                       |
+| Name         | Badge                                           |
+| ------------ | ----------------------------------------------- |
+| Open PR      | ![gh-open-pr][gh-open-pr]                       |
+| Avg. commit  | ![gh-avg-commit-monthly][gh-avg-commit-monthly] |
+| Top language | ![gh-top-language][gh-top-language]             |
 
 ### Test and Coverage
 
