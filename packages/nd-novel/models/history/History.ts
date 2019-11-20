@@ -7,17 +7,26 @@ export class History {
   private get event() {
     return {
       added: (title: string, value: string) => {
-        LoggerService.log(LOGGER_NOVEL, `detecting added event ${title}: ${value}`);
+        LoggerService.log(
+          LOGGER_NOVEL,
+          `detecting added event ${title}: ${value}`
+        );
         this.nodes.push(new HistoryNode(title).set("added", value));
       },
       modified: (title: string, value: { after: string; before: string }) => {
-        LoggerService.log(LOGGER_NOVEL, `detecting modified event ${title}: (from ${value.before} => ${value.after})`);
+        LoggerService.log(
+          LOGGER_NOVEL,
+          `detecting modified event ${title}: (from ${value.before} => ${value.after})`
+        );
         this.nodes.push(new HistoryNode(title).set("modified", value));
       },
       deleted: (title: string, value: string) => {
-        LoggerService.log(LOGGER_NOVEL, `detecting deleted event ${title}: ${value}`);
+        LoggerService.log(
+          LOGGER_NOVEL,
+          `detecting deleted event ${title}: ${value}`
+        );
         this.nodes.push(new HistoryNode(title).set("deleted", value));
-      },
+      }
     };
   }
 

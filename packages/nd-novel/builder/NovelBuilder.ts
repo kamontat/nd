@@ -1,5 +1,10 @@
 import { IncomingHttpHeaders } from "http";
-import { DownloadManager, IManagerEvent, IResponse, ManagerEvent } from "@nd/downloader";
+import {
+  DownloadManager,
+  IManagerEvent,
+  IResponse,
+  ManagerEvent
+} from "@nd/downloader";
 import ExceptionService, { ERR_NLV } from "@nd/error";
 import { Optional } from "@nd/helper";
 import LoggerService, { LOGGER_NOVEL_DOWNLOADER } from "@nd/logger";
@@ -57,7 +62,10 @@ export class NovelBuilder {
 
     const manager = new DownloadManager<Novel>(thread, this.downloadEvent);
     for (const chapter of Array.from(novel.chapters)) {
-      if (chapter.status !== ChapterStatus.IGNORED && chapter.status !== ChapterStatus.COMPLETED)
+      if (
+        chapter.status !== ChapterStatus.IGNORED &&
+        chapter.status !== ChapterStatus.COMPLETED
+      )
         manager.add(chapter.link.href);
     }
 
@@ -91,7 +99,13 @@ export class NovelBuilder {
       .then(rs => {
         const r = Object.values(rs).pop() as IResponse<Novel> | undefined;
         return new Promise<Novel>((res, rej) => {
-          if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
+          if (!r)
+            rej(
+              ExceptionService.build(
+                ERR_NLV,
+                "cannot build novel with input html"
+              )
+            );
           else if (r.error) rej(r.error);
           else res(r.result || this._novel);
         });
@@ -111,14 +125,19 @@ export class NovelBuilder {
       const res = r.copy<Novel>();
       if (!NovelAPIs.isNovelExist(html)) {
         res.code = 404;
-        res.error = ExceptionService.warn.build(ERR_NLV, `${this._novel.link} is not exist`);
+        res.error = ExceptionService.warn.build(
+          ERR_NLV,
+          `${this._novel.link} is not exist`
+        );
       }
 
       this._novel.name = NovelAPIs.getNovelName(html);
       this._novel.abstract = NovelAPIs.getNovelAbstract(html);
       this._novel.content = NovelAPIs.getNovelContent(html);
 
-      this._novel.downloadAt = Optional.of<IncomingHttpHeaders, number>(r.headers)
+      this._novel.downloadAt = Optional.of<IncomingHttpHeaders, number>(
+        r.headers
+      )
         .transform(h => +new Date(h.date || ""))
         .or(0);
       this._novel.updateAt = NovelAPIs.getNovelDate(html).getTime();
@@ -137,7 +156,13 @@ export class NovelBuilder {
     return manager.run().then(_r => {
       const r = Object.values(_r).pop() as IResponse<Novel> | undefined;
       return new Promise<Novel>((res, rej) => {
-        if (!r) rej(ExceptionService.build(ERR_NLV, "cannot build novel with input html"));
+        if (!r)
+          rej(
+            ExceptionService.build(
+              ERR_NLV,
+              "cannot build novel with input html"
+            )
+          );
         else if (r.error) rej(r.error);
         else res(r.result || this._novel);
       });

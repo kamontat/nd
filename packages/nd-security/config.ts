@@ -6,6 +6,6 @@ export interface IConfigJson {
 export default {
   v1: {
     algorithm: "HS256",
-    id: "nd-v1",
-  },
+    id: "nd-v1"
+  }
 } as { [version: string]: IConfigJson };
