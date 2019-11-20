@@ -1,4 +1,4 @@
-import { TimeUtils } from "@nd/helper";
+import { TimeUtils, StringUtils } from "@nd/helper";
 import { Colorize } from "@nd/logger";
 
 import { buildViewlongURL } from "../../apis/url";
@@ -40,6 +40,7 @@ export class Chapter {
   public set name(n: string | undefined) {
     this.eventHandler("name", { before: this._name, after: n });
     this._name = n;
+    if (this._name) this._name = this._name.trim();
   }
 
   public get nid() {
@@ -126,24 +127,25 @@ export class Chapter {
       name: opts.color ? Colorize.name : colorless,
       enum: opts.color ? Colorize.enum : colorless,
       link: opts.color ? Colorize.url : colorless,
+      date: opts.color ? Colorize.date : colorless,
       datetime: opts.color ? Colorize.datetime : colorless,
     };
 
     if (this.name) {
       if (opts.long) {
-        return `${color.chapter(this.cid.toString())}: ${color.name(this.name)} ${color.enum(
-          this.status,
-        )} [Updated ${color.datetime(
-          TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
-            format: "short",
-            lang: "th",
-          }),
-        )}] - [Downloaded ${color.datetime(
-          TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
-            format: "short",
-            lang: "th",
-          }),
-        )}]`;
+        const chap = StringUtils.Padding(this.cid.toString(), 3);
+        const updated = TimeUtils.FormatDate(TimeUtils.GetDate(this.updateAt), {
+          format: "short",
+          lang: "th",
+        });
+        const downloaded = TimeUtils.FormatDate(TimeUtils.GetDate(this.downloadAt), {
+          format: "short",
+          lang: "th",
+        });
+
+        return `${color.chapter(chap)}: ${color.enum(this.status.toUpperCase())}: ${color.name(this.name)}
+  - Updated at    ${color.date(updated)}
+  - Downloaded at ${color.datetime(downloaded)}`;
       } else {
         return `${color.chapter(this.cid.toString())} ${color.name(this.name)}`;
       }

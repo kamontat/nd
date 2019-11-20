@@ -1,6 +1,6 @@
 {
   "name": "@nd/logger",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "logger service for nd command",
   "dependencies": {
     "@nd/config": "./packages/nd-config",
@@ -8,6 +8,10 @@
     "debug": "4.1.1"
   },
   "changelog": {
+    "1.2.7": {
+      "message": "console log should print on level 1 or more, but instead it print on level 1 only",
+      "date": "21 Oct 2019"
+    },
     "1.2.6": {
       "message": "change package name from nd-logger to @nd/logger",
       "date": "28 Sep 2019"

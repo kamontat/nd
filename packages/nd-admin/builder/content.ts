@@ -49,6 +49,7 @@ and go to initial section. Thank you
 ----------------------------------------------------------`;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const HelpMessage = (pjson: any) => {
   const title = `${Colorize.appname(pjson.name)}: ${pjson.description}\n`;
 

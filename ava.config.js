@@ -59,7 +59,8 @@ const settings = {
   environmentVariables: {},
 };
 
-console.log(`
+console.log(`# ND - Novel Downloader
+
 Environment:
   1. node: ${process.env.NODE_ENV}
   2. ci: ${isCI}

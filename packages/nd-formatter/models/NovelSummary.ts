@@ -114,6 +114,7 @@ export class NovelSummary implements IFormatter<INovelConfigFormat, Novel> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _appendSummary(a: any, newline = true) {
     this.__summary += a;
     if (newline) this.__summary += "\n";

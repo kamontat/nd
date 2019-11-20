@@ -49,7 +49,7 @@ shift
 # @completed
 __install() {
   if [[ $1 == "lib" ]]; then
-    $npm_client add ${modules_path[@]}
+    $npm_client add ${modules_path[@]} --force
   elif [[ $1 == "force" ]]; then
     $npm_client install --force
   else
@@ -110,9 +110,9 @@ __run() {
 
   [[ "${_name}" != "nd" ]] && [[ "${_name}" != "nd-admin" ]] && _name="nd"
 
-  if [[ $NODE_ENV == "development" ]]; then
+  if [[ $NODE_ENV == "development" ]] || [[ $1 == "dev" ]]; then
     name="${_name}.js"
-  elif [[ $NODE_ENV == "production" ]]; then
+  elif [[ $NODE_ENV == "production" ]] || [[ $1 == "prod" ]]; then
     name="${_name}.min.js"
   else
     name="${_name}.js"
@@ -156,7 +156,7 @@ __test() {
   fi
 
   export TS_NODE_SKIP_IGNORE=true
-  export TS_NODE_IGNORE=false
+  export TS_NODE_FILES=true
   export NODE_ENV="test"
 
   ${npm_client} nyc ava "$@"

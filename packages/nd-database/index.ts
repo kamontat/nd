@@ -1,5 +1,5 @@
 import Database from "./models/Database";
-import IDatabase from "./models/IDatabase";
+import IDBO from "./models/IDBO";
 import Storage from "./models/Storage";
 import Package from "./package.json";
 import DatabaseService from "./services/DatabaseService";
@@ -25,4 +25,4 @@ export const InitialFirebaseStorage = () => {
 // const v = await db.read("command/test");
 // console.log(v.val());
 
-export { Package, DatabaseService, IDatabase, Database };
+export { Package, DatabaseService, IDBO, Database };

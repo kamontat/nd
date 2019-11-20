@@ -9,7 +9,7 @@ interface IObject<V = string> {
 
 export class ObjectTable implements IFormatter<IDefaultConfigFormat, Array<Array<string>> | IObject> {
   private _array?: Array<Array<string>>;
-  private _options: IObject<any>;
+  private _options: IObject<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   private buildArray(obj: IObject) {
     return Object.keys(obj).map(key => {

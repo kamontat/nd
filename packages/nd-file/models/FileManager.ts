@@ -51,8 +51,10 @@ export abstract class FileManager {
     return this.buildPath(name);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract load(opts?: ILoadOptions): any;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public name(input: FileInput, opts?: ILoadOptions): any {
     if (this.isFile(input)) {
       throw ExceptionService.build(ERR_FLE, "[TECH] you input is already files; cannot load with name()");

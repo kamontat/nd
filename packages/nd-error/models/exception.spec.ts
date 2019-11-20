@@ -14,7 +14,7 @@ interface IContext {
 type Execution = ExecutionContext<IContext>;
 
 before(t => {
-  const exit: SinonSpy<[number], never> = fake() as any;
+  const exit: SinonSpy<[number], never> = fake() as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   replace(process, "exit", exit);
   (t as Execution).context.exit = exit;
 });

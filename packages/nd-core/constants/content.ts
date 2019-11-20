@@ -16,6 +16,8 @@ import { Package as ResourcePackage } from "@nd/resource";
 import { Package as SecurityPackage, Security } from "@nd/security";
 import { Package as ThreadPackage } from "@nd/thread";
 import { Package as CorePackage } from "@nd/core";
+import { Package as FBasePackage } from "@nd/fbase";
+import { Package as AuthPackage } from "@nd/auth";
 
 declare let __COMPILE_DATE__: string;
 const COMPILE_DATE = process.env.NODE_ENV === "test" ? "" : __COMPILE_DATE__;
@@ -209,23 +211,25 @@ export const HELP_FOOTER = (name: string) => {
 export const VERSION = (name: string, version: string) => {
   return Colorize.format`{dim --------------------------------------}
 {yellowBright ${name}}                          : {blueBright ${version}}
-{yellowBright ${CorePackage.name}}                    : {blueBright ${CorePackage.version}}
-{yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
+{yellowBright ${AuthPackage.name}}                    : {blueBright ${AuthPackage.version}}
+{yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
+{yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
 {yellowBright ${ContentPackage.name}}                 : {blueBright ${ContentPackage.version}}
+{yellowBright ${CorePackage.name}}                    : {blueBright ${CorePackage.version}}
+{yellowBright ${DatabasePackage.name}}                : {blueBright ${DatabasePackage.version}}
+{yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
+{yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
+{yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
+{yellowBright ${FBasePackage.name}}                   : {blueBright ${FBasePackage.version}}
+{yellowBright ${FilePackage.name}}                    : {blueBright ${FilePackage.version}}
+{yellowBright ${FormatterPackage.name}}               : {blueBright ${FormatterPackage.version}}
+{yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
+{yellowBright ${HtmlGenPackage.name}}          : {blueBright ${HtmlGenPackage.version}}
+{yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
 {yellowBright ${NovelPackage.name}}                   : {blueBright ${NovelPackage.version}}
 {yellowBright ${ResourcePackage.name}}                : {blueBright ${ResourcePackage.version}}
-{yellowBright ${CLIPackage.name}} : {blueBright ${CLIPackage.version}}
-{yellowBright ${EncoderPackage.name}}                 : {blueBright ${EncoderPackage.version}}
-{yellowBright ${LogPackage.name}}                  : {blueBright ${LogPackage.version}}
-{yellowBright ${FormatterPackage.name}}               : {blueBright ${LogPackage.version}}
-{yellowBright ${DatabasePackage.name}}                : {blueBright ${DatabasePackage.version}}
-{yellowBright ${FilePackage.name}}                    : {blueBright ${FilePackage.version}}
-{yellowBright ${HtmlGenPackage.name}}          : {blueBright ${HtmlGenPackage.version}}
-{yellowBright ${DownloaderPackage.name}}              : {blueBright ${DownloaderPackage.version}}
-{yellowBright ${ConfigPackage.name}}                  : {blueBright ${ConfigPackage.version}}
-{yellowBright ${ErrorPackage.name}}                   : {blueBright ${ErrorPackage.version}}
+{yellowBright ${SecurityPackage.name}}                : {blueBright ${SecurityPackage.version}}
 {yellowBright ${ThreadPackage.name}}                  : {blueBright ${ThreadPackage.version}}
-{yellowBright ${HelperPackage.name}}                  : {blueBright ${HelperPackage.version}}
 {dim --------------------------------------}
 `;
 };
@@ -250,17 +254,50 @@ export const VERSION_FULL = (limit = 5) => {
 
   const dependencies: Array<IDependency> = [];
 
-  // root package
-  // dependencies.push({name: });
+  // auth package
+  dependencies.push(genInternalDependency(AuthPackage));
+
+  // commandline package
+  dependencies.push(genInternalDependency(CLIPackage));
+
+  // config package
+  dependencies.push(genInternalDependency(ConfigPackage));
+
+  // content package
+  dependencies.push(genInternalDependency(ContentPackage));
 
   // core package
   dependencies.push(genInternalDependency(CorePackage));
 
-  // security package
-  dependencies.push(genInternalDependency(SecurityPackage));
+  // database package
+  dependencies.push(genInternalDependency(DatabasePackage));
 
-  // content package
-  dependencies.push(genInternalDependency(ContentPackage));
+  // downloader package
+  dependencies.push(genInternalDependency(DownloaderPackage));
+
+  // encoder package
+  dependencies.push(genInternalDependency(EncoderPackage));
+
+  // error package
+  dependencies.push(genInternalDependency(ErrorPackage));
+
+  // fbase package
+  dependencies.push(genInternalDependency(FBasePackage));
+
+  // file package
+  dependencies.push(genInternalDependency(FilePackage));
+
+  // formatter package
+  dependencies.push(genInternalDependency(FormatterPackage));
+
+  // helper package
+  dependencies.push(genInternalDependency(HelperPackage));
+
+  // html generator package
+  dependencies.push(genInternalDependency(HtmlGenPackage));
+
+  // logger package
+  dependencies.push(genInternalDependency(LogPackage));
 
   // novel package
   dependencies.push(genInternalDependency(NovelPackage));
@@ -268,41 +305,11 @@ export const VERSION_FULL = (limit = 5) => {
   // resource package
   dependencies.push(genInternalDependency(ResourcePackage));
 
-  // commandline package
-  dependencies.push(genInternalDependency(CLIPackage));
-
-  // encoder package
-  dependencies.push(genInternalDependency(EncoderPackage));
-
-  // logger package
-  dependencies.push(genInternalDependency(LogPackage));
-
-  // formatter package
-  dependencies.push(genInternalDependency(FormatterPackage));
-
-  // database package
-  dependencies.push(genInternalDependency(DatabasePackage));
-
-  // file package
-  dependencies.push(genInternalDependency(FilePackage));
-
-  // html generator package
-  dependencies.push(genInternalDependency(HtmlGenPackage));
-
-  // downloader package
-  dependencies.push(genInternalDependency(DownloaderPackage));
-
-  // config package
-  dependencies.push(genInternalDependency(ConfigPackage));
-
-  // error package
-  dependencies.push(genInternalDependency(ErrorPackage));
+  // security package
+  dependencies.push(genInternalDependency(SecurityPackage));
 
   // thread package
   dependencies.push(genInternalDependency(ThreadPackage));
-
-  // helper package
-  dependencies.push(genInternalDependency(HelperPackage));
 
   // NOTES: just disable external dependency because It might have vulnerability
   // external dependency

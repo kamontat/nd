@@ -11,7 +11,7 @@ const _customBooleanFn = (b: boolean | string, alternativeTrue?: string, alterna
 export default {
   appname: chalk.greenBright,
   command: chalk.magentaBright,
-  date: chalk.blueBright,
+  date: chalk.blue,
   datetime: chalk.blueBright,
   dim: chalk.dim,
   fail: chalk.red,
@@ -29,7 +29,7 @@ export default {
   url: chalk.green.underline,
   value: chalk.greenBright,
   version: chalk.cyanBright,
-  name: chalk.blueBright,
+  name: chalk.yellowBright,
   enum: chalk.redBright,
   boolean: _customBooleanFn,
 };

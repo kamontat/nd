@@ -1,6 +1,6 @@
 {
   "name": "@nd/novel",
-  "version": "1.5.0-beta.2",
+  "version": "1.5.0-beta.3",
   "description": "Novel models and parser",
   "dependencies": {
     "@nd/downloader": "./packages/nd-downloader",
@@ -11,6 +11,10 @@
     "@nd/content": "./packages/nd-content"
   },
   "changelog": {
+    "1.5.0-beta.3": {
+      "message": "make improvement on toString chapter result",
+      "date": "21 Oct 2019"
+    },
     "1.5.0-beta.2": {
       "message": "fix sometimes update date is invalid",
       "date": "10 Oct 2019"

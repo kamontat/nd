@@ -57,59 +57,43 @@ commands:
       - run:
           name: Restore coverage from tmp folder
           command: cp -r /tmp/caches/coverage . || exit 0
+      - run:
+          name: Check project directory
+          command: ls -la .
 
 orbs:
   hello: circleci/hello-build@0.0.14
   node: circleci/node@1.1.6
   codecov: codecov/codecov@1.0.5
-  packtracker: packtracker/report@2.2.6
+  packtracker: packtracker/report@2.2.7
+  sonarcloud: sonarsource/sonarcloud@1.0.1
 
 workflows:
   version: 2
-  unittest:
+  default:
     jobs:
       - install
       - compile:
           requires:
             - install
-      - lint:
-          requires:
-            - compile
-      - test:
-          requires:
-            - compile
-      - codecov:
-          requires:
-            - test
-  deployment:
-    jobs:
-      - install:
-          filters:
-            branches:
-              only: master
-      - compile-prod:
-          requires:
-            - install
-          filters:
-            branches:
-              only: master
       - packtracker/report:
           requires:
-            - compile-prod
-          filters:
-            branches:
-              only: master
+            - compile
       - build:
           requires:
-            - compile-prod
+            - compile
           filters:
             branches:
               only: master
+      - test:
+          requires:
+            - install
       - hold:
           type: approval
           requires:
-            - packtracker/report
+            - test
             - build
+            - packtracker/report
           filters:
             branches:
               only: master
@@ -127,7 +111,7 @@ jobs:
       - checkout
       - info
       - node/with-cache:
-          dir: $APP/node_modules
+          dir: node_modules
           steps:
             - run:
                 name: Install all dependencies
@@ -141,35 +125,15 @@ jobs:
       - run:
           name: Compile Typescript
           command: yarn compile
-      - save-caches
-      - store_artifacts:
-          path: docs/reports/statistics-dev.html
-          destination: webpack/statistics.html
-  compile-prod:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
       - run:
-          name: Compile Typescript as Production setting
+          name: Compile Typescript (Production)
           command: yarn compile:prod
-      - save-caches
       - store_artifacts:
           path: docs/reports/statistics.html
-          destination: webpack/statistics.html
-  lint:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
-      - run:
-          name: Run ESlint
-          command: yarn helper jlint
+          destination: webpack/prod/statistics.html
       - store_artifacts:
-          path: docs/reports/eslint/result.xml
-          destination: eslint/result.xml
-      - store_test_results:
-          path: docs/reports
+          path: docs/reports/statistics-dev.html
+          destination: webpack/dev/statistics.html
       - save-caches
   test:
     executor: node12
@@ -177,8 +141,17 @@ jobs:
       - checkout
       - restore-caches
       - run:
+          name: Run ESlint
+          command: yarn helper jlint
+      - run:
           name: Run test
           command: yarn helper jtest
+      - codecov/upload:
+          flags: unittest
+      - sonarcloud/scan
+      - store_artifacts:
+          path: docs/reports/eslint/result.xml
+          destination: eslint/result.xml
       - store_artifacts:
           path: docs/reports/unittest/result.xml
           destination: unittest/result.xml
@@ -188,13 +161,6 @@ jobs:
       - store_test_results:
           path: docs/reports
       - save-caches
-  codecov:
-    executor: node12
-    steps:
-      - checkout
-      - restore-caches
-      - codecov/upload:
-          flags: unittest
   build:
     executor: node12
     steps:

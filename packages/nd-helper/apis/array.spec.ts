@@ -36,11 +36,12 @@ test(macro, "5,3,1,8", [1, 3, 5, 8], "1, 3, 5, 8");
 
 test("convert array of string to readable array, it should return normal array toString", t => {
   const array = ["123", "abc"];
-  const str = arrayUtils.ReadableArray(array as any);
+  const str = arrayUtils.ReadableArray(array);
   t.deepEqual(str, "123, abc");
 });
 
 test("try to merging array of mix datatype", t => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const res = arrayUtils.MergeArrayObject([{ foo: "bar" }, { bar: "foofoo" }, 20 as any, "string" as any]);
   t.deepEqual(res, { foo: "bar", bar: "foofoo" });
 });

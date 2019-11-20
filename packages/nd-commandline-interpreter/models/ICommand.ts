@@ -5,14 +5,14 @@ import Commandline from "./Commandline";
 type VoidFunction = () => void;
 type BoolFunction = () => boolean;
 
-export type ICommandCallbackResult =
-  | void
-  | VoidFunction
-  | BoolFunction
-  | undefined
+export type ICommandCallbackResultSync = void | VoidFunction | BoolFunction | undefined;
+export type ICommandCallbackResultASync =
   | Promise<void>
   | Promise<undefined>
-  | Promise<VoidFunction | BoolFunction>;
+  | Promise<VoidFunction>
+  | Promise<BoolFunction>;
+
+export type ICommandCallbackResult = ICommandCallbackResultSync | ICommandCallbackResultASync;
 
 export type ICommandCallback = (value: {
   apis: CommandApi;

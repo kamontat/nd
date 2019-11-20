@@ -25,7 +25,7 @@ export default class FormatterFactory {
   public get<T extends IFormatter<any, any>>(key: string): T {
     if (!this.__collection.has(key)) throw new Error(`Formatter factory cannot get any formatter with key ${key}`);
 
-    return this.__collection.get(key) as any;
+    return this.__collection.get(key) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -16,6 +16,7 @@ export interface IConfiguration extends IConfigurationTypeDefined, EventEmitter 
    *
    * @example pass key as 'auth.*' or '*' or 'output.level'
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   regex(key: string): { [key: string]: any };
 
   /**

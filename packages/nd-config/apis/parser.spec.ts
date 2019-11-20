@@ -1,6 +1,7 @@
 import test, { Macro } from "ava";
 import { ConfigParser } from "./parser";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const macro: Macro<[any, { key: string; value: string }[] | undefined]> = (t, input, expected) => {
   const result = ConfigParser(input);
 

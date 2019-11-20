@@ -97,8 +97,8 @@ export const BuildAdminCommandline = async (
       const auth = secure.encrypt({
         username: obj.username,
         issuer: "admin",
-        expire: obj.expire as any,
-        when: obj.when as any,
+        expire: obj.expire as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+        when: obj.when as any, // eslint-disable-line @typescript-eslint/no-explicit-any
       });
 
       LoggerService.console.log(

@@ -38,8 +38,8 @@ export default {
 
     // sort the array low - high
     array = array.sort((a, b) => {
-      const _a = typeof a === "number" ? a : parseInt(a);
-      const _b = typeof b === "number" ? b : parseInt(b);
+      const _a = typeof a === "number" ? a : parseInt(a, 10);
+      const _b = typeof b === "number" ? b : parseInt(b, 10);
       return _a - _b;
     });
 
@@ -49,7 +49,7 @@ export default {
 
     for (let i = 0; i < array.length; i++) {
       const _i = array[i];
-      const current = typeof _i === "number" ? _i : parseInt(_i);
+      const current = typeof _i === "number" ? _i : parseInt(_i, 10);
       if (isNaN(current)) {
         return array.join(", ");
       }

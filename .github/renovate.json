@@ -6,8 +6,8 @@
     ":rebaseStalePrs",
     ":assignAndReview(kamontat)",
     ":automergePr",
-    ":automergePatch",
     ":automergeDigest",
+    ":automergeMinor",
     ":pinVersions",
     ":pinSkipCi",
     ":gitSignOff",
@@ -17,5 +17,5 @@
     ":prImmediately"
   ],
   "ignorePaths": ["packages/webpack-visualizer/**", "templates/**"],
-  "labels": ["Bot: Renovate", "Status: In Review", "Type: Dependency"]
+  "labels": ["Bot: Renovate", "Status: In Review", "Scope: Dependency"]
 }

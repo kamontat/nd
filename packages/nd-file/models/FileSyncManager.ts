@@ -27,6 +27,7 @@ export default class FileSyncManager extends FileManager implements IFileSyncMan
 
   // cannot use for find file content
   // this is only for find files in directory
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public find(input: IFindFileInput, opts?: FindOptions): any {
     if (this.type === FileType.FILE) throw ExceptionService.build(ERR_FLE, "cannot find content in type files");
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import IDatabase from "../IDatabase";
+import IDatabase from "../IDBO";
 
 /**
  * NOTES: Never tested; be aware when use this
@@ -35,7 +35,7 @@ export default abstract class DatabaseMock implements IDatabase {
   public write(path: string, value: any) {
     return new Promise(res => {
       const _arr = path.split("/");
-      if (_arr.pop() === "" && _arr.length < 0) this.__list = value;
+      if (_arr.length < 0 || _arr.pop() === "") this.__list = value;
       this.__list = this.__setValue(this.__list, _arr, value);
       res();
     });

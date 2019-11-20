@@ -8,6 +8,6 @@ test("try to decode utf8 encoded string", t => {
 
 test("expect to throw exception when unknown encode pass in", t => {
   t.throws(() => {
-    Decoder(Buffer.from("hello, world", "utf8"), "ABCD" as any);
+    Decoder(Buffer.from("hello, world", "utf8"), "ABCD" as any); // eslint-disable-line @typescript-eslint/no-explicit-any
   });
 });

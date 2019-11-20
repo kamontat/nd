@@ -5,6 +5,7 @@ const nodeExternals = require("webpack-node-externals");
 const ClosurePlugin = require("closure-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const Visualizer = require("webpack-visualizer-plugin");
+const DotenvPlugin = require("webpack-dotenv-plugin");
 
 const pjson = require("./package.json");
 
@@ -132,6 +133,10 @@ module.exports = {
     },
   },
   plugins: [
+    new DotenvPlugin({
+      sample: "./.env.default",
+      path: "./.env",
+    }),
     new webpack.DefinePlugin({
       __NODE_ENV__: JSON.stringify(NODE_ENV),
       __NAME__: JSON.stringify(pjson.name),
@@ -139,13 +144,13 @@ module.exports = {
       __AUTHOR__: JSON.stringify(pjson.author),
       __VERSION__: JSON.stringify(pjson.version),
       __COMPILE_DATE__: JSON.stringify(+new Date()),
-      __FIREBASE_API_KEY__: JSON.stringify("AIzaSyArv4QISPsrR56iE24ZCvDzSkaRj5qnfRM"),
-      __FIREBASE_AUTH_DOMAIN__: JSON.stringify("nd-cli.firebaseapp.com"),
+      __FIREBASE_API_KEY__: JSON.stringify(process.env.FB_API_KEY),
+      __FIREBASE_AUTH_DOMAIN__: JSON.stringify(process.env.FB_AUTH_DOMAIN),
       __FIREBASE_DATABASE_URL__: JSON.stringify("https://nd-cli.firebaseio.com"),
       __FIREBASE_PROJECT_ID__: JSON.stringify("nd-cli"),
       __FIREBASE_STORAGE_BUCKET__: JSON.stringify(""),
-      __FIREBASE_MESSAGING_SENDER_ID__: JSON.stringify("90199072961"),
-      __FIREBASE_APP_ID__: JSON.stringify("1:90199072961:web:f0a0d74c9ee27481"),
+      __FIREBASE_MESSAGING_SENDER_ID__: JSON.stringify(process.env.FB_SENDER_ID),
+      __FIREBASE_APP_ID__: JSON.stringify(process.env.FB_APP_ID),
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -165,19 +170,14 @@ module.exports = {
     nodeExternals({
       whitelist: [
         /@nd\/*/,
-        "table",
         "jsonwebtoken",
+        "ms",
         "chalk",
         "debug",
         "bcryptjs",
-        "supports-color",
-        "ansi-styles",
         "escape-string-regexp",
         "iconv-lite",
         "async",
-        "safer-buffer",
-        "firebase/app",
-        "firebase/database",
       ],
     }),
   ],

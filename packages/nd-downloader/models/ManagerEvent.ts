@@ -27,10 +27,12 @@ export class ManagerEvent<T = string> extends Event implements IManagerEvent<T> 
     super();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public emit(event: EventType, ...args: any[]) {
     return super.emit(event, ...args);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public on(event: EventType, listener: (...args: any[]) => void) {
     return super.on(event, listener);
   }

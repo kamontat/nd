@@ -10,13 +10,13 @@ export default {
    * This method is for generate temporary name formatting
    *
    * @param suffix suffix after random string generated (default is tmp)
-   * @param size size of random string in result
+   * @param size size of random string in result, pass 0 if don't want to random
    *
    * @returns tmpname - The result will be in {timestamp}-{random(size)}-{suffix} format
    */
   Tmpname(suffix?: string, size = 6) {
     const _suffix = suffix || "tmp";
-    return `${+new Date()}-${RandomUtils.RandomString(size)}-${_suffix}`;
+    return `${+new Date()}-${RandomUtils.RandomString(size)}${size > 0 ? "-" : ""}${_suffix}`;
   },
   /**
    * This will use for create temporary directory at specify location
@@ -55,7 +55,7 @@ export default {
    */
   Cachename(name: string, suffix?: string, size = 3) {
     const _suffix = suffix || "tmp";
-    return `${name}-${RandomUtils.RandomString(size)}-${_suffix}`;
+    return `${name}-${RandomUtils.RandomString(size)}${size > 0 ? "-" : ""}${_suffix}`;
   },
   /**
    * This will use for create cache directory at specify location

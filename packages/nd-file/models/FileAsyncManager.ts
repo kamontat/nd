@@ -34,6 +34,7 @@ export default class FileASyncManager extends FileManager implements IFileASyncM
     super(directory, input);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async find(input: IFindFileInput, opts?: FindOptions): Promise<any[]> {
     if (this.type === FileType.FILE) throw ExceptionService.build(ERR_FLE, "cannot find content in type files");
 

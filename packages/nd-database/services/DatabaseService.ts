@@ -1,6 +1,6 @@
 import ExceptionService, { ERR_DBO } from "@nd/error";
 
-import IDatabase from "../models/IDatabase";
+import IDatabase from "../models/IDBO";
 
 type KeyDatabaseType = "database" | "storage";
 

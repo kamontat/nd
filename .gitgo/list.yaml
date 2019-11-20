@@ -22,14 +22,16 @@ commit:
       value: utils shell script
     - type: docs
       value: Documentation
-    - type: lint
-      value: Linter and code quality
+    - type: analytic
+      value: Code quality and code lint
     - type: test
       value: Relevant to ava testing framework
     - type: ci
       value: CI/CD setup
     - type: security
       value: Security submodules
+    - type: auth
+      value: Authentication submodules
     - type: content
       value: Content submodules
     - type: novel
@@ -58,8 +60,10 @@ commit:
       value: Error submodules
     - type: debug
       value: Debug submodules
-    - type: Thread
+    - type: thread
       value: Thread submodules
+    - type: fbase
+      value: Internal firebase submodules
     - type: helper
       value: Helper submodules
     - type: release
