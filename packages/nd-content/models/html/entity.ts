@@ -20,7 +20,7 @@ export default class Entity {
   }
 
   toHtml() {
-    let attr: { [key: string]: string } | undefined = undefined;
+    let attr: { [key: string]: string } | undefined;
     if (this.css) {
       attr = {};
       if (this.css.classes) attr["class"] = this.css.classes.map(c => c.toString()).join(" ");
