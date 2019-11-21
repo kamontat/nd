@@ -94,7 +94,7 @@
     "gh-pages": "2.1.1",
     "google-closure-compiler": "20191111.0.0",
     "html-loader": "0.5.5",
-    "lerna": "3.18.4",
+    "lerna": "3.19.0",
     "mock-fs": "4.10.3",
     "node-sass": "4.13.0",
     "nyc": "14.1.1",
