@@ -29,6 +29,10 @@
   <a href="docs/reports/loc">Line of code</a>
 </h4>
 
+## Important
+
+Consider to the next step. The problem is we cannot build single file execuable with pkg anymore because firebase libraries have their own Native modules. until pkg packager resolve this problem. We might need to consider alternative option. As discuss early we might move the code to [electron](https://electronjs.org/) for built real application for normal users.
+
 ## Badges
 
 This badge will represent informative of the repository
