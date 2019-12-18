@@ -7,7 +7,7 @@
     "@nd/error": "./packages/nd-error",
     "@nd/helper": "./packages/nd-helper",
     "@nd/logger": "./packages/nd-logger",
-    "chalk": "2.4.2"
+    "chalk": "3.0.0"
   },
   "changelog": {
     "0.1.0-rc.3": {
