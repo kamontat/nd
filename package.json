@@ -100,7 +100,7 @@
     "nyc": "14.1.1",
     "pkg": "4.4.0",
     "prettier": "1.18.2",
-    "sass-loader": "7.3.1",
+    "sass-loader": "8.0.2",
     "sinon": "7.5.0",
     "source-map-support": "0.5.16",
     "tap-xunit": "2.4.1",
