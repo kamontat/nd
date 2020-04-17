@@ -70,7 +70,7 @@
     "table": "5.4.6"
   },
   "devDependencies": {
-    "@strictsoftware/typedoc-plugin-monorepo": "0.2.1",
+    "@strictsoftware/typedoc-plugin-monorepo": "0.3.1",
     "@types/async": "3.0.3",
     "@types/bcryptjs": "2.4.2",
     "@types/cheerio": "0.22.14",
