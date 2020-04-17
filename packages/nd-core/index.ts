@@ -26,25 +26,25 @@ export const UpdateLogInfo = (args: any[]) => {
 // Start commandline interface //
 // --------------------------- //
 
-export const BuildCommandline = async (cli: Commandline, config: IConfiguration) => {
-  await Color(cli, config);
+export const BuildCommandline = async (cli: Commandline, cconfig: IConfiguration) => {
+  await Color(cli, cconfig);
 
-  await Debug(cli, config);
+  await Debug(cli, cconfig);
 
-  await Help(cli, config);
+  await Help(cli, cconfig);
 
-  await Version(cli, config);
+  await Version(cli, cconfig);
 
-  await Level(cli, config);
+  await Level(cli, cconfig);
 
-  await CConfig(cli, config);
+  await CConfig(cli, cconfig);
 
   // FIXME: crash on production
   // CCompletion(cli, config);
 
-  await CCommand(cli, config);
+  await CCommand(cli, cconfig);
 
-  await CNovel(cli, config);
+  await CNovel(cli, cconfig);
 
   return cli;
 };
