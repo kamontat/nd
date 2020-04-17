@@ -103,7 +103,7 @@ This badge will represent informative of the repository
 [sonar-rel-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Reliability&view=list
 
 [sonar-secure-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=security_rating
-[sonar-vulnerabilities-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=kamontat_nd
+[sonar-vulnerabilities-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=vulnerabilities
 [sonar-secure-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Security&view=list
 
 [sonar-tech-debt-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=sqale_index
