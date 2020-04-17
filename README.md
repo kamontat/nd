@@ -55,16 +55,16 @@ This badge will represent informative of the repository
 
 ### Analytic and Security
 
-| Name            | Badge                                                             |
-| --------------- | ----------------------------------------------------------------- |
-| Quality gate    | [![sonar-qg][sonar-qg-badge]][sonar-link]                         |
-| Duplication     | [![sonar-dup][sonar-dup-badge]][sonar-dup-link]                   |
-| Maintainability | [![sonar-maintain][sonar-maintain-badge]][sonar-maintain-link]    |
-| Reliability     | [![sonar-rel][sonar-rel-badge]][sonar-rel-link]                   |
-| Security        | [![sonar-secure][sonar-secure-badge]][sonar-secure-link]          |
-| Technival Debt  | [![sonar-tech-debt][sonar-tech-debt-badge]][sonar-tech-debt-link] |
-| Violations      | [![sonar-violation][sonar-violation-badge]][sonar-link]           |
-| Vulnerabilities | [![snyk][snyk-badge]][snyk-link]                                  |
+| Name            | Badge                                                                      |
+| --------------- | -------------------------------------------------------------------------- |
+| Quality gate    | [![sonar-qg][sonar-qg-badge]][sonar-link]                                  |
+| Duplication     | [![sonar-dup][sonar-dup-badge]][sonar-dup-link]                            | 
+| Maintainability | [![sonar-maintain][sonar-maintain-badge]][sonar-maintain-link]             |
+| Reliability     | [![sonar-rel][sonar-rel-badge]][sonar-rel-link]                            |
+| Security        | [![sonar-secure][sonar-secure-badge]][sonar-secure-link]                   |
+| Technival Debt  | [![sonar-tech-debt][sonar-tech-debt-badge]][sonar-tech-debt-link]          |
+| Violations      | [![sonar-violation][sonar-violation-badge]][sonar-link]                    |
+| Vulnerabilities | [![sonar-vulnerabilities][sonar-vulnerabilities-badge]][sonar-secure-link] |
 
 ### Dependencies
 
@@ -77,26 +77,36 @@ This badge will represent informative of the repository
 [gh-top-language]: https://img.shields.io/github/languages/top/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [gh-repo-size]: https://img.shields.io/github/repo-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
 [gh-code-size]: https://img.shields.io/github/languages/code-size/kamontat/nd?logo=github&logoColor=white&style=flat-square
+
 [circleci-badge]: https://img.shields.io/circleci/build/github/kamontat/nd?logo=circleci&logoColor=white&style=flat-square
 [circleci-link]: https://circleci.com/gh/kamontat/workflows/nd
+
 [codecov-badge]: https://img.shields.io/codecov/c/github/kamontat/nd?logo=codecov&logoColor=white&style=flat-square
 [codecov-link]: https://codecov.io/gh/kamontat/nd
-[snyk-badge]: https://img.shields.io/snyk/vulnerabilities/github/kamontat/nd?logo=snyk&logoColor=white&style=flat-square
-[snyk-link]: https://app.snyk.io/org/kamontat/project/a5bcf3c4-23ce-43c3-8afe-b63b690252f2
+
 [david-badge]: https://img.shields.io/david/kamontat/nd?style=flat-square
 [david-link]: https://david-dm.org/kamontat/nd
 [david-dev-badge]: https://img.shields.io/david/dev/kamontat/nd?style=flat-square
 [david-dev-link]: https://david-dm.org/kamontat/nd?type=dev
-[sonar-qg-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=alert_status
+
 [sonar-link]: https://sonarcloud.io/dashboard?id=kamontat_nd
+
+[sonar-qg-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=alert_status
+
 [sonar-dup-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=duplicated_lines_density
 [sonar-dup-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Duplications&view=list
+
 [sonar-maintain-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=sqale_rating
 [sonar-maintain-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Maintainability&view=list
+
 [sonar-rel-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=reliability_rating
 [sonar-rel-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Reliability&view=list
+
 [sonar-secure-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=security_rating
+[sonar-vulnerabilities-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=kamontat_nd
 [sonar-secure-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=Security&view=list
+
 [sonar-tech-debt-badge]: https://sonarcloud.io/api/project_badges/measure?project=kamontat_nd&metric=sqale_index
 [sonar-tech-debt-link]: https://sonarcloud.io/component_measures?id=kamontat_nd&metric=sqale_index&view=list
+
 [sonar-violation-badge]: https://img.shields.io/sonar/violations/kamontat_nd?format=long&server=https%3A%2F%2Fsonarcloud.io&style=flat-square
